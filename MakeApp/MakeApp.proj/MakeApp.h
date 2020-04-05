@@ -22,11 +22,13 @@ MakeAppView* view;
 public:
 
 String version;
+String basePath;
 
                MakeApp() noexcept;
 
   virtual BOOL InitInstance();
 
+          void determineBasePath(TCchar* helpPath);
           void setTitle(TCchar* title) {mainFrame->SetWindowText(title);}
 
           bool getDocument();

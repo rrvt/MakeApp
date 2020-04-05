@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+<Product Id="*" UpgradeCode="A5DCB4E8-13DF-4B55-8321-F5B370722125" Language="1033"
+         Manufacturer="Bob -- K6RWY" Name="Make App"
+         Version="!(bind.fileVersion.MakeApp.cmp)"
+         >
+
+  <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"
+           Manufacturer="Bob -- K6RWY" Description="Installs Make App"
+           Comments="Copyright (c) Bob -- K6RWY"
+           />
+
+  <MajorUpgrade Schedule="afterInstallInitialize"
+                AllowDowngrades="no"   IgnoreRemoveFailure="no"   AllowSameVersionUpgrades="no"
+                DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+  <MediaTemplate EmbedCab="yes" />
+
+  <UI Id="My_InstallDir.ui">
+    <UIRef Id="WixUI_InstallDir" />
+    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">
+      NOT Installed
+    </Publish>
+    <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">
+      1
+    </Publish>
+  </UI>
+
+  <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp"/>
+  <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
+
+  <Icon     Id="MakeAppIcon.ico" SourceFile="$(var.SolutionDir)..\MakeApp.proj\res\MakeApp.ico"/>
+  <Property Id="ARPPRODUCTICON"  Value="MakeAppIcon.ico" />
+
+  <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
+    <ComponentGroupRef Id="MakeApp.ftr"/>
+    <ComponentGroupRef Id="TestApp.ftr"/>
+    <ComponentGroupRef Id="TestAppProj.ftr"/>
+    <ComponentGroupRef Id="TestAppRes.ftr"/>
+    <ComponentGroupRef Id="UninstallMakeApp.ftr"/>
+  </Feature>
+</Product>
+
+<Fragment>
+<ComponentGroup Id="MakeApp.ftr">
+  <ComponentRef Id="MakeApp.cmp"/>
+</ComponentGroup>
+<ComponentGroup Id="TestApp.ftr">
+  <ComponentRef Id="TestAppSln.cmp"/>
+</ComponentGroup>
+<ComponentGroup Id="TestAppProj.ftr">
+  <ComponentRef Id="MainFrameCpp.cmp"/>
+  <ComponentRef Id="MainFrameH.cmp"/>
+  <ComponentRef Id="ResourceH.cmp"/>
+  <ComponentRef Id="stdafxCpp.cmp"/>
+  <ComponentRef Id="stdafxH.cmp"/>
+  <ComponentRef Id="targetverH.cmp"/>
+  <ComponentRef Id="TestAppCpp.cmp"/>
+  <ComponentRef Id="TestAppH.cmp"/>
+  <ComponentRef Id="TestAppRc.cmp"/>
+  <ComponentRef Id="TestAppVcxproj.cmp"/>
+  <ComponentRef Id="TestAppVcxprojFilters.cmp"/>
+  <ComponentRef Id="TestAppVcxprojUser.cmp"/>
+  <ComponentRef Id="TestAppDocCpp.cmp"/>
+  <ComponentRef Id="TestAppDocH.cmp"/>
+  <ComponentRef Id="TestAppViewCpp.cmp"/>
+  <ComponentRef Id="TestAppViewH.cmp"/>
+  <ComponentRef Id="TestAppVpj.cmp"/>
+</ComponentGroup>
+<ComponentGroup Id="TestAppRes.ftr">
+  <ComponentRef Id="TestAppIco.cmp"/>
+  <ComponentRef Id="TestAppRc2.cmp"/>
+  <ComponentRef Id="Toolbar00Bmp.cmp"/>
+  <ComponentRef Id="Toolbar01Bmp.cmp"/>
+</ComponentGroup>
+<ComponentGroup Id="UninstallMakeApp.ftr">
+  <ComponentRef Id="UninstallMakeApp.cmp"/>
+</ComponentGroup>
+</Fragment>
+
+<!--Directory structure-->
+<Fragment>
+  <Directory Id="TARGETDIR" Name="SourceDir">
+    <Directory Id="ProgramFilesFolder">
+      <Directory Id="MakeApp.pff" Name="MakeApp">
+        <Directory Id="MakeApp_TestApp.pff" Name="TestApp"/>
+        <Directory Id="MakeApp_TestApp.proj.pff" Name="TestApp.proj">
+          <Directory Id="MakeApp_TestApp.proj_res.pff" Name="res"/>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Directory Id="ProgramMenuFolder" Name="StartMenu">
+      <Directory Id="MakeApp.pmf" Name="MakeApp"/>
+    </Directory>
+
+    <Directory Id="DesktopFolder" Name="Desktop" />
+  </Directory>
+
+  <Property Id="ApplicationFolderName" Value="MakeApp" />
+  <Property Id="WIXUI_INSTALLDIR"      Value="MakeApp.pff"/>
+  <Property Id="WixAppFolder"          Value="WixPerMachineFolder" />
+</Fragment>
+
+<Fragment>
+
+  <Component Id="MakeApp.cmp"  Guid="A019C3D3-6624-448E-B429-EB526EB584C5" Directory="MakeApp.pff">
+    <File Id="MakeApp.cmp" Source="$(var.SolutionDir)..\Release\MakeApp.exe" KeyPath="yes"/>
+
+    <Shortcut Id               = "MakeApp.shc"
+              Name             = "MakeApp"
+              Description      = "Make an c++ Application from a Template"
+              Advertise        = "yes"
+              Directory        = "MakeApp.pmf"
+              WorkingDirectory = "MakeApp.pff"
+              Icon             = "MakeAppIcon.ico"
+              />
+
+    <Shortcut Id               = "MakeApp.dsk"
+              Name             = "MakeApp"
+              Description      = "Make an c++ Application from a Template"
+              Advertise        = "yes"
+              Directory        = "DesktopFolder"
+              WorkingDirectory = "MakeApp.pff"
+              Icon             = "MakeAppIcon.ico"
+              />
+  </Component>
+
+</Fragment>
+
+<Fragment>
+
+  <Component Id="TestAppSln.cmp"  Guid="D66C9649-32BE-4055-B59E-B26C0B01E7EC"
+                                                                      Directory="MakeApp_TestApp.pff">
+    <File Id="TestAppSln.cmp" Source="$(var.SolutionDir)..\TestApp\TestApp.sln" KeyPath="yes"/>
+  </Component>
+
+</Fragment>
+
+<Fragment>
+
+  <Component Id="MainFrameCpp.cmp"  Guid="1D91AE42-0FB9-46F0-8C6F-B8CE4132FBBB"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="MainFrameCpp.cmp" Source="$(var.SolutionDir)..\TestApp.proj\MainFrame.cpp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="MainFrameH.cmp"  Guid="4B64A00D-F499-48B9-AAEA-45F2027A20AB"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="MainFrameH.cmp" Source="$(var.SolutionDir)..\TestApp.proj\MainFrame.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="ResourceH.cmp"  Guid="F771BE33-49E4-4D39-9FA2-819BFDDB63B6"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="ResourceH.cmp" Source="$(var.SolutionDir)..\TestApp.proj\Resource.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="stdafxCpp.cmp"  Guid="34E082FD-234E-4BDC-B34C-723941647C10"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="stdafxCpp.cmp" Source="$(var.SolutionDir)..\TestApp.proj\stdafx.cpp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="stdafxH.cmp"  Guid="186C1F50-21EF-4B00-8C7F-ED48FB2A311C"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="stdafxH.cmp" Source="$(var.SolutionDir)..\TestApp.proj\stdafx.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="targetverH.cmp"  Guid="3D6EEBB5-20AE-4649-820E-890E71F4D4F9"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="targetverH.cmp" Source="$(var.SolutionDir)..\TestApp.proj\targetver.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppCpp.cmp"  Guid="D3D5FE15-3765-4AFE-90E8-FE172EDC4624"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppCpp.cmp" Source="$(var.SolutionDir)..\TestApp.proj\TestApp.cpp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppH.cmp"  Guid="DF8BE510-8D88-42E7-AAFB-2FC78B34A553"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppH.cmp" Source="$(var.SolutionDir)..\TestApp.proj\TestApp.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppRc.cmp"  Guid="132E7D01-DCF6-4334-A912-0E27CC365007"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppRc.cmp" Source="$(var.SolutionDir)..\TestApp.proj\TestApp.rc" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppVcxproj.cmp"  Guid="A6D07103-1F3F-4E30-8B82-B5CA98127FF5"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppVcxproj.cmp"
+                            Source="$(var.SolutionDir)..\TestApp.proj\TestApp.vcxproj" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppVcxprojFilters.cmp" 
+                    Guid="F70B4A8E-20FD-4A20-960E-18F031CFEECB" Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppVcxprojFilters.cmp"
+                    Source="$(var.SolutionDir)..\TestApp.proj\TestApp.vcxproj.filters" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppVcxprojUser.cmp" 
+                    Guid="515DCFDD-0224-4505-93E3-16427C9AACD8" Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppVcxprojUser.cmp"
+                      Source="$(var.SolutionDir)..\TestApp.proj\TestApp.vcxproj.user" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppDocCpp.cmp"  Guid="672284FF-EAF3-45E7-B7CE-7704151ECA06"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppDocCpp.cmp"
+                            Source="$(var.SolutionDir)..\TestApp.proj\TestAppDoc.cpp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppDocH.cmp"  Guid="09C976EB-DB5F-4AE9-A4F8-75D73E8196AB"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppDocH.cmp" Source="$(var.SolutionDir)..\TestApp.proj\TestAppDoc.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppViewCpp.cmp"  Guid="CA6A71EB-07D4-4921-B597-3CEF5A77EAEA"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppViewCpp.cmp"
+                            Source="$(var.SolutionDir)..\TestApp.proj\TestAppView.cpp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppViewH.cmp"  Guid="B1A0133F-1C78-40BC-AE77-12BA5A14BD69"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppViewH.cmp" Source="$(var.SolutionDir)..\TestApp.proj\TestAppView.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppVpj.cmp"  Guid="52D4D8A2-E481-4D3D-8BF0-91929EE8E397"
+                                                                Directory="MakeApp_TestApp.proj.pff">
+    <File Id="TestAppVpj.cmp" Source="$(var.SolutionDir)..\TestApp.proj\TestApp.vpj" KeyPath="yes"/>
+  </Component>
+
+</Fragment>
+
+<Fragment>
+
+  <Component Id="TestAppIco.cmp"  Guid="7896C496-B8C7-437C-A390-A5772C492962"
+                                                            Directory="MakeApp_TestApp.proj_res.pff">
+    <File Id="TestAppIco.cmp" Source="$(var.SolutionDir)..\TestApp.proj\res\TestApp.ico" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="TestAppRc2.cmp"  Guid="0A6383F6-938E-4F0D-8C3C-9C0AF441722A"
+                                                            Directory="MakeApp_TestApp.proj_res.pff">
+    <File Id="TestAppRc2.cmp" Source="$(var.SolutionDir)..\TestApp.proj\res\TestApp.rc2" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="Toolbar00Bmp.cmp"  Guid="A922905E-4E56-4723-B9A5-8B37B14EDCAE"
+                                                            Directory="MakeApp_TestApp.proj_res.pff">
+    <File Id="Toolbar00Bmp.cmp"
+                          Source="$(var.SolutionDir)..\TestApp.proj\res\Toolbar00.bmp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="Toolbar01Bmp.cmp"  Guid="A411AD2C-9AD6-453F-8C45-FF3B22E03B04"
+                                                            Directory="MakeApp_TestApp.proj_res.pff">
+    <File Id="Toolbar01Bmp.cmp"
+                          Source="$(var.SolutionDir)..\TestApp.proj\res\Toolbar01.bmp" KeyPath="yes"/>
+  </Component>
+
+</Fragment>
+
+<Fragment>
+
+  <Component Id="UninstallMakeApp.cmp" 
+                                  Guid="A2D100DA-7A99-423A-874C-931BC515D457" Directory="MakeApp.pmf">
+
+    <Shortcut Id               = "UninstallMakeApp.shc"
+              Name             = "Uninstall MakeApp"
+              Description      = "Uninstalls MakeApp"
+              Target           = "[System64Folder]msiexec.exe"
+              Arguments        = "/x [ProductCode]"
+              Icon             = "MakeAppIcon.ico"
+              />
+    <RemoveFolder Id="MakeApp.uni" Directory="MakeApp.pmf" On="uninstall"/>
+    <RegistryValue Root="HKCU" Key="Software\UninstallMakeApp.cmp" Name="installed"
+                   Type="integer" Value="1" KeyPath="yes"/>
+  </Component>
+
+</Fragment>
+
+</Wix>

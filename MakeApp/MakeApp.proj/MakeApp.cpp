@@ -22,6 +22,7 @@ MakeApp theApp;                       // The one and only MakeApp object
 IniFile iniFile;
 
 
+
 static TCchar* MakeAppSect = _T("MakeApp");
 static TCchar* BaseDirKey  = _T("BaseDir");
 
@@ -37,7 +38,7 @@ END_MESSAGE_MAP()
 
 // MakeApp construction
 
-MakeApp::MakeApp() noexcept : doc(0), view(0) {
+MakeApp::MakeApp() noexcept : doc(0), view(0), basePath() {
 ResourceData res;
 
   res.getVersion(version);
@@ -46,11 +47,14 @@ ResourceData res;
   }
 
 
+
 // MakeApp initialization
 
 BOOL MakeApp::InitInstance() {
 
   CWinAppEx::InitInstance();
+
+  determineBasePath(m_pszHelpFilePath);
 
   iniFile.setAppDataPath(m_pszHelpFilePath, *this);
 
@@ -98,6 +102,16 @@ BOOL MakeApp::InitInstance() {
   // The one and only window has been initialized, so show and update it
 
   m_pMainWnd->ShowWindow(SW_SHOW);   m_pMainWnd->UpdateWindow();   return TRUE;
+  }
+
+
+void MakeApp::determineBasePath(TCchar* helpPath) {
+String s = helpPath;
+int    pos;
+
+  pos = s.find(_T("MakeApp"));   if (pos < 0) return;
+
+  basePath = s.substr(0, pos+8);
   }
 
 

@@ -18,7 +18,6 @@
 #endif
 
 
-static TCchar* TestAppBase = _T("D:\\SandBox\\TestApp\\");
 static TCchar* TestApp     = _T("TestApp");
 static TCchar* TestSolDir  = _T("TestApp\\");
 static TCchar* TestPrjDir  = _T("TestApp.proj\\");
@@ -42,8 +41,8 @@ END_MESSAGE_MAP()
 // MakeAppDoc construction/destruction
 
 MakeAppDoc::MakeAppDoc() noexcept {
-  testSolPath = TestAppBase;  testSolPath += TestSolDir;
-  testPrjPath = TestAppBase;  testPrjPath += TestPrjDir;
+  testSolPath = theApp.basePath + TestSolDir;
+  testPrjPath = theApp.basePath + TestPrjDir;
 
   saveAsTitle = _T("Make App");   defExt = _T("txt");   defFilePat= _T("*.txt");
   }

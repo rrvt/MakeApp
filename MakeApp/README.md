@@ -6,6 +6,10 @@ An application to customize TestApp (see below) to a new name.  There are two st
     AlphaBeta, the solution directory will be in "...\AlphaBeta\AlphaBeta\" and the file name will be
     "AlphaBeta.sln".  The project file will be "...\AlphaBeta\AlphaBeta.prj\" and the project file name
     will be "AlphaBeta.vcxproj:.
+  - One caveat concerning the placement of the Library directory and the new project:  The new project
+    and the Library should both have the same parent directory.  If that is not the case then the
+    properties of the new project will need to be changed to reflect the location of the Library project
+    file (i.e. LibUni7.vcxproj).
   - Specify the Project Name (i.e. the directory name for the project and all critical directories and
     filenames within the outer directory).  Specify a Visible name that will be used in the left hand
     part of the window's title bar and the Window Description (the right hand part of the window title.)
