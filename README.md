@@ -58,6 +58,19 @@ no particular order:
 
 ## Getting Started
 
+The application creates a new Application.  So copy the library source to a
+directory like x:\Source\.  The use the executable, MakeApp.exe, to specify the Source directory,
+x:\source.  The folder icon or the File Menu is used to specify the source folder.
+
+The second icon on the toolbar (which is supposed to look like a smokestack factory) creates the new
+application.  Selecting the factory icon invokes a dialog box to accept the Project's Name, Window
+(Visible) Name, and a Description (which also appears in the Window top border).
+
+Once the application is created it can be compiled.  Note the Dependencies should be set in Visual Studio
+sometime.
+
+### History
+
 Create a new Application using the following parameters:
   - New MFC App
   - Single Document
@@ -84,7 +97,6 @@ the new app should behave as test app behaves.  Then the fun begins...
 I've also constructed an App to sort the file names in a project based only on the file name and not the
 path.  Makes it a bit easier to find things.  It is called AdjProj.
 
-### History
 I found that creating a new application with Visual Studio and then trying to customize it like MakeApp
 is annoyingly difficult.  So I tried another approach today. I just copied the entire MakeApp directory
 to a new directory.  Then I changed all the file names to the one that I wanted for the new project, even
