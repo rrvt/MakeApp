@@ -124,7 +124,7 @@ Now create your own app above and modify it to match this template.
 
 ## Authors
 
-Robert R. Van Tuyl
+Robert R. Van Tuyl, rrvt@swde.com
 
 ## License
 
