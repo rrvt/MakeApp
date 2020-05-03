@@ -1,5 +1,6 @@
 # MakeApp
 An application to customize TestApp (see below) to a new name.  There are two steps:
+
   - Specify the path to a place (directory aka folder) where the new application directory will be placed.
     Note, an application is composed of a solution file and one or more project files.  The solution file
     will be placed in a directory with the same name as the Project Name. For example a new spp named
@@ -13,6 +14,12 @@ An application to customize TestApp (see below) to a new name.  There are two st
   - Specify the Project Name (i.e. the directory name for the project and all critical directories and
     filenames within the outer directory).  Specify a Visible name that will be used in the left hand
     part of the window's title bar and the Window Description (the right hand part of the window title.)
+  - One caveat.  For some reason, the solution file does not seem to contain the dependency
+    list used by vs2017 (or I could not deduce where it is in the solution file).  So there is a message
+    at the end of the project production to set the dependencies in Visual Studio.  The prject may compile
+    fine as the order of the projects in the solution file is correct, but there is not guarantee that
+    it will stay that way.
+
 MakeApp then copies and changes all the relevant files to correspond to the instructions.
 
 ## SlickEdit Project File
