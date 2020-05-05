@@ -28,7 +28,7 @@ HelpTemplate.ftr.Path=D:\Sources\MakeApp\Help\Templates\
 ProductName=Make App
 Company=Bob -- K6RWY
 WixName=MakeApp
-WixVersion=1.1.5.0
+WixVersion=1.1.6.0
 UpgradeGUID=A5DCB4E8-13DF-4B55-8321-F5B370722125
 SaveVerAllowed=0
 LicenseRequired=0
@@ -48,18 +48,6 @@ WixID=MakeApp_TestApp.pff
 Parent=MakeApp
 Name=TestApp
 HasChildren=0
-[PFFDirDesc02]
-ID=MakeApp\TestApp.proj
-WixID=MakeApp_TestApp.proj.pff
-Parent=MakeApp
-Name=TestApp.proj
-HasChildren=1
-[PFFDirDesc03]
-ID=MakeApp\TestApp.proj\res
-WixID=MakeApp_TestApp.proj_res.pff
-Parent=MakeApp\TestApp.proj
-Name=res
-HasChildren=0
 [PFFDirDesc04]
 ID=MakeApp\Help
 WixID=MakeApp_Help.pff
@@ -72,6 +60,18 @@ WixID=MakeApp_Help_Templates.pff
 Parent=MakeApp\Help
 Name=Templates
 HasChildren=0
+[PFFDirDesc06]
+ID=MakeApp\TestApp.prj
+WixID=MakeApp_TestApp.prj.pff
+Parent=MakeApp
+Name=TestApp.prj
+HasChildren=1
+[PFFDirDesc07]
+ID=MakeApp\TestApp.prj\res
+WixID=MakeApp_TestApp.prj_res.pff
+Parent=MakeApp\TestApp.prj
+Name=res
+HasChildren=0
 [PMFDirectories]
 NoDirectories=1
 [PMFDirDesc00]
@@ -82,7 +82,7 @@ Name=MakeApp
 HasChildren=0
 [Features]
 Count=6
-CurSel=HelpTemplate
+CurSel=TestAppRes
 [Ftr00]
 FeatureID=MakeApp
 ProgramID=MakeApp
@@ -114,7 +114,7 @@ Path=D:\Sources\MakeApp\TestApp\TestApp.sln
 Guid=E461E5F9-D748-4AD8-9FFF-32ACCF8E07FE
 [Ftr02]
 FeatureID=TestAppProj
-ProgramID=MakeApp\TestApp.proj
+ProgramID=MakeApp\TestApp.prj
 StartMenuID=
 CurSel=TestAppVpj
 NoComponents=17
@@ -188,7 +188,7 @@ Path=D:\Sources\MakeApp\TestApp.prj\TestApp.vpj
 Guid=E83AAB93-CBC0-439C-9B97-490DAD817DF3
 [Ftr03]
 FeatureID=TestAppRes
-ProgramID=MakeApp\TestApp.proj\res
+ProgramID=MakeApp\TestApp.prj\res
 StartMenuID=
 CurSel=ToolBar01BMP
 NoComponents=4

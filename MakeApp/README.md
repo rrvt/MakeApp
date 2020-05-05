@@ -14,7 +14,7 @@ An application to customize TestApp (see below) to a new name.  There are two st
   - Specify the Project Name (i.e. the directory name for the project and all critical directories and
     filenames within the outer directory).  Specify a Visible name that will be used in the left hand
     part of the window's title bar and the Window Description (the right hand part of the window title.)
-  - One caveat.  For some reason, the solution file does not seem to contain the dependency
+  - For some reason, the solution file does not seem to contain the dependency
     list used by vs2017 (or I could not deduce where it is in the solution file).  So there is a message
     at the end of the project production to set the dependencies in Visual Studio.  The prject may compile
     fine as the order of the projects in the solution file is correct, but there is not guarantee that
@@ -51,8 +51,25 @@ no particular order:
         the registry.
   - doc() -- returns pointer to document object
   - invalidate() -- cause the screen to be repainted, it doesn't happen automatically!
+  - Help File has been added to TestApp with a simple one page help file.  The help file is constructed
+    with HTML Help Workshop 4.74...  It may be found on Microsoft's web site by Google Searching for
+    HTML Help Sorkshop.  Since HTML files are difficult to construct in the Workshop I use Dreamweaver
+    to manage the files after some construction of the pages.
 
 ## Getting Started
+
+The application creates a new Application.  So copy the library source to a
+directory like x:\Source\.  The use the executable, MakeApp.exe, to specify the Source directory,
+x:\source.  The folder icon or the File Menu is used to specify the source folder.
+
+The second icon on the toolbar (which is supposed to look like a smokestack factory) creates the new
+application.  Selecting the factory icon invokes a dialog box to accept the Project's Name, Window
+(Visible) Name, and a Description (which also appears in the Window top border).
+
+Once the application is created it can be compiled.  Note the Dependencies should be set in Visual Studio
+sometime.
+
+### History
 
 Create a new Application using the following parameters:
   - New MFC App
@@ -80,10 +97,9 @@ the new app should behave as test app behaves.  Then the fun begins...
 I've also constructed an App to sort the file names in a project based only on the file name and not the
 path.  Makes it a bit easier to find things.  It is called AdjProj.
 
-### History
 I found that creating a new application with Visual Studio and then trying to customize it like MakeApp
-is quite difficult.  So I tried another approach today. I just copied the entire MakeApp directory to a
-new directory.  Then I changed all the file names to the one that I wanted for the new project, even
+is annoyingly difficult.  So I tried another approach today. I just copied the entire MakeApp directory
+to a new directory.  Then I changed all the file names to the one that I wanted for the new project, even
 the solution and project file names.
 ```
    All MakeAppxxx.xxx were changed to MyAppxxx.xxx -- took 10 minutes or so as there are fewer than 15
@@ -100,6 +116,13 @@ some renaming in the files themselves to the new names.
 
 The result is after a couple of false starts everything compiled and executed.
 
+### Update
+
+I added a help file template to the TestApp so that there is a start on a help document.  I spent a fair
+amount of time trying to setup the Project Dependencies but the best that I could do is get the project
+list in the order that they should be compiled in the solution file.  However, when one checks the
+depedencies Visual Studio there is not specific dependecies specified.
+
 ### Prerequisites
 
 Windows 7 or above.  visual Studio 2017 or above.
@@ -113,7 +136,7 @@ Now create your own app above and modify it to match this template.
 
 ## Authors
 
-Robert R. Van Tuyl
+Robert R. Van Tuyl, rrvt@swde.com
 
 ## License
 

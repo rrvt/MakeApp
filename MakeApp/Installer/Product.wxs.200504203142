@@ -104,12 +104,13 @@
     <Directory Id="ProgramFilesFolder">
       <Directory Id="MakeApp.pff" Name="MakeApp">
         <Directory Id="MakeApp_TestApp.pff" Name="TestApp" />
+        <Directory Id="MakeApp_TestApp.proj.pff" Name="TestApp.proj">
+          <Directory Id="MakeApp_TestApp.proj_res.pff" Name="res" />
+        </Directory>
         <Directory Id="MakeApp_Help.pff" Name="Help">
           <Directory Id="MakeApp_Help_Templates.pff" Name="Templates" />
         </Directory>
-        <Directory Id="MakeApp_TestApp.prj.pff" Name="TestApp.prj">
-          <Directory Id="MakeApp_TestApp.prj_res.pff" Name="res" />
-        </Directory>
+        <Directory Id="MakeApp_TestApp.prj.pff" Name="TestApp.prj" />
       </Directory>
     </Directory>
 
@@ -258,23 +259,23 @@
 <Fragment>
 
   <Component Id="TestAppICO.cmp"  Guid="FA75ABE0-D238-46C0-B13D-DFBB13CFF29E"
-                                                              Directory="MakeApp_TestApp.prj_res.pff">
+                                                            Directory="MakeApp_TestApp.proj_res.pff">
     <File Id="TestAppICO.cmp" Source="$(var.SolutionDir)..\TestApp.prj\res\TestApp.ico" KeyPath="yes"/>
   </Component>
 
   <Component Id="TestAppRC2.cmp"  Guid="40B8591D-C47F-4D3D-A76B-7CB8A6073639"
-                                                              Directory="MakeApp_TestApp.prj_res.pff">
+                                                            Directory="MakeApp_TestApp.proj_res.pff">
     <File Id="TestAppRC2.cmp" Source="$(var.SolutionDir)..\TestApp.prj\res\TestApp.rc2" KeyPath="yes"/>
   </Component>
 
   <Component Id="ToolBar00BMP.cmp"  Guid="7574B53E-FA4B-4FAE-A0E7-6AE1E3D4A2BC"
-                                                              Directory="MakeApp_TestApp.prj_res.pff">
+                                                            Directory="MakeApp_TestApp.proj_res.pff">
     <File Id="ToolBar00BMP.cmp"
                           Source="$(var.SolutionDir)..\TestApp.prj\res\Toolbar00.bmp" KeyPath="yes"/>
   </Component>
 
   <Component Id="ToolBar01BMP.cmp"  Guid="D9F46600-4A79-489E-BEDE-2CCCA4A0067E"
-                                                              Directory="MakeApp_TestApp.prj_res.pff">
+                                                            Directory="MakeApp_TestApp.proj_res.pff">
     <File Id="ToolBar01BMP.cmp"
                           Source="$(var.SolutionDir)..\TestApp.prj\res\Toolbar01.bmp" KeyPath="yes"/>
   </Component>
@@ -352,7 +353,7 @@
 <Fragment>
 
   <Component Id="UninstallmakeApp.cmp" 
-                                  Guid="34A8286D-5566-4638-8A3E-1B3FEFF99456" Directory="MakeApp.pmf">
+                                  Guid="B69F4237-8514-4115-B112-9DC62661C7FA" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallmakeApp.shc"
               Name             = "Uninstall makeApp"
