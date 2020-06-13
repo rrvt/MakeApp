@@ -11,11 +11,6 @@
 #include "Resources.h"
 #include "MakeAppDoc.h"
 #include "MakeAppView.h"
-//#include "afxwinappex.h"
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
 
 
 MakeApp theApp;                       // The one and only MakeApp object
@@ -59,9 +54,9 @@ BOOL MakeApp::InitInstance() {
 
   iniFile.setAppDataPath(m_pszHelpFilePath, *this);
 
-  notePad.open();
-
   SetRegistryKey(appID);
+
+int x = 1;
 
   LoadStdProfileSettings(0);  // Load standard INI file options (including MRU)
 
@@ -88,6 +83,8 @@ BOOL MakeApp::InitInstance() {
   // app was launched with /RegServer, /Register, /Unregserver or /Unregister.
 
   if (!ProcessShellCommand(cmdInfo)) return FALSE;
+
+  notePad.clear();
 
   if (getView()) {view->setAuthor(_T("Make App")); view->setFont(_T("Courier New"));}
 
@@ -141,7 +138,7 @@ Tchar  ch;
 
   iniFile.writeString(MakeAppSect, BaseDirKey, doc->baseDir);
 
-  notePad.close();
+  notePad.clear();
 
   notePad << _T("Base Directory: ") << doc->baseDir << nCrlf;
 

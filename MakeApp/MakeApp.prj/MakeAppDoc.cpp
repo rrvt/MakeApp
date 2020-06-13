@@ -14,10 +14,6 @@
 #include "qsort.h"
 #include "SlickEdit.h"
 
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
-
 
 static TCchar* TestApp     = _T("TestApp");
 static TCchar* TestSolDir  = _T("TestApp\\");

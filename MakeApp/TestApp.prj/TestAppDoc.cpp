@@ -10,9 +10,6 @@
 #include "TestApp.h"
 #include <propkey.h>
 
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
 
 // TestAppDoc
 
@@ -44,7 +41,7 @@ void TestAppDoc::OnTest() {
 
   theApp.setTitle(_T("My Test"));
 
-  notePad.close();  notePad << _T("Hello World") << nCrlf;
+  notePad.clear();  notePad << _T("Hello World") << nCrlf;
 
   invalidate();
   }
@@ -61,7 +58,7 @@ String path;
 
   defFileName = getMainName(path);
 
-  notePad.close();
+  notePad.clear();
 
   if (OnOpenDocument(path)) messageBox(_T("Loaded!"));
   }

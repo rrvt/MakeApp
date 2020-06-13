@@ -34,6 +34,7 @@
 #include <afxdialogex.h>
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 
+#include <afxcontrolbars.h>
 #include <comutil.h>
 #include <string>
 #include <tchar.h>
@@ -48,6 +49,7 @@ typedef basic_string<Tchar> tstring;
 
 #include "Strings.h"
 #include "Variant.h"
+#include "NewAllocator.h"
 
 
 

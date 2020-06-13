@@ -12,10 +12,6 @@
 #include "TestAppDoc.h"
 #include "TestAppView.h"
 
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
-
 
 TestApp theApp;                       // The one and only TestApp object
 IniFile iniFile;
@@ -52,7 +48,7 @@ BOOL TestApp::InitInstance() {
 
   iniFile.setAppDataPath(m_pszHelpFilePath, *this);
 
-  notePad.open();
+  notePad.clear();
 
   SetRegistryKey(appID);
 
@@ -82,7 +78,7 @@ BOOL TestApp::InitInstance() {
 
   if (!ProcessShellCommand(cmdInfo)) return FALSE;
 
-  if (getView()) {view->setAuthor(_T("Test App")); view->setFont(_T("Arial"));}
+  if (getView()) {view->setAuthor(_T("Test App")); view->setFont(_T("Arial"), 120);}
 
   setAppName(_T("Test App"));                           // Title left part
   setTitle(_T("A Template for MFC Applications"));      // Title right part

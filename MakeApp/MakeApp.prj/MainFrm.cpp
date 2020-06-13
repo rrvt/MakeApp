@@ -6,10 +6,6 @@
 #include "MakeApp.h"
 
 
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
-
 // MainFrame
 
 IMPLEMENT_DYNCREATE(MainFrame, CFrameWndEx)
