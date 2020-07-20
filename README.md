@@ -136,7 +136,7 @@ Now create your own app above and modify it to match this template.
 
 ## Authors
 
-Robert R. Van Tuyl, rrvt@swde.com
+Robert R. Van Tuyl, romeo romeo victor tango alpha tango sam whisky delta echo dot charlie oscar mike
 
 ## License
 
