@@ -120,21 +120,22 @@ The result is after a couple of false starts everything compiled and executed.
 
 ### July 24, 2020
 
-Add a Save Wix Data button and made an attempt to save everything input.  There is some logic in the
-program to not save some things that are unused.  However, that prevented the user from incrementally
-adding things to the list of file.  The insisting that everything be written when requested seems like
-a better algorithm.
-
-Changed the way the input and output are handled.  Upon selecting the Save Wix Data button a save file
-dialog box is displayed and the user must specify where the data is to go.  It is initialized with the
-last place the data was read from so that it is not a big chore to confirm the location.  This path
-is then used for initial path to the product.wxs file.  This change allows the product name to be
-different from the installer name.
+Consolidated the naming of the TextApp components so that when the new App is created the major components
+are
+ - MyAppII -- Solution file
+ - MyAppII.hlp -- Help Project where the help files and htm are stored
+ - MyAppII.prj == Project File and where the header and body files are stored
 
 Made some changes in the way loops are formulated using
+  OBIter iter(obj);                      // Where OBIter is the name of a class that implements the iter
+  ...
   for (p = iter(); p; p = iter++) { ... }
+
 instead of
+
   for (p = obj.startLoop(); p; p = obj.nextItem()) { ... }
+
+For non-template classes the OBIter class is formed from a simple template typedef.
 
 ### Earlier
 
