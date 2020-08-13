@@ -9,7 +9,6 @@
 #include "MessageBox.h"
 #include "NotePad.h"
 #include "Options.h"
-#include "OptionsDlg.h"
 #include "Resource.h"
 #include "TestApp.h"
 #include "TestAppView.h"
@@ -52,24 +51,7 @@ void TestAppDoc::OnTest() {
   }
 
 
-void TestAppDoc::OnOptions() {
-OptionsDlg dlg;
-
-  dlg.topMargin   = options.topMargin;
-  dlg.leftMargin  = options.leftMargin;
-  dlg.rightMargin = options.rightMargin;
-  dlg.botMargin   = options.botMargin;
-
-  if (dlg.DoModal() == IDOK) {
-    options.topMargin    = dlg.topMargin;
-    options.leftMargin   = dlg.leftMargin;
-    options.rightMargin  = dlg.rightMargin;
-    options.botMargin    = dlg.botMargin;
-
-    options.store();
-    }
-  }
-
+void TestAppDoc::OnOptions() {options();  view()->setOrientation(options.orient);}
 
 
 void TestAppDoc::OnFileOpen() {

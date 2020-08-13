@@ -38,6 +38,9 @@ no particular order:
   - Slightly expanded About Box which reads the information from the resources (xxx.rc strings, etc.)
   - Provide methods (function) in theApp for setting the windows Title Bar in two parts:
     <left part> - <right part>.
+  - Support for setting the printer orientation (Portrait, Landscape) at the start of the program and
+    changing the orientation in the Options Dialog Box.
+  - An Options dialog that changes the margins and orientation of the printed output.
   - Printer output from main screen content
   - File read/write to/from the main window from/to a text file.  One gets to choose the extension and
     other attributes to display in the file dialog box.  Added logic to Doc to specify the name, default
@@ -69,7 +72,7 @@ application.  Selecting the factory icon invokes a dialog box to accept the Proj
 Once the application is created it can be compiled.  Note the Dependencies should be set in Visual Studio
 sometime.
 
-### History
+## History
 
 Create a new Application using the following parameters:
   - New MFC App
@@ -116,25 +119,32 @@ some renaming in the files themselves to the new names.
 
 The result is after a couple of false starts everything compiled and executed.
 
-### Update
+## Update
+
+### August 12, 2020
+
+Added a printer orientation feature so that the program may control the orientation (if it cares).  Some
+modification will be required to disable this feature should the user prefer to let Windows make those
+decisions in the printer setup.
 
 ### July 24, 2020
 
-Add a Save Wix Data button and made an attempt to save everything input.  There is some logic in the
-program to not save some things that are unused.  However, that prevented the user from incrementally
-adding things to the list of file.  The insisting that everything be written when requested seems like
-a better algorithm.
-
-Changed the way the input and output are handled.  Upon selecting the Save Wix Data button a save file
-dialog box is displayed and the user must specify where the data is to go.  It is initialized with the
-last place the data was read from so that it is not a big chore to confirm the location.  This path
-is then used for initial path to the product.wxs file.  This change allows the product name to be
-different from the installer name.
+Consolidated the naming of the TextApp components so that when the new App is created the major components
+are
+ - MyAppII -- Solution file
+ - MyAppII.hlp -- Help Project where the help files and htm are stored
+ - MyAppII.prj == Project File and where the header and body files are stored
 
 Made some changes in the way loops are formulated using
+  OBIter iter(obj);                      // Where OBIter is the name of a class that implements the iter
+  ...
   for (p = iter(); p; p = iter++) { ... }
+
 instead of
+
   for (p = obj.startLoop(); p; p = obj.nextItem()) { ... }
+
+For non-template classes the OBIter class is formed from a simple template typedef.
 
 ### Earlier
 
@@ -143,11 +153,11 @@ amount of time trying to setup the Project Dependencies but the best that I coul
 list in the order that they should be compiled in the solution file.  However, when one checks the
 depedencies Visual Studio there is not specific dependecies specified.
 
-### Prerequisites
+## Prerequisites
 
 Windows 7 or above.  visual Studio 2017 or above.
 
-### Installing
+## Installing
 
 This is a template.  Execute it, run the test.  Print the window, input/output
 from the window.  That is all it does.

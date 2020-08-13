@@ -55,7 +55,7 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 
 BOOL MainFrame::PreCreateWindow(CREATESTRUCT& cs) {
 
-  cs.style &= ~FWS_ADDTOTITLE;  cs.lpszName = _T("Test App");         // Sets the default title left part
+  cs.style &= ~FWS_ADDTOTITLE;  cs.lpszName = _T("AddProj");         // Sets the default title left part
 
   return CFrameWndEx::PreCreateWindow(cs);
   }

@@ -5,6 +5,7 @@
 #include "TestAppView.h"
 #include "Options.h"
 #include "Report.h"
+#include "TestApp.h"
 #include "TestAppDoc.h"
 
 
@@ -35,6 +36,16 @@ double botMgn   = options.botMargin.stod(x);
 // Perpare output (i.e. report) then start the output with the call to SCrView
 
 void TestAppView::onPrepareOutput() {report(isPrinting());   CScrView::onPrepareOutput();}
+
+
+
+
+void TestAppView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo) {
+
+  setPrntrOrient(theApp.getDevMode(), pDC);
+
+  CScrView::OnBeginPrinting(pDC, pInfo);
+  }
 
 
 // The footer is injected into the printed output, so the output goes directly to the device.

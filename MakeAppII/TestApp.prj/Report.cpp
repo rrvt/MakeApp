@@ -123,7 +123,7 @@ int    nLns = 0;
 
     n = datum->noLines();
 
-    if (iter.last()) n += 2;
+    if (iter.isLast()) n += 2;
 
     if (printing && n + noLines > maxLines) {notePad << nEndPage;    nLns += header();}
 

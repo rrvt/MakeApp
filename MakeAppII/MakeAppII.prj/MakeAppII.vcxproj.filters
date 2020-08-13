@@ -138,12 +138,6 @@
     <Image Include="res\MakeAppII.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\Toolbar00.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\Toolbar01.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\Toolbar04.bmp">
       <Filter>Resource Files</Filter>
     </Image>

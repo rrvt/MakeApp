@@ -21,7 +21,7 @@ IniFile iniFile;
 BEGIN_MESSAGE_MAP(TestApp, CWinAppEx)
   ON_COMMAND(ID_APP_ABOUT,        &TestApp::OnAppAbout)
   ON_COMMAND(ID_FILE_NEW,         &CWinAppEx::OnFileNew)
-  ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinAppEx::OnFilePrintSetup)
+  ON_COMMAND(ID_FILE_PRINT_SETUP, &TestApp::OnFilePrintSetup)
   ON_COMMAND(ID_Help,             &TestApp::OnHelp)
 END_MESSAGE_MAP()
 
@@ -68,10 +68,15 @@ BOOL TestApp::InitInstance() {
 
   view()->setFont(_T("Arial"), 120);
 
-  options.load();
+  options.load();    view()->setOrientation(options.orient);
 
   m_pMainWnd->ShowWindow(SW_SHOW);   m_pMainWnd->UpdateWindow();   return TRUE;
   }
+
+
+
+void TestApp::OnFilePrintSetup() {view()->setPrntrOrient(getDevMode());   CWinApp::OnFilePrintSetup();}
+
 
 
 void TestApp::OnHelp() {
@@ -82,5 +87,4 @@ String topic = m_pszHelpFilePath; topic += _T(">Introduction");
 
 
 void TestApp::OnAppAbout() {CAboutDlg aboutDlg; aboutDlg.DoModal();}
-
 

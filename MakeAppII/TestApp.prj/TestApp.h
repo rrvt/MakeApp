@@ -22,11 +22,12 @@ public:
           TestAppDoc*  doc()  {return (TestAppDoc*)  CApp::getDoc();}
           TestAppView* view() {return (TestAppView*) CApp::getView();}
 
+  DECLARE_MESSAGE_MAP()
+
+  afx_msg void OnFilePrintSetup();
   afx_msg void OnAppAbout();
   afx_msg void OnHelp();
-
-  DECLARE_MESSAGE_MAP()
-  };
+};
 
 
 extern TestApp theApp;

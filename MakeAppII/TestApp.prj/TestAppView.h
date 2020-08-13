@@ -21,6 +21,8 @@ public:
 
   virtual void OnPrepareDC(CDC* pDC, CPrintInfo* pInfo = NULL);
   virtual void onPrepareOutput();
+
+  virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
   virtual void printFooter(Display& dev, int pageNo);
 
   TestAppDoc* GetDocument() const;
