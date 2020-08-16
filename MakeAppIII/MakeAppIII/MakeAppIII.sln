@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibUni7", "..\..\Library\LibUni7\LibUni7.vcxproj", "{CF57F3EC-D3DB-4469-8519-3F9D73785D9B}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "..\Installer\Installer.wixproj", "{99D9B3E6-B571-4754-B26A-F6CBF6521395}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93A8B622-BA54-4A41-B456-9AB2629A5607} = {93A8B622-BA54-4A41-B456-9AB2629A5607}
+		{04A5A256-D474-44DE-89F3-EF00F06D1226} = {04A5A256-D474-44DE-89F3-EF00F06D1226}
+		{87E6927E-F6A1-4A58-BE3F-F6BB65DA39DD} = {87E6927E-F6A1-4A58-BE3F-F6BB65DA39DD}
+		{76210CAD-9EB1-4493-8592-E3575DE8FC20} = {76210CAD-9EB1-4493-8592-E3575DE8FC20}
+		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B} = {CF57F3EC-D3DB-4469-8519-3F9D73785D9B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppT3mplate", "..\AppT3mplate.prj\AppT3mplate.vcxproj", "{04A5A256-D474-44DE-89F3-EF00F06D1226}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppT3mplateHelp", "..\AppT3mplate.hlp\AppT3mplateHelp.vcxproj", "{93A8B622-BA54-4A41-B456-9AB2629A5607}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Help", "..\MakeAppIII.hlp\Help.vcxproj", "{87E6927E-F6A1-4A58-BE3F-F6BB65DA39DD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MakeApp", "..\MakeAppIII.prj\MakeApp.vcxproj", "{76210CAD-9EB1-4493-8592-E3575DE8FC20}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B} = {CF57F3EC-D3DB-4469-8519-3F9D73785D9B}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B}.Debug|Win32.Build.0 = Debug|Win32
+		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B}.Release|Win32.ActiveCfg = Release|Win32
+		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B}.Release|Win32.Build.0 = Release|Win32
+		{99D9B3E6-B571-4754-B26A-F6CBF6521395}.Debug|Win32.ActiveCfg = Debug|x86
+		{99D9B3E6-B571-4754-B26A-F6CBF6521395}.Release|Win32.ActiveCfg = Release|x86
+		{99D9B3E6-B571-4754-B26A-F6CBF6521395}.Release|Win32.Build.0 = Release|x86
+		{04A5A256-D474-44DE-89F3-EF00F06D1226}.Debug|Win32.ActiveCfg = Debug|Win32
+		{04A5A256-D474-44DE-89F3-EF00F06D1226}.Debug|Win32.Build.0 = Debug|Win32
+		{04A5A256-D474-44DE-89F3-EF00F06D1226}.Release|Win32.ActiveCfg = Release|Win32
+		{04A5A256-D474-44DE-89F3-EF00F06D1226}.Release|Win32.Build.0 = Release|Win32
+		{93A8B622-BA54-4A41-B456-9AB2629A5607}.Debug|Win32.ActiveCfg = Debug|Win32
+		{93A8B622-BA54-4A41-B456-9AB2629A5607}.Debug|Win32.Build.0 = Debug|Win32
+		{93A8B622-BA54-4A41-B456-9AB2629A5607}.Release|Win32.ActiveCfg = Release|Win32
+		{93A8B622-BA54-4A41-B456-9AB2629A5607}.Release|Win32.Build.0 = Release|Win32
+		{87E6927E-F6A1-4A58-BE3F-F6BB65DA39DD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{87E6927E-F6A1-4A58-BE3F-F6BB65DA39DD}.Debug|Win32.Build.0 = Debug|Win32
+		{87E6927E-F6A1-4A58-BE3F-F6BB65DA39DD}.Release|Win32.ActiveCfg = Release|Win32
+		{87E6927E-F6A1-4A58-BE3F-F6BB65DA39DD}.Release|Win32.Build.0 = Release|Win32
+		{76210CAD-9EB1-4493-8592-E3575DE8FC20}.Debug|Win32.ActiveCfg = Debug|Win32
+		{76210CAD-9EB1-4493-8592-E3575DE8FC20}.Debug|Win32.Build.0 = Debug|Win32
+		{76210CAD-9EB1-4493-8592-E3575DE8FC20}.Release|Win32.ActiveCfg = Release|Win32
+		{76210CAD-9EB1-4493-8592-E3575DE8FC20}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BF58AAD-455B-481D-AAA0-0C53CBA10C7C}
+	EndGlobalSection
+EndGlobal

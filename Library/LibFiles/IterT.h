@@ -21,12 +21,11 @@ private:
 
   // returns either a pointer to data (or datum) at index i in array or zero
 
-  Data* datum(int i) {return 0 <= i && i < nData() ? data[i].p : 0;}       // or &data[i]
+  Data* datum(int i) {return 0 <= i && i < nData() ? &data[i] : 0;}       // or data[i].p
 
-  // returns number of data items in array
-  int   nData()      {return data.end();}
+  int   nData()      {return data.end();}                       // returns number of data items in array
 
-  friend typename DSIter;
+  friend typename DataIter;
 */
 
 

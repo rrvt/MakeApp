@@ -57,7 +57,7 @@ public:
   void setFocus() {SetFocus();}
   void del(String& s);
   void add(String& s);
-  int  find(String& s);
+  int  find(TCchar* s);
 
 private:
 
