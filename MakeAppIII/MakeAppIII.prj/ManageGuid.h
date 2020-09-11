@@ -17,7 +17,7 @@ Expandable<Subst, 16> guids;
 public:
 
   ManageGuid() {}
- ~ManageGuid() {guids.clr();}
+ ~ManageGuid() {guids.clear();}
 
   bool    findGuid(String& line, String& suffix);
 

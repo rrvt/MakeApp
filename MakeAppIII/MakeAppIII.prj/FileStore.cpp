@@ -35,7 +35,7 @@ int i;
     delete dataP.p;  dataP.p = 0;
     }
 
-  data.clr();
+  data.clear();
   }
 
 
@@ -78,7 +78,7 @@ static String nilStg = _T("");
 String& FileStore::operator() (int i) {Data* d = datum(i);  return d ? d->get() : nilStg;}
 
 
-void FileStore::add(String& s) {data[data.end()].add(s);}
+void FileStore::add(String& s) {data.nextData().add(s);}
 
 
 

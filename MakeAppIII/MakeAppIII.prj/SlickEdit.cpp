@@ -28,7 +28,7 @@ int n;
 
     if (s.find(_T("<Target")) > 0) {fixAmenu(d); continue;}
 
-    data[data.end()] = s;
+    data += s;
     }
 
   fileStore.clear();
@@ -41,13 +41,13 @@ void SlickEdit::fixAmenu(Data*& d) {
 int i;
 int n;
 
-  operators.clr();
+  operators.clear();
 
   for ( ; d; d = iter++, lineNo++) {
     String& s = d->get();
 
     if (s.find(_T("</Menu>")) > 0) break;
-    if (s.find(_T("<Target")) > 0) {operators[operators.end()].get(lineNo, d, iter); continue;}
+    if (s.find(_T("<Target")) > 0) {operators.nextData().get(lineNo, d, iter); continue;}
 
     messageBox(_T("Whoops!")); break;
     }
@@ -56,7 +56,7 @@ int n;
 
   for (i = 0; i < n; i++) addToData(tgtTable[i]);
 
-  data[data.end()] = fileStore(lineNo);                             // save </Menu>
+  data += fileStore(lineNo);                             // save </Menu>
   }
 
 
@@ -75,8 +75,7 @@ int endX;
       begX += 6;  endX = s.find(_T('"'), begX);  name = s.substr(begX, endX-begX);
       }
 
-    fixSaveOption(s);   fixClearBuffer(s);
-    descrip[descrip.end()] = s;
+    fixSaveOption(s);   fixClearBuffer(s);   descrip += s;
 
     if (s.find(_T("</Target>")) >= 0) break;
     }
@@ -116,7 +115,7 @@ int    pos;
                 {pos = s.find(_T('>'));   if (pos >= 0) {s = s.substr(0, pos);  clearAngleBrkt = true;}}
 
     if (s.find(_T("<Exec")) >= 0)
-              {descrip[descrip.end()] = _T("        ClearProcessBuffer=\"1\">");   clearAllSeen = true;}
+              {descrip.nextData() = _T("        ClearProcessBuffer=\"1\">");   clearAllSeen = true;}
     }
 
   if (!lineIsClearBuf) return;
@@ -146,7 +145,7 @@ void SlickEdit::copyOperToData(Operation& op) {
 int i;
 int n = op.descrip.end();
 
-  for (i = 0; i < n; i++) data[data.end()] = op.descrip[i];
+  for (i = 0; i < n; i++) data += op.descrip[i];      // .nextData()
   }
 
 

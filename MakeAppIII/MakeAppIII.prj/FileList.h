@@ -20,9 +20,9 @@ public:
   FileList() { }
  ~FileList() { }
 
-  void clear() {files.clr();}
+  void clear() {files.clear();}
 
-  void add(TCchar* name) {files[files.end()] = name;}
+  void add(TCchar* name) {files.nextData() = name;}
 
 private:
 

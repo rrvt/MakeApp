@@ -16,7 +16,7 @@ Expandable<String,  16> descrip;
   Operation() {clear();}
  ~Operation() {clear();}
 
-  void clear() {name.clear();   clearAllSeen = false;   clearAngleBrkt = false;   descrip.clr();}
+  void clear() {name.clear();   clearAllSeen = false;   clearAngleBrkt = false;   descrip.clear();}
 
   Operation& operator= (Operation& op);
 
@@ -48,6 +48,6 @@ private:
   void fixAmenu(Data*& d);
   void addToData(TCchar* name);
   void copyOperToData(Operation& op);
-  void clear() {lineNo = 0; data.clr(); operators.clr();}
+  void clear() {lineNo = 0; data.clear(); operators.clear();}
   };
 

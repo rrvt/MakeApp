@@ -51,7 +51,7 @@ void DataStore::store(Archive& ar) {
   }
 
 
-void DataStore::add(String& s) {data[data.end()].add(s);}
+void DataStore::add(String& s) {data.nextData().add(s);}
 
 
 
