@@ -2,30 +2,32 @@
 
 
 #pragma once
+#include "Button.h"
 #include "CDoc.h"
+#include "MainFrame.h"
+#include "TBComboBox.h"
+#include "TBEditBox.h"
+
+
+enum DataSource {NoteSource, StoreSource};
 
 
 class AppT3mplateDoc : public CDoc {
 
-String saveAsTitle;                                            // Save As Parameters, examples:
-String defFileName;                                            // _T("mumble.txt")
-String defExt;                                                 // _T("txt")
-String defFilePat;                                             // _T("*.txt")
+PathDesc    pathDsc;
+
+DataSource  dataSource;
 
 protected: // create from serialization only
 
   AppT3mplateDoc() noexcept;
   DECLARE_DYNCREATE(AppT3mplateDoc)
 
-// Attributes
 public:
 
-// Operations
-public:
-
-// Overrides
-public:
   virtual BOOL OnNewDocument();
+
+  DataSource dataSrc() {return dataSource;}
 
   virtual void serialize(Archive& ar);
 
@@ -44,8 +46,24 @@ protected:
   DECLARE_MESSAGE_MAP()
 
 public:
+
   afx_msg void OnTest();
   afx_msg void OnFileOpen();
   afx_msg void OnFileSave();
   afx_msg void OnOptions();
+
+  afx_msg void displayDataStore();
+  afx_msg void myButton();
+
+  afx_msg void OnComboBoxChng();
+
+  afx_msg void OnTBEditBox();
+  afx_msg void myButton1();
+  afx_msg void onOption1();
+  afx_msg void onOption2();
+  afx_msg void onOption3();
+  afx_msg void onOption21();
+  afx_msg void onOption22();
+  afx_msg void onOption23();
+  afx_msg void OnTestEditBoxes();
   };

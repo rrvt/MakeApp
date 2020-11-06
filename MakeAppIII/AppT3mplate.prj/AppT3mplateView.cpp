@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "AppT3mplateView.h"
 #include "Options.h"
-#include "Report.h"
 #include "AppT3mplate.h"
 #include "AppT3mplateDoc.h"
 
@@ -18,6 +17,12 @@ END_MESSAGE_MAP()
 
 
 
+BOOL AppT3mplateView::PreCreateWindow(CREATESTRUCT& cs) {
+
+  return CScrView::PreCreateWindow(cs);
+  }
+
+
 
 void AppT3mplateView::OnPrepareDC(CDC* pDC, CPrintInfo* pInfo) {
 uint   x;
@@ -26,16 +31,29 @@ double leftMgn  = options.leftMargin.stod(x);
 double rightMgn = options.rightMargin.stod(x);
 double botMgn   = options.botMargin.stod(x);
 
-  if (pDC->IsPrinting()) {setHorzMgns(leftMgn,  rightMgn);  setVertMgns(topMgn,  botMgn);}
-  else                   {setHorzMgns(0.33, 0.33); setVertMgns(0.33, 0.33);}
-
-  CScrView::OnPrepareDC(pDC, pInfo);
+  setMgns(leftMgn,  topMgn,  rightMgn, botMgn, pDC);   CScrView::OnPrepareDC(pDC, pInfo);
   }
 
 
 // Perpare output (i.e. report) then start the output with the call to SCrView
 
-void AppT3mplateView::onPrepareOutput() {report(isPrinting());   CScrView::onPrepareOutput();}
+void AppT3mplateView::onPrepareOutput(bool printing) {
+
+  switch (printing) {
+    case true : switch(doc()->dataSrc()) {
+                  case StoreSource: prtStore.print(*this); break;
+                  }
+                break;
+
+    case false: switch(doc()->dataSrc()) {
+                  case NoteSource : break;
+                  case StoreSource: dspStore.display(*this); break;
+                  }
+                break;
+    }
+
+  CScrView::onPrepareOutput();
+  }
 
 
 
@@ -52,7 +70,7 @@ void AppT3mplateView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo) {
 // The output streaming functions are very similar to NotePad's streaming functions so it should not
 // be a great hardship to construct a footer.
 
-void AppT3mplateView::printFooter(Display& dev, int pageNo) {report.footer(dev, pageNo); invalidate();}
+void AppT3mplateView::printFooter(Display& dev, int pageNo) {prtStore.footer(dev, pageNo);}
 
 
 

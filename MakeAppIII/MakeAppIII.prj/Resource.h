@@ -22,12 +22,16 @@
 #define IDC_EDIT2                208
 #define IDC_EDIT3                209
 
-#define ID_Help                  400
-#define ID_Test                  401
-#define ID_Options               402
-#define ID_SpecifyBaseDir        403
-#define ID_NameProject           404
-#define ID_FixSlickEdit          405
+#define ID_File_New              400
+#define ID_File_Open             401
+#define ID_File_Save             402
+#define ID_Help                  404
+#define ID_Test                  405
+#define ID_Options               406
+#define ID_App_About             407
+#define ID_SpecifyBaseDir        408
+#define ID_NameProject           409
+#define ID_FixSlickEdit          410
 
 // Next default values for new objects
 
@@ -36,6 +40,6 @@
 #define _APS_NEXT_RESOURCE_VALUE  104
 #define _APS_NEXT_CONTROL_VALUE   210
 #define _APS_NEXT_SYMED_VALUE     310
-#define _APS_NEXT_COMMAND_VALUE   406
+#define _APS_NEXT_COMMAND_VALUE   411
 #endif
 #endif

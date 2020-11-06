@@ -19,10 +19,10 @@ IniFile iniFile;
 // AppT3mplate
 
 BEGIN_MESSAGE_MAP(AppT3mplate, CWinAppEx)
-  ON_COMMAND(ID_APP_ABOUT,        &AppT3mplate::OnAppAbout)
-  ON_COMMAND(ID_FILE_NEW,         &CWinAppEx::OnFileNew)
-  ON_COMMAND(ID_FILE_PRINT_SETUP, &AppT3mplate::OnFilePrintSetup)
-  ON_COMMAND(ID_Help,             &AppT3mplate::OnHelp)
+  ON_COMMAND(ID_File_New,         &CWinAppEx::OnFileNew)
+  ON_COMMAND(ID_FILE_PRINT_SETUP, &OnFilePrintSetup)
+  ON_COMMAND(ID_Help,             &OnHelp)
+  ON_COMMAND(ID_App_About,        &OnAppAbout)
 END_MESSAGE_MAP()
 
 
@@ -54,6 +54,8 @@ BOOL AppT3mplate::InitInstance() {
   if (!pDocTemplate) return FALSE;
 
   AddDocTemplate(pDocTemplate);
+
+//  EnableShellOpen(); RegisterShellFileTypes(TRUE);       // Enable DDE Execute open
 
   // Parse command line for standard shell commands, DDE, file open
 

@@ -12,6 +12,7 @@
 #include "NotePad.h"
 #include "Options.h"
 #include "Project.h"
+#include "Resource.h"
 
 
 MakeApp theApp;                       // The one and only MakeApp object
@@ -22,10 +23,10 @@ IniFile   iniFile;
 
 
 BEGIN_MESSAGE_MAP(MakeApp, CWinAppEx)
-  ON_COMMAND(ID_SpecifyBaseDir,   &MakeApp::OnSpecifyBaseDir)
-  ON_COMMAND(ID_APP_ABOUT,        &MakeApp::OnAppAbout)
+  ON_COMMAND(ID_SpecifyBaseDir,   &OnSpecifyBaseDir)
+  ON_COMMAND(ID_App_About,        &OnAppAbout)
   ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinAppEx::OnFilePrintSetup)
-  ON_COMMAND(ID_Help,             &MakeApp::OnHelp)
+  ON_COMMAND(ID_Help,             &OnHelp)
 END_MESSAGE_MAP()
 
 

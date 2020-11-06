@@ -2,7 +2,7 @@
 
 
 #include "stdafx.h"
-#include "DataStore.h"
+#include "Store.h"
 #include "NotePad.h"
 #include "qsort.h"
 
@@ -10,12 +10,12 @@
 const int TabVal = 5;
 
 
-DataStore dataStore;                                        // Global since all classes need access
+Store store;                                        // Global since all classes need access
 
 
 // The destructor needs to return the Data records to the heap.
 
-DataStore::~DataStore() {
+Store::~Store() {
 int i;
 
   for (i = 0; i < data.end(); i++) {
@@ -26,10 +26,10 @@ int i;
   }
 
 
-void DataStore::setName(String& s) {name = s; dt.getToday();}
+void Store::setName(String& s) {name = s; dt.getToday();}
 
 
-int DataStore::missionNo() {
+int Store::missionNo() {
   if (!mssnNo) {Date d; d.getToday();   CTimeSpan t = d - dt;  mssnNo = t.GetSeconds() % 60;}
 
   return mssnNo;
@@ -39,19 +39,21 @@ int DataStore::missionNo() {
 // Load is called from serialize in the Document class
 // The basic idea is that the method reads some chunk from the file (Archive is a fileio surrogate)
 
-void DataStore::load(Archive& ar) {
+void Store::load(Archive& ar) {
 String s;
+
+  data.clear();
 
   while (ar.read(s)) add(s);
   }
 
 
-void DataStore::store(Archive& ar) {
+void Store::store(Archive& ar) {
 
   }
 
 
-void DataStore::add(String& s) {data.nextData().add(s);}
+void Store::add(String& s) {data.nextData().add(s);}
 
 
 
@@ -67,7 +69,7 @@ int pos = stg.find('\n');
   }
 
 
-void DataStore::sort() {qsort(&data[0], &data[data.end()-1]);}
+void Store::sort() {qsort(&data[0], &data[data.end()-1]);}
 
 
 

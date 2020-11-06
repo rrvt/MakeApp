@@ -30,9 +30,6 @@
     <ClInclude Include="MainFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataStore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Report.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,6 +51,12 @@
     <ClInclude Include="AppT3mplateView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Store.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StoreRpt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -63,9 +66,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MainFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DataStore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Report.cpp">
@@ -89,6 +89,12 @@
     <ClCompile Include="AppT3mplateView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Store.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StoreRpt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AppT3mplate.rc">
@@ -101,6 +107,9 @@
     </None>
     <None Include="..\README.md" />
     <None Include="res\AppT3mplate.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Toolbar07.bmp">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

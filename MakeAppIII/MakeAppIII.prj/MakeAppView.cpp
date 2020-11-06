@@ -24,8 +24,10 @@ double leftMgn  = options.leftMargin.stod(x);
 double rightMgn = options.rightMargin.stod(x);
 double botMgn   = options.botMargin.stod(x);
 
-  if (pDC->IsPrinting()) {setHorzMgns(leftMgn,  rightMgn);  setVertMgns(topMgn,  botMgn);}
-  else                   {setHorzMgns(0.33, 0.33); setVertMgns(0.33, 0.33);}
+  setMgns(leftMgn,  topMgn,  rightMgn, botMgn, pDC);
+
+//  if (pDC->IsPrinting()) {setHorzMgns(leftMgn,  rightMgn);  setVertMgns(topMgn,  botMgn);}
+//  else                   {setHorzMgns(0.33, 0.33); setVertMgns(0.33, 0.33);}
 
   CScrView::OnPrepareDC(pDC, pInfo);
   }

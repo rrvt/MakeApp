@@ -42,10 +42,10 @@ public:
   };
 
 
-// This facilitates the expansion of the Expandable array in the DataStore.  Essentially The pointers are
+// This facilitates the expansion of the Expandable array in the Store.  Essentially The pointers are
 // moved from the old version of the array to a new version that is larger.
 // Since we are moving the pointers we cannot delete the allocated Data entity from this class.
-// However, the allocated notes should be "deleted" when the dataStore goes out of scope or is deleted.
+// However, the allocated notes should be "deleted" when the store goes out of scope or is deleted.
 
 struct DataP {
 Data* p;
@@ -73,8 +73,8 @@ Data* p;
 
 // Define the iterator used to look at the data in the datastore.  It is here so that it can be friended
 
-class DataStore;
-typedef IterT<DataStore, Data> DSIter;                        // Iterator for the DataStore
+class Store;
+typedef IterT<Store, Data> DSIter;                        // Iterator for the Store
 
 
 // This is the main store.  I think of it as a permanent home for the data while the program is running.
@@ -86,7 +86,7 @@ typedef IterT<DataStore, Data> DSIter;                        // Iterator for th
 // a sort option is provided to change the order of the data in the array.
 // Finally, the destructor returns the allocated Data records back to the heap (see cpp file).
 
-class DataStore {
+class Store {
 
 Expandable<DataP, 4> data;
 
@@ -96,8 +96,8 @@ String name;
 Date   dt;
 int    mssnNo;
 
-  DataStore() : mssnNo(0) { }
- ~DataStore();
+  Store() : mssnNo(0) { }
+ ~Store();
 
   void setName(String& s);
   String date()           {return dt.getDate();}
@@ -125,5 +125,5 @@ private:
   };
 
 
-extern DataStore dataStore;                                   // Sometimes there only needs to one object
+extern Store store;                                   // Sometimes there only needs to one object
 

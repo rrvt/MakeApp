@@ -74,16 +74,12 @@
   <ComponentRef Id="AppT3mplateDocH.cmp"/>
   <ComponentRef Id="AppT3mplateViewCpp.cmp"/>
   <ComponentRef Id="AppT3mplateViewH.cmp"/>
-  <ComponentRef Id="DataStoreCpp.cmp"/>
-  <ComponentRef Id="DataStoreH.cmp"/>
   <ComponentRef Id="MainFrameCpp.cmp"/>
   <ComponentRef Id="MainFrameH.cmp"/>
   <ComponentRef Id="OptionsCpp.cmp"/>
   <ComponentRef Id="OptionsH.cmp"/>
   <ComponentRef Id="OptionsDlgCpp.cmp"/>
   <ComponentRef Id="OptionsDlgH.cmp"/>
-  <ComponentRef Id="ReportCpp.cmp"/>
-  <ComponentRef Id="ReportH.cmp"/>
   <ComponentRef Id="ResourceH.cmp"/>
   <ComponentRef Id="stdafxCpp.cmp"/>
   <ComponentRef Id="stdafxH.cmp"/>
@@ -91,12 +87,15 @@
   <ComponentRef Id="UtilitiesCpp.cmp"/>
   <ComponentRef Id="UtilitiesH.cmp"/>
   <ComponentRef Id="AppT3mplateVpj.cmp"/>
+  <ComponentRef Id="Store.h.cmp"/>
+  <ComponentRef Id="Store.cpp.cmp"/>
+  <ComponentRef Id="StoreRpt.h.cmp"/>
+  <ComponentRef Id="StoreRpt.cpp.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="AppT3mplateRes.ftr">
   <ComponentRef Id="AppT3mplate.ico.cmp"/>
   <ComponentRef Id="AppT3mplateRc2.cmp"/>
-  <ComponentRef Id="Toolbar03Bmp.cmp"/>
-  <ComponentRef Id="Toolbar04Bmp.cmp"/>
+  <ComponentRef Id="Toolbar07Bmp.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="UninstallMakeApp.ftr">
   <ComponentRef Id="UninstallMakeApp.cmp"/>
@@ -292,17 +291,6 @@
                       Source="$(var.SolutionDir)..\AppT3mplate.prj\AppT3mplateView.h" KeyPath="yes"/>
   </Component>
 
-  <Component Id="DataStoreCpp.cmp"  Guid="1883917C-EB96-4CF4-95D0-185C59E42FAA"
-                                                              Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="DataStoreCpp.cmp"
-                          Source="$(var.SolutionDir)..\AppT3mplate.prj\DataStore.cpp" KeyPath="yes"/>
-  </Component>
-
-  <Component Id="DataStoreH.cmp"  Guid="DE48DBD9-E1A4-4744-B2F2-E5A5D8787A39"
-                                                              Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="DataStoreH.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\DataStore.h" KeyPath="yes"/>
-  </Component>
-
   <Component Id="MainFrameCpp.cmp"  Guid="06CD3139-1F6D-48FA-8825-81B76D8FDC3B"
                                                               Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="MainFrameCpp.cmp"
@@ -334,16 +322,6 @@
                                                               Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="OptionsDlgH.cmp"
                             Source="$(var.SolutionDir)..\AppT3mplate.prj\OptionsDlg.h" KeyPath="yes"/>
-  </Component>
-
-  <Component Id="ReportCpp.cmp"  Guid="A1E78671-AECA-4A53-B5B1-3FCCF79B4FD9"
-                                                              Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="ReportCpp.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\Report.cpp" KeyPath="yes"/>
-  </Component>
-
-  <Component Id="ReportH.cmp"  Guid="BDB55F3B-A6D7-41D5-80F6-548C900CFD8F"
-                                                              Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="ReportH.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\Report.h" KeyPath="yes"/>
   </Component>
 
   <Component Id="ResourceH.cmp"  Guid="FE2B8FCC-07BC-41FA-A394-2A37FE111133"
@@ -383,6 +361,27 @@
                         Source="$(var.SolutionDir)..\AppT3mplate.prj\AppT3mplate.vpj" KeyPath="yes"/>
   </Component>
 
+  <Component Id="Store.h.cmp"  Guid="F5B5C26F-8FBC-4EF8-89A7-798CA984BECA"
+                                                              Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="Store.h.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\Store.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="Store.cpp.cmp"  Guid="1FCDC2C6-5377-4D87-B691-4389F49C0D9F"
+                                                              Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="Store.cpp.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\Store.cpp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="StoreRpt.h.cmp"  Guid="E3406C51-6382-4438-8094-24DD9B8053A0"
+                                                              Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="StoreRpt.h.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\StoreRpt.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="StoreRpt.cpp.cmp"  Guid="B95BFB64-0A76-44DD-B865-F14E3B893B5A"
+                                                              Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="StoreRpt.cpp.cmp"
+                            Source="$(var.SolutionDir)..\AppT3mplate.prj\StoreRpt.cpp" KeyPath="yes"/>
+  </Component>
+
 </Fragment>
 
 <Fragment>
@@ -399,16 +398,10 @@
                     Source="$(var.SolutionDir)..\AppT3mplate.prj\res\AppT3mplate.rc2" KeyPath="yes"/>
   </Component>
 
-  <Component Id="Toolbar03Bmp.cmp"  Guid="27676391-A5CF-4918-A674-373F513C313C"
+  <Component Id="Toolbar07Bmp.cmp"  Guid="F8D986A4-DDE7-49AD-91F7-1F2F2359B5D9"
                                                           Directory="MakeApp_AppT3mplate.prj_res.pff">
-    <File Id="Toolbar03Bmp.cmp"
-                      Source="$(var.SolutionDir)..\AppT3mplate.prj\res\Toolbar03.bmp" KeyPath="yes"/>
-  </Component>
-
-  <Component Id="Toolbar04Bmp.cmp"  Guid="799C12AF-0B81-41EF-8872-5158701D3695"
-                                                          Directory="MakeApp_AppT3mplate.prj_res.pff">
-    <File Id="Toolbar04Bmp.cmp"
-                      Source="$(var.SolutionDir)..\AppT3mplate.prj\res\Toolbar04.bmp" KeyPath="yes"/>
+    <File Id="Toolbar07Bmp.cmp"
+                      Source="$(var.SolutionDir)..\AppT3mplate.prj\res\Toolbar07.bmp" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -416,7 +409,7 @@
 <Fragment>
 
   <Component Id="UninstallMakeApp.cmp" 
-                                  Guid="DD15B6A9-1F4E-44EC-9A0C-A8FCFE21D8D0" Directory="MakeApp.pmf">
+                                  Guid="524C9BEB-7C24-431D-8B42-28D0C899A6AC" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall MakeApp"

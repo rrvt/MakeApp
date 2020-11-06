@@ -6,6 +6,7 @@
 
 class AppT3mplateDoc;
 class AppT3mplateView;
+class MainFrame;
 
 
 // AppT3mplate:
@@ -21,13 +22,14 @@ public:
 
           AppT3mplateDoc*  doc()  {return (AppT3mplateDoc*)  CApp::getDoc();}
           AppT3mplateView* view() {return (AppT3mplateView*) CApp::getView();}
+          MainFrame*       mainFrm() {return (MainFrame*) m_pMainWnd;}
 
   DECLARE_MESSAGE_MAP()
 
   afx_msg void OnFilePrintSetup();
   afx_msg void OnAppAbout();
   afx_msg void OnHelp();
-};
+  };
 
 
 extern AppT3mplate theApp;
