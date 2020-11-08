@@ -104,7 +104,7 @@ int x;
   cb->SetText(_T("Greeks"));
 #endif
 
-  notePad << _T("Greeks") << nCrlf;  invalidate();
+  notePad << _T("Greeks") << nCrlf;  display(NoteSource);
   }
 
 
@@ -120,7 +120,9 @@ MainFrame* mf = theApp.mainFrm();
   s  = cb->GetItem(i);
   x  = cb->GetItemData(i);   mf->SetFocus();
 
-  notePad << _T("On Change, Item = ") << s << _T(", Data = ") << x << nCrlf;   invalidate();
+  notePad << _T("On Change, Item = ") << s << _T(", Data = ") << x << nCrlf;
+
+  display(NoteSource);
   }
 
 
@@ -129,7 +131,7 @@ void AppT3mplateDoc::OnTBEditBox() {
 TBEditBox*  eb = TBEditBox::get(ID_EditBox);   if (!eb) return;
 String      s  = eb->GetContentsAll(ID_EditBox);
 
-  notePad << s << nCrlf;  invalidate();
+  notePad << s << nCrlf;   display(NoteSource);
   }
 
 
@@ -137,21 +139,21 @@ void AppT3mplateDoc::myButton1() {
 TBEditBox* eb = TBEditBox::get(ID_EditBox);   if (!eb) return;
 String     s  = eb->GetContentsAll(ID_EditBox);
 
-  notePad << s << nCrlf;  invalidate();
+  notePad << s << nCrlf;   display(NoteSource);
   }
 
 
-void AppT3mplateDoc::onOption1() {notePad << _T("Option 1") << nCrlf; dataSource = NoteSource; invalidate();}
-void AppT3mplateDoc::onOption2() {notePad << _T("Option 2") << nCrlf; dataSource = NoteSource; invalidate();}
-void AppT3mplateDoc::onOption3() {notePad << _T("Option 3") << nCrlf; dataSource = NoteSource; invalidate();}
+void AppT3mplateDoc::onOption1() {notePad << _T("Option 1") << nCrlf; display(NoteSource);}
+void AppT3mplateDoc::onOption2() {notePad << _T("Option 2") << nCrlf; display(NoteSource);}
+void AppT3mplateDoc::onOption3() {notePad << _T("Option 3") << nCrlf; display(NoteSource);}
 
 
-void AppT3mplateDoc::onOption21() {notePad << _T("Option 21") << nCrlf; dataSource = NoteSource; invalidate();}
-void AppT3mplateDoc::onOption22() {notePad << _T("Option 22") << nCrlf; dataSource = NoteSource; invalidate();}
-void AppT3mplateDoc::onOption23() {notePad << _T("Option 23") << nCrlf; dataSource = NoteSource; invalidate();}
+void AppT3mplateDoc::onOption21() {notePad << _T("Option 21") << nCrlf; display(NoteSource);}
+void AppT3mplateDoc::onOption22() {notePad << _T("Option 22") << nCrlf; display(NoteSource);}
+void AppT3mplateDoc::onOption23() {notePad << _T("Option 23") << nCrlf; display(NoteSource);}
 
 
-void AppT3mplateDoc::OnTestEditBoxes() {dataSource = NoteSource; invalidate();}
+void AppT3mplateDoc::OnTestEditBoxes() {display(NoteSource);}
 
 
 // AppT3mplateDoc commands
@@ -159,11 +161,11 @@ void AppT3mplateDoc::OnTestEditBoxes() {dataSource = NoteSource; invalidate();}
 
 void AppT3mplateDoc::OnTest() {
 
-  theApp.setTitle(_T("My Test"));
+  notePad.clear();  theApp.setTitle(_T("My Test"));
 
-  notePad.clear();  notePad << _T("Hello World") << nCrlf;
+  notePad << _T("Hello World") << nCrlf;
 
-  invalidate();
+  display(NoteSource);
   }
 
 
@@ -172,7 +174,7 @@ void AppT3mplateDoc::OnOptions() {options();  view()->setOrientation(options.ori
 
 void AppT3mplateDoc::OnFileOpen() {
 
-  dataSource = StoreSource;
+  notePad.clear();   dataSource = StoreSource;
 
   pathDsc = {_T("Ugly Example"), pathDsc.name, _T("txt"), _T("*.txt")};
 
@@ -180,14 +182,13 @@ void AppT3mplateDoc::OnFileOpen() {
 
   pathDsc.name = getMainName(path);
 
-//  view()->leftFooter = pathDsc.name;  view()->date.getToday();
-
-  notePad.clear();
-
   if (!OnOpenDocument(path)) messageBox(_T(" Not Loaded!"));
 
-  store.setName(pathDsc.name);   invalidate();
+  store.setName(pathDsc.name);   display(StoreSource);
   }
+
+
+void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 
 void AppT3mplateDoc::displayDataStore() {dataSource = StoreSource; invalidate();}

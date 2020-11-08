@@ -14,13 +14,14 @@
 #define IDC_NameVer              200
 #define IDC_Copyright            201
 #define IDC_CompanyName          202
-#define IDC_TopMargin            203
-#define IDC_LeftMargin           204
-#define IDC_RightMargin          205
-#define IDC_BotMargin            206
-#define IDC_EDIT1                207
-#define IDC_EDIT2                208
-#define IDC_EDIT3                209
+#define IDC_Orientation          203
+#define IDC_TopMargin            204
+#define IDC_LeftMargin           205
+#define IDC_RightMargin          206
+#define IDC_BotMargin            207
+#define IDC_EDIT1                208
+#define IDC_EDIT2                209
+#define IDC_EDIT3                210
 
 #define ID_File_New              400
 #define ID_File_Open             401
@@ -38,7 +39,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE  104
-#define _APS_NEXT_CONTROL_VALUE   210
+#define _APS_NEXT_CONTROL_VALUE   211
 #define _APS_NEXT_SYMED_VALUE     310
 #define _APS_NEXT_COMMAND_VALUE   411
 #endif

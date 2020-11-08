@@ -5,7 +5,6 @@
 #include "ReportBase.h"
 
 
-
 class StoreRpt : public ReportBase {
 
 public:
@@ -14,7 +13,7 @@ public:
  ~StoreRpt() { }
 
 //  void StoreRpt::display(CScrView& vw);
-  void StoreRpt::print(CScrView& vw);
+  void print(CScrView& vw);
 
 //  void detWraps(  CScrView& vw);               // Wrap each entity in the report body
 

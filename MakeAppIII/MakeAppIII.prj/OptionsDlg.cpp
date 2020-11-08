@@ -5,6 +5,10 @@
 #include "OptionsDlg.h"
 
 
+TCchar* PortraitKey  = _T("Portrait");
+TCchar* LandscapeKey = _T("Landscape");
+
+
 // OptionsDlg dialog
 
 IMPLEMENT_DYNAMIC(OptionsDlg, CDialogEx)
@@ -19,22 +23,35 @@ END_MESSAGE_MAP()
 
 
 OptionsDlg::OptionsDlg(CWnd* pParent) : CDialogEx(IDD_Options, pParent),
-                        topMargin(_T("")), leftMargin(_T("")), rightMargin(_T("")), botMargin(_T("")) { }
+     topMargin(_T("")), leftMargin(_T("")), rightMargin(_T("")), botMargin(_T("")), orient(_T("")) { }
 
 
 OptionsDlg::~OptionsDlg() { }
 
 
+
+BOOL OptionsDlg::OnInitDialog() {
+  CDialogEx::OnInitDialog();
+
+  orientCtrl.AddString(PortraitKey);
+  orientCtrl.AddString(LandscapeKey);
+
+  return TRUE;
+  }
+
+
 void OptionsDlg::DoDataExchange(CDataExchange* pDX) {
   CDialogEx::DoDataExchange(pDX);
-  DDX_Text(   pDX, IDC_TopMargin,   topMargin);
-  DDX_Text(   pDX, IDC_LeftMargin,  leftMargin);
-  DDX_Text(   pDX, IDC_RightMargin, rightMargin);
-  DDX_Text(   pDX, IDC_BotMargin,   botMargin);
-  DDX_Control(pDX, IDC_TopMargin,   topCtrl);
-  DDX_Control(pDX, IDC_LeftMargin,  leftCtrl);
-  DDX_Control(pDX, IDC_RightMargin, rightCtrl);
-  DDX_Control(pDX, IDC_BotMargin,   botCtrl);
+  DDX_CBString(pDX, IDC_Orientation, orient);
+  DDX_Control( pDX, IDC_Orientation, orientCtrl);
+  DDX_Text(    pDX, IDC_TopMargin,   topMargin);
+  DDX_Text(    pDX, IDC_LeftMargin,  leftMargin);
+  DDX_Text(    pDX, IDC_RightMargin, rightMargin);
+  DDX_Text(    pDX, IDC_BotMargin,   botMargin);
+  DDX_Control( pDX, IDC_TopMargin,   topCtrl);
+  DDX_Control( pDX, IDC_LeftMargin,  leftCtrl);
+  DDX_Control( pDX, IDC_RightMargin, rightCtrl);
+  DDX_Control( pDX, IDC_BotMargin,   botCtrl);
 }
 
 
@@ -69,4 +86,16 @@ bool    periodSeen = false;
     Beep(1500, 120);   ctrl.SetSel(i, i+1);   ctrl.ReplaceSel(_T(""));
     }
   }
+
+
+
+#if 0
+BOOL OptionsDlg::CreateEx(DWORD dwExStyle, LPCTSTR lpszClassName, LPCTSTR lpszWindowName,
+                          DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, LPVOID lpParam) {
+  // TODO: Add your specialized code here and/or call the base class
+
+  return CDialogEx::CreateEx(dwExStyle, lpszClassName, lpszWindowName, dwStyle, rect,
+                                                                              pParentWnd, nID, lpParam);
+  }
+#endif
 

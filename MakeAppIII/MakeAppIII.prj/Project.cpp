@@ -55,9 +55,6 @@ Tchar  ch;
   }
 
 
-//                                    findSubDirs     basePath
-//                                    getName
-
 
 void Project::determineBasePath(TCchar* helpPath) {
 String   s = helpPath;
@@ -188,7 +185,9 @@ void Project::copyVxcproj(String& srcPath, String& dstPath, TCchar* srcName) {
 
 
 void Project::copyProj(TCchar* suffix, FixIt fixIt)
-       {String srcName = AppT3mplate; srcName += suffix;   copyFile(testPrjPath, projPath, srcName, fixIt);}
+    {String srcName = AppT3mplate; srcName += suffix;   copyFile(testPrjPath, projPath, srcName, fixIt);}
+
+
 void Project::copyHelpPrj(TCchar* srcName, FixIt fixIt)
                                                       {copyFile(testHlpPath, helpPath, srcName, fixIt);}
 

@@ -13,6 +13,7 @@ extern const int BigNmbr;
 class CScrView : public CScrollView {
 
 static int lastPos;
+bool       isNP;
 
 protected:
 
@@ -22,9 +23,10 @@ PrintMgr   pMgr;
 
 public:
 
-  CScrView() : nMgr(*this), dMgr(*this), pMgr(*this) { }
+  CScrView() : isNP(false), nMgr(*this), dMgr(*this), pMgr(*this) { }
  ~CScrView() { }
 
+          void     setIsNotePad(bool isNotePad) {isNP = isNotePad;}
           void     setFont(TCchar* f, int points = 120);
           void     setMgns(double left, double top, double right, double bot, CDC* dc);
 
@@ -35,9 +37,9 @@ public:
   // Override to prepare NotePad output, then call CScrView::onPrepareOutput to start the display/printer
   // output
 
-  virtual void     onPrepareOutput(bool printing = false);
+  virtual void     onPrepareOutput(bool isNotePad, bool printing = false);
 
-  virtual void     OnDraw(CDC* pDC) {if (nMgr.isEmpty()) dMgr.OnDraw(pDC); else nMgr.OnDraw(pDC);}
+  virtual void     OnDraw(CDC* pDC) {if (isNP) nMgr.OnDraw(pDC); else dMgr.OnDraw(pDC);}
                                                                             // Override to draw this view
           void     invalidate() {Invalidate();}
 

@@ -21,7 +21,7 @@
 #include "SlickEdit.h"
 
 
-static TCchar* AppT3mplate     = _T("AppT3mplate");
+static TCchar* AppT3mplate = _T("AppT3mplate");
 static TCchar* TestSolDir  = _T("AppT3mplate\\");
 static TCchar* TestPrjDir  = _T("AppT3mplate.prj\\");
 static TCchar* TestHlpDir  = _T("Help\\");
@@ -42,17 +42,17 @@ static TCchar* Msg         = _T("The build order should be set in Vs2017.  This 
 IMPLEMENT_DYNCREATE(MakeAppDoc, CDoc)
 
 BEGIN_MESSAGE_MAP(MakeAppDoc, CDoc)
-  ON_COMMAND(ID_NameProject,  &MakeAppDoc::OnNameProject)
-  ON_COMMAND(ID_FixSlickEdit, &MakeAppDoc::OnFixSlickEdit)
-  ON_COMMAND(ID_File_Save,    &MakeAppDoc::OnFileSave)
-  ON_COMMAND(ID_Test,         &MakeAppDoc::OnTest)
-  ON_COMMAND(ID_Options,      &MakeAppDoc::OnOptions)
+  ON_COMMAND(ID_NameProject,  &OnNameProject)
+  ON_COMMAND(ID_FixSlickEdit, &OnFixSlickEdit)
+  ON_COMMAND(ID_File_Save,    &OnFileSave)
+  ON_COMMAND(ID_Test,         &OnTest)
+  ON_COMMAND(ID_Options,      &OnOptions)
 END_MESSAGE_MAP()
 
 
 // MakeAppDoc construction/destruction
 
-MakeAppDoc::MakeAppDoc() noexcept {
+MakeAppDoc::MakeAppDoc() noexcept : dataSource(NoteSource) {
   saveAsTitle = _T("Make App");   defExt = _T("txt");   defFilePat = _T("*.txt");
   }
 
@@ -119,23 +119,7 @@ void MakeAppDoc::OnTest() {
   }
 
 
-void MakeAppDoc::OnOptions() {
-OptionsDlg dlg;
-
-  dlg.topMargin   = options.topMargin;
-  dlg.leftMargin  = options.leftMargin;
-  dlg.rightMargin = options.rightMargin;
-  dlg.botMargin   = options.botMargin;
-
-  if (dlg.DoModal() == IDOK) {
-    options.topMargin    = dlg.topMargin;
-    options.leftMargin   = dlg.leftMargin;
-    options.rightMargin  = dlg.rightMargin;
-    options.botMargin    = dlg.botMargin;
-
-    options.store();
-    }
-  }
+void MakeAppDoc::OnOptions() {options();  view()->setOrientation(options.orient);}
 
 
 

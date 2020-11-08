@@ -121,6 +121,27 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Update
 
+### Update 11/7/20
+
+Consolidating the changes uploaded yesterday.  Created a virtual module for the open notepad display and
+printing.  The open notepad has the same problems as other reports with respect to interference between
+the display and printing.  So the NoteRpt module allows separation of printing and displaying.
+
+NoteRpt is stored in the library and provides a minimal package for dealing with open notepad output.
+However, most of it is virtual and can be overridden to affect your version of the open notepad output.
+
+### Update 11/6/20
+
+Added provisions for loading, storing, displaying and printing various different data types.  This
+required significant additions to the library.   One of the problems tackled with these changes revolves
+around the fact that printing and displaying the same data is performed by two different threads.  Thus
+the original simpleminded approach on having one data structure holding the data to be printed and
+displayed failed to perform correctly as the threads interfered with each other.  The solution chosen
+here is to provide a separate data structure holding the data to be printed and displayed.
+
+Furthermove explored buttons, combo boxes and edit boxes being added to the ToolBar.  While these examples
+perform no useful services they do perform.
+
 ### Update 9/10/20
 Library improvement project.  Changed the Expandable Array classes, added templates for a pointer only
 class in the ExpandableP class definition.  It turned out I was defining this RcdPtr class many times

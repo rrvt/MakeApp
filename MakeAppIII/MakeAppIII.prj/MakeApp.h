@@ -6,6 +6,7 @@
 
 class MakeAppDoc;
 class MakeAppView;
+class MainFrame;
 
 
 // MakeApp:
@@ -19,14 +20,15 @@ public:
 
   virtual BOOL InitInstance();
 
-          MakeAppDoc*  doc()  {return (MakeAppDoc*)  CApp::getDoc();}
-          MakeAppView* view() {return (MakeAppView*) CApp::getView();}
+          MakeAppDoc*  doc()     {return (MakeAppDoc*)  CApp::getDoc();}
+          MakeAppView* view()    {return (MakeAppView*) CApp::getView();}
+          MainFrame*   mainFrm() {return (MainFrame*) m_pMainWnd;}
+
+  DECLARE_MESSAGE_MAP()
 
   afx_msg void OnAppAbout();
   afx_msg void OnSpecifyBaseDir();
   afx_msg void OnHelp();
-
-  DECLARE_MESSAGE_MAP()
   };
 
 

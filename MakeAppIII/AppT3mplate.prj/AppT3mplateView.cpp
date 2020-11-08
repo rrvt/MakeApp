@@ -3,9 +3,10 @@
 
 #include "stdafx.h"
 #include "AppT3mplateView.h"
-#include "Options.h"
 #include "AppT3mplate.h"
 #include "AppT3mplateDoc.h"
+#include "Options.h"
+#include "Resources.h"
 
 
 // AppT3mplateView
@@ -16,12 +17,18 @@ BEGIN_MESSAGE_MAP(AppT3mplateView, CScrView)
 END_MESSAGE_MAP()
 
 
+AppT3mplateView::AppT3mplateView() noexcept : dspNote( nMgr.getNotePad()), prtNote( pMgr.getNotePad()),
+                                              dspStore(dMgr.getNotePad()), prtStore(pMgr.getNotePad()) {
+ResourceData res;
+String       pn;
+  if (res.getProductName(pn)) prtNote.setTitle(pn);
+  }
+
 
 BOOL AppT3mplateView::PreCreateWindow(CREATESTRUCT& cs) {
 
   return CScrView::PreCreateWindow(cs);
   }
-
 
 
 void AppT3mplateView::OnPrepareDC(CDC* pDC, CPrintInfo* pInfo) {
@@ -31,38 +38,42 @@ double leftMgn  = options.leftMargin.stod(x);
 double rightMgn = options.rightMargin.stod(x);
 double botMgn   = options.botMargin.stod(x);
 
+  setIsNotePad(!notePad.isEmpty() || doc()->dataSrc() == NoteSource);
+
   setMgns(leftMgn,  topMgn,  rightMgn, botMgn, pDC);   CScrView::OnPrepareDC(pDC, pInfo);
   }
 
 
 // Perpare output (i.e. report) then start the output with the call to SCrView
 
-void AppT3mplateView::onPrepareOutput(bool printing) {
+void AppT3mplateView::onPrepareOutput(bool isNotePad, bool printing) {
+DataSource ds = isNotePad ? NoteSource : doc()->dataSrc();
 
   switch (printing) {
-    case true : switch(doc()->dataSrc()) {
+    case true : switch(ds) {
+                  case NoteSource : prtNote.print(*this);  break;
                   case StoreSource: prtStore.print(*this); break;
                   }
                 break;
 
-    case false: switch(doc()->dataSrc()) {
-                  case NoteSource : break;
+    case false: switch(ds) {
+                  case NoteSource : dspNote.display(*this);  break;
                   case StoreSource: dspStore.display(*this); break;
                   }
                 break;
     }
 
-  CScrView::onPrepareOutput();
+  CScrView::onPrepareOutput(isNotePad, printing);
   }
-
-
 
 
 void AppT3mplateView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo) {
 
-  setPrntrOrient(theApp.getDevMode(), pDC);
-
-  CScrView::OnBeginPrinting(pDC, pInfo);
+  switch(doc()->dataSrc()) {
+    case NoteSource : setOrientation(options.orient); break;    // Setup separate Orientation?
+    case StoreSource: setOrientation(options.orient); break;
+    }
+  setPrntrOrient(theApp.getDevMode(), pDC);   CScrView::OnBeginPrinting(pDC, pInfo);
   }
 
 
@@ -70,9 +81,35 @@ void AppT3mplateView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo) {
 // The output streaming functions are very similar to NotePad's streaming functions so it should not
 // be a great hardship to construct a footer.
 
-void AppT3mplateView::printFooter(Display& dev, int pageNo) {prtStore.footer(dev, pageNo);}
+void AppT3mplateView::printFooter(Display& dev, int pageNo) {
+  switch(doc()->dataSrc()) {
+    case NoteSource : prtNote.footer(dev, pageNo);  break;
+    case StoreSource: prtStore.footer(dev, pageNo); break;
+    }
+  }
 
 
+
+void AppT3mplateView::OnEndPrinting(CDC* pDC, CPrintInfo* pInfo) {
+
+  CScrView::OnEndPrinting(pDC, pInfo);
+
+  switch(doc()->dataSrc()) {
+    case NoteSource : break;
+    case StoreSource: break;
+    }
+  }
+
+
+void AppT3mplateView::OnSetFocus(CWnd* pOldWnd) {
+
+  CScrView::OnSetFocus(pOldWnd);
+
+  switch(doc()->dataSrc()) {
+    case NoteSource : break;
+    case StoreSource: break;
+    }
+  }
 
 
 // AppT3mplateView diagnostics

@@ -28,6 +28,7 @@ public:
   virtual BOOL OnNewDocument();
 
   DataSource dataSrc() {return dataSource;}
+  void       display(DataSource ds);
 
   virtual void serialize(Archive& ar);
 

@@ -5,6 +5,10 @@
 #include "Resource.h"
 
 
+extern TCchar* PortraitKey;
+extern TCchar* LandscapeKey;
+
+
 // OptionsDlg dialog
 
 class OptionsDlg : public CDialogEx {
@@ -12,18 +16,27 @@ class OptionsDlg : public CDialogEx {
   DECLARE_DYNAMIC(OptionsDlg)
 
 public:
-CString topMargin;
-CString leftMargin;
-CString rightMargin;
-CString botMargin;
-CEdit   topCtrl;
-CEdit   leftCtrl;
-CEdit   rightCtrl;
-CEdit   botCtrl;
+CComboBox orientCtrl;
+CString   orient;
+
+CString   topMargin;
+CString   leftMargin;
+CString   rightMargin;
+CString   botMargin;
+CEdit     topCtrl;
+CEdit     leftCtrl;
+CEdit     rightCtrl;
+CEdit     botCtrl;
 
   OptionsDlg(CWnd* pParent = nullptr);   // standard constructor
   virtual ~OptionsDlg();
 
+  virtual BOOL OnInitDialog();
+
+#if 0
+  virtual BOOL CreateEx(DWORD dwExStyle, LPCTSTR lpszClassName, LPCTSTR lpszWindowName,
+                     DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, LPVOID lpParam = NULL);
+#endif
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
   enum { IDD = IDD_Options };

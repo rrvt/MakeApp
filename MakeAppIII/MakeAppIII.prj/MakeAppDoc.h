@@ -5,12 +5,17 @@
 #include "CDoc.h"
 
 
+enum DataSource {NoteSource};
+
+
 class MakeAppDoc : public CDoc {
 
-String saveAsTitle;                                            // Save As Parameters, examples:
-String defFileName;                                            // _T("mumble.txt")
-String defExt;                                                 // _T("txt")
-String defFilePat;                                             // _T("*.txt")
+DataSource dataSource;
+
+String     saveAsTitle;                                      // Save As Parameters, examples:
+String     defFileName;                                      // _T("mumble.txt")
+String     defExt;                                           // _T("txt")
+String     defFilePat;                                       // _T("*.txt")
 
 protected: // create from serialization only
 
@@ -20,6 +25,9 @@ protected: // create from serialization only
 public:
 
   virtual BOOL OnNewDocument();
+
+  DataSource dataSrc() {return dataSource;}
+  void       display(DataSource ds);
 
   virtual void serialize(Archive& ar);
 
