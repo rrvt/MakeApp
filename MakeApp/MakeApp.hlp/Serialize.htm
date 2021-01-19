@@ -1,0 +1,223 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/OneColumnPage.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Serialize</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<link href="App.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="content">
+<!-- InstanceBeginEditable name="Title" -->
+<h1>Serialize Operations</h1>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="Body" -->
+<h2>CDoc, Reading and Writing to a File</h2>
+<p>
+Visual Studio and MFC split the opening of a file for input and/or output and the actual grunt work of reading
+and/or writing characters or bytes (i.e. binary files).  It does this by providing a function to open a file
+for reading (i.e. OnOpenDocument) and another to open a file for writing (i.e. OnSaveDocument).  Fortunately
+Microsoft knew they were insufficient and allow them to be replaced with different versions.  Both functions
+open the file and call serialize with an object suitable for reading or writing to the file.
+</p>
+<p>
+The only thing that I have done is override those two functions (and provide others with different features) and
+provide a different object for doing the actual reading and writing called "Archive" when serialize is called.
+Of course that means I had to override serialize too.
+</p>
+<p>
+The only other feature in the template is the declaration of:
+<blockquote>
+enum DataSource {NoteSource, StoreSource, FontSource};
+</blockquote>
+Then a single object of DataSource is defined in the applications Document.  The purpose of this enum is
+to specify to serialize and the view object what is being loaded, stored, displayed and/or printed.  Serialize
+and some of the View functions (more later) contain a switch statement like the following:
+<blockquote>
+void AppTemplateDoc::serialize(Archive& ar) {<br/>
+<br/>
+&nbsp;&nbsp;if (ar.isStoring())<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;switch(dataSource) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case NotePadSrc : notePad.archive(ar); return;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc: store.store(ar); return;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default         : return;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;else<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;switch(dataSource) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc: store.load(ar); return;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default         : return;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;}
+</blockquote>
+</p>
+<p>
+The actual loading and storing occurs in the store object.  The details can be discerned from the store module and
+are not particularly interesting.
+</p>
+<h3>ExpandableP Module</h3>
+<p>
+However, there is one detail that may be interesting.  Over the years I've implemented link list, hash tables,
+arrays (single dimension and multidimensional).  Hash tables have a nice property of having a short
+search time.  The easiest method involved a fixed size chunk of memory.  This had a downside of getting full
+(e.g. 85% of slots being filled).  So in the days of assembly language and C I "invented" a method to double
+the size of the memory holding the hash table.  When I had control of the heap this was done by allocating a
+empty chunk of memory next to the full chunk and rehashing all the entries with the new chunk size.  That
+doesn't work so well in the Windows world where the heap is best left to Microsoft...
+</p>
+<p>
+So many storage solutions require indexing into the store which implies an array or vector.  Doesn't mean it
+has to be an array, that is just the easiest implementation.  One can index into a link list but it is messier
+and takes slightly longer than indexing to a chunk of memory.  Furthermore, one cannot sort a link list easily
+and sorting a hash table requires an outside vector and more messy code.
+</p>
+<p>
+MFC does implement containers and I've tinkered with them from time to time.  They may have been around when I
+started working out Expandable but I just did not know about or trust them.  So Expandable and ExpandableP are
+two slightly different (c++) template implantations that do one thing: implement a vector of objects that grows
+as required.  Of course there are some rules that makes all this work fairly simply.
+</p>
+<h4>The Expandable Template</h4>
+<p>
+C++ allows any object to be the element of an array.  This is very nice.  If I wanted to keep all the attributes
+of a dog in an object:
+<blockquote>
+class ADog {<br/>
+&nbsp;&nbsp;String name;<br/>
+&nbsp;&nbsp;int weight;<br/>
+&nbsp;&nbsp;int height;<br/>
+&nbsp;&nbsp;String breed;<br/>
+&nbsp;&nbsp;};<br/>
+</blockquote>
+Then I could keep a list of dogs in an array:
+<blockquote>
+ADog dogs[10];
+</blockquote>
+</p>
+<p>
+The following are typical uses of the array dogs:
+</p>
+<blockquote>
+&nbsp;&nbsp;ADog* aDog = &dogs[i];<br/>
+&nbsp;&nbsp;String name = dogs[i].name;
+</blockquote>
+<p>
+However, after ten additions to the array it is full and no further entries may be made.  Expandable fixes 
+the capacity problem.  Here is the declaration for the same entity:
+</p>
+<blockquote>
+Expandable&#8249;ADog, 2&#8250; dogs;
+</blockquote>
+<p>
+The same uses may be made of this version of dogs.  The difference is that it never fills up.
+Behind the scenes the indexed reference is checked to be sure that the value is within the bounds of the physical
+space
+and if it is not then the array is increased in size.  This requires that the element of the array is copyable.
+For example, the ADog class must implement a copy constructor and the assignment operator:
+</p>
+<blockquote>
+&nbsp;&nbsp;ADog(Adog& aDog) {copy(aDog);}<br/>
+&nbsp;&nbsp;ADog& operator= (ADog& aDog) {copy(aDog); return *this;}
+</blockquote>
+</p>
+<p>
+There is one more little feature that ADog must have:  The destructor (i.e. ~ADog();) must clean up after itself.
+That is if there are any heap nodes pointed to by an ADog object then the ADog destructor is responsible for
+releasing them back to the heap.
+</p>
+<p>
+An Expandable object maintains two counts, the number of elements that have been accessed and the number of
+elements that may be accessed.  If an access request is received that exceeds the number that may be accessed
+then the current number of elements that may be accesses is doubled.  This check occurs with every access so there
+a little gotcha built in to this algorithm.  A pointer to an element of the array is only good until the next
+indexed access to the array because the array may be moved with any access.
+</p>
+<h4>The ExpandableP Template</h4>
+<p>
+Well the Expandable template solves a couple of problems, the fixed size of a C/C++ array and the need to have
+a simple data structure for holding information in an indexed structure.  It does come at the cost of copying all
+the data each time the array grows.  With a big object that could waste some time.  It occurred to me that
+the array could hold a pointer to an object and the copying would only need to move the pointer.  Furthermore,
+since the data is moved then a pointer to the data would not be subject to pointing to a non-existent heap
+element.
+</p>
+<p>
+The ExpandableP Template along with the RcdPtrT template implement an array of pointers to objects:
+<blockquote>
+class Datum { ... };<br/><br/>
+typedef RcdPtrT&#8249;Datum&#8250; DatumP;<br/>
+</blockquote>
+Then later in the class that will contain the expandable object declare:
+<blockquote>
+class Store {<br/><br/>
+ExpandableP&#8249;Datum, DatumP, 2&#8250; data;
+</blockquote>
+The record pointer template will handle all of the allocation, constructor call, deallocation and destructor
+call of the Datum objects.  The pointers are moved but the actual data objects do not.
+</p>
+<h4>The Iterator Template and the Helping Functions Required</h4>
+<p>
+There is one more topic that should be mentioned.  Another template is useful with respect to both of the
+Expandable Templates, an iterator.  Unfortunately, it is not really feasible (with this implementation anyway) to
+hide some of the details of an iterator for an expandable array in the private section of an object.
+</p>
+<p>
+An expandable iterator is an object that incrementally returns a pointer for each element in an expandable array.
+A pointer is returned for each element in the array and when the end is reached a null (i.e. 0, zero, NULL) 
+is returned.  Now it just so
+happens that zero is a special value in C/C++.  Zero is always treated as boolean false.  Any non-zero value is
+always treated as boolean true.  This means we can write a loop like this:
+<blockquote>
+Element* elem;<br/><br/>
+&nbsp;&nbsp;for (elem = f(); elem; elem = g()) { ... }
+</blockquote>
+where f() and g() return a pointer to an Element object.  This is just about the simplest loop can write.  There
+is no need to find out how many elements are in the array (if f() and g() reference an array) and the body
+of the loop (the stuff between the squiggly brackets) can trust that the pointer is valid.
+</p>
+<p>
+The IterT defines an iterator for a specific class that contains a single expandable object as follows:
+<blockquote>
+class Store;<br/>
+typedef IterT&#8249;Store, Datum&#8250; DSIter;                        // Iterator for the Store
+</blockquote>
+It does not require the actual expandable data structure, just the class that contains the expandable data
+structure.  It also needs the object that is being returned by the iterator, in this case the Datum.
+</p>
+<p>
+By itself, the iterator can do very little so it requires some helper functions in the Store class.  They can
+all be public or private or some combination of public and private.  Here is the list of functions:
+<blockquote>
+private:<br/><br/>
+
+&nbsp;&nbsp;// returns either a pointer to data (or datum) at index i in array or zero<br/><br/>
+&nbsp;&nbsp;Datum* datum(int i) {return 0 &#8249;= i && i &#8249; nData() ? &data[i] : 0;}nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// or data[i].p<br/><br/>
+&nbsp;&nbsp;int   nData()      {return data.end();}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// returns number of data items in array<br/><br/>
+&nbsp;&nbsp;void  removeDatum(int i) {if (0 &#8249;= i && i &#8249; nData()) data.del(i);}<br/><br/>
+&nbsp;&nbsp;friend typename DSIter;
+</blockquote>
+</p>
+<p>
+The iterator then can implement the following loops:
+<blockquote>
+DSIter iter(store);<br/>
+Datum* dtm;<br/><br/>
+&nbsp;&nbsp;for (dtm = iter(); dtm; dtm = iter++) { ... }<br/><br/>
+&nbsp;&nbsp;for (dtm = iter(Rev); dtm; dtm = iter--) { ... }
+</blockquote>
+Where the first loop starts at zero and indexes towards the last entry and
+the second loop starts at the last entry and indexes towards the first entry.  There are some additional
+features in the template code, just look them up.
+</p>
+<!-- InstanceEndEditable -->
+</div><!-- end .content -->
+</div><!-- end .container -->
+</body>
+<!-- InstanceEnd --></html>

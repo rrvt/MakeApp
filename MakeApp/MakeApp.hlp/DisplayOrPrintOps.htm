@@ -1,0 +1,372 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/OneColumnPage.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Display/Print Operations</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<link href="App.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="content">
+<!-- InstanceBeginEditable name="Title" -->
+<h1>Display/Print Operations</h1>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="Body" -->
+<h2>CScrView, Displaying and Printing Data</h2>
+<p>
+Windows is more or less event driven.  For example, a program cannot directly change the displayed output in the
+window.  It is done by a slight of hand indirection.  OK, bad analogy, but to change the screen/window in MS
+Windows on must make windows think that the screen/window is not correct.  Then it asks the program, nicely mind
+you, to fix the incorrect window.
+Printing is not quite as bizarre but the program still must request windows to start the printing from the
+program.
+Both of these actions (invalidating the window and requesting to print) result in a series of calls to the
+underlying View class (i.e. CScrollView or a parent of CScrollView in our case).  What we need to do is
+override these Windows MFC class functions, capture the information we need and create the output and present it
+to windows.  Windows will then preform the necessary actions to get the output to the device (display or printer).
+</p>
+<p>
+It all sounds easy, but alas it is not.  Here is a list of functions that need to be overridden:
+<ul>
+<li>OnInitialUpdate</li>
+<li>OnUpdate</li>
+<li>OnPrepareDC</li>
+<li>OnDraw</li>
+<li>OnScroll</li>
+<li>OnPrint</li>
+<li>OnPreparePrinting</li>
+<li>OnBeginPrinting</li>
+<li>OnEndPrinting</li>
+</ul>
+</p>
+
+<p>
+To display some data in the window the CScrollView (or parent) function, Invalidate(), must be called.  CApp
+implements a function, invalidate() that winds it way through the objects to start the display.  To print or
+print preview the data the CScrollView (or parent) function, OnFilePrint or OnFilePrintPreview, must be called.
+CScrView's Message Map holds the calls to OnFilePrint and OnFilePrintPreview so the user selecting a command
+will be the event that starts printing.  This could be built into some other function if a program needs to
+print directly from a command.
+</p>
+<p>
+Why is this much detail needed?  The answer to that lies in the medium (i.e. the window in a screen, a paper to
+be printed of unknown size and orientation).  To discover the size of the output medium one must wait for
+windows to give that information.  It comes in the form of a Device Context (i.e. CDC) object. It is given to
+the application for an output first in the call to OnPrepareDC.  That is the first time we know much about
+outputting data.  If we, for instance want to wrap a long line, then we must have the device context to
+determine where to break the line.  If we want to find out how many lines will fit on a page of printed output
+so that we may insert headers and footers then we must have a device context.
+</p>
+<p>
+The flow of control for "drawing" on the window (text output is equivalent to drawing on the window) is
+</p>
+<ul>
+<li>OnPrepareDC</li>
+<li>OnDraw</li>
+</ul>
+<p>
+This suggests that determining the number of lines per page and where to break long lines must occur after
+OnPrepareDC and before OnDraw.  Thus in this implementation CScrView defines another virtual function that must
+be implemented in the applications View class:  onPrepareOutput.  So with this insertion into the processing
+of invalidate the flow of control is:
+</p>
+<ul>
+<li>AppView::OnPrepareDC</li>
+<li>CScrView::OnPrepareDC</li>
+<li>dMgr::OnPrepareDC -- i.e. display Manager</li>
+<li>vw.onPrepareOutput</li>
+<li>CScrView::onPrepareOutput</li>
+</ul>
+<p>
+At this point control returns to windows MFC.  MFC then calls OnDraw which in this implementation causes
+the following flow of control:
+</p>
+<ul>
+<li>CScrView::OnDraw</li>
+<li>dMgr.OnDraw</li>
+<li>displayDev() -- Loops over Notepad sending attributes and data to device handler for output</li>
+</ul>
+
+<p>
+The print and print preview commands result in slightly different flow of control:
+</p>
+<ul>
+<li>OnBeginePrinting</li>
+</ul>
+<p>
+OnBeginPrinting returns control to Windows MFC, then control is passed to the application again:
+</p>
+<li>App::OnPrepareDC -- which can tell if the device is a printer or display</li>
+<li>CScrView::OnPrepareDC</li>
+<li>pMgr.OnPrepardDC -- note the printer device manager</li>
+<li>vw.onPrepareOutput</li>
+<li>CScrView::onPrepareOutput</li>
+<li>vw.printFooter -- called when the end of a page is reached</li>
+<li>vw.OnEndPrinting -- called by MFC when printing is finished</li>
+<li>pMgr.endPrint</li>
+</ul>
+<p>
+Printing is a little more complex.  There are three passes:
+</p>
+<ul>
+<li>Pass one -- determine the number of lines per page</li>
+<li>Pass two -- determine the number of pages</li>
+<li>Pass three -- output the data</li>
+</ul>
+<p>
+There may be another pass before these to determine the lines that need to be wrapped.  That won't be discussed
+in this document.  During passes one and two output is suppressed but every other element of the output is
+exercised.
+</p>
+<p>
+The next step in this explanation is to describe the onPrepareOutput.  This explanation needs one element to
+be understood first, NotePad.  All data in a store must be translated from its form in the store to characters.
+Some time ago during the early windows incarnation and c++ the concept of "streaming" was introduced.  That
+is, one could effect input and output with non-C like lines:
+<blockquote>
+  x << cin;<br/>
+  cout << "today is the day";
+</blockquote>
+This would still work with a command line program, but it doesn't work with a "windows" application.  So I
+reinvented it...
+</p>
+<h2>NotePad class</h2>
+<p>
+This description will describe most (maybe all) the features of NotePad.  It is an object that will contain
+data and attributes for output to a display or printer.  It is mainly a streaming description of the output
+but it also has important functions that can be called too.  It is important to note that while the data is
+in a NotePad object it is not actually output to the device.
+</p>
+<p>
+There is one global defined in the NotePad module:  notePad.  Any program with access to the header file may
+output to notePad.  But it turned out that having one NotePad object did not lend itself to outputting to
+both the display and printer.  Therefore, the display manager (dMgr) and print manager (pMgr) each have a
+NotePad object within their object and output from an application store should be directed to the appropriate
+NotePad object during output.  I'll let the details of how that happens to later or examine the code.
+</p>
+<p>
+The global NotePad object, notePad, may be displayed and printed using the NotePadRpt module.  It does all
+the right things to display/print the data in notePad.  It is pretty basic, so don't try anything fancy unless
+you are willing to create a subclass of NotePadRpt.
+</p>
+<p>
+A notePad may be used over and over so there is a clear function to eliminate whatever was in the object.  Once
+it is clear we can use streaming (e.g. notePad << x;) statements to add data and attributes to the object.  The
+streaming concept means that the order that they are added is the order they will be output on the device.
+Furthermore, the streaming concept demands that two or more items may appear in the same statement:
+</p>
+<blockquote>
+&nbsp;&nbsp;notePad << x << _T(" ") << y << nCrlf;
+</blockquote>
+<p>
+Here, x is output first, then a space, then y and all followed by a carriage
+return line feed (I know, old fashioned name).
+</p>
+<p>
+NotePad's purpose is to translate binary data into textual data.  So it would be useful to output that textual
+data to a file.  Earlier I described the CDoc features of file naming and serialize.  A feature of NotePad is
+to archive its contents.
+</p>
+<p>
+Here is a list of objects that may be added to a NotePad stream (where: NotePad np;):
+</p>
+<ul>
+<li>String s; np << s; -- Add a string object</li>
+<li>Tchar* tc; np << tc; -- Add a "c" string</li>
+<li>Tchar c; np << c; -- Add a character</li>
+<li>int v; np << v; -- Add an integer</li>
+<li>ulong v; np << v; -- Add an unsigned long</li>
+<li>np << nSetPrec(v) -- Set Precision of floating point output</li>
+<li>double v; np << v; -- Add a double precision</li>
+<li>Date v; np << v; -- Add a generic date object</li>
+</ul>
+
+<ul>
+<li>np << nCrlf -- Output an end of line (carriage return/line feed)</li>
+</ul>
+
+<ul>
+<li>np << nClrTabs -- Clear all tabs previously set</li>
+<li>np << nSetTab(v); -- Add a tab at position v (actual tab pos is v * avg width of char, an est at best)</li>
+<li>np << nSetRtab(v) -- Add a right tab at position v, i.e. right hand side of text is at tab position</li>
+<li>np << nTab -- Move position to the next tab</li>
+<li>np << nCenter << _T("abc") -- The next text will be centered on the line (note: the next text is
+                    defined as everything to the next nTab, nRight or nCrlf)</li>
+<li>np << nRight << _T("abc") -- The text is moved so that the right edge of the text is on the right margin</li>
+</ul>
+
+<ul>
+<li>np << nFont -- Pop one set of font attribute from the font stack</li>
+<li>np << nFFace(face) -- Push current font attributes, then change font face to the c-string face</li>
+<li>np << nFSize(sz) -- Push current font attributes, then change font point size to  sz (e.g. 12.0)</li>
+<li>np << nBold -- Push current font attributes, then change weight to bold</li>
+<li>np << nItalic -- Push current font attributes, then change style to italic</li>
+<li>np << nUnderLine -- Push current font attributes, then chage underline attribute to true</li>
+<li>np << nStrikeOut -- Push current font attributes, then change strikeout attribute to true</li>
+</ul>
+
+<ul>
+<li>np << nSetLMargin(v) -- Set the left margin</li>
+<li>np << nSetWidth(v) -- Set width of line</li>
+<li>np << nEndPage -- Output an end of page (only useful for print and print prview)</li>
+<li>np << nBeginLine << _T("abc") << nEndLine -- Underlines the text</li><br/>
+</ul>
+<p>
+The first group of stream entities translate data to text.  Even though they perform the translations individually
+internally text without intervening attribute changes will be accumulated before output.  For example:
+</p>
+<blockquote>
+&nbsp;&nbsp;np << nCenter << _T("Page") << pageNo << nRight << date << _T(" ") << time << nCrlf;
+</blockquote>
+<p>
+Here the text, "Page 1" (where pageNo is an integer of value 1) will be accumulated the centered in the
+output line while the date and time will be output on the fight margin.
+</p>
+<p>
+the modifier, nCrlf will terminate the line and ultimately cause the line to be output.  I say ultimately because
+nothing is output from NotePad during the stream processing.
+</p>
+<p>
+Tabs are interesting in windows.  In the old days a tab was a position that had a value that was a multiple of 8.
+Things were simple.  With variable width character fonts it is harder to determine where a tab should go.  If we
+make it a tab position a multiple of the maximum width of a character in the font then the fonts will leave a
+lot of white space.  The average width seems more reasonable but sometimes it fails to make nice columns.  I
+usually find the maximum number of characters and add a small constant.  By the way, nCenter and nRight are not
+tabs, they only affect text as described.
+</p>
+<p>
+Fonts are interesting in Windows MFC.  They become part of the device context (i.e. CDC object).  NotePad uses
+a stack to hold the attributes of the font.  When a change is requested, the current set is pushed onto the
+stack and the change is made.  The new font is then given to the device context.  When nFont is seen in the
+stream, the font stack is popped and then this new set of current attributes is given to the device context.
+Having said all of that, this does not happen in the NotePad object.  The font attributes are merely stored so
+that later when the data in the NotePad object is processed in the presence of the device context the actions
+related above are performed.
+</p>
+<h2>onPrepareOutput -- Translate the Data to Text for Output</h2>
+<p>
+Some applications have only one type of data stored.  Others may have two of more types of data.  If there is
+more than one kind of data then there needs to be more than one report module, i.e. one for each type of data.
+Since I do most of the command processing in the application Doc module it is there that I define an enum
+DataSource which defines an enum value for each kind of data.  The first in the list is the generic NotePadSrc.
+Another enum value might be StoreSrc.  The application Doc holds one variable in the private section for a
+DataSource value and a function to return its current value.
+</p>
+<p>
+Now that the application Doc can specify what needs to be displayed or printed we need a way to accommodate that.
+So defined in the application View document are objects for the implementation of a report for a specific
+kind of data.  In the template there are only two kinds of data:  Whatever is output to the generic notePad
+object and what ever is kept in the "Store" object.  The template application provides a way to load any
+text file into the Store object so essentially we would be displaying the content of some file if the NotePadSrc
+value is placed in the dataSource value of the application Doc object.
+</p>
+<p>
+OK, got that, we need an object defined in the app's View object for the NotePad and the Store objects.  For
+this discussion let me call those two report modules NotePadRpt and StoreRpt.  But as mentioned above, the
+printing and displaying somehow interfere with each other when printing is happening if they are both referencing
+the same source, i.e. notePad.  So built into each report module is a NotePad object.  The reports only send
+their streaming data to the built in NotePad.  In order to solve the interference problem there must be a report
+object for the display and another for the printer.  When those things are taken into account here is the
+declaration of the report objects:
+</p>
+<blockquote>
+class TestAppView : public CScrView {<br/>
+<br/>
+NotePadRpt dspNote;<br/>
+NotePadRpt prtNote;<br/>
+StoreRpt   dspStore;<br/>
+StoreRpt   prtStore;
+</blockquote>
+<p>
+There is a little issue that I'll explain here.  In CScrView are managers for the display and printer, dMgr and
+pMgr.  They need access to the data generated by the reports so in fact the NotePad each report uses is embedded
+in the managers.  The app View constructor gives the report objects access to the NotePad as follows:
+</p>
+<blockquote>
+AppView::AppView() noexcept : dspNote(dMgr.getNotePad()), prtNote(pMgr.getNotePad()), ...
+</blockquote>
+<p>
+Now that those details are out of the way, lets look at the onPrepareOutput.  It is basically just a switch in
+the railroad sense.  CScrView defines the outline for it and somewhere in the processing of OnPrepareDC a
+call is made to onPrepareOutput with the printing state as defined in the device context.  So the decision is made
+on the printing state and the current DataSource value.  If printing the correct print report object print
+function is called.  If not printing the correct report object display function is called.  Here is an example:
+</p>
+<blockquote>
+void TestAppView::onPrepareOutput(bool printing) {<br/>
+DataSource ds = doc()->dataSrc();<br/>
+<br/>
+&nbsp;&nbsp;if (printing) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;switch(ds) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case NotePadSrc : prtNote.print(*this);  break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc   : prtStore.print(*this); break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;else {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;switch(ds) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case NotePadSrc : dspNote.display(*this);  break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc   : dspStore.display(*this); break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;CScrView::onPrepareOutput(printing);<br/>
+&nbsp;&nbsp;}
+</blockquote>
+<h3>Report Organization</h3>
+<p>
+The data is available, how should the report be organized.  The first consideration should be that whether one
+is printing or displaying the bulk of the code should the the same, i.e. the same function should be executed
+for both kinds of output.  Now printing can be a bit more complex because sometimes we need a header on all
+pages, sometimes we need footer with page numbers and sometimes we need the total number of pages at the
+bottom of the page.  Displaying is easier, just output all the data.  Printing we have to anticipate the end
+of the page so that a page break is issued to the printer, headers and footers output at the correct times.  So
+I am going to describe one way to achieve these goals.  Your mileage may vary...
+</p>
+<h4>Report Organization</h4>
+<p>
+The report module needs a few entry points.  It is initialized with a reference to a NotePad object.  The display
+output starts with the display function and the printer output starts with the print function.  When printing
+and a footer needs to be generated the module provides a footer function.  Both the display and print functions
+call the create private function to actually generate the output.
+</p>
+<p>
+The create function touches all the data somehow, generates a line of output, counts the lines and when
+the count exceeds the maximum for a page causes a footer to be generated and then a header and resets the count.
+Of course creating a footer doesn't happen for the first page, just the header.  Look at StoreRpt for the details.
+</p>
+<p>
+The Display function just needs to call create.  The print function, however, must accomplish at least two tasks
+before calling create.  It calls noLinesPrPg in the print manager (i.e. pMgr) which counts the lines in a page
+with the help of other modules.  This is a generic function using the current font size to determine the number
+of lines that will fit in the current print output medium.  Some math may be required (or a rewrite or override
+of the function) to get a better maximum number of lines.
+</p>
+<p>
+The second task is slightly more complex.  Its goal is to discover the number of pages that will be written.  This
+can only be done by sending the text to the printer and counting the pages.  There is a function in CScrView to perform a trial run of the print output that will return the number of pages.  This value can then be used
+in a "Page 2 of 5" notice in the footer.
+</p>
+<p>
+The create and header functions stream the output to the NotePad object (i.e. np) passed into it during
+initialization.  The footer is actually called from the device itself and is passed a reference to the device
+object.  The device object offers streaming input similar to NotePad but with different modifier names (they
+have to be unique).  The names differ by the leading character, for example the NotePad modifier to right adjust
+some text in a line is "nRight".  The corresponding Device modifier is "dRight".
+</p>
+<p>
+The final point about the footer is that it is always placed at the same distance from the bottom of the page.
+It should only be one line so that it will be printed.
+</p>
+
+<!-- InstanceEndEditable -->
+</div><!-- end .content -->
+</div><!-- end .container -->
+</body>
+<!-- InstanceEnd --></html>

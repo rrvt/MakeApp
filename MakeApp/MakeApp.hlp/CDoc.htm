@@ -1,0 +1,42 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/OneColumnPage.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>CDoc Module</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<link href="App.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="content">
+<!-- InstanceBeginEditable name="Title" -->
+<h1>CDoc Module</h1>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="Body" -->
+<h2>The CDoc Module</h2>
+<p>
+The Application Document module is defined:
+<blockquote>
+class AppT3mplateDoc : public CDoc { ... }
+</blockquote>
+</p>
+<p>
+While building several different applications it became clear that the built in serialize function did
+not quite satisfy all needs.  In particular, the CArchive module was actually deficient.  So I built the
+"Archive" module and all of CDoc supports opening and saving files on the serialize pattern.  Almost
+every function is virtual and can be replaced if needed in the application's document module.
+I'll use the template commands for open to describe how my version serialize works.  
+<a href="Serialize.htm">Serialize Operations</a> describes most of the steps to load and store data, 
+including the Expandable c++ template. 
+</p>
+<!-- InstanceEndEditable -->
+</div><!-- end .content -->
+</div><!-- end .container -->
+</body>
+<!-- InstanceEnd --></html>

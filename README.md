@@ -121,6 +121,13 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Update
 
+### Update 1/1821
+
+The help for MakeApp has been extended to include a description of most of the
+commands in MakeApp.  I've also included some description of the application
+template, its components and how Serialize, Display and Print works in the
+application.
+
 ### Update 11/7/20
 
 Consolidating the changes uploaded yesterday.  Created a virtual module for the open notepad display and

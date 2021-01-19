@@ -1,0 +1,50 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/OneColumnPage.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>CApp Module</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<link href="App.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="content">
+<!-- InstanceBeginEditable name="Title" -->
+<h1>CApp Module</h1>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="Body" -->
+<h2>The CApp Module</h2>
+<p>
+The application starts with instantiation of the application object, which in the AppTemplate object theApp.
+The AppTemplate is defined as:
+<blockquote>
+class AppT3mplate : public CApp {...}
+</blockquote>
+Windows likes its applications to identify themselves so CApp's constructor does just that.  It gets the
+pieces from the resource (i.e. AppTemplate.rc) strings.  It also enables the htm help capability.
+</p>
+<p>
+The object, theApp, is available everywhere in the program (even some parts of the library through CApp) so
+the following capabilities are included in CApp:
+</p>
+<ul>
+<li>Setting the application name and current window name in the top border bar</li>
+<li>Retrieving a pointer to the document and view objects</li>
+<li>Retrieving the orientation of the printed output (apparently it is located in the application data)</li>
+<li>invalidating the window which forces the window to be redrawn</li>
+</ul>
+<p>
+Invalidating the window is the way that displaying new data is started.  Nothing happens when outputting until
+the window is invalidated.  More later...
+</p>
+<!-- InstanceEndEditable -->
+</div><!-- end .content -->
+</div><!-- end .container -->
+</body>
+<!-- InstanceEnd --></html>

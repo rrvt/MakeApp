@@ -1,0 +1,51 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/OneColumnPage.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>CMainFrm Module</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<link href="App.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="content">
+<!-- InstanceBeginEditable name="Title" -->
+<h1>CMainFrm Module</h1>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="Body" -->
+<h2>The CMainFrm Module</h2>
+<p>
+The MainFrame object is defined:
+</p>
+<blockquote>
+class MainFrame : public CMainFrm { ... }
+</blockquote>
+<p>
+The CMainFrm base module only has the Set App Name and Set Title features.  Since the mainframe is an object
+held in the application data, reaching these functions must be done through theApp object, i.e. CApp.
+</p>
+<p>
+The application Main Frame module includes several objects which relate to the boarder, menu bar, tool bar and 
+status bar.  CMainFrm has functions for setting the application namd and window title but there are other 
+features that are contained in the library.  The toolbar is a subclass of CMFCToolBar and provides a toolbar
+where a wide margin button may be implemented, a drop down menu list and even a combo box.  One of the features
+of managing the toolbar is a message
+
+</p>
+<blockquote>
+ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)
+</blockquote>
+<p>
+The toolbar is actually setup in OnResetToolBar.  See the template for details.
+</p>
+<!-- InstanceEndEditable -->
+</div><!-- end .content -->
+</div><!-- end .container -->
+</body>
+<!-- InstanceEnd --></html>

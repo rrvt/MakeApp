@@ -1,0 +1,145 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/OneColumnPage.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>MakeApp Operations</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<link href="App.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="content">
+<!-- InstanceBeginEditable name="Title" -->
+<h1>MakeApp Operations</h1>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="Body" -->
+<h2><img src="Images/SetDir.jpg" width="16" height="15"> Specify Base Directory</h2>
+<p>
+Brings up a directory dialog box.  The user must specify the base directory for the application and the 
+"Library Project".
+</p>
+<h2><img src="Images/BuildApp.jpg" width="16" height="15"> Name Project</h2>
+
+<p>
+Invokes a dialog box which asks for three items:
+<ul>
+<li>The Project Name, usually one word</li>
+<li>The Visible Application Name (which will show up on the windows title bar)</li>
+<li>The Window Description (which will also show up on the window title bar)</li>
+</ul>
+When OK is selected the new application is created and is writen  to the new directory.
+The directory structure looks a little like this:
+<ul>
+<li>ProjectName
+  <ul>
+    <li>ProjectName -- The directory in which the the VS solution file is stored</li>
+    <li>ProjectName.prj -- The directory in which the project files are stored</li>
+    <li>ProjectName.hlp -- The directory in which the help files are stored</li>
+  </ul>
+</li>
+<li>Library -- The top most directory of the Library</li>
+</ul>
+</p>
+
+<h2><img src="Images/SlickEdit.jpg" width="16" height="15"> Fix SlickEdit</h2>
+<p>
+SlickEdit's order of commands places the most important one near the bottom of the Build Menu.
+The idea of this command is to reorder the Build Menu.  The command opens a file dialog box to load, modifyand display the ".vpj" file.  It does not save the file.  Use the Save file command
+<img src="Images/SaveLog.jpg" width="16" height="15"> to save the file.
+</p>
+
+<h2><img src="Images/ListFonts.jpg" width="16" height="15"> List Fonts</h2>
+<p>
+Open a dialog box to specify the first letter of the fonts that should be displayed.
+The font name and an example string using the font are displayed for each font with the 
+beginning letters seleected.
+</p>
+<h2><img src="Images/Calibrate.jpg" width="16" height="15"> Calibrate Font Size</h2>
+<p>
+This invokes a dialog box whose purpose is to find a constant that will make the Courier New font 
+extend to a certain physical distance.  The options dialog allows one to select "Landscape" or "Portrait" 
+mode for output and the number of characters printed is dependent on the "Orientation":
+</p>
+<ul>
+<li>Portrait Orientation will cause 80 characters to be printed</li>
+<li>Landscape Orientation will cause 100 characters to be printed</li>
+</ul>
+<p>
+Use the vertical bars to measure the width of the line.
+</p>
+<p>
+A calibration cycle is composed of the following steps:
+</p>
+<ul>
+<li>Choose the Orientation in the Options Dialog</li>
+<li>Choose the Calibrate on the Tool Bar or Tools Menu</li>
+<li>Select the Display or Printer to calibrate</li>
+<li>Choose a new calibration value and insert it into the edit window, or</li>
+<li>Check one of the radio buttons (round) below the values shown:</li>
+<ul>
+<li>Left of Left -- New value for calibration value is below left hand value (i.e. lower bound)</li>
+<li>Left Middle -- New value is half way between left hand value and current calibration value</li>
+<li>Right Middle -- New value is half way between right hand value and current calibration value</li>
+<li>Right of Right -- New value is larger than right hand value (i.e. upper bound)</li>
+</ul>
+<li>Select OK</li>
+<li>Using a ruler measure the line produced.  This may involve printing the content of the screen.</li>
+</ul>
+<p>
+There is no reason to suppose that the dimension on the screen need be perfectly correct.  Changing the
+point size in the code will proportionally change the displayed characters.
+</p>
+<p>
+The value decide may be copied down and transferred to other programs using their Options dialog and
+it is saved in the initialization file for that application.
+</p>
+
+<h2><img src="Images/Options.jpg" width="16" height="15"> Options</h2>
+<p>
+The options dialog allows specifying the Display and Printer Font Size Scale Factor, the printer
+orientation and the printer margins.
+</p>
+<h2><img src="Images/SaveLog.jpg" width="16" height="15"> Save File As (Toolbar Floppy Image)</h2>
+<p>
+Displays a Save File Dialog and saves the file to the file named. 
+A backup file is created that has a time-stamped extension. Only five backups will be maintained.
+</p>
+
+
+
+<h2><img src="Images/About.jpg" width="16" height="15"> About (Toolbar Question Mark)</h2>
+<p>
+Displays the About Box.  The about box uses text from the resource file (TestApp.rc) for
+the output information.  There is a standard about box dialog in the Library.
+</p>
+<h2><img src="Images/Exit.jpg" width="16" height="15"> Exit (Toolbar X image)</h2>
+<p>Exit the application with no reservations.</p>
+
+<h2>Tools Menu</h2>
+<h3>Options</h3>
+<p>
+See above.
+</p>
+<h3>Test</h3>
+<p>
+Executes a command which outputs "Hello World" to the display.  This can be output using the Save as Command.
+</p>
+<h3>Calibrate Display/Printer</h3>
+<p>See above.</p>
+<h2>Help Menu</h2>
+<h3>Introduction</h3>
+<p>Invokes the Help Program to display this file</p>
+<h3>About</h3>
+<p>See above.</p>
+
+<!-- InstanceEndEditable -->
+</div><!-- end .content -->
+</div><!-- end .container -->
+</body>
+<!-- InstanceEnd --></html>

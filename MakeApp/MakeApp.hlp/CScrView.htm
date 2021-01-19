@@ -1,0 +1,68 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/OneColumnPage.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>CScrView Module</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<link href="App.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="content">
+<!-- InstanceBeginEditable name="Title" -->
+<h1>CScrView Module</h1>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="Body" -->
+<h2>The CScrView Module</h2>
+<p>
+The application view module is defined:
+<blockquote>
+class AppT3mplateView : public CScrView { ... }
+</blockquote>
+A view has many attributes that confound just simply outputting characters and/or pictures to the screen.  My
+applications are only concerned with characters so that is the limit of help CScrView can provide.
+</p>
+<p>
+As a result of basing the template view on CScrView these three objects are included:
+</p>
+<ul>
+<li>DsplyMgr</li>
+<li>PrintMgr</li>
+</ul>
+<p>
+The display manager (i.e. DsplyMgr) and print manager (i.e. PrintMgr) do essentially the same thing but output
+to different devices.
+</p>
+<p>
+The job of DsplyMgr and PrintMgr is to collect the output information in an internal NotePad object and
+output that
+information to a device.  There are many features to performing those activities once the data is available in the
+manager.  It should be noted that the same data is contained in both DsplyMgr and PrintMgr objects during the
+output and that there is a subtle reason for that.
+After much debugging time I concluded (not proven, mind you) that two different
+threads were operating on the data at the same time during printing (i.e. the display thread and the print
+thread).  This conclusion was reached when there was only one NotePad container for the output data and
+during printing the data the application crashed.
+</p>
+<p>
+There are at least two solutions to mitigating problems when displaying and printing:  put a lock on the single
+data source or make two copies of the data.  The latter solution
+works because there is a separation of the data generation from the data output.  More on that later...
+</p>
+<p>
+All of the functions in CScrView have to do with managing the output in one way or another.  Some examples
+of this are the functions to change the font attributes (face and size), four virtual functions that are needed
+to implement output, functions to suppress/enable output enable/disable a line wrap capability and several
+printer virtual functions.  There is a default (virtual) scroll computation function for the window display also.
+</p>
+<!-- InstanceEndEditable -->
+</div><!-- end .content -->
+</div><!-- end .container -->
+</body>
+<!-- InstanceEnd --></html>

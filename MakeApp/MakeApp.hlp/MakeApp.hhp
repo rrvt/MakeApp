@@ -1,0 +1,39 @@
+[OPTIONS]
+Auto TOC=1
+Binary Index=No
+Compatibility=1.1 or later
+Compiled file=MakeApp.chm
+Contents file=MakeApp.hhc
+Default Font=Arial,12,0
+Default Window=Introduction
+Default topic=Introduction.htm
+Display compile progress=No
+Error log file=MakeApp.log
+Language=0x409 English (United States)
+Title=Test App Help
+
+[WINDOWS]
+Introduction="Introduction","MakeApp.hhc",,"Introduction.htm",,,,,,0x42120,,0x300e,,,,,,,,0
+Operations="Operations","MakeApp.hhc",,"Operations.htm",,,,,,0x20,,0x300e,[271,372,593,566],,,,,,,0
+ApplicationStructure="Application Structure","MakeApp.hhc",,"ApplicationStructur.htm",,,,,,0x20,,0x300e,[271,372,593,566],,,,,,,0
+CAppModule="CApp Module","MakeApp.hhc",,"CApp.htm",,,,,,0x20,,0x300e,[271,372,593,566],,,,,,,0
+CMainFrmModule="CMainFrm Module","MakeApp.hhc",,"CMainFrm.htm",,,,,,0x20,,0x300e,[271,372,593,566],,,,,,,0
+CDocModule="CDoc Module","MakeApp.hhc",,"CDoc.htm",,,,,,0x20,,0x300e,[271,372,593,566],,,,,,,0
+CScrViewModule="CScrView Module","MakeApp.hhc",,"CScrView.htm",,,,,,0x20,,0x300e,[271,372,593,566],,,,,,,0
+Serialize="Serialize Operations","MakeApp.hhc",,"Serialize.htm",,,,,,0x20,,0x300e,[271,372,593,566],,,,,,,0
+DisplayOrPrintOps="Display or Print Operations","MakeApp.hhc",,"Introduction.htm",,,,,,0x20,,0x300e,[271,372,593,566],,,,,,,0
+
+
+[FILES]
+Introduction.htm
+Operations.htm
+ApplicationStructur.htm
+CApp.htm
+CMainFrm.htm
+CDoc.htm
+CScrView.htm
+Serialize.htm
+DisplayOrPrintOps.htm
+
+[INFOTYPES]
+

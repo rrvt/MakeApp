@@ -1,0 +1,98 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/OneColumnPage.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>MakeApp Introduction</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<link href="App.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="content">
+<!-- InstanceBeginEditable name="Title" -->
+<h1>MakeApp</h1>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="Body" -->
+<h2>Introduction</h2>
+<p>
+MakeApp copies AppT3mplate to a new directory (usually in the same directory as Library parent
+directory).  MakeApp requires just a little information to produce the first version of the
+application.
+</p>
+<p>
+The first step is to identify the parent (i.e. base) directory of the application.  The first toolbar icon, <img src="Images/SetDir.jpg" width="16" height="15">, will bring up a dialog box to specify the base directory. The Library
+Project should be in same base directory.  The second step is to describe the new application a bit.  </p>
+<p>
+The second toolbar icon, <img src="Images/BuildApp.jpg" width="16" height="15"> (which purports to be a factory) brings up a dialog box which asks
+for three items:
+<ul>
+<li>The Project Name, usually one word</li>
+<li>The Visible Name (which will show up on the windows title bar)</li>
+<li>The Window Description (which will also show up on the window title bar)</li>
+</ul>
+When OK is selected the new application is created and is writen  to the new directory.
+The directory structure looks a little like this:
+<ul>
+<li>ProjectName
+  <ul>
+    <li>ProjectName -- The directory in which the the VS solution file is stored</li>
+    <li>ProjectName.prj -- The directory in which the project files are stored</li>
+    <li>ProjectName.hlp -- The directory in which the help files are stored</li>
+  </ul>
+</li>
+<li>Library -- The top most directory of the Library</li>
+</ul>
+</p>
+
+<h2><a href="Operations.htm">Additional Features</a></h2>
+
+<ul>
+<li>Reorder SlickEdit Commands</li>
+<li>Display Available Fonts</li>
+<li>Calibrate Font Size</li>
+<li>Options</li>
+<li>Test</li>
+</ul>
+
+<h3>SlickEdit</h3>
+<p>
+SlickEdit is a dandy editor which integrates well with Visual Studio.  However, the list of build
+operations seems upside down to me. This command will open the SlickEdit project file (...vpj) reorder the 
+build so the most used commands are on top.  
+</p>
+<h3>Font Size Calibration</h3>
+<p>
+An interesting feature of Windows is to display text on the screen and in printed output.  When I
+discovered how to change the font face and point size of the font I also discovered that Windows
+doesn't necessarily display the font at the size chosen.  That is to say, that a Courier New Font at
+a 12.0 point size should take 1/10 of an inch in horizontal width.  On hundred Courier New Font 
+characters should show a line 10 inches long.  It appears that the size chosen by Windows doesn't
+always yield that solution.
+</p>
+<h3>Options Dialog</h3>
+<p>
+Allows specifying the font scale factors for the display and printer.  Allows specifying the printed output
+orientation and the margins on the printed output.
+</p>
+<h3>Test</h3>
+<p>Merely displays "Hello World".</p>
+<h2><a href="ApplicationStructur.htm">Application Template Organization</a></h2>
+<p>
+Inadequate though it may be, there is a description of the organization of the application template.  
+The template is composed of four components, theApp object, the MainFrame object, the Doc object and the View 
+object.  Each object is a subclass of MFC objects.  I've found that some features of each object are needed in
+every one of my applications which are based on the doc/view paradigm so I've provided subclasses of MFC for each
+of the objects.  Then the application becomes subclasses of my subclasses.  So just to be clear I provide in the
+Library a CApp, CMainFrm, CDoc and CView.  The application modules become subclasses of them.
+</p>
+<!-- InstanceEndEditable -->
+</div><!-- end .content -->
+</div><!-- end .container -->
+</body>
+<!-- InstanceEnd --></html>
