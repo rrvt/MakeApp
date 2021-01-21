@@ -1,5 +1,5 @@
 # MakeApp
-An application to customize TestApp (see below) to a new name.  There are two steps:
+An application to build a new application from a template.  There are two steps:
 
   - Specify the path to a place (directory aka folder) where the new application directory will be placed.
     Note, an application is composed of a solution file and one or more project files.  The solution file
@@ -10,42 +10,56 @@ An application to customize TestApp (see below) to a new name.  There are two st
   - One caveat concerning the placement of the Library directory and the new project:  The new project
     and the Library should both have the same parent directory.  If that is not the case then the
     properties of the new project will need to be changed to reflect the location of the Library project
-    file (i.e. LibUni7.vcxproj).
-  - Specify the Project Name (i.e. the directory name for the project and all critical directories and
-    filenames within the outer directory).  Specify a Visible name that will be used in the left hand
-    part of the window's title bar and the Window Description (the right hand part of the window title.)
-  - For some reason, the solution file does not seem to contain the dependency
-    list used by vs2017 (or I could not deduce where it is in the solution file).  So there is a message
+    file (i.e. ...\Library\Library.prj\Library.vcxproj).
+  - The smokestack Icon is used to specify the Project Name (i.e. the directory name for the project and
+    all critical directories and filenames within the outer directory) and to specify a Visible name that
+    will be used in the left hand part of the window's title bar and the Window Description (the right
+    hand part of the window title.)
+  - For some reason, the solution file does not seem to contain the dependency list used by vs2017
+    (or I could not deduce where it is in the solution file).  So there is a message
     at the end of the project production to set the dependencies in Visual Studio.  The prject may compile
     fine as the order of the projects in the solution file is correct, but there is not guarantee that
     it will stay that way.
 
-MakeApp then copies and changes all the relevant files to correspond to the instructions.
+When the dialog box is closed by selecting the OK button MakeApp then copies and changes all the
+relevant files to correspond to the instructions.
+
+It turns out that windows does not necessarily display and/or print the Courier New font as 1/10 of inch
+wide characters.  So MakeApp implements a technique to adjust the size of the Courier New Font.  The
+command to do this is under the Tools menu.  Using a ruler and the command one can find a suitable
+constant to use for scaling the fonts.
 
 ## SlickEdit Project File
 Should one have Slickedit then there is a feature in MakeApp to correct the slickedit project file to
-correspond to the new project name.
+correspond to the new project name.  This feature also will reorder the build menu and setup the builds
+to clear the build output window before proceeding with the build. This command may be used on any
+SlickEdit project file (i.e. an xxx.vpj file).
 
-# TestApp
-A Template for a new App including features from the Library.  Here is a list of features included in
-no particular order:
+# AppT3mplate
+A Template for a new App including features from the Library.  The MakeApp Help file describes the
+organization of the application and describes how data is read and written from/to a file, and how
+data may be stored and sent to the window (displayed) and how it may be printed (or print previewed).
+
+There are commands in the application as examples of what might be done.  Here is a list of features
+included in no particular order:
+
   - Determines the application ID to use for Explicitly seting Application User Model ID for the
     application.  Performs this task in the application's constructor.
   - IniFile management (see IniFile.h) -- Allows reading and writing varioous types to an old style
     name.ini file only needing the Section, Name and Value.
   - NotePad - A method of displaying information in the main window (MFC SDI only) using the "<<"
-    operator.  Many types may be output without translation.
+    operator.  Many types may be output without translation.  See the help file for more details about
+    output to the display and printer.
   - Slightly expanded About Box which reads the information from the resources (xxx.rc strings, etc.)
   - Provide methods (function) in theApp for setting the windows Title Bar in two parts:
     <left part> - <right part>.
   - Support for setting the printer orientation (Portrait, Landscape) at the start of the program and
     changing the orientation in the Options Dialog Box.
+  - Support for setting the display and printer scale factor in the Options Dialog that allows the
+    Courier New font to be displayed at its defined size.
   - An Options dialog that changes the margins and orientation of the printed output.
-  - Printer output from main screen content
-  - File read/write to/from the main window from/to a text file.  One gets to choose the extension and
-    other attributes to display in the file dialog box.  Added logic to Doc to specify the name, default
-    extension, the pattern for the display of files in the file dialog box and the title on the file
-    dialog box.
+  - A command to load a text file into a Store object using the CDoc file open and serialize features.
+  - Examples of displaying and printing data in a Store object and in the global NotePad object.
   - Use the Extended Application class and MainFrame classes (i.e. CWinAppEx, CFrameWndEx).  The effect
     of using these two classes is to:
       - Allows the use of the 8 bit color table in the toolbar (i.e. 256 colors)
@@ -61,16 +75,16 @@ no particular order:
 
 ## Getting Started
 
-The application creates a new Application.  So copy the library source to a
-directory like x:\Source\.  The use the executable, MakeApp.exe, to specify the Source directory,
+The application, MakeApp, creates a new Application.  So copy the library source to a
+directory like x:\Source\.  Then use the executable, MakeApp.exe, to specify the Source directory,
 x:\source.  The folder icon or the File Menu is used to specify the source folder.
 
 The second icon on the toolbar (which is supposed to look like a smokestack factory) creates the new
 application.  Selecting the factory icon invokes a dialog box to accept the Project's Name, Window
 (Visible) Name, and a Description (which also appears in the Window top border).
 
-Once the application is created it can be compiled.  Note the Dependencies should be set in Visual Studio
-sometime.
+Once the application is created it can be compiled.  Note the Dependencies may need to be set in Visual
+Studio sometime but it seems to compile correctly at the time of writing.
 
 ## History
 
@@ -100,6 +114,8 @@ the new app should behave as test app behaves.  Then the fun begins...
 I've also constructed an App to sort the file names in a project based only on the file name and not the
 path.  Makes it a bit easier to find things.  It is called AdjProj.
 
+### Where I Started
+
 I found that creating a new application with Visual Studio and then trying to customize it like MakeApp
 is annoyingly difficult.  So I tried another approach today. I just copied the entire MakeApp directory
 to a new directory.  Then I changed all the file names to the one that I wanted for the new project, even
@@ -120,6 +136,13 @@ some renaming in the files themselves to the new names.
 The result is after a couple of false starts everything compiled and executed.
 
 ## Update
+
+## Update 1/19/21
+
+Updated the MakeApp section of the readme.  MakeApp is now more or less complete.  It produces a new
+application that compiles.  The MakeApp Help file includes a (hopefully) complete description of the
+MakeApp commands and the organization of the Application Template which becomes the new application (with
+all the names changed).
 
 ### Update 1/1821
 
