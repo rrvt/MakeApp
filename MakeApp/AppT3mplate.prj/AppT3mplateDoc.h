@@ -52,11 +52,12 @@ protected:
 
 public:
 
-  afx_msg void OnTest();
   afx_msg void OnFileOpen();
   afx_msg void OnFileSave();
   afx_msg void OnOptions();
 
+#ifdef Examples
+  afx_msg void OnTest();
   afx_msg void displayDataStore();
   afx_msg void myButton();
 
@@ -71,4 +72,5 @@ public:
   afx_msg void onOption22();
   afx_msg void onOption23();
   afx_msg void OnTestEditBoxes();
+#endif
   };

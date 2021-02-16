@@ -42,9 +42,6 @@
     <ClInclude Include="StoreRpt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Library\Extras\CalibDspPrtDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Library\Extras\About.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -77,16 +74,10 @@
     <ClCompile Include="StoreRpt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Library\Extras\CalibDspPrtDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Library\Extras\About.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Library\Extras\OptionsDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnumFonts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -100,21 +91,21 @@
     <None Include="res\AppT3mplate.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\Toolbar07.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Library\Extras\CalibDspPrtDlg.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\..\Library\Extras\About.rc2">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\..\Library\Extras\Options.rc2">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\AppT3mplate.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ShortToolbar.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

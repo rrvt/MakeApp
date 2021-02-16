@@ -2,22 +2,31 @@
 // Microsoft Visual C++ generated include file.
 // Used by AppT3mplate.rc
 
+
+// Define Examples if examples must execute in new application
+// Also define/undefine in stdafx.h
+
+#define Examples
+
+
 #include "ExtraResource.h"
 
 #define IDR_MAINFRAME                   100
 #define IDR_ToolBarImages               101
 #define IDR_PopupMenu                   102
 #define IDR_PopupMenu2                  103
-
+#ifdef Examples
 #define IDC_CB                          200
 #define IDC_CB1                         201
 #define IDC_MyBtn                       202
 #define IDC_MyBtn1                      203
+#endif
 
 #define ID_File_New                     400
 #define ID_File_Open                    401
 #define ID_File_Save                    402
 #define ID_Help                         404
+#ifdef Examples
 #define ID_Test                         405
 #define ID_SelDataStr                   406
 #define ID_MyBtn                        407
@@ -32,6 +41,7 @@
 #define ID_Option21                     416
 #define ID_Option22                     417
 #define ID_Option23                     418
+#endif
 
 // Next default values for new objects
 //

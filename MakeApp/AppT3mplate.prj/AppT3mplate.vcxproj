@@ -142,10 +142,11 @@
     <None Include="res\AppT3mplate.rc2" />
     <None Include="..\..\Library\Extras\Options.rc2" />
     <None Include="..\README.md" />
-    <None Include="res\Toolbar07.bmp" />
+    <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\AppT3mplate.ico" />
+    <Image Include="res\ShortToolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Library\Library.prj\Library.vcxproj">

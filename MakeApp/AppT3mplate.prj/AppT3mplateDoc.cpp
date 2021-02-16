@@ -3,7 +3,9 @@
 
 #include "stdafx.h"
 #include "AppT3mplateDoc.h"
+#ifdef Examples
 #include "Store.h"
+#endif
 #include "ExtraResource.h"
 #include "filename.h"
 #include "GetPathDlg.h"
@@ -23,9 +25,10 @@ IMPLEMENT_DYNCREATE(AppT3mplateDoc, CDoc)
 BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
   ON_COMMAND(ID_File_Open,     &OnFileOpen)
   ON_COMMAND(ID_File_Save,     &OnFileSave)
-  ON_COMMAND(ID_Test,          &OnTest)
   ON_COMMAND(ID_Options,       &OnOptions)
 
+#ifdef Examples
+  ON_COMMAND(ID_Test,          &OnTest)
   ON_COMMAND(ID_SelDataStr,    &displayDataStore)
 
   ON_COMMAND(ID_MyBtn,         &myButton)
@@ -42,7 +45,7 @@ BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
   ON_COMMAND(ID_Option21,      &onOption21)
   ON_COMMAND(ID_Option22,      &onOption22)
   ON_COMMAND(ID_Option23,      &onOption23)
-
+#endif
 END_MESSAGE_MAP()
 
 
@@ -57,6 +60,7 @@ AppT3mplateDoc::~AppT3mplateDoc() { }
 
 BOOL AppT3mplateDoc::OnNewDocument() {return CDocument::OnNewDocument();}
 
+#ifdef Examples
 
 static TCchar* cbText[] = {_T("Zeta"),
                            _T("Beta"),
@@ -208,6 +212,11 @@ String s;
   }
 
 
+void AppT3mplateDoc::displayDataStore() {display(StoreSrc);}
+
+#endif
+
+
 void AppT3mplateDoc::OnOptions() {options(view());  view()->setOrientation(options.orient);}
 
 
@@ -223,14 +232,17 @@ void AppT3mplateDoc::OnFileOpen() {
 
   if (!OnOpenDocument(path)) messageBox(_T(" Not Loaded!"));
 
-  store.setName(pathDsc.name);   display(StoreSrc);
+#ifdef Examples
+  store.setName(pathDsc.name);
+#endif
+
+  display(StoreSrc);
   }
 
 
 void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 
-void AppT3mplateDoc::displayDataStore() {dataSource = StoreSrc; invalidate();}
 
 
 
@@ -244,14 +256,19 @@ void AppT3mplateDoc::serialize(Archive& ar) {
   if (ar.isStoring())
     switch(dataSource) {
       case NotePadSrc : notePad.archive(ar); return;
+#ifdef Examples
       case StoreSrc: store.store(ar); return;
+#endif
       default         : return;
       }
 
   else
     switch(dataSource) {
-      case StoreSrc: store.load(ar); return;
-      default         : return;
+#ifdef Examples
+      case StoreSrc : store.load(ar); return;
+#endif
+      case FontSrc  :
+      default       : return;
       }
   }
 

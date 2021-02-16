@@ -89,7 +89,7 @@
 <ComponentGroup Id="AppT3mplateRes.ftr">
   <ComponentRef Id="AppT3mplate.ico.cmp"/>
   <ComponentRef Id="AppT3mplateRc2.cmp"/>
-  <ComponentRef Id="Toolbar07Bmp.cmp"/>
+  <ComponentRef Id="Toolbar.bmp.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="UninstallMakeApp.ftr">
   <ComponentRef Id="UninstallMakeApp.cmp"/>
@@ -359,10 +359,10 @@
                     Source="$(var.SolutionDir)..\AppT3mplate.prj\res\AppT3mplate.rc2" KeyPath="yes"/>
   </Component>
 
-  <Component Id="Toolbar07Bmp.cmp"  Guid="F8D986A4-DDE7-49AD-91F7-1F2F2359B5D9"
+  <Component Id="Toolbar.bmp.cmp"  Guid="1402A74F-26DD-4A84-BF96-8244F5AD0D7D"
                                                           Directory="MakeApp_AppT3mplate.prj_res.pff">
-    <File Id="Toolbar07Bmp.cmp"
-                      Source="$(var.SolutionDir)..\AppT3mplate.prj\res\Toolbar07.bmp" KeyPath="yes"/>
+    <File Id="Toolbar.bmp.cmp"
+                        Source="$(var.SolutionDir)..\AppT3mplate.prj\res\Toolbar.bmp" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -370,7 +370,7 @@
 <Fragment>
 
   <Component Id="UninstallMakeApp.cmp" 
-                                  Guid="4AFD3B10-F101-42F8-AA6E-5B70B4C2197D" Directory="MakeApp.pmf">
+                                  Guid="72833CE4-6207-459C-92B0-4ACD08A88682" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall MakeApp"

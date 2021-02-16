@@ -137,6 +137,29 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Update
 
+### Update 2/15/21
+
+Fixed Backup date preparation to use 2 digit year instead of century.  Worked last year due to
+coincidence (ugh!!!).
+
+### Update 2/7/21
+
+Updated Library for CodeGen and RWracesDB, updated icons on toolbar.
+
+### Update 1/24/21
+
+Toolbar icons had a background color that was not the same as the toolbar.  Firgured out how
+to fix that.  Then since I had to start over with the icon pictures I chose new icons to
+represent the actions.  Modified the help file accordingly.
+
+Also created an Icon directory in this project to hold the original file containing the icon.
+It may be a jpg, png or other image file.  Then the file is worked over to get a jpg file in
+the 16 x 15 relative dimension format and the background changed to match the window toolbar.
+This file is then saved.  Any toolbar may use the modified image in their toolbar by changing the size
+to 16 x 15 pixels, copied and pasted onto the toolbar bmp file.  There is also a ColorTable in the Icon
+file that includes the background color (index 255).  The ColorTable should be loaded into photoshop
+toolbar page before modifying the toolbar.
+
 ## Update 1/19/21
 
 Updated the MakeApp section of the readme.  MakeApp is now more or less complete.  It produces a new
@@ -224,7 +247,9 @@ Now create your own app above and modify it to match this template.
 
 ## Authors
 
-Robert R. Van Tuyl, romeo romeo victor tango alpha tango sam whisky delta echo dot charlie oscar mike
+Robert R. Van Tuyl
+
+Contact:  romeo romeo victor tango alpha tango sam whisky delta echo dot charlie oscar mike
 
 ## License
 

@@ -26,7 +26,7 @@ AppT3mplateRes.ftr.Path=D:\Sources\MakeApp\AppT3mplate.prj\res\
 ProductName=MakeApp
 Company=Bob -- K6RWY
 WixName=MakeApp
-WixVersion=1.4.5.0
+WixVersion=1.4.8.0
 UpgradeGUID=07B80D4F-179C-4439-836D-E3743B3AAA5F
 SaveVerAllowed=0
 LicenseRequired=0
@@ -74,7 +74,7 @@ Name=MakeApp
 HasChildren=0
 [Features]
 Count=5
-CurSel=MakeApp
+CurSel=AppT3mplateRes
 [Ftr00]
 FeatureID=MakeApp
 ProgramID=MakeApp
@@ -244,7 +244,7 @@ Guid=B95BFB64-0A76-44DD-B865-F14E3B893B5A
 FeatureID=AppT3mplateRes
 ProgramID=MakeApp\AppT3mplate.prj\res
 StartMenuID=
-CurSel=Toolbar07Bmp
+CurSel=Toolbar.bmp
 NoComponents=3
 [Ftr04Cmp00]
 ID=AppT3mplate.ico
@@ -255,6 +255,6 @@ ID=AppT3mplateRc2
 Path=D:\Sources\MakeApp\AppT3mplate.prj\res\AppT3mplate.rc2
 Guid=D054F6D3-374B-46CA-93E4-1F292C681E4C
 [Ftr04Cmp02]
-ID=Toolbar07Bmp
-Path=D:\Sources\MakeApp\AppT3mplate.prj\res\Toolbar07.bmp
-Guid=F8D986A4-DDE7-49AD-91F7-1F2F2359B5D9
+ID=Toolbar.bmp
+Path=D:\Sources\MakeApp\AppT3mplate.prj\res\Toolbar.bmp
+Guid=1402A74F-26DD-4A84-BF96-8244F5AD0D7D
