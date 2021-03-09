@@ -52,7 +52,7 @@ END_MESSAGE_MAP()
 // AppT3mplateDoc construction/destruction
 
 AppT3mplateDoc::AppT3mplateDoc() noexcept : dataSource(NotePadSrc) {
-  pathDsc = {_T("Ugly Example"), _T(""), _T("txt"), _T("*.txt")};
+  pathDlgDsc = PathDlgDsc(_T("Ugly Example"), _T(""), _T("txt"), _T("*.txt"));
   }
 
 AppT3mplateDoc::~AppT3mplateDoc() { }
@@ -224,16 +224,16 @@ void AppT3mplateDoc::OnFileOpen() {
 
   notePad.clear();   dataSource = StoreSrc;
 
-  pathDsc = {_T("Ugly Example"), pathDsc.name, _T("txt"), _T("*.txt")};
+  pathDlgDsc = PathDlgDsc(_T("Ugly Example"), pathDlgDsc.name, _T("txt"), _T("*.txt"));
 
-  if (!setPath(pathDsc)) return;
+  if (!setPath(pathDlgDsc)) return;
 
-  pathDsc.name = getMainName(path);
+  pathDlgDsc.name = getMainName(path);
 
   if (!OnOpenDocument(path)) messageBox(_T(" Not Loaded!"));
 
 #ifdef Examples
-  store.setName(pathDsc.name);
+  store.setName(pathDlgDsc.name);
 #endif
 
   display(StoreSrc);
@@ -246,7 +246,7 @@ void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 
 
-void AppT3mplateDoc::OnFileSave() {if (setSaveAsPath(pathDsc)) OnSaveDocument(path);}
+void AppT3mplateDoc::OnFileSave() {if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);}
 
 
 // UglyDoc serialization

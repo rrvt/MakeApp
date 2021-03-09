@@ -13,7 +13,7 @@ enum DataSource {NotePadSrc, StoreSrc, FontSrc};
 
 class AppT3mplateDoc : public CDoc {
 
-PathDesc    pathDsc;
+PathDlgDsc  pathDlgDsc;
 
 DataSource  dataSource;
 

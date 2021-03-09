@@ -137,6 +137,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Update
 
+### Update 3/8/21
+
+Renamed PathDsc and changed the way it is initialized.
+
 ### Update 2/15/21
 
 Fixed Backup date preparation to use 2 digit year instead of century.  Worked last year due to
