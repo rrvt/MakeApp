@@ -111,9 +111,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Library\Extras\About.h" />
+    <ClInclude Include="Bounds.h" />
     <ClInclude Include="..\..\Library\Extras\CalibDspPrtDlg.h" />
     <ClInclude Include="..\..\Library\Extras\ExtraResource.h" />
-    <ClInclude Include="Bounds.h" />
     <ClInclude Include="FileList.h" />
     <ClInclude Include="FileStore.h" />
     <ClInclude Include="FontRpt.h" />
@@ -135,8 +135,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Library\Extras\About.cpp" />
-    <ClCompile Include="..\..\Library\Extras\CalibDspPrtDlg.cpp" />
     <ClCompile Include="Bounds.cpp" />
+    <ClCompile Include="..\..\Library\Extras\CalibDspPrtDlg.cpp" />
     <ClCompile Include="FileList.cpp" />
     <ClCompile Include="FileStore.cpp" />
     <ClCompile Include="FontRpt.cpp" />

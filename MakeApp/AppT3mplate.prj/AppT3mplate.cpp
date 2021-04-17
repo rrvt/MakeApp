@@ -78,7 +78,17 @@ BOOL AppT3mplate::InitInstance() {
 
 
 
-void AppT3mplate::OnFilePrintSetup() {view()->setPrntrOrient(getDevMode());   CWinApp::OnFilePrintSetup();}
+void AppT3mplate::OnFilePrintSetup() {
+PrtrOrient orient;
+
+  view()->setPrntrOrient(getDevMode());
+
+    CWinApp::OnFilePrintSetup();
+
+  orient = view()->getPrntrOrient(getDevMode());
+
+  options.setOrient(orient);   view()->setOrientation(options.orient);
+  }
 
 
 int AppT3mplate::ExitInstance() {

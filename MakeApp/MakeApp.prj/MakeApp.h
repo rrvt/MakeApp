@@ -26,6 +26,7 @@ public:
 
   DECLARE_MESSAGE_MAP()
 
+  afx_msg void OnFilePrintSetup();
   afx_msg void OnAppAbout();
   afx_msg void OnSpecifyBaseDir();
   afx_msg void OnHelp();

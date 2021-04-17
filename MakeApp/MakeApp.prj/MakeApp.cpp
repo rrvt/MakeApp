@@ -24,7 +24,7 @@ IniFile   iniFile;
 BEGIN_MESSAGE_MAP(MakeApp, CWinAppEx)
   ON_COMMAND(ID_SpecifyBaseDir,   &OnSpecifyBaseDir)
   ON_COMMAND(ID_App_About,        &OnAppAbout)
-  ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinAppEx::OnFilePrintSetup)
+  ON_COMMAND(ID_FILE_PRINT_SETUP, &OnFilePrintSetup)
   ON_COMMAND(ID_Help,             &OnHelp)
 END_MESSAGE_MAP()
 
@@ -79,6 +79,19 @@ BOOL MakeApp::InitInstance() {
   options.load();
 
   m_pMainWnd->ShowWindow(SW_SHOW);   m_pMainWnd->UpdateWindow();   return TRUE;
+  }
+
+
+void MakeApp::OnFilePrintSetup() {
+PrtrOrient orient;
+
+  view()->setPrntrOrient(getDevMode());
+
+    CWinApp::OnFilePrintSetup();
+
+  orient = view()->getPrntrOrient(getDevMode());
+
+  options.setOrient(orient);   view()->setOrientation(options.orient);
   }
 
 

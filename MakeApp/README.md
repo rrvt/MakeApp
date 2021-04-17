@@ -137,6 +137,11 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Update
 
+### Update 4/17/21
+
+Mostly Library updates but added logic to both MakeApp and TemplateApp to allow both the Options dialog
+and the Printer Setup to view and modify the Printer Orientation (i.e. Portrait/Landscape).
+
 ### Update 3/8/21
 
 Renamed PathDsc and changed the way it is initialized.
