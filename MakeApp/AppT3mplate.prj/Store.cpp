@@ -61,7 +61,7 @@ void Store::sort() {qsort(&data[0], &data[data.end()-1]);}
 
 
 int Datum::wrap(Device& dev, CDC* dc) {
-int  chWidth = dev.chWidth();
+int  chWidth = dev.flChWidth();
 
   dev << dCR << dClrTabs << dSetTab(TabVal) << dTab;    // Return to left margin (dCR), clear Tabs and
                                                         // tab to position desired for wrap

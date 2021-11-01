@@ -21,7 +21,7 @@ public:
 
 private:
 
-  void create();
+  void create(CScrView& vw);
   bool filter(TCchar* name);
   int  header(NotePad& np, bool printing);
 

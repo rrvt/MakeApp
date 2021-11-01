@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "AppT3mplate.h"
-#include "About.h"
+#include "AboutDlg.h"
 #include "ExtraResource.h"
 #include "IniFile.h"
 #include "MainFrame.h"
@@ -108,5 +108,5 @@ String topic = m_pszHelpFilePath; topic += _T(">Introduction");
   }
 
 
-void AppT3mplate::OnAppAbout() {CAboutDlg aboutDlg; aboutDlg.DoModal();}
+void AppT3mplate::OnAppAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
 

@@ -27,7 +27,7 @@ public:                                             // Overrides
 
   virtual ~MainFrame();
 
-  void setupToolBar();
+  void     setupToolBar();
 
   ToolBar* getToolBar() {return &toolBar;}
 

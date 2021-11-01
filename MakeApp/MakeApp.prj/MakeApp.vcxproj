@@ -110,7 +110,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Library\Extras\About.h" />
+    <ClInclude Include="..\..\Library\Extras\AboutDlg.h" />
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="..\..\Library\Extras\CalibDspPrtDlg.h" />
     <ClInclude Include="..\..\Library\Extras\ExtraResource.h" />
@@ -134,7 +134,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Library\Extras\About.cpp" />
+    <ClCompile Include="..\..\Library\Extras\AboutDlg.cpp" />
     <ClCompile Include="Bounds.cpp" />
     <ClCompile Include="..\..\Library\Extras\CalibDspPrtDlg.cpp" />
     <ClCompile Include="FileList.cpp" />
@@ -158,7 +158,7 @@
     <ResourceCompile Include="MakeApp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Library\Extras\About.rc2" />
+    <None Include="..\..\Library\Extras\AboutDlg.rc2" />
     <None Include="..\..\Library\Extras\CalibDspPrtDlg.rc2" />
     <None Include="res\MakeApp.ico" />
     <None Include="res\MakeApp.rc2" />
@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Toolbar07.bmp" />
+    <Image Include="res\Toolbar26.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Library\Library.prj\Library.vcxproj">

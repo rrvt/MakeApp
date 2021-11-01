@@ -9,10 +9,10 @@
 
 
 
-void FontRpt::display(CScrView& vw) {create();}
+void FontRpt::display(CScrView& vw) {create(vw);}
 
 
-void FontRpt::print(CScrView& vw) {create();}
+void FontRpt::print(CScrView& vw) {create(vw);}
 
 
 void FontRpt::footer(Device& dev, int pageNo) { }
@@ -27,7 +27,7 @@ static TCchar* fontTypeName[] = {_T(""),
                                  };
 
 
-void FontRpt::create() {
+void FontRpt::create(CScrView& vw) {
 LFIter   iter(listFonts);
 FontAtr* fa;
 int      n;

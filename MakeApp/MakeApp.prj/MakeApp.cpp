@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "MakeApp.h"
-#include "About.h"
+#include "AboutDlg.h"
 #include "GetPathDlg.h"
 #include "IniFile.h"
 #include "MainFrame.h"
@@ -106,5 +106,5 @@ String topic = m_pszHelpFilePath; topic += _T(">Introduction");
 void MakeApp::OnSpecifyBaseDir() {project.getBaseDirUser();   invalidate();}
 
 
-void MakeApp::OnAppAbout() {CAboutDlg aboutDlg; aboutDlg.DoModal();}
+void MakeApp::OnAppAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
 

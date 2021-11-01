@@ -35,7 +35,7 @@ public:
 
 extern MakeApp theApp;
 
-inline void           invalidate() {theApp.invalidate();}
-inline MakeAppDoc*  doc()  {return theApp.doc();}
-inline MakeAppView* view() {return theApp.view();}
+inline void         invalidate() {theApp.invalidate();}
+inline MakeAppDoc*  doc()        {return theApp.doc();}
+inline MakeAppView* view()       {return theApp.view();}
 

@@ -49,7 +49,6 @@ typedef basic_string<Tchar> tstring;
 #include "Strings.h"
 #include "Variant.h"
 #include "NewAllocator.h"
-#include <afxcontrolbars.h>
 
 
 

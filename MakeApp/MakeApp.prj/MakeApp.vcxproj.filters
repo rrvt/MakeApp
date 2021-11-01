@@ -27,9 +27,6 @@
     <ClInclude Include="MainFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ManageGuid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -60,9 +57,6 @@
     <ClInclude Include="MakeAppView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Library\Extras\About.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Library\Extras\OptionsDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,15 +78,15 @@
     <ClInclude Include="..\..\Library\Extras\ExtraResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Library\Extras\AboutDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MainFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ManageGuid.cpp">
@@ -125,9 +119,6 @@
     <ClCompile Include="MakeAppView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Library\Extras\About.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Library\Extras\OptionsDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -146,6 +137,9 @@
     <ClCompile Include="..\..\Library\Extras\CalibDspPrtDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Library\Extras\AboutDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -155,18 +149,21 @@
     <None Include="res\MakeApp.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\Library\Extras\About.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\..\Library\Extras\Options.rc2">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\..\Library\Extras\CalibDspPrtDlg.rc2">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\..\Library\Extras\AboutDlg.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Toolbar07.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar26.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

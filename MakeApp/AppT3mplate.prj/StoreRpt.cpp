@@ -17,11 +17,11 @@ void StoreRpt::print(CScrView& vw) {
 
   detNoPages(vw);
 
-  create();
+  create(vw);
   }
 
 
-void StoreRpt::create() {
+void StoreRpt::create(CScrView& vw) {
 DSIter iter(store);
 Datum* datum;
 int    i;
@@ -53,7 +53,7 @@ void StoreRpt::footer(Device& dev, int pageN) {
 
   if (pageN > maxPages) maxPages = pageN;
 
-  dev << dRight << pageN << _T(" of ") << maxPages << dflushFtr;
+  dev << dRight << pageN << _T(" of ") << maxPages << dFlushFtr;
   }
 
 
