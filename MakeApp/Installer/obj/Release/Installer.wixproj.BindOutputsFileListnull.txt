@@ -1,0 +1,2 @@
+D:\Git\MakeApp\MakeApp\Release\MakeAppInstaller.msi
+D:\Git\MakeApp\MakeApp\Release\MakeAppInstaller.wixpdb

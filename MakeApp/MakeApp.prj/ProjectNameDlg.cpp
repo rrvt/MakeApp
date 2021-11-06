@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "MakeApp.h"
 #include "ProjectNameDlg.h"
-#include "resource.h"
+#include "Resource.h"
 
 
 // ProjectNameDlg dialog

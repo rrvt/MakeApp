@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "MainFrame.h"
-#include "resource.h"
+#include "Resource.h"
 
 
 // MainFrame

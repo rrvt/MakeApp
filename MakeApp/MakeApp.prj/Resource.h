@@ -2,7 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by MakeApp.rc
 
-#include "ExtraResource.h"
+#pragma once
 
 #define IDR_MAINFRAME                   101
 #define IDD_DIALOG1                     102

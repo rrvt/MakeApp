@@ -135,7 +135,59 @@ some renaming in the files themselves to the new names.
 
 The result is after a couple of false starts everything compiled and executed.
 
-## Update
+## Updates
+
+### Update 11/5/21
+
+Release is different than Debug in the Build sense.  I played with the Visual Studio 2017 Properties
+and here are the results.  The Release version doesn't need symbols or debug information so:
+
+  - Highlight the executable project
+  - Right Mouse and Select Properties
+  - Choose C++/General page
+  - For the line item "Debug Ifnormation Format" choose "None"
+  - Then choose the Linker/Debugging page
+  - For the line item "Generate Debug Info" choose "No"
+
+I also looked at the various "Optimization" options to figure out which options make the most sense.
+There did not seem to an obvious choice.  For these applications the choices were smaller or faster.  The
+other features were not really important for MMI applications.  It was easy to measure size, speed not
+so much.  Here are the results:
+
+  - Choose C++/Optimication page in the executable project Properties
+  - There are seven line items on this page.  The first few tests was with the "Optimization" line
+where all the other items were either No, Neither or Disabled.
+  - There are 4 labelled case and the results:
+    * Option -- None      498 KB
+    * Max Option -- Size  449 KB
+    * Max Option -- speed 488 KB
+    * Option speed        502 KB
+  - There is also a Custom option and the sizes produced by the 6 other line items were between
+491 KB and 514 KB in size
+  - The line items also affect the Optimization choice (the first line item)
+  - So I chose Max Option -- speed and the "Whole Program Optimization" -- "Yes" which yielded 458 KB
+  - I also chose the Inline Function Expanson -- the "Only inline (/Ob1)" option
+  - Also the Whole Program Optimization -- Yes (/GL)
+
+Note:  I tried the Whole Program Optimization option on the static Library and it blew up to several
+hundred Mega Bytes.  However, when the following are chosen the size went down to 426 KB and supposedly
+it was Max Speed:
+  - Max Option Spped ()/O2)
+  - Only Inline (/Ob1)
+  - Whole Program Optimization (/GL)
+  - Link Time Code Generation -- "Use Link Time Code Generation (/LTCG)"
+  - References & COMDAT
+
+Do the same for the Library except for Whole Program Optimization & of course no Linker optimization
+
+Linker Properties
+
+  - Choose the "Optimization" page in the Linker Properties
+  - Set References to Yes (VS17 chose this)
+  - Set Enable COMDAT Folding to yes (VS17 chose this)
+  - Set Link Time Code Generation to  -- "Use Link Time Code Generation (/LTCG)"
+
+These choices seem to work.
 
 ### Update 10/31/21
 

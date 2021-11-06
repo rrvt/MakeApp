@@ -6,10 +6,9 @@
 // Define Examples if examples must execute in new application
 // Also define/undefine in stdafx.h
 
+#pragma once
+
 #define Examples
-
-
-#include "ExtraResource.h"
 
 #define IDR_MAINFRAME                   100
 #define IDR_ToolBarImages               101
