@@ -67,10 +67,6 @@ afx_msg LRESULT MainFrame::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupTo
 
 void MainFrame::setupToolBar() {
 
-//  if (!menu.m_hMenu)  menu.LoadMenu(IDR_PopupMenu);
-
-//  toolBar.setMnuCtrl(ID_ListFonts, menu.GetSafeHmenu(),  _T("List Fonts"));
-
   toolBar.install();
   }
 

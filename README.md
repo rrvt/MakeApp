@@ -137,6 +137,20 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 11/13/21
+
+But the major changes are in the library:
+
+  - Expandable and ExpandableP -- moved the functions out of the class to make the compilation smaller,
+also fixed one bug (or feature) in the ExpandableP insert sorted function that would throw out entries
+that were already in in the array.
+  - FileIO -- Changed the type of path from "String&" to "TCchar*".  It turns out that automatic
+conversion from String to TCchar* is easy, but the reverse is is not easy.  Also added a function to
+get the length of a file given a path.
+  - FineName -- Added a function to get the directory name of from a path
+  - NewAllocator -- Corrected the debug dependency from if to ifdef
+  - ToolBar -- Added data for drop down menus
+
 ### Update 11/5/21
 
 Release is different than Debug in the Build sense.  I played with the Visual Studio 2017 Properties
@@ -170,7 +184,7 @@ where all the other items were either No, Neither or Disabled.
   - Also the Whole Program Optimization -- Yes (/GL)
 
 Note:  I tried the Whole Program Optimization option on the static Library and it blew up to several
-hundred Mega Bytes.  However, when the following are chosen the size went down to 426 KB and supposedly
+hundred MegaBytes.  However, when the following are chosen the size went down to 426 KB and supposedly
 it was Max Speed:
   - Max Option Spped ()/O2)
   - Only Inline (/Ob1)

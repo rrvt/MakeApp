@@ -65,9 +65,9 @@ public:
 
   afx_msg void OnTBEditBox();
   afx_msg void myButton1();
-  afx_msg void onOption1();
-  afx_msg void onOption2();
-  afx_msg void onOption3();
+  afx_msg void onOption11();
+  afx_msg void onOption12();
+  afx_msg void onOption13();
   afx_msg void onOption21();
   afx_msg void onOption22();
   afx_msg void onOption23();

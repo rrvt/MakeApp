@@ -23,28 +23,30 @@
 IMPLEMENT_DYNCREATE(AppT3mplateDoc, CDoc)
 
 BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
-  ON_COMMAND(ID_File_Open,     &OnFileOpen)
-  ON_COMMAND(ID_File_Save,     &OnFileSave)
-  ON_COMMAND(ID_Options,       &OnOptions)
+  ON_COMMAND(ID_File_Open,   &OnFileOpen)
+  ON_COMMAND(ID_File_Save,   &OnFileSave)
+  ON_COMMAND(ID_Options,     &OnOptions)
 
 #ifdef Examples
-  ON_COMMAND(ID_Test,          &OnTest)
-  ON_COMMAND(ID_SelDataStr,    &displayDataStore)
+  ON_COMMAND(ID_Test,        &OnTest)
+  ON_COMMAND(ID_SelDataStr,  &displayDataStore)
 
-  ON_COMMAND(ID_MyBtn,         &myButton)
+  ON_COMMAND(ID_Btn1,        &myButton)
 
-  ON_CBN_SELCHANGE(ID_CB,      &OnComboBoxChng)
-  ON_COMMAND(      ID_CB,      &OnComboBoxChng)
+  ON_CBN_SELCHANGE(ID_CBox1, &OnComboBoxChng)
+  ON_COMMAND(      ID_CBox1, &OnComboBoxChng)
 
-  ON_COMMAND(ID_EditBox,       &OnTBEditBox)
-  ON_COMMAND(ID_MyBtn1,        &onOption1)
-  ON_COMMAND(ID_Option1,       &onOption1)
-  ON_COMMAND(ID_Option2,       &onOption2)
-  ON_COMMAND(ID_Option3,       &onOption3)
-  ON_COMMAND(ID_Btn2,          &onOption21)
-  ON_COMMAND(ID_Option21,      &onOption21)
-  ON_COMMAND(ID_Option22,      &onOption22)
-  ON_COMMAND(ID_Option23,      &onOption23)
+  ON_COMMAND(ID_EditBox,     &OnTBEditBox)
+
+  ON_COMMAND(ID_Menu1,       &onOption11)
+  ON_COMMAND(ID_Option11,    &onOption11)
+  ON_COMMAND(ID_Option12,    &onOption12)
+  ON_COMMAND(ID_Option13,    &onOption13)
+
+  ON_COMMAND(ID_Menu2,       &onOption21)
+  ON_COMMAND(ID_Option21,    &onOption21)
+  ON_COMMAND(ID_Option22,    &onOption22)
+  ON_COMMAND(ID_Option23,    &onOption23)
 #endif
 END_MESSAGE_MAP()
 
@@ -80,7 +82,7 @@ static TCchar* cbText[] = {_T("Zeta"),
 
 
 void AppT3mplateDoc::myButton() {
-TBComboBox* cb = TBComboBox::get(ID_CB);
+TBComboBox* cb = TBComboBox::get(ID_CBox1);
 int n = noElements(cbText);
 int i;
 int x;
@@ -110,7 +112,7 @@ int x;
 
 
 void AppT3mplateDoc::OnComboBoxChng() {
-TBComboBox* cb = TBComboBox::get(ID_CB);
+TBComboBox* cb = TBComboBox::get(ID_CBox1);
 int        i;
 String     s;
 int        x;
@@ -144,9 +146,9 @@ String     s  = eb->GetContentsAll(ID_EditBox);
   }
 
 
-void AppT3mplateDoc::onOption1() {notePad << _T("Option 1") << nCrlf; wholePage(); display(NotePadSrc);}
-void AppT3mplateDoc::onOption2() {notePad << _T("Option 2") << nCrlf; display(NotePadSrc);}
-void AppT3mplateDoc::onOption3() {notePad << _T("Option 3") << nCrlf; display(NotePadSrc);}
+void AppT3mplateDoc::onOption11() {notePad << _T("Option 1") << nCrlf; wholePage(); display(NotePadSrc);}
+void AppT3mplateDoc::onOption12() {notePad << _T("Option 2") << nCrlf; display(NotePadSrc);}
+void AppT3mplateDoc::onOption13() {notePad << _T("Option 3") << nCrlf; display(NotePadSrc);}
 
 
 void AppT3mplateDoc::onOption21() {notePad << _T("Option 21") << nCrlf; display(NotePadSrc);}

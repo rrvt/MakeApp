@@ -64,14 +64,14 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 
 void MainFrame::setupToolBar() {
 #ifdef Examples
-  if ( !menu.m_hMenu)  menu.LoadMenu(IDR_PopupMenu);
+  if (!menu1.m_hMenu) menu1.LoadMenu(IDR_PopupMenu1);
   if (!menu2.m_hMenu) menu2.LoadMenu(IDR_PopupMenu2);
+  toolBar.setMnuCtrl(ID_Menu1, menu1.GetSafeHmenu(), _T("Menu 1"));
+  toolBar.setMnuCtrl(ID_Menu2, menu2.GetSafeHmenu(), _T("Menu 2"));
 
-  toolBar.setBtnCtrl(ID_MyBtn,  _T("Load Combo"), 100);
-  toolBar.setCbxCtrl(ID_CB,      100, 500);
+  toolBar.setBtnCtrl(ID_Btn1,    _T("Load Combo"), 100);
+  toolBar.setCbxCtrl(ID_CBox1,   100, 500);
   toolBar.setEbxCtrl(ID_EditBox, 100);
-  toolBar.setMnuCtrl(ID_MyBtn1, menu.GetSafeHmenu(),  _T("Menu 1"));
-  toolBar.setMnuCtrl(ID_Btn2,   menu2.GetSafeHmenu(), _T("Menu 2"));
 #endif
   toolBar.install();
   }
