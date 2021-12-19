@@ -23,7 +23,7 @@
 #define ID_Test                         405
 #define ID_SelDataStr                   406
 #define ID_Btn1                         407
-#define ID_CBox1                        409
+#define ID_CBox                         409
 #define ID_EditBox                      411
 
 #define ID_Menu1                        408

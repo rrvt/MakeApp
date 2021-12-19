@@ -3,7 +3,9 @@
 
 #include "stdafx.h"
 #include "MainFrame.h"
+#include "TBBtnCtx.h"
 #include "resource.h"
+
 
 
 // MainFrame
@@ -63,17 +65,17 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 
 
 void MainFrame::setupToolBar() {
-#ifdef Examples
-  if (!menu1.m_hMenu) menu1.LoadMenu(IDR_PopupMenu1);
-  if (!menu2.m_hMenu) menu2.LoadMenu(IDR_PopupMenu2);
-  toolBar.setMnuCtrl(ID_Menu1, menu1.GetSafeHmenu(), _T("Menu 1"));
-  toolBar.setMnuCtrl(ID_Menu2, menu2.GetSafeHmenu(), _T("Menu 2"));
 
-  toolBar.setBtnCtrl(ID_Btn1,    _T("Load Combo"), 100);
-  toolBar.setCbxCtrl(ID_CBox1,   100, 500);
-  toolBar.setEbxCtrl(ID_EditBox, 100);
+#ifdef Examples
+CRect winRect;   GetWindowRect(&winRect);   toolBar.initialize(winRect);
+
+  toolBar.installBtn(     ID_Btn1, _T("Load Combo"));
+  toolBar.installMenu(    ID_Menu1, IDR_PopupMenu1, _T("Menu 1"));
+  toolBar.installMenu(    ID_Menu2, IDR_PopupMenu2, _T("Menu 2"));
+  toolBar.installComboBox(ID_CBox);
+  toolBar.installEditBox( ID_EditBox, 20);
+
 #endif
-  toolBar.install();
   }
 
 

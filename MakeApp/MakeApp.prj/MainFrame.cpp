@@ -65,10 +65,7 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 afx_msg LRESULT MainFrame::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar();  return 0;}
 
 
-void MainFrame::setupToolBar() {
-
-  toolBar.install();
-  }
+void MainFrame::setupToolBar() {  }
 
 
 // MainFrame diagnostics

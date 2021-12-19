@@ -137,6 +137,16 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 12/18/21
+
+While creating a template for a dialog box only application with a toolbar the Library was added to and
+changed to hopefully simplify toolbar creation.  This version of the toolbar includes buttons, edit boxes,
+combo boxes and drop down menus as well as the traditional 16x15 icons.
+
+MakeApp is a tradional App, has a traditional 16x15 pixel icon toolbar.  The AppTemplate is a
+tradional application but it does have an example of all the toolbar button types.
+
+
 ### Update 11/13/21
 
 But the major changes are in the library:

@@ -53,7 +53,7 @@ public:
 // Define an object to hold a pointer to each datum.  When sorting, the pointer is moved, not the
 // datum (which could be large)
 
-typedef RcdPtrT<Datum> DatumP;
+typedef DatumPtrT<Datum> DatumP;
 
 // Define the iterator used to look at the data in the datastore.  It is here so that it can be friended
 

@@ -23,30 +23,31 @@
 IMPLEMENT_DYNCREATE(AppT3mplateDoc, CDoc)
 
 BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
-  ON_COMMAND(ID_File_Open,   &OnFileOpen)
-  ON_COMMAND(ID_File_Save,   &OnFileSave)
-  ON_COMMAND(ID_Options,     &OnOptions)
+  ON_COMMAND(      ID_File_Open,  &OnFileOpen)
+  ON_COMMAND(      ID_File_Save,  &OnFileSave)
+  ON_COMMAND(      ID_Options,    &OnOptions)
 
 #ifdef Examples
-  ON_COMMAND(ID_Test,        &OnTest)
-  ON_COMMAND(ID_SelDataStr,  &displayDataStore)
+  ON_COMMAND(      ID_Test,       &OnTest)
+  ON_COMMAND(      ID_SelDataStr, &displayDataStore)
 
-  ON_COMMAND(ID_Btn1,        &myButton)
+  ON_COMMAND(      ID_Btn1,       &myButton)
 
-  ON_CBN_SELCHANGE(ID_CBox1, &OnComboBoxChng)
-  ON_COMMAND(      ID_CBox1, &OnComboBoxChng)
+  ON_CBN_SELCHANGE(ID_CBox,       &OnComboBoxChng)
+  ON_COMMAND(      ID_CBox,       &OnComboBoxChng)
 
-  ON_COMMAND(ID_EditBox,     &OnTBEditBox)
+  ON_CBN_KILLFOCUS(ID_EditBox,    &OnTBEditBox)
+  ON_COMMAND(      ID_EditBox,    &OnTBEditBox)
 
-  ON_COMMAND(ID_Menu1,       &onOption11)
-  ON_COMMAND(ID_Option11,    &onOption11)
-  ON_COMMAND(ID_Option12,    &onOption12)
-  ON_COMMAND(ID_Option13,    &onOption13)
+  ON_COMMAND(      ID_Menu1,      &onOption11)
+  ON_COMMAND(      ID_Option11,   &onOption11)
+  ON_COMMAND(      ID_Option12,   &onOption12)
+  ON_COMMAND(      ID_Option13,   &onOption13)
 
-  ON_COMMAND(ID_Menu2,       &onOption21)
-  ON_COMMAND(ID_Option21,    &onOption21)
-  ON_COMMAND(ID_Option22,    &onOption22)
-  ON_COMMAND(ID_Option23,    &onOption23)
+  ON_COMMAND(      ID_Menu2,      &onOption21)
+  ON_COMMAND(      ID_Option21,   &onOption21)
+  ON_COMMAND(      ID_Option22,   &onOption22)
+  ON_COMMAND(      ID_Option23,   &onOption23)
 #endif
 END_MESSAGE_MAP()
 
@@ -64,91 +65,69 @@ BOOL AppT3mplateDoc::OnNewDocument() {return CDocument::OnNewDocument();}
 
 #ifdef Examples
 
-static TCchar* cbText[] = {_T("Zeta"),
-                           _T("Beta"),
-                           _T("Alpha"),
-                           _T("Omega"),
-                           _T("Phi"),
-                           _T("Mu"),
-                           _T("Xi"),
-                           _T("Omicron"),
-                           _T("Pi"),
-                           _T("Rho"),
-                           _T("Sigma"),
-                           _T("Nu"),
-                           _T("Kappa"),
-                           _T("Iota")
-                           };
+static CbxItem cbxText[] = {{_T("Zeta"),     1},
+                            {_T("Beta"),     2},
+                            {_T("Alpha"),    3},
+                            {_T("Omega"),    4},
+                            {_T("Phi"),      5},
+                            {_T("Mu"),       6},
+                            {_T("Xi"),       7},
+                            {_T("Omicron"),  8},
+                            {_T("Pi"),       9},
+                            {_T("Rho"),     10},
+                            {_T("Sigma"),   11},
+                            {_T("Nu"),      12},
+                            {_T("Kappa"),   13},
+                            {_T("Iota"),    14}
+                            };
+static TCchar* CbxCaption = _T("Greeks");
 
 
 void AppT3mplateDoc::myButton() {
-TBComboBox* cb = TBComboBox::get(ID_CBox1);
-int n = noElements(cbText);
-int i;
-int x;
+ToolBar& toolBar = getToolBar();
 
-  dataSource = NotePadSrc;
+  toolBar.addCbxItems(  ID_CBox, cbxText, noElements(cbxText));
+  toolBar.setCbxCaption(ID_CBox, CbxCaption);
 
-  notePad << _T("My Button") << nCrlf;
-
-  if (!cb) {invalidate();  return;}
-
-//  cb->SetText(_T("Greeks"));
-
-  for (i = 0; i < n; i++) if (cb->findExact(cbText[i]) < 0) {
-
-    x = cb->AddSortedItem(cbText[i], i);                           //AddSortedItem
-
-    String s;  s.format(_T("%02i: "), i);
-
-    notePad << s << _T("Pos = ") << x << _T(". Added ") << cbText[i] << nCrlf;
-    }
-
-  cb->SelectItem(-1);
-  cb->SetText(_T("Greeks"));
-
-  notePad << _T("Greeks") << nCrlf;  display(NotePadSrc);
+  notePad << _T("Loaded ") << CbxCaption << _T(" into ComboBx") << nCrlf;  display(NotePadSrc);
   }
 
 
 void AppT3mplateDoc::OnComboBoxChng() {
-TBComboBox* cb = TBComboBox::get(ID_CBox1);
-int        i;
-String     s;
-int        x;
-MainFrame* mf = theApp.mainFrm();
+ToolBar& toolBar = getToolBar();
+String   s;
+int      x;
 
-  if (!cb)   return;
-  i  = cb->GetCurSel();    if (i < 0) return;
-  s  = cb->GetItem(i);
-  x  = cb->GetItemData(i);   mf->SetFocus();
-
-  notePad << _T("On Change, Item = ") << s << _T(", Data = ") << x << nCrlf;
-
+  if (toolBar.getCbxSel(ID_CBox, s, x))
+                               notePad << _T("On Change, Item = ") << s << _T(", Data = ") << x << nCrlf;
   display(NotePadSrc);
   }
 
 
 
 void AppT3mplateDoc::OnTBEditBox() {
-TBEditBox*  eb = TBEditBox::get(ID_EditBox);   if (!eb) return;
-String      s  = eb->GetContentsAll(ID_EditBox);
+ToolBar& toolBar = getToolBar();
+String   s;
 
-  notePad << s << nCrlf;   display(NotePadSrc);
+  if (toolBar.getEbxText(ID_EditBox, s)) notePad << s << nCrlf;
+
+  display(NotePadSrc);
   }
 
 
 void AppT3mplateDoc::myButton1() {
-TBEditBox* eb = TBEditBox::get(ID_EditBox);   if (!eb) return;
-String     s  = eb->GetContentsAll(ID_EditBox);
+ToolBar& toolBar = getToolBar();
+String   s;
 
-  notePad << s << nCrlf;   display(NotePadSrc);
+  if (toolBar.getEbxText(ID_EditBox, s)) notePad << s << nCrlf;
+
+  display(NotePadSrc);
   }
 
 
-void AppT3mplateDoc::onOption11() {notePad << _T("Option 1") << nCrlf; wholePage(); display(NotePadSrc);}
-void AppT3mplateDoc::onOption12() {notePad << _T("Option 2") << nCrlf; display(NotePadSrc);}
-void AppT3mplateDoc::onOption13() {notePad << _T("Option 3") << nCrlf; display(NotePadSrc);}
+void AppT3mplateDoc::onOption11() {notePad << _T("Option 11") << nCrlf; display(NotePadSrc);}
+void AppT3mplateDoc::onOption12() {notePad << _T("Option 12") << nCrlf; display(NotePadSrc);}
+void AppT3mplateDoc::onOption13() {notePad << _T("Option 13") << nCrlf; wholePage(); display(NotePadSrc);}
 
 
 void AppT3mplateDoc::onOption21() {notePad << _T("Option 21") << nCrlf; display(NotePadSrc);}

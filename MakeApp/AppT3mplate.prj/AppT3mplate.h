@@ -2,11 +2,11 @@
 
 #pragma once
 #include "CApp.h"
+#include "MainFrame.h"
 
 
 class AppT3mplateDoc;
 class AppT3mplateView;
-class MainFrame;
 
 
 // AppT3mplate:
@@ -38,4 +38,6 @@ extern AppT3mplate theApp;
 inline void             invalidate() {theApp.invalidate();}
 inline AppT3mplateDoc*  doc()        {return theApp.doc();}
 inline AppT3mplateView* view()       {return theApp.view();}
+inline MainFrame*       mainFrm()    {return theApp.mainFrm();}
+inline ToolBar&         getToolBar() {return mainFrm()->getToolBar();}
 
