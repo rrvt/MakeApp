@@ -62,7 +62,7 @@
       <Optimization>MaxSpeed</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile></PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\Library\Library.prj\;$(SolutionDir)..\..\Library\Extras\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -97,7 +97,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile></PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\Library\Library.prj\;$(SolutionDir)..\..\Library\Extras\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <ProgramDataBaseFileName>$(OutDir)$(ProjectName).pdb</ProgramDataBaseFileName>
@@ -113,6 +113,7 @@
       <AdditionalDependencies>Htmlhelp.lib</AdditionalDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <ProgramDatabaseFile />
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -142,6 +143,7 @@
     <ClInclude Include="MakeAppView.h" />
     <ClInclude Include="ManageGuid.h" />
     <ClInclude Include="..\..\Library\Extras\OptionsDlg.h" />
+    <ClInclude Include="MkAppUtilities.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="ProjectNameDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -165,6 +167,7 @@
     <ClCompile Include="MakeAppView.cpp" />
     <ClCompile Include="ManageGuid.cpp" />
     <ClCompile Include="..\..\Library\Extras\OptionsDlg.cpp" />
+    <ClCompile Include="MkAppUtilities.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="ProjectNameDlg.cpp" />
     <ClCompile Include="SlickEdit.cpp" />

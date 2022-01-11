@@ -7,29 +7,26 @@
 #include "ManageGuid.h"
 
 class MakeAppDoc;
-
+class ProjectNameDlg;
 
 
 class Project {
 
-enum FixIt {SlnFix, VxcFix, PrjFix, SrcFix, SEFix};
+enum FileType {NilType, SlnType, VxcType, PrjType, SrcType, SEType, WxsType};
+enum FixIt    {         SlnFix,  VxcFix,  PrjFix,  SrcFix,  SEFix,  WxsFix};
 
 String        name;
 String        visible;
 String        description;
 
-String        basePath;                            // Base Path where MakeApp resides
-String        testSolPath;                         // Source directories
-String        testPrjPath;
-String        testHlpPath;
+String        srcBase;                            // Base Path where MakeApp resides
+String        srcPath;                            // Current Source Path
 
+String        dstBase;                            // Destiantion base Direcotry
+String        appBase;                            // application base directory
+String        dstPath;                            // Current destination directory
 
-String        baseDir;                             // Destination base directory
-String        sltnPath;                            // Destination directories
-String        projPath;
-String        resPath;
-String        helpPath;
-String        tmplPath;
+String        targetName;
 
 String        defFileName;
 
@@ -51,49 +48,30 @@ public:
 
   void determineBasePath(TCchar* helpPath);
 
-
-  bool operator() (TCchar* nam, TCchar* vis, TCchar* desc);
+  bool operator() (ProjectNameDlg& dlg);
 
 private:
 
-  void preparePaths();
-  void copyProject();
-  void copyHelp();
+          // if Segment not zero, then path includes it
+          // returns source path in src, destination path as return value
 
-  void copySolution();
-  void copyVxcproj(String& srcPath, String& dstPath, TCchar* srcName);
-  void copyProj(TCchar* suffix, FixIt fixIt);
-  void copyHelpPrj(TCchar* srcName, FixIt fixIt);
-  void copyFile(String& srcPath, String& dstPath, String& srcName);
+  void    preparePath(TCchar* pathName, TCchar* segment = 0);
+  void    addSegment(String& s, TCchar* segment) {s += segment;  s += _T('\\');}
 
-  void copyFile(String& srcPath, String& dstPath, TCchar* dstName, FixIt fixIt);
+  void    copyFiles(TCchar* srcDirName);
+  bool    mustCopy(String& fileName, FileType& fileType);
+  bool    createDir(TCchar* path);
 
-  void getFiles();
-  void fixGuids(String& s);
-  void fixProjExt(String& s);
+  void    copyFile(String& srcPath, String& dstPath, TCchar* dstName, FixIt fixIt);
+  void    copyFile(TCchar* srcPath, TCchar* dstPath, String& srcName);
 
-  void renamAppT3mplate(String& s);
-  void renamVisibleName(String& s);
-  void renamDesc(String& s);
+  void    getFiles();
+
+  void    renameAppName(String& s);
+  void    renamVisibleName(String& s);
+  void    renamDesc(String& s);
   };
 
 
 extern Project project;
-
-
-
-//  void copyVxcprojFilters(String& srcFilePath, String& dstPath, TCchar* dstFileName);
-//  void copyVxcprojUser(String& srcFilePath, String& dstPath, TCchar* dstFileName);
-//  void getFiles(Bounds& bnds);
-//  void copySlickEditVpj(String& srcFilePath, String& dstPath, TCchar* dstFileName);
-//  void copyPrjFiles(String& fileName);
-//  void copyHlpFiles(String& fileName);
-//  void copyHlpVxcprojFilters();
-//  void copyHlpVxcprojUser();
-//  void copyHlpSlickEditVpj();
-//  void copyHlpVxcproj();
-//  void copyPrjVxcprojFilters();
-//  void copyPrjVxcprojUser();
-//  void copyPrjSlickEditVpj();
-//  void copyPrjVxcproj();
 

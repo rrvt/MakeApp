@@ -1,28 +1,47 @@
 # MakeApp
-An application to build a new application from a template.  There are two steps:
+An application to build a new application from a template.  There are three steps:
+
+  = Specify the type of application:
+
+    * An MFC Doc/View application with one document and one view.
+    * An MFC Dialog Box with a menu, toolbar with limited controls, a status bar and an empty client
+      area.
 
   - Specify the path to a place (directory aka folder) where the new application directory will be placed.
-    Note, an application is composed of a solution file and one or more project files.  The solution file
-    will be placed in a directory with the same name as the Project Name. For example a new spp named
-    AlphaBeta, the solution directory will be in "...\AlphaBeta\AlphaBeta\" and the file name will be
-    "AlphaBeta.sln".  The project file will be "...\AlphaBeta\AlphaBeta.prj\" and the project file name
-    will be "AlphaBeta.vcxproj:.
-  - One caveat concerning the placement of the Library directory and the new project:  The new project
+    Note, the application, say AlphaBeta, will be composed of four subdirectories:
+
+    * AlphaBeta     -- at ...\BaseDir\AlphaBeta\AlphaBeta
+    * AlphaBeta.hlp -- at ...\BaseDir\AlphaBeta\AlphaBeta.hlp
+    * AlphaBeta.prj -- at ...\BaseDir\AlphaBeta\AlphaBeta.prj
+    * AlphaBeta.wix -- at ...\BaseDir\AlphaBeta\AlphaBeta.wix
+
+    Each subdirectory contains part of the project:
+
+    * AlphaBeta     -- Solution file (The Visual Studio file that describes all the parts)
+    * AlphaBeta.hlp -- Help files (see description of HTML Help Workshop 4.74.8702.0 below)
+    * AlphaBeta.prj -- Project files from which the application is built
+    * AlphaBeta.wix -- Wix Installation File (Product.wxs) from which an msi installer file is created
+
+ - One caveat concerning the placement of the Library directory and the new project:  The new project
     and the Library should both have the same parent directory.  If that is not the case then the
     properties of the new project will need to be changed to reflect the location of the Library project
     file (i.e. ...\Library\Library.prj\Library.vcxproj).
-  - The smokestack Icon is used to specify the Project Name (i.e. the directory name for the project and
-    all critical directories and filenames within the outer directory) and to specify a Visible name that
-    will be used in the left hand part of the window's title bar and the Window Description (the right
-    hand part of the window title.)
+
+  - The second step is to specify four attributes:
+
+    * The Project Type: Doc/View or Dialog Box
+    * The Project Name
+    * An Englishish Title (appears on the upper border of the window and other places)
+    * A Description of the the first page to appear (e.g. "Main Page")
+
+    The smokestack Icon brings up a dialog box to specify these items.  When OK is selected the project
+    is built.
+
   - For some reason, the solution file does not seem to contain the dependency list used by vs2017
     (or I could not deduce where it is in the solution file).  So there is a message
     at the end of the project production to set the dependencies in Visual Studio.  The prject may compile
     fine as the order of the projects in the solution file is correct, but there is not guarantee that
     it will stay that way.
-
-When the dialog box is closed by selecting the OK button MakeApp then copies and changes all the
-relevant files to correspond to the instructions.
 
 It turns out that windows does not necessarily display and/or print the Courier New font as 1/10 of inch
 wide characters.  So MakeApp implements a technique to adjust the size of the Courier New Font.  The
@@ -30,12 +49,14 @@ command to do this is under the Tools menu.  Using a ruler and the command one c
 constant to use for scaling the fonts.
 
 ## SlickEdit Project File
+
 Should one have Slickedit then there is a feature in MakeApp to correct the slickedit project file to
 correspond to the new project name.  This feature also will reorder the build menu and setup the builds
 to clear the build output window before proceeding with the build. This command may be used on any
 SlickEdit project file (i.e. an xxx.vpj file).
 
-# AppT3mplate
+# AppT3mplate -- A Doc/View Application Template
+
 A Template for a new App including features from the Library.  The MakeApp Help file describes the
 organization of the application and describes how data is read and written from/to a file, and how
 data may be stored and sent to the window (displayed) and how it may be printed (or print previewed).
@@ -72,6 +93,8 @@ included in no particular order:
     with HTML Help Workshop 4.74...  It may be found on Microsoft's web site by Google Searching for
     HTML Help Sorkshop.  Since HTML files are difficult to construct in the Workshop I use Dreamweaver
     to manage the files after some construction of the pages.
+
+# DialogApp -- A Dialog Box Application
 
 ## Getting Started
 

@@ -67,7 +67,7 @@ BOOL AppT3mplate::InitInstance() {
 
   if (!ProcessShellCommand(cmdInfo)) return FALSE;
 
-  setAppName(_T("App Template")); setTitle(_T("A Template for MFC Applications"));
+  setAppName(_T("< Title >")); setTitle(_T("< Description >"));
 
   view()->setFont(_T("Arial"), 12.0);
 

@@ -31,6 +31,7 @@ static TCchar* TestPrjDir  = _T("AppT3mplate.prj\\");
 static TCchar* TestHlpDir  = _T("Help\\");
 
 static TCchar* PrjSection  = _T("Project");
+static TCchar* PrjAppType  = _T("AppType");
 static TCchar* PrjNameKey  = _T("Name");
 static TCchar* PrjVisKey   = _T("VisibleName");
 static TCchar* PrjDesc     = _T("Description");
@@ -75,17 +76,29 @@ void MakeAppDoc::OnNameProject() {
 ProjectNameDlg dlg;
 String         path;
 
+  dlg.appType = iniFile.readInt(   PrjSection, PrjAppType, 0);
   iniFile.readString(PrjSection, PrjNameKey, dlg.name);
   iniFile.readString(PrjSection, PrjVisKey,  dlg.visibleName);
   iniFile.readString(PrjSection, PrjDesc,    dlg.description);
 
   if (dlg.DoModal() == IDOK) {
 
+    notePad << _T("App Type: ") << dlg.appType << _T(" -- ");
+
+    switch (dlg.appType) {
+      case 0  : notePad << _T("DocView"); break;
+      case 1  : notePad << _T("Dialog");  break;
+      case 2  : notePad << _T("Radio2");      break;
+      default : notePad << _T("Unknown");     break;
+      }
+    notePad << nCrlf;
+
+    iniFile.writeInt(   PrjSection, PrjAppType, dlg.appType);
     iniFile.writeString(PrjSection, PrjNameKey, dlg.name);
     iniFile.writeString(PrjSection, PrjVisKey,  dlg.visibleName);
     iniFile.writeString(PrjSection, PrjDesc,    dlg.description);
 
-    project(dlg.name, dlg.visibleName, dlg.description);
+    project(dlg);
 
     invalidate();
 

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+<Product Id="*" UpgradeCode="8D8880AE-E847-4148-B89A-0A9DC3339F65" Language="1033"
+         Manufacturer="Bob -- K6RWY" Name="AppT3mplate"
+         Version="!(bind.fileVersion.AppT3mplate.cmp)"
+         >
+
+  <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"
+           Manufacturer="Bob -- K6RWY" Description="Installs AppT3mplate"
+           Comments="Copyright (c) Bob -- K6RWY"
+           />
+
+  <MajorUpgrade Schedule="afterInstallInitialize"
+                AllowDowngrades="no"   IgnoreRemoveFailure="no"   AllowSameVersionUpgrades="no"
+                DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+  <MediaTemplate EmbedCab="yes" />
+
+  <UI Id="My_InstallDir.ui">
+    <UIRef Id="WixUI_InstallDir" />
+    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">
+      NOT Installed
+    </Publish>
+    <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">
+      1
+    </Publish>
+  </UI>
+
+  <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp"/>
+  <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
+
+  <Icon     Id="AppT3mplateIcon.ico"
+                              SourceFile="$(var.SolutionDir)..\AppT3mplate.prj\res\AppT3mplate.ico"/>
+  <Property Id="ARPPRODUCTICON"  Value="AppT3mplateIcon.ico" />
+
+  <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
+    <ComponentGroupRef Id="AppT3mplate.ftr"/>
+    <ComponentGroupRef Id="UninstallAppT3mplate.ftr"/>
+  </Feature>
+</Product>
+
+<Fragment>
+<ComponentGroup Id="AppT3mplate.ftr">
+  <ComponentRef Id="AppT3mplate.cmp"/>
+  <ComponentRef Id="Help.cmp"/>
+</ComponentGroup>
+<ComponentGroup Id="UninstallAppT3mplate.ftr">
+  <ComponentRef Id="UninstallAppT3mplate.cmp"/>
+</ComponentGroup>
+</Fragment>
+
+<!--Directory structure-->
+<Fragment>
+  <Directory Id="TARGETDIR" Name="SourceDir">
+    <Directory Id="ProgramFilesFolder">
+      <Directory Id="AppT3mplate.pff" Name="AppT3mplate" />
+    </Directory>
+
+    <Directory Id="ProgramMenuFolder" Name="StartMenu">
+      <Directory Id="AppT3mplate.pmf" Name="AppT3mplate" />
+    </Directory>
+
+    <Directory Id="DesktopFolder" Name="Desktop" />
+  </Directory>
+
+  <Property Id="ApplicationFolderName" Value="AppT3mplate" />
+  <Property Id="WIXUI_INSTALLDIR"      Value="AppT3mplate.pff"/>
+  <Property Id="WixAppFolder"          Value="WixPerMachineFolder" />
+</Fragment>
+
+<Fragment>
+
+  <Component Id="AppT3mplate.cmp"  Guid="D562BBAC-0860-4B03-AF04-ECF4D7EEEE91"
+                                                                          Directory="AppT3mplate.pff">
+    <File Id="AppT3mplate.cmp" Source="$(var.SolutionDir)..\Release\AppT3mplate.exe" KeyPath="yes"/>
+
+    <Shortcut Id               = "AppT3mplate.shc"
+              Name             = "AppT3mplate"
+              Advertise        = "yes"
+              Directory        = "AppT3mplate.pmf"
+              WorkingDirectory = "AppT3mplate.pff"
+              Icon             = "AppT3mplateIcon.ico"
+              />
+
+    <Shortcut Id               = "AppT3mplate.dsk"
+              Name             = "AppT3mplate"
+              Advertise        = "yes"
+              Directory        = "DesktopFolder"
+              WorkingDirectory = "AppT3mplate.pff"
+              Icon             = "AppT3mplateIcon.ico"
+              />
+    <Condition>
+      <![CDATA[Installed OR VersionNT >= 601]]>
+    </Condition>
+  </Component>
+
+  <Component Id="Help.cmp"  Guid="2D9CE8E3-8D85-4616-A83E-21A84CEDDBE7" Directory="AppT3mplate.pff">
+    <File Id="Help.cmp" Source="$(var.SolutionDir)..\Release\AppT3mplate.chm" KeyPath="yes"/>
+  </Component>
+
+</Fragment>
+
+<Fragment>
+
+  <Component Id="UninstallAppT3mplate.cmp" 
+                              Guid="345EBEEE-F0AA-471C-9F64-ED309EAE152C" Directory="AppT3mplate.pmf">
+
+    <Shortcut Id               = "UninstallAppT3mplate.shc"
+              Name             = "Uninstall AppT3mplate"
+              Description      = "Uninstalls AppT3mplate"
+              Target           = "[System64Folder]msiexec.exe"
+              Arguments        = "/x [ProductCode]"
+              Icon             = "AppT3mplateIcon.ico"
+              />
+    <RemoveFolder Id="AppT3mplate.uni" Directory="AppT3mplate.pmf" On="uninstall"/>
+    <RegistryValue Root="HKCU" Key="Software\UninstallAppT3mplate.cmp" Name="installed"
+                   Type="integer" Value="1" KeyPath="yes"/>
+  </Component>
+
+</Fragment>
+
+</Wix>

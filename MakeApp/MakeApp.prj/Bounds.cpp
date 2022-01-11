@@ -23,12 +23,12 @@ int    pos;
   for (i = beg; i <= this->end; i++) {
     s = fileStore(i);
     pos = s.find(IncTarget);    if (pos < 0) continue;
+
     pos += NIncTarget;   s = s.substr(pos);
+
     pos = s.find(_T('\"'));     if (pos < 0) pos = s.find(_T("\">"));   if (pos < 0) continue;
 
-    s = s.substr(0, pos);
-
-    if (s[0] == _T('.')) continue;
+    s = s.substr(0, pos);       if (s[0] == _T('.')) continue;
 
     fileList.add(s);
     }

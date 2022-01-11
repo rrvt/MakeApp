@@ -5,6 +5,7 @@
 #include "SlickEdit.h"
 #include "FileStore.h"
 #include "MessageBox.h"
+#include "MkAppUtilities.h"
 
 
 static TCchar* tgtTable[] = {_T("Build Solution"),
@@ -82,7 +83,6 @@ int endX;
   }
 
 
-
 //SaveOption="SaveAll"
 
 void Operation::fixSaveOption(String& s) {
@@ -92,11 +92,7 @@ int    pos;
 
   if (s.find(_T("SaveOption=\"")) < 0) return;
 
-  pos = s.find(_T('\"'))+1;     prefix = s.substr(0, pos);
-
-  pos = s.find(_T('\"'), pos);  suffix = s.substr(pos);
-
-  s = prefix + _T("SaveAll") + suffix;
+  pos = s.find(_T('\"'))+1;   replace(s, pos, s.find(_T('\"'), pos), _T("SaveAll"));
   }
 
 
@@ -120,11 +116,9 @@ int    pos;
 
   if (!lineIsClearBuf) return;
 
-  pos = s.find(_T('\"'))+1;     prefix = s.substr(0, pos);
+  pos = s.find(_T('\"'))+1;    replace(s, pos, s.find(_T('\"'), pos), _T("1"));
 
-  pos = s.find(_T('\"'), pos);  suffix = s.substr(pos);
-
-  s = prefix + _T("1") + suffix;    clearAllSeen = true;
+  clearAllSeen = true;
   }
 
 

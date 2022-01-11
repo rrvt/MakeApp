@@ -8,11 +8,14 @@ class ProjectNameDlg : public CDialogEx {
   DECLARE_DYNAMIC(ProjectNameDlg)
 
 public:
+
+BOOL    dialogApp;
+BOOL    docViewApp;
 CString name;
 CString description;
 CString visibleName;
 
-  ProjectNameDlg(CWnd* pParent = nullptr);   // standard constructor
+           ProjectNameDlg(CWnd* pParent = nullptr);   // standard constructor
   virtual ~ProjectNameDlg();
 
 // Dialog Data
@@ -25,4 +28,7 @@ protected:
   virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
   DECLARE_MESSAGE_MAP()
-  };
+public:
+  virtual BOOL OnInitDialog();
+  int appType;
+};

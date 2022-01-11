@@ -1,12 +1,12 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by MakeApp.rc
-
-#pragma once
-
+//
+#define IDD_AboutBox                    0x0010
 #define IDR_MAINFRAME                   101
 #define IDD_DIALOG1                     102
 #define IDD_FontRptDlg                  103
+
 
 #define IDC_EDIT1                       200
 #define IDC_EDIT2                       201
@@ -24,6 +24,8 @@
 #define IDC_UV                          213
 #define IDC_WX                          214
 #define IDC_YZ                          215
+#define IDC_DocViewApp                  216
+#define IDC_DialogApp                   217
 
 #define ID_File_New                     400
 #define ID_File_Open                    401
@@ -41,7 +43,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        105
 #define _APS_NEXT_COMMAND_VALUE         410
-#define _APS_NEXT_CONTROL_VALUE         216
+#define _APS_NEXT_CONTROL_VALUE         219
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
