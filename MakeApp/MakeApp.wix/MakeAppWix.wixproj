@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>99d9b3e6-b571-4754-b26a-f6cbf6521395</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>MakeAppInstaller</OutputName>
+    <OutputName>MakeApp</OutputName>
     <OutputType>Package</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

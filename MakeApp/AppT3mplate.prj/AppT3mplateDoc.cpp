@@ -1,4 +1,4 @@
-// AppT3mplateDoc.cpp : implementation of the AppT3mplateDoc class
+ // AppT3mplateDoc.cpp : implementation of the AppT3mplateDoc class
 
 
 #include "stdafx.h"

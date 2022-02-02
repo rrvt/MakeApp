@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>892912cc-5a92-4843-898e-a6f6a2263669</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>AppT3mplateInstaller</OutputName>
+    <OutputName>AppT3mplate</OutputName>
     <OutputType>Package</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

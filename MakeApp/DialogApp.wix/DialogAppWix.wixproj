@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>a6adae4f-432e-4be0-bfbc-85fdefe7a6ce</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>DialogAppInstaller</OutputName>
+    <OutputName>DialogApp</OutputName>
     <OutputType>Package</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
