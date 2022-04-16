@@ -11,9 +11,9 @@ AppT3mplate.ftr.Path=D:\Sources\MakeApp\Release\
 [Icons]
 NoIcons=1
 [Icon00]
-IconID=AppT3mplate
-WixID=AppT3mplateIcon.ico
-IconPath=D:\Sources\MakeApp\AppT3mplate.prj\res\AppT3mplate.ico
+IconID=AppT3mplate01
+WixID=AppT3mplate01Icon.ico
+IconPath=D:\Sources\MakeApp\AppT3mplate.prj\res\AppT3mplate01.ico
 [Product]
 ProductName=AppT3mplate
 Company=Bob -- K6RWY
@@ -23,7 +23,7 @@ UpgradeGUID=8D8880AE-E847-4148-B89A-0A9DC3339F65
 SaveVerAllowed=0
 LicenseRequired=0
 LicensePath=D:\Sources\MakeApp\AppT3mplate\
-IconID=AppT3mplate
+IconID=AppT3mplate01
 [PFFDirectories]
 NoDirectories=1
 [PFFDirDesc00]
@@ -53,7 +53,7 @@ NoComponents=2
 ID=AppT3mplate
 Path=D:\Sources\MakeApp\Release\AppT3mplate.exe
 Guid=D562BBAC-0860-4B03-AF04-ECF4D7EEEE91
-IconID=AppT3mplate
+IconID=AppT3mplate01
 IsStartMenu=1
 IsDeskTop=1
 IsVersionAvail=1

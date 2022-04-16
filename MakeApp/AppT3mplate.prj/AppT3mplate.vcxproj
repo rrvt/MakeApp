@@ -14,21 +14,22 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{04A5A256-D474-44DE-89F3-EF00F06D1226}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
-    <RootNamespace>TestApp</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <RootNamespace>AppT3mplate</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
@@ -70,6 +71,9 @@
       <BasicRuntimeChecks />
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,6 +116,8 @@
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
       <PrecompiledHeaderOutputFile />
       <BasicRuntimeChecks />
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -160,7 +166,9 @@
     <ClCompile Include="Store.cpp" />
     <ClCompile Include="StoreRpt.cpp" />
   </ItemGroup>
-  <ItemGroup><ResourceCompile Include="AppT3mplate.rc" /></ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AppT3mplate.rc" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Library\Extras\AboutDlg.rc2" />
     <None Include="res\AppT3mplate.rc2" />
@@ -169,7 +177,7 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\AppT3mplate.ico" />
+    <Image Include="res\AppT3mplate01.ico" />
     <Image Include="res\ShortToolbar.bmp" />
   </ItemGroup>
   <ItemGroup>

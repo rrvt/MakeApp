@@ -55,7 +55,7 @@ END_MESSAGE_MAP()
 // AppT3mplateDoc construction/destruction
 
 AppT3mplateDoc::AppT3mplateDoc() noexcept : dataSource(NotePadSrc) {
-  pathDlgDsc = PathDlgDsc(_T("Ugly Example"), _T(""), _T("txt"), _T("*.txt"));
+  pathDlgDsc(_T("Ugly Example"), _T(""), _T("txt"), _T("*.txt"));
   }
 
 AppT3mplateDoc::~AppT3mplateDoc() { }
@@ -205,7 +205,7 @@ void AppT3mplateDoc::OnFileOpen() {
 
   notePad.clear();   dataSource = StoreSrc;
 
-  pathDlgDsc = PathDlgDsc(_T("Ugly Example"), pathDlgDsc.name, _T("txt"), _T("*.txt"));
+  pathDlgDsc(_T("Ugly Example"), pathDlgDsc.name, _T("txt"), _T("*.txt"));
 
   if (!setPath(pathDlgDsc)) return;
 

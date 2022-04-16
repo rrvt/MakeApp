@@ -102,10 +102,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\AppT3mplate.ico">
+    <Image Include="res\ShortToolbar.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\ShortToolbar.bmp">
+    <Image Include="res\AppT3mplate01.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

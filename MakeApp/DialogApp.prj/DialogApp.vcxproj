@@ -15,20 +15,21 @@
     <ProjectGuid>{150DED69-871C-491F-A49A-38598909E792}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
     <RootNamespace>DialogApp</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
@@ -71,6 +72,9 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -97,7 +101,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -109,6 +114,8 @@
       <DebugInformationFormat />
       <BasicRuntimeChecks />
       <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -148,13 +155,15 @@
     <ClCompile Include="DialogDlg.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
-  <ItemGroup><ResourceCompile Include="DialogApp.rc" /></ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DialogApp.rc" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Library\Extras\AboutDlg.rc2" />
     <None Include="res\DialogApp.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\DialogApp.ico" />
+    <Image Include="res\DialogApp01.ico" />
     <Image Include="res\ShortToolbar.bmp" />
   </ItemGroup>
   <ItemGroup>

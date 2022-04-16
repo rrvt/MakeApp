@@ -30,8 +30,9 @@
   <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp"/>
   <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
 
-  <Icon     Id="DialogAppIcon.ico" SourceFile="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp.ico"/>
-  <Property Id="ARPPRODUCTICON"  Value="DialogAppIcon.ico" />
+  <Icon     Id="DialogApp01Icon.ico"
+                                SourceFile="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp01.ico"/>
+  <Property Id="ARPPRODUCTICON"  Value="DialogApp01Icon.ico" />
 
   <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
     <ComponentGroupRef Id="App.ftr"/>
@@ -79,7 +80,7 @@
               Advertise        = "yes"
               Directory        = "DialogApp.pmf"
               WorkingDirectory = "DialogApp.pff"
-              Icon             = "DialogAppIcon.ico"
+              Icon             = "DialogApp01Icon.ico"
               />
 
     <Shortcut Id               = "DialogApp.dsk"
@@ -88,7 +89,7 @@
               Advertise        = "yes"
               Directory        = "DesktopFolder"
               WorkingDirectory = "DialogApp.pff"
-              Icon             = "DialogAppIcon.ico"
+              Icon             = "DialogApp01Icon.ico"
               />
     <Condition>
       <![CDATA[Installed OR VersionNT >= 601]]>
@@ -104,14 +105,14 @@
 <Fragment>
 
   <Component Id="UninstallDialogApp.cmp" 
-                                Guid="3A0EEE0F-DBE8-4CC1-B559-C00D916C67E9" Directory="DialogApp.pmf">
+                                Guid="9310DA75-7687-47AA-AAF5-6EF1D99062A9" Directory="DialogApp.pmf">
 
     <Shortcut Id               = "UninstallDialogApp.shc"
               Name             = "Uninstall DialogApp"
               Description      = "Uninstalls DialogApp"
               Target           = "[System64Folder]msiexec.exe"
               Arguments        = "/x [ProductCode]"
-              Icon             = "DialogAppIcon.ico"
+              Icon             = "DialogApp01Icon.ico"
               />
     <RemoveFolder Id="DialogApp.uni" Directory="DialogApp.pmf" On="uninstall"/>
     <RegistryValue Root="HKCU" Key="Software\UninstallDialogApp.cmp" Name="installed"

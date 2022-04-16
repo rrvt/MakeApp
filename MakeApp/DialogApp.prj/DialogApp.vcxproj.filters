@@ -68,10 +68,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\DialogApp.ico">
+    <Image Include="res\ShortToolbar.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\ShortToolbar.bmp">
+    <Image Include="res\DialogApp01.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

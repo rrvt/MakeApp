@@ -30,8 +30,8 @@
   <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp"/>
   <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
 
-  <Icon     Id="MakeAppIcon.ico" SourceFile="$(var.SolutionDir)..\MakeApp.prj\res\MakeApp.ico"/>
-  <Property Id="ARPPRODUCTICON"  Value="MakeAppIcon.ico" />
+  <Icon     Id="MakeApp01Icon.ico" SourceFile="$(var.SolutionDir)..\MakeApp.prj\res\MakeApp01.ico"/>
+  <Property Id="ARPPRODUCTICON"  Value="MakeApp01Icon.ico" />
 
   <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
     <ComponentGroupRef Id="MakeApp.ftr"/>
@@ -204,7 +204,7 @@
               Advertise        = "yes"
               Directory        = "MakeApp.pmf"
               WorkingDirectory = "MakeApp.pff"
-              Icon             = "MakeAppIcon.ico"
+              Icon             = "MakeApp01Icon.ico"
               />
 
     <Shortcut Id               = "MakeApp.dsk"
@@ -213,7 +213,7 @@
               Advertise        = "yes"
               Directory        = "DesktopFolder"
               WorkingDirectory = "MakeApp.pff"
-              Icon             = "MakeAppIcon.ico"
+              Icon             = "MakeApp01Icon.ico"
               />
   </Component>
 
@@ -429,7 +429,7 @@
   <Component Id="AppT3mplate.ico.cmp"  Guid="9CE11ABC-3524-42E3-8196-721E0A1FCF1A"
                                                           Directory="MakeApp_AppT3mplate.prj_res.pff">
     <File Id="AppT3mplate.ico.cmp"
-                    Source="$(var.SolutionDir)..\AppT3mplate.prj\res\AppT3mplate.ico" KeyPath="yes"/>
+                  Source="$(var.SolutionDir)..\AppT3mplate.prj\res\AppT3mplate01.ico" KeyPath="yes"/>
   </Component>
 
   <Component Id="AppT3mplateRc2.cmp"  Guid="D054F6D3-374B-46CA-93E4-1F292C681E4C"
@@ -614,7 +614,7 @@
   <Component Id="DialogAppIco.cmp"  Guid="BCBE4704-7600-4E56-A789-1B5DE4169037"
                                                             Directory="MakeApp_DialogApp.prj_res.pff">
     <File Id="DialogAppIco.cmp"
-                        Source="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp.ico" KeyPath="yes"/>
+                      Source="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp01.ico" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppRc2.cmp"  Guid="343D8664-F55D-4CD6-8A2C-9F8A89BDCD97"
@@ -709,14 +709,14 @@
 <Fragment>
 
   <Component Id="UninstallMakeApp.cmp" 
-                                  Guid="026BBA21-E355-4DD4-882D-39C4BC4C7006" Directory="MakeApp.pmf">
+                                  Guid="019812D6-7550-46BF-984E-DBCD25E5A5DF" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall MakeApp"
               Description      = "Uninstalls MakeApp"
               Target           = "[System64Folder]msiexec.exe"
               Arguments        = "/x [ProductCode]"
-              Icon             = "MakeAppIcon.ico"
+              Icon             = "MakeApp01Icon.ico"
               />
     <RemoveFolder Id="MakeApp.uni" Directory="MakeApp.pmf" On="uninstall"/>
     <RegistryValue Root="HKCU" Key="Software\UninstallMakeApp.cmp" Name="installed"

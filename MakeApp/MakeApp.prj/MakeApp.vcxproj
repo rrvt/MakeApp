@@ -15,20 +15,21 @@
     <ProjectGuid>{76210CAD-9EB1-4493-8592-E3575DE8FC20}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
     <RootNamespace>MakeAppII</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
@@ -70,6 +71,9 @@
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,6 +116,8 @@
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
       <BasicRuntimeChecks />
       <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -182,16 +188,18 @@
     <ClCompile Include="SlickEdit.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
-  <ItemGroup><ResourceCompile Include="MakeApp.rc" /></ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MakeApp.rc" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Library\Extras\AboutDlg.rc2" />
     <None Include="..\..\Library\Extras\CalibDspPrtDlg.rc2" />
-    <None Include="res\MakeApp.ico" />
     <None Include="res\MakeApp.rc2" />
     <None Include="..\..\Library\Extras\Options.rc2" />
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\MakeApp01.ico" />
     <Image Include="res\Toolbar07.bmp" />
     <Image Include="res\Toolbar26.bmp" />
   </ItemGroup>
