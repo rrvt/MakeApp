@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 8/3/22
+
+Minor Library updates .
+
 ### Update 4/15/22
 
 Big adventure in February when I started moving to a new Win11 and Visual Studio 2022.  I now
