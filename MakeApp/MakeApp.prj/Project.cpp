@@ -93,21 +93,24 @@ bool     rslt;
 
 bool Project::operator() (ProjectNameDlg& dlg) {
 String t;
+String s;
 
   targetName = dlg.appType ? DialogApp : AppT3mplate;
 
   name = dlg.name; visible = dlg.visibleName; description = dlg.description;
-  if (name.isEmpty()) return false;
-  if (visible.isEmpty()) visible = name;
+
+  if (name.isEmpty())        return false;
+  if (visible.isEmpty())     visible     = name;
   if (description.isEmpty()) description = visible;
 
   appBase = dstBase;   addSegment(appBase, name);
 
   copyFiles(targetName);
 
-  t =  targetName + _T(".hlp");     copyFiles(t);
+  s = t =  targetName + _T(".hlp"); copyFiles(t);
 
   t += _T("\\Templates");           copyFiles(t);
+  s += _T("\\Images");              copyFiles(s);
 
   t =  targetName + _T(".prj");     copyFiles(t);
 
@@ -140,6 +143,7 @@ FileType fileType;
                     res.clear();      none.clear(); image.clear();
                     copyFile(srcPath, dstPath, fileName, VxcFix); break;
       case WxsType: copyFile(srcPath, dstPath, fileName, WxsFix); break;
+      case WxdType: copyFile(srcPath, dstPath, fileName, WxdFix); break;
       default     : break;
       }
     }
@@ -160,7 +164,7 @@ String ext = getExtension(fileName);
   if (ext == _T("vpj"))             {fileType = SEType;  return true;}
   if (ext == _T("bmp"))             {fileType = NilType; return true;}
   if (ext == _T("ico"))             {fileType = NilType; return true;}
-  if (ext == _T("wxd"))             {fileType = SrcType; return true;}
+  if (ext == _T("wxd"))             {fileType = WxdType; return true;}
   if (ext == _T("wxs"))             {fileType = WxsType; return true;}
   if (ext == _T("wxl"))             {fileType = NilType; return true;}
   if (ext == _T("wixproj"))         {fileType = WxsType; return true;}
@@ -170,11 +174,11 @@ String ext = getExtension(fileName);
   if (ext == _T("hhp"))             {fileType = SrcType; return true;}
   if (ext == _T("bat"))             {fileType = SrcType; return true;}
   if (ext == _T("htm"))             {fileType = SrcType; return true;}
+  if (ext == _T("jpg"))             {fileType = NilType; return true;}
   if (fileName == _T("makefile"))   {fileType = SrcType; return true;}
 
 //if (ext == _T(""))                {fileType = WxsType; return true;}
 //if (ext == _T(""))                {fileType = WxsType; return true;}
-
 
   return false;
   }
@@ -228,6 +232,7 @@ Data*  d;
       case PrjFix : renameAppName(s);   break;
       case SrcFix : renameAppName(s);   renamDesc(s);   renamVisibleName(s); break;
       case WxsFix : mngGuid.fixWxsGuid(s); renameAppName(s); break;
+      case WxdFix : renameAppName(s);  fixPath(srcBase, appBase, s);   break;
       }
     }
 
@@ -285,6 +290,16 @@ void Project::renamVisibleName(String& s) {
 int    pos = s.find(TitleTarget);   if (pos < 0) return;
 
   replace(s, pos, pos + NTitleTarget, visible);
+  }
+
+
+void Project::fixPath(String& srcRoot, String& dstRoot, String& s) {
+int lng = srcRoot.length();
+int pos = s.find(srcRoot);
+
+  if (pos >= 0) {
+    replace(s, pos, pos+lng, dstRoot);
+    }
   }
 
 

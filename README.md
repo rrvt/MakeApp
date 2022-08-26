@@ -1,7 +1,7 @@
 # MakeApp
 An application to build a new application from a template.  There are three steps:
 
-  = Specify the type of application:
+  - Specify the type of application:
 
     * An MFC Doc/View application with one document and one view.
     * An MFC Dialog Box with a menu, toolbar with limited controls, a status bar and an empty client
@@ -22,7 +22,7 @@ An application to build a new application from a template.  There are three step
     * AlphaBeta.prj -- Project files from which the application is built
     * AlphaBeta.wix -- Wix Installation File (Product.wxs) from which an msi installer file is created
 
- - One caveat concerning the placement of the Library directory and the new project:  The new project
+  - One caveat concerning the placement of the Library directory and the new project:  The new project
     and the Library should both have the same parent directory.  If that is not the case then the
     properties of the new project will need to be changed to reflect the location of the Library project
     file (i.e. ...\Library\Library.prj\Library.vcxproj).
@@ -159,6 +159,12 @@ some renaming in the files themselves to the new names.
 The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
+
+### Update 8/26/22
+
+Add a copy of three additional directories from the application templates:  "<help dir>\Images" and
+"AppT3mplate.hlp\Templates\".  Fixed the target name and root path in the "wxd" file (used by WixApp to
+create a WIX Product File).
 
 ### Update 8/3/22
 

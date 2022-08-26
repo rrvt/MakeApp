@@ -12,8 +12,8 @@ class ProjectNameDlg;
 
 class Project {
 
-enum FileType {NilType, SlnType, VxcType, PrjType, SrcType, SEType, WxsType};
-enum FixIt    {         SlnFix,  VxcFix,  PrjFix,  SrcFix,  SEFix,  WxsFix};
+enum FileType {NilType, SlnType, VxcType, PrjType, SrcType, SEType, WxsType, WxdType};
+enum FixIt    {         SlnFix,  VxcFix,  PrjFix,  SrcFix,  SEFix,  WxsFix,  WxdFix};
 
 String        name;
 String        visible;
@@ -70,6 +70,7 @@ private:
   void    renameAppName(String& s);
   void    renamVisibleName(String& s);
   void    renamDesc(String& s);
+  void    fixPath(String& srcPath, String& dstPath, String& s);
   };
 
 

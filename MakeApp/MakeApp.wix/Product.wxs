@@ -46,6 +46,9 @@
     <ComponentGroupRef Id="DialogAppWix.ftr"/>
     <ComponentGroupRef Id="AppT3mplateWix.ftr"/>
     <ComponentGroupRef Id="DialogAppHelpTmpl.ftr"/>
+    <ComponentGroupRef Id="DialogAppHlpImg.ftr"/>
+    <ComponentGroupRef Id="AppT3mplateHlpTmpl.ftr"/>
+    <ComponentGroupRef Id="AppT3mplateHlpImg.ftr"/>
     <ComponentGroupRef Id="UninstallMakeApp.ftr"/>
   </Feature>
 </Product>
@@ -154,6 +157,27 @@
 <ComponentGroup Id="DialogAppHelpTmpl.ftr">
   <ComponentRef Id="OneColumn.cmp"/>
 </ComponentGroup>
+<ComponentGroup Id="DialogAppHlpImg.ftr">
+  <ComponentRef Id="About.jpg.cmp"/>
+  <ComponentRef Id="EditBoox.jpg.cmp"/>
+  <ComponentRef Id="Exit.jpg.cmp"/>
+  <ComponentRef Id="Greeks.jpg.cmp"/>
+  <ComponentRef Id="ItemsMenu.jpg.cmp"/>
+  <ComponentRef Id="MyButton.jpg.cmp"/>
+  <ComponentRef Id="PopupMenu.jpg.cmp"/>
+</ComponentGroup>
+<ComponentGroup Id="AppT3mplateHlpTmpl.ftr">
+  <ComponentRef Id="OneColumnPage.dwt.cmp"/>
+</ComponentGroup>
+<ComponentGroup Id="AppT3mplateHlpImg.ftr">
+  <ComponentRef Id="T3About.jpg.cmp"/>
+  <ComponentRef Id="T3Exit.jpg.cmp"/>
+  <ComponentRef Id="T3Floppy.jpg.cmp"/>
+  <ComponentRef Id="T3NewFile.jpg.cmp"/>
+  <ComponentRef Id="T3OpenFile.jpg.cmp"/>
+  <ComponentRef Id="T3Options.jpg.cmp"/>
+  <ComponentRef Id="T3Printer.jpg.cmp"/>
+</ComponentGroup>
 <ComponentGroup Id="UninstallMakeApp.ftr">
   <ComponentRef Id="UninstallMakeApp.cmp"/>
 </ComponentGroup>
@@ -165,13 +189,17 @@
     <Directory Id="ProgramFilesFolder">
       <Directory Id="MakeApp.pff" Name="MakeApp">
         <Directory Id="MakeApp_AppT3mplate.pff" Name="AppT3mplate" />
-        <Directory Id="MakeApp_AppT3mplate.hlp.pff" Name="AppT3mplate.hlp" />
+        <Directory Id="MakeApp_AppT3mplate.hlp.pff" Name="AppT3mplate.hlp">
+          <Directory Id="MakeApp_AppT3mplate.hlp_Templates.pff" Name="Templates" />
+          <Directory Id="MakeApp_AppT3mplate.hlp_Images.pff" Name="Images" />
+        </Directory>
         <Directory Id="MakeApp_AppT3mplate.prj.pff" Name="AppT3mplate.prj">
           <Directory Id="MakeApp_AppT3mplate.prj_res.pff" Name="res" />
         </Directory>
         <Directory Id="MakeApp_DialogApp.pff" Name="DialogApp" />
         <Directory Id="MakeApp_DialogApp.hlp.pff" Name="DialogApp.hlp">
           <Directory Id="MakeApp_DialogApp.hlp_Templates.pff" Name="Templates" />
+          <Directory Id="MakeApp_DialogApp.hlp_Images.pff" Name="Images" />
         </Directory>
         <Directory Id="MakeApp_DialogApp.prj.pff" Name="DialogApp.prj">
           <Directory Id="MakeApp_DialogApp.prj_res.pff" Name="res" />
@@ -181,11 +209,11 @@
       </Directory>
     </Directory>
 
-    <Directory Id="ProgramMenuFolder" Name="StartMenu">
+    <Directory Id="ProgramMenuFolder">
       <Directory Id="MakeApp.pmf" Name="MakeApp" />
     </Directory>
 
-    <Directory Id="DesktopFolder" Name="Desktop" />
+    <Directory Id="DesktopFolder" />
   </Directory>
 
   <Property Id="ApplicationFolderName" Value="MakeApp" />
@@ -708,8 +736,109 @@
 
 <Fragment>
 
+  <Component Id="About.jpg.cmp"  Guid="AFB8EEB5-C46C-48C2-9706-A43F1A59D03A"
+                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+    <File Id="About.jpg.cmp"
+                          Source="$(var.SolutionDir)..\DialogApp.hlp\Images\About.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="EditBoox.jpg.cmp"  Guid="FD3395CC-80F0-4EB6-AFAE-076BDEA7D639"
+                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+    <File Id="EditBoox.jpg.cmp"
+                      Source="$(var.SolutionDir)..\DialogApp.hlp\Images\EditBoox.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="Exit.jpg.cmp"  Guid="136013E7-1CD0-43A2-BF79-91BBC9379673"
+                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+    <File Id="Exit.jpg.cmp" Source="$(var.SolutionDir)..\DialogApp.hlp\Images\Exit.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="Greeks.jpg.cmp"  Guid="4F694340-BDF0-4262-ADAF-2A023464CA25"
+                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+    <File Id="Greeks.jpg.cmp"
+                        Source="$(var.SolutionDir)..\DialogApp.hlp\Images\Greeks.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="ItemsMenu.jpg.cmp"  Guid="B21713CD-114B-4C5E-A595-A5699FDFABAC"
+                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+    <File Id="ItemsMenu.jpg.cmp"
+                      Source="$(var.SolutionDir)..\DialogApp.hlp\Images\ItemsMenu.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="MyButton.jpg.cmp"  Guid="0CB6807C-5B94-4A97-9319-C7AEA56FE6E6"
+                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+    <File Id="MyButton.jpg.cmp"
+                      Source="$(var.SolutionDir)..\DialogApp.hlp\Images\MyButton.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="PopupMenu.jpg.cmp"  Guid="DCEF4B37-B5F9-404E-85E0-1B53116C7E2D"
+                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+    <File Id="PopupMenu.jpg.cmp"
+                      Source="$(var.SolutionDir)..\DialogApp.hlp\Images\PopupMenu.jpg" KeyPath="yes"/>
+  </Component>
+
+</Fragment>
+
+<Fragment>
+
+  <Component Id="OneColumnPage.dwt.cmp" 
+        Guid="301C9D66-95C1-44FC-AE2F-767640667EC1" Directory="MakeApp_AppT3mplate.hlp_Templates.pff">
+    <File Id="OneColumnPage.dwt.cmp"
+            Source="$(var.SolutionDir)..\AppT3mplate.hlp\Templates\OneColumnPage.dwt" KeyPath="yes"/>
+  </Component>
+
+</Fragment>
+
+<Fragment>
+
+  <Component Id="T3About.jpg.cmp"  Guid="11217842-6254-466D-A9DF-C295FF04E5F8"
+                                                      Directory="MakeApp_AppT3mplate.hlp_Images.pff">
+    <File Id="T3About.jpg.cmp"
+                        Source="$(var.SolutionDir)..\AppT3mplate.hlp\Images\About.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="T3Exit.jpg.cmp"  Guid="AACA635C-E1E1-4DB7-8363-1FF8366AFC23"
+                                                      Directory="MakeApp_AppT3mplate.hlp_Images.pff">
+    <File Id="T3Exit.jpg.cmp"
+                        Source="$(var.SolutionDir)..\AppT3mplate.hlp\Images\Exit.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="T3Floppy.jpg.cmp"  Guid="4C4CE950-D5CF-4D03-9F37-DDB6EAA63AE3"
+                                                      Directory="MakeApp_AppT3mplate.hlp_Images.pff">
+    <File Id="T3Floppy.jpg.cmp"
+                      Source="$(var.SolutionDir)..\AppT3mplate.hlp\Images\Floppy.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="T3NewFile.jpg.cmp"  Guid="8817EFC6-0FBC-406B-B42C-60848DA84680"
+                                                      Directory="MakeApp_AppT3mplate.hlp_Images.pff">
+    <File Id="T3NewFile.jpg.cmp"
+                      Source="$(var.SolutionDir)..\AppT3mplate.hlp\Images\NewFile.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="T3OpenFile.jpg.cmp"  Guid="DF9C3908-7DD4-4D44-BD82-77829BCA5FF4"
+                                                      Directory="MakeApp_AppT3mplate.hlp_Images.pff">
+    <File Id="T3OpenFile.jpg.cmp"
+                    Source="$(var.SolutionDir)..\AppT3mplate.hlp\Images\OpenFile.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="T3Options.jpg.cmp"  Guid="CBE2A3B4-C06D-4A36-8E8F-12643BB212FA"
+                                                      Directory="MakeApp_AppT3mplate.hlp_Images.pff">
+    <File Id="T3Options.jpg.cmp"
+                      Source="$(var.SolutionDir)..\AppT3mplate.hlp\Images\Options.jpg" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="T3Printer.jpg.cmp"  Guid="9243BB07-8ECF-418A-9AFC-60730EB76E98"
+                                                      Directory="MakeApp_AppT3mplate.hlp_Images.pff">
+    <File Id="T3Printer.jpg.cmp"
+                      Source="$(var.SolutionDir)..\AppT3mplate.hlp\Images\Printer.jpg" KeyPath="yes"/>
+  </Component>
+
+</Fragment>
+
+<Fragment>
+
   <Component Id="UninstallMakeApp.cmp" 
-                                  Guid="019812D6-7550-46BF-984E-DBCD25E5A5DF" Directory="MakeApp.pmf">
+                                  Guid="27F13285-ECD9-492A-B2D0-A8FCFA590E44" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall MakeApp"
