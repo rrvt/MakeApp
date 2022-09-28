@@ -57,11 +57,11 @@
       <Directory Id="DialogApp.pff" Name="DialogApp" />
     </Directory>
 
-    <Directory Id="ProgramMenuFolder" Name="StartMenu">
+    <Directory Id="ProgramMenuFolder">
       <Directory Id="DialogApp.pmf" Name="DialogApp" />
     </Directory>
 
-    <Directory Id="DesktopFolder" Name="Desktop" />
+    <Directory Id="DesktopFolder" />
   </Directory>
 
   <Property Id="ApplicationFolderName" Value="DialogApp" />
@@ -105,7 +105,7 @@
 <Fragment>
 
   <Component Id="UninstallDialogApp.cmp" 
-                                Guid="9310DA75-7687-47AA-AAF5-6EF1D99062A9" Directory="DialogApp.pmf">
+                                Guid="8DE6E34D-E856-47F0-AF10-DE57231664E7" Directory="DialogApp.pmf">
 
     <Shortcut Id               = "UninstallDialogApp.shc"
               Name             = "Uninstall DialogApp"

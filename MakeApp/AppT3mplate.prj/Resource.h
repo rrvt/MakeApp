@@ -34,15 +34,19 @@
 #define ID_Option21                     416
 #define ID_Option22                     417
 #define ID_Option23                     418
-
 #endif
+
+#define ID_PopupMenu                    420
+#define ID_Pup0                         421
+#define ID_Pup1                         422
+#define ID_Pup2                         423
 
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        104
-#define _APS_NEXT_COMMAND_VALUE         419
+#define _APS_NEXT_COMMAND_VALUE         430
 #define _APS_NEXT_CONTROL_VALUE         204
 #define _APS_NEXT_SYMED_VALUE           300
 #endif

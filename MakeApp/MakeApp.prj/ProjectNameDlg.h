@@ -11,9 +11,9 @@ public:
 
 BOOL    dialogApp;
 BOOL    docViewApp;
-CString name;
-CString description;
-CString visibleName;
+Cstring name;
+Cstring description;
+Cstring visibleName;
 
            ProjectNameDlg(CWnd* pParent = nullptr);   // standard constructor
   virtual ~ProjectNameDlg();

@@ -4,8 +4,6 @@
 #include "stdafx.h"
 #include "MainFrame.h"
 #include "AboutDlg.h"
-//#include "ExtraResource.h"
-//#include "resource.h"
 #include "TBBtnCtx.h"
 
 

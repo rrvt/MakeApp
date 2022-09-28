@@ -20,6 +20,7 @@ Company=Bob -- K6RWY
 WixName=AppT3mplate
 WixVersion=1.0.0.0
 UpgradeGUID=8D8880AE-E847-4148-B89A-0A9DC3339F65
+UpgradeCode=8D8880AE-E847-4148-B89A-0A9DC3339F65
 SaveVerAllowed=0
 LicenseRequired=0
 LicensePath=D:\Sources\MakeApp\AppT3mplate\

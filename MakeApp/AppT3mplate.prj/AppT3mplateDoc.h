@@ -53,6 +53,7 @@ public:
   afx_msg void OnFileOpen();
   afx_msg void OnFileSave();
   afx_msg void OnOptions();
+  afx_msg void onEditCopy();
 
 #ifdef Examples
   afx_msg void OnTest();

@@ -46,8 +46,9 @@ IconPath=D:\Sources\MakeApp\MakeApp.prj\res\MakeApp01.ico
 ProductName=MakeApp
 Company=Bob -- K6RWY
 WixName=MakeApp
-WixVersion=1.5.19.0
+WixVersion=1.5.22.0
 UpgradeGUID=07B80D4F-179C-4439-836D-E3743B3AAA5F
+UpgradeCode=07B80D4F-179C-4439-836D-E3743B3AAA5F
 SaveVerAllowed=0
 LicenseRequired=0
 LicensePath=D:\Sources\MakeApp\MakeApp\
@@ -154,7 +155,7 @@ Name=MakeApp
 HasChildren=0
 [Features]
 Count=15
-CurSel=AppT3mplateHlpImg
+CurSel=AppT3mplateWix
 [Ftr00]
 FeatureID=MakeApp
 ProgramID=MakeApp
@@ -498,7 +499,7 @@ Path=D:\Sources\MakeApp\DialogApp.wix\DialogAppWix.wixproj
 Guid=C85D3A10-CB89-443D-87A2-0BFCB425E431
 [Ftr09Cmp01]
 ID=DialogAppWixWxd
-Path=D:\Sources\MakeApp\DialogApp.wix\DialogAppWix.wxd
+Path=D:\Sources\MakeApp\DialogApp.wix\DialogApp.wxd
 Guid=D72F450B-1FBF-4E23-9ECE-DFA76B0012F5
 [Ftr09Cmp02]
 ID=DAMyEnUsWxl
@@ -516,7 +517,7 @@ Guid=48332899-82E2-4803-8C5E-6457C9958C7F
 FeatureID=AppT3mplateWix
 ProgramID=MakeApp\AppT3mplate.wix
 StartMenuID=
-CurSel=AppT3mplateWixVpj
+CurSel=AppT3mplateWxd
 NoComponents=5
 [Ftr10Cmp00]
 ID=AppT3mplateWxd

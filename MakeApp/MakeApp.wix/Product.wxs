@@ -669,7 +669,7 @@
   <Component Id="DialogAppWixWxd.cmp"  Guid="D72F450B-1FBF-4E23-9ECE-DFA76B0012F5"
                                                                 Directory="MakeApp_DialogApp.wix.pff">
     <File Id="DialogAppWixWxd.cmp"
-                          Source="$(var.SolutionDir)..\DialogApp.wix\DialogAppWix.wxd" KeyPath="yes"/>
+                            Source="$(var.SolutionDir)..\DialogApp.wix\DialogApp.wxd" KeyPath="yes"/>
   </Component>
 
   <Component Id="DAMyEnUsWxl.cmp"  Guid="AB1F8075-6702-4A5E-A300-0B44ABF7DD47"
@@ -838,7 +838,7 @@
 <Fragment>
 
   <Component Id="UninstallMakeApp.cmp" 
-                                  Guid="27F13285-ECD9-492A-B2D0-A8FCFA590E44" Directory="MakeApp.pmf">
+                                  Guid="57202B41-C8F9-4878-935A-CDF38CD962D7" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall MakeApp"

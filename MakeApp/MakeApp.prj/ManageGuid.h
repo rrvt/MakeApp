@@ -33,11 +33,13 @@ public:
 
   void fixBraceGuids(String& s);
   void fixWxsGuid(String& s);
+  void fixWxdGuid(String& s);
 
 private:
 
   bool    findBraceGuid(String& line, String& suffix);
   bool    rplcWxsGuid(TCchar* label, TCchar* end, String& s);
+  bool    rplcWxdGuid(TCchar* label, String& s);
 
   String& replace(String& id);
 

@@ -3,9 +3,7 @@
 
 #include "stdafx.h"
 #include "AppT3mplateDoc.h"
-#ifdef Examples
-#include "Store.h"
-#endif
+#include "ClipLine.h"
 #include "ExtraResource.h"
 #include "filename.h"
 #include "GetPathDlg.h"
@@ -15,6 +13,9 @@
 #include "Resource.h"
 #include "AppT3mplate.h"
 #include "AppT3mplateView.h"
+#ifdef Examples
+#include "Store.h"
+#endif
 #include "ToolBar.h"
 
 
@@ -26,6 +27,7 @@ BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
   ON_COMMAND(      ID_File_Open,  &OnFileOpen)
   ON_COMMAND(      ID_File_Save,  &OnFileSave)
   ON_COMMAND(      ID_Options,    &OnOptions)
+  ON_COMMAND(       ID_EDIT_COPY, &onEditCopy)
 
 #ifdef Examples
   ON_COMMAND(      ID_Test,       &OnTest)
@@ -196,6 +198,9 @@ String s;
 void AppT3mplateDoc::displayDataStore() {display(StoreSrc);}
 
 #endif
+
+
+void AppT3mplateDoc::onEditCopy() {clipLine.load();}
 
 
 void AppT3mplateDoc::OnOptions() {options(view());  view()->setOrientation(options.orient);}

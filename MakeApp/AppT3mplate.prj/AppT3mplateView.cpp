@@ -5,7 +5,9 @@
 #include "AppT3mplateView.h"
 #include "AppT3mplate.h"
 #include "AppT3mplateDoc.h"
+#include "ClipLine.h"
 #include "Options.h"
+#include "Resource.h"
 #include "Resources.h"
 
 
@@ -14,6 +16,14 @@
 IMPLEMENT_DYNCREATE(AppT3mplateView, CScrView)
 
 BEGIN_MESSAGE_MAP(AppT3mplateView, CScrView)
+  ON_WM_LBUTTONDOWN()
+  ON_WM_LBUTTONDBLCLK()
+
+  ON_WM_CONTEXTMENU()
+  ON_COMMAND(ID_Pup0, &onCopy)
+  ON_COMMAND(ID_Pup1, &onPup1)
+  ON_COMMAND(ID_Pup2, &onPup2)
+
 END_MESSAGE_MAP()
 
 
@@ -25,6 +35,12 @@ AppT3mplateView::AppT3mplateView() noexcept :
 ResourceData res;
 String       pn;
   if (res.getProductName(pn)) prtNote.setTitle(pn);
+
+  sub.LoadMenu(ID_PopupMenu);
+  menu.CreatePopupMenu();
+  menu.AppendMenu(MF_POPUP, (UINT_PTR) sub.GetSafeHmenu(), _T(""));        //
+
+  sub.Detach();
   }
 
 
@@ -118,6 +134,39 @@ void AppT3mplateView::OnSetFocus(CWnd* pOldWnd) {
   }
 
 
+void AppT3mplateView::OnLButtonDown(UINT nFlags, CPoint point)
+                        {clipLine.set(point);   invalidate();   CScrView::OnLButtonDown(nFlags, point);}
+
+
+void AppT3mplateView::OnLButtonDblClk(UINT nFlags, CPoint point)
+  {clipLine.set(point);   RedrawWindow();   clipLine.load();   CScrView::OnLButtonDblClk(nFlags, point);}
+
+
+void AppT3mplateView::OnContextMenu(CWnd* /*pWnd*/, CPoint point) {
+CRect  rect;
+CMenu* popup;
+CWnd*  pWndPopupOwner = this;
+
+  if (point.x == -1 && point.y == -1)
+            {GetClientRect(rect);  ClientToScreen(rect);  point = rect.TopLeft();  point.Offset(5, 5);}
+
+  popup = menu.GetSubMenu(0);   if (!popup) return;
+
+  while (pWndPopupOwner->GetStyle() & WS_CHILD) pWndPopupOwner = pWndPopupOwner->GetParent();
+
+  popup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
+  }
+
+
+void AppT3mplateView::onCopy() {clipLine.load();  invalidate();}
+
+
+void AppT3mplateView::onPup1() {  }
+
+
+void AppT3mplateView::onPup2() {  }
+
+
 // AppT3mplateView diagnostics
 
 #ifdef _DEBUG
@@ -130,3 +179,16 @@ AppT3mplateDoc* AppT3mplateView::GetDocument() const
   {ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(AppT3mplateDoc))); return (AppT3mplateDoc*)m_pDocument;}
 
 #endif //_DEBUG
+
+
+
+
+#if 1
+#else
+  sub.CreatePopupMenu();
+
+  sub.AppendMenu(MF_STRING, ID_Pup0, _T("Copy Selection\tCtrl+C"));
+  sub.AppendMenu(MF_STRING, ID_Pup1, _T("Popup 1\tCtrl+A"));
+  sub.AppendMenu(MF_STRING, ID_Pup2, _T("Popup 2\tCtrl+B"));
+#endif
+

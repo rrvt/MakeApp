@@ -41,7 +41,7 @@ protected:                                          // Generated message map fun
   afx_msg int     OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg LRESULT OnResetToolBar(WPARAM wParam, LPARAM lParam);
 public:
-  afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
+  afx_msg void    OnSysCommand(UINT nID, LPARAM lParam);
 };
 
 

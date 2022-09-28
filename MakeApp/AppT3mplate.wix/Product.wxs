@@ -57,11 +57,11 @@
       <Directory Id="AppT3mplate.pff" Name="AppT3mplate" />
     </Directory>
 
-    <Directory Id="ProgramMenuFolder" Name="StartMenu">
+    <Directory Id="ProgramMenuFolder">
       <Directory Id="AppT3mplate.pmf" Name="AppT3mplate" />
     </Directory>
 
-    <Directory Id="DesktopFolder" Name="Desktop" />
+    <Directory Id="DesktopFolder" />
   </Directory>
 
   <Property Id="ApplicationFolderName" Value="AppT3mplate" />
@@ -104,7 +104,7 @@
 <Fragment>
 
   <Component Id="UninstallAppT3mplate.cmp" 
-                              Guid="C0322895-36A8-49A3-8978-D04A0928647A" Directory="AppT3mplate.pmf">
+                              Guid="9A0D8254-007D-4C31-823E-7C0852F9E00E" Directory="AppT3mplate.pmf">
 
     <Shortcut Id               = "UninstallAppT3mplate.shc"
               Name             = "Uninstall AppT3mplate"

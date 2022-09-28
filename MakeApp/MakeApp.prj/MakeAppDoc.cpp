@@ -77,9 +77,9 @@ ProjectNameDlg dlg;
 String         path;
 
   dlg.appType = iniFile.readInt(   PrjSection, PrjAppType, 0);
-  iniFile.readString(PrjSection, PrjNameKey, dlg.name);
-  iniFile.readString(PrjSection, PrjVisKey,  dlg.visibleName);
-  iniFile.readString(PrjSection, PrjDesc,    dlg.description);
+  iniFile.read(PrjSection, PrjNameKey, dlg.name);
+  iniFile.read(PrjSection, PrjVisKey,  dlg.visibleName);
+  iniFile.read(PrjSection, PrjDesc,    dlg.description);
 
   if (dlg.DoModal() == IDOK) {
 
@@ -88,15 +88,15 @@ String         path;
     switch (dlg.appType) {
       case 0  : notePad << _T("DocView"); break;
       case 1  : notePad << _T("Dialog");  break;
-      case 2  : notePad << _T("Radio2");      break;
-      default : notePad << _T("Unknown");     break;
+      case 2  : notePad << _T("Radio2");  break;
+      default : notePad << _T("Unknown"); break;
       }
     notePad << nCrlf;
 
-    iniFile.writeInt(   PrjSection, PrjAppType, dlg.appType);
-    iniFile.writeString(PrjSection, PrjNameKey, dlg.name);
-    iniFile.writeString(PrjSection, PrjVisKey,  dlg.visibleName);
-    iniFile.writeString(PrjSection, PrjDesc,    dlg.description);
+    iniFile.write(PrjSection, PrjAppType, dlg.appType);
+    iniFile.write(PrjSection, PrjNameKey, dlg.name);
+    iniFile.write(PrjSection, PrjVisKey,  dlg.visibleName);
+    iniFile.write(PrjSection, PrjDesc,    dlg.description);
 
     project(dlg);
 

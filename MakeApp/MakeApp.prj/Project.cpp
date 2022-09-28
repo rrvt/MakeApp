@@ -105,6 +105,8 @@ String s;
 
   appBase = dstBase;   addSegment(appBase, name);
 
+  mngGuid.clear();
+
   copyFiles(targetName);
 
   s = t =  targetName + _T(".hlp"); copyFiles(t);
@@ -177,9 +179,6 @@ String ext = getExtension(fileName);
   if (ext == _T("jpg"))             {fileType = NilType; return true;}
   if (fileName == _T("makefile"))   {fileType = SrcType; return true;}
 
-//if (ext == _T(""))                {fileType = WxsType; return true;}
-//if (ext == _T(""))                {fileType = WxsType; return true;}
-
   return false;
   }
 
@@ -218,8 +217,6 @@ Data*  d;
 
   if (!doc()->OnOpenDocument(srcFilePath)) return;
 
-  mngGuid.clear();
-
   if (fixIt == VxcFix) getFiles();
 
   for (d = iter(); d; d = iter++) {
@@ -232,7 +229,7 @@ Data*  d;
       case PrjFix : renameAppName(s);   break;
       case SrcFix : renameAppName(s);   renamDesc(s);   renamVisibleName(s); break;
       case WxsFix : mngGuid.fixWxsGuid(s); renameAppName(s); break;
-      case WxdFix : renameAppName(s);  fixPath(srcBase, appBase, s);   break;
+      case WxdFix : mngGuid.fixWxdGuid(s); renameAppName(s);  fixPath(srcBase, appBase, s);   break;
       }
     }
 

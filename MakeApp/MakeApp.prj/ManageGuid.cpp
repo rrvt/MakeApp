@@ -7,14 +7,12 @@
 #include "match.h"
 
 
-static RegExpr re(_T("^{[0-9A-Fa-f\\-][0-9A-Fa-f\\-]*}$"));
+static RegExpr UUIDExpr(_T("^[0-9A-Fa-f\\-][0-9A-Fa-f\\-]*$"));
 
 
 void ManageGuid::fixBraceGuids(String& s) {
 String prefix;
 String suffix;
-
-//  if (!findBraceGuid(s, suffix)) return;
 
   for (prefix = s, s.clear(); findBraceGuid(prefix, suffix); prefix = suffix) s += prefix;
 
@@ -31,25 +29,32 @@ String candidate;
 
   suffix.clear();
 
-  pos = line.find(_T('{'));   if (pos < 0) return false;
+  pos = line.find(_T('{'));   if (pos < 0) return false;   pos++;
 
-  prefix = line.substr(0, pos + 1);   candidate = line.substr(pos);
+  prefix = line.substr(0, pos);   candidate = line.substr(pos);
 
   endPos = candidate.find(_T('}'));  if (endPos < 0) return false;
 
-  suffix = candidate.substr(endPos);   candidate = candidate.substr(0, endPos+1);
+  suffix = candidate.substr(endPos);   candidate = candidate.substr(0, endPos);
 
-  if (re.match(candidate)) {line = prefix + replace(candidate); return true;}
+  if (candidate.length() < 36 || !UUIDExpr.match(candidate)) return false;
 
-  return false;
+  line = prefix + replace(candidate); return true;
   }
-                                 // <ProjectGuid>
+
 
 void ManageGuid::fixWxsGuid(String& s) {
 
   if (rplcWxsGuid(_T("UpgradeCode=\""), _T("\""),             s)) return;
   if (rplcWxsGuid(_T("Guid=\""),        _T("\""),             s)) return;
   if (rplcWxsGuid(_T("<ProjectGuid>"),  _T("</ProjectGuid>"), s)) return;
+  }
+
+
+void ManageGuid::fixWxdGuid(String& s) {
+  if (rplcWxdGuid(_T("UpgradeCode="), s)) return;
+  if (rplcWxdGuid(_T("UpgradeGUID="), s)) return;
+  if (rplcWxdGuid(_T("Guid="),        s)) return;
   }
 
 
@@ -67,20 +72,36 @@ String suffix;
 
   endPos = candidate.find(end);        if (endPos < 0) return false;
 
-  suffix = candidate.substr(endPos);   candidate = _T('{') + candidate.substr(0, endPos) + _T('}');
+  suffix = candidate.substr(endPos);   candidate = candidate.substr(0, endPos);
 
-  if (re.match(candidate)) {s = prefix + replace(candidate) + suffix; return true;}
+  if (candidate.length() < 36 || !UUIDExpr.match(candidate)) return false;
 
-  return false;
+  s = prefix + replace(candidate) + suffix; return true;
   }
 
+
+bool ManageGuid::rplcWxdGuid(TCchar* label, String& s) {
+int    lng;
+String prefix;
+String candidate;
+
+  if (s.find(label) < 0) return false;
+
+  lng = _tcslen(label);
+
+  prefix = s.substr(0, lng);  candidate = s.substr(lng);
+
+  if (candidate.length() < 36 || !UUIDExpr.match(candidate)) return false;
+
+  s = prefix + replace(candidate);  return true;
+  }
 
 
 
 String& ManageGuid::replace(String& id) {
 MGIter     iter(*this);
 GuidDatum* gd;
-String s;
+String     s;
 
   for (gd = iter(); gd; gd = iter++) if (gd->before == id) return gd->after;
 

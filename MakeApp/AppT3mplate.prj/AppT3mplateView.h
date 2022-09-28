@@ -21,6 +21,9 @@ StoreRpt   dspStore;
 StoreRpt   prtStore;
 #endif
 
+CMenu      menu;
+CMenu      sub;
+
 protected: // create from serialization only
 
   AppT3mplateView() noexcept;
@@ -54,8 +57,14 @@ public:
   DECLARE_MESSAGE_MAP()
 
   afx_msg void OnSetFocus(CWnd* pOldWnd);
-  };
+  afx_msg void OnLButtonDown(  UINT nFlags, CPoint point);
+  afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 
+  afx_msg void OnContextMenu(  CWnd* ,      CPoint point);
+  afx_msg void onCopy();
+  afx_msg void onPup1();
+  afx_msg void onPup2();
+  };
 
 #ifndef _DEBUG  // debug version in AppT3mplateView.cpp
 inline AppT3mplateDoc* AppT3mplateView::GetDocument() const

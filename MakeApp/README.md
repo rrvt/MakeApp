@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 9/28/22
+
+Fixed the generation of UUIDs in the various files.  Other copy operations were included and fixed.
+
 ### Update 8/26/22
 
 Add a copy of three additional directories from the application templates:  "<help dir>\Images" and
