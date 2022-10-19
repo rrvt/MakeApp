@@ -57,7 +57,7 @@ CRect winRect;
 
   m_wndStatusBar.SetIndicators(indicators, noElements(indicators));  //sizeof(indicators)/sizeof(UINT)
 
-   GetWindowRect(&winRect);   winPos.initialPos(this, winRect);
+  GetWindowRect(&winRect);   winPos.initialPos(this, winRect);
 
   DockPane(&m_wndMenuBar);   DockPane(&toolBar);
 

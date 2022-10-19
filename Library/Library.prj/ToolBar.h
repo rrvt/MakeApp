@@ -44,7 +44,7 @@ public:
 
   bool           create(CWnd* wnd, uint id, DWORD style = 0);     // Create toolbar with flyby tooltips.
 
-  void           move(CRect& rect);
+  void           move(CRect& rect);                               // Useful in Dialog Apps only
 
   void           initialize(CRect& winRect);
                                                                   // Add additional style bits as needed

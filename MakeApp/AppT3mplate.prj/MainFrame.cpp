@@ -55,19 +55,19 @@ CRect winRect;
 
   if (!toolBar.create(this, IDR_MAINFRAME)) {TRACE0("Failed to create status bar\n"); return -1;}
 
-  GetWindowRect(&winRect);   toolBar.move(winRect);
-
   addAboutToSysMenu(IDD_AboutBox, IDS_AboutBox);
 
   if (!m_wndStatusBar.Create(this)) {TRACE0("Failed to create status bar\n"); return -1;}
+
   m_wndStatusBar.SetIndicators(indicators, noElements(indicators));  //sizeof(indicators)/sizeof(UINT)
 
-  DockPane(&m_wndMenuBar);
-  DockPane(&toolBar);
+  GetWindowRect(&winRect);   winPos.initialPos(this, winRect);
+
+  DockPane(&m_wndMenuBar);   DockPane(&toolBar);
 
   CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows7));
                                                                          // Affects look of toolbar, etc.
-  winPos.initialPos(this, winRect);   isInitialized = true;   return 0;
+  isInitialized = true;   return 0;
   }
 
 
@@ -92,7 +92,7 @@ CRect winRect;
 
   if (!isInitialized) return;
 
-  GetWindowRect(&winRect);   winPos.set(winRect);   toolBar.move(winRect);
+  GetWindowRect(&winRect);   winPos.set(winRect);
   }
 
 

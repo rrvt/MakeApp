@@ -160,6 +160,11 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 10/19/22
+
+Discovered that toolBar.move is only useful for Dialog Apps as the Doc/View Apps have internal machinery
+that contol the placement of the toolBar.
+
 ### Update 10/16/22
 
 One of my commercial applications does not start at the same place and size as it is setup to do.
