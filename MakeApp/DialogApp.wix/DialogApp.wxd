@@ -1,7 +1,8 @@
 [SolutionInfo]
+RootPath=D:\Sources\MakeApp
 Path=D:\Sources\MakeApp\DialogApp\DialogApp.sln
 Name=DialogApp
-Version=2.0
+Version=2.100000
 [DefaultPath]
 NPaths=2
 DefKey0=App.ftr
@@ -19,7 +20,6 @@ ProductName=DialogApp
 Company=Bob -- K6RWY
 WixName=DialogApp
 WixVersion=1.0.0.0
-UpgradeGUID=D104D446-92BA-4AAF-89C2-78BFC679A918
 UpgradeCode=D104D446-92BA-4AAF-89C2-78BFC679A918
 SaveVerAllowed=0
 LicenseRequired=0

@@ -15,6 +15,7 @@
 #include "ProjectNameDlg.h"
 #include "SlickEdit.h"
 
+#include "MessageBox.h"   //debug
 
 
 Project project;
@@ -131,7 +132,7 @@ FileType fileType;
 
   preparePath(srcDirName);
 
-  for(files.findAllFiles(srcPath); files.getName(fileName);) {
+  for (files.findAllFiles(srcPath); files.getName(fileName);) {
 
     fileName = removePath(fileName);   if (!mustCopy(fileName, fileType)) continue;
 
@@ -229,7 +230,8 @@ Data*  d;
       case PrjFix : renameAppName(s);   break;
       case SrcFix : renameAppName(s);   renamDesc(s);   renamVisibleName(s); break;
       case WxsFix : mngGuid.fixWxsGuid(s); renameAppName(s); break;
-      case WxdFix : mngGuid.fixWxdGuid(s); renameAppName(s);  fixPath(srcBase, appBase, s);   break;
+      case WxdFix : mngGuid.fixWxdGuid(s); renameAppName(s);  fixPath(srcBase, appBase, s);
+                    renameMakeApp(s); break;
       }
     }
 
@@ -294,9 +296,15 @@ void Project::fixPath(String& srcRoot, String& dstRoot, String& s) {
 int lng = srcRoot.length();
 int pos = s.find(srcRoot);
 
-  if (pos >= 0) {
-    replace(s, pos, pos+lng, dstRoot);
-    }
+  if (pos >= 0) replace(s, pos, pos+lng, dstRoot);
+  }
+
+
+void Project::renameMakeApp(String& s) {
+int pos = s.find(_T("MakeApp"));
+
+  if (pos >= 0)
+    replace(s, pos, pos+7, name);
   }
 
 

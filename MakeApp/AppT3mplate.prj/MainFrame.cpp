@@ -16,6 +16,9 @@ BEGIN_MESSAGE_MAP(MainFrame, CFrameWndEx)
   ON_WM_CREATE()
   ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)              // MainFrame::
   ON_WM_SYSCOMMAND()
+
+  ON_WM_MOVE()
+  ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -28,7 +31,7 @@ static UINT indicators[] = {
 
 // MainFrame construction/destruction
 
-MainFrame::MainFrame() noexcept { }
+MainFrame::MainFrame() noexcept : isInitialized(false) { }
 
 MainFrame::~MainFrame() { }
 
@@ -42,6 +45,7 @@ BOOL MainFrame::PreCreateWindow(CREATESTRUCT& cs) {
 
 
 int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
+CRect winRect;
 
   if (CFrameWndEx::OnCreate(lpCreateStruct) == -1) return -1;
 
@@ -50,6 +54,8 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
   CMFCPopupMenu::SetForceMenuFocus(FALSE);
 
   if (!toolBar.create(this, IDR_MAINFRAME)) {TRACE0("Failed to create status bar\n"); return -1;}
+
+  GetWindowRect(&winRect);   toolBar.move(winRect);
 
   addAboutToSysMenu(IDD_AboutBox, IDS_AboutBox);
 
@@ -61,7 +67,7 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 
   CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows7));
                                                                          // Affects look of toolbar, etc.
-  return 0;
+  winPos.initialPos(this, winRect);   isInitialized = true;   return 0;
   }
 
 
@@ -70,6 +76,23 @@ void MainFrame::OnSysCommand(UINT nID, LPARAM lParam) {
   if ((nID & 0xFFF0) == sysAboutID) {AboutDlg aboutDlg; aboutDlg.DoModal(); return;}
 
   CMainFrm::OnSysCommand(nID, lParam);
+  }
+
+
+
+
+void MainFrame::OnMove(int x, int y)
+           {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CFrameWndEx::OnMove(x, y);}
+
+
+void MainFrame::OnSize(UINT nType, int cx, int cy) {
+CRect winRect;
+
+  CFrameWndEx::OnSize(nType, cx, cy);
+
+  if (!isInitialized) return;
+
+  GetWindowRect(&winRect);   winPos.set(winRect);   toolBar.move(winRect);
   }
 
 

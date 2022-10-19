@@ -13,6 +13,9 @@ IMPLEMENT_DYNCREATE(MainFrame, CFrameWndEx)
 BEGIN_MESSAGE_MAP(MainFrame, CFrameWndEx)
   ON_WM_CREATE()
   ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)              // MainFrame::
+
+  ON_WM_MOVE()
+  ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 static UINT indicators[] = {
@@ -24,7 +27,7 @@ static UINT indicators[] = {
 
 // MainFrame construction/destruction
 
-MainFrame::MainFrame() noexcept { }
+MainFrame::MainFrame() noexcept : isInitialized(false) { }
 
 MainFrame::~MainFrame() { }
 
@@ -39,6 +42,7 @@ BOOL MainFrame::PreCreateWindow(CREATESTRUCT& cs) {
 
 
 int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
+CRect winRect;
 
   if (CFrameWndEx::OnCreate(lpCreateStruct) == -1) return -1;
 
@@ -53,12 +57,28 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 
   m_wndStatusBar.SetIndicators(indicators, noElements(indicators));  //sizeof(indicators)/sizeof(UINT)
 
-  DockPane(&m_wndMenuBar);
-  DockPane(&toolBar);
+   GetWindowRect(&winRect);   winPos.initialPos(this, winRect);
+
+  DockPane(&m_wndMenuBar);   DockPane(&toolBar);
 
   CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows7));
                                                                          // Affects look of toolbar, etc.
-  return 0;
+  isInitialized = true;   return 0;
+  }
+
+
+void MainFrame::OnMove(int x, int y)
+           {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CFrameWndEx::OnMove(x, y);}
+
+
+void MainFrame::OnSize(UINT nType, int cx, int cy) {
+CRect winRect;
+
+  CFrameWndEx::OnSize(nType, cx, cy);
+
+  if (!isInitialized) return;
+
+  GetWindowRect(&winRect);   winPos.set(winRect);
   }
 
 

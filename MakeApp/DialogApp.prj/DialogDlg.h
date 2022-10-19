@@ -6,6 +6,7 @@
 #include "StatusBar.h"
 #include "TBBtnCtx.h"
 #include "ToolBar.h"
+#include "WinPos.h"
 
 class StatusBar;
 
@@ -20,6 +21,9 @@ String    helpPath;
 
 ToolBar   toolBar;
 StatusBar statusBar;
+
+bool      isInitialized;
+WinPos    winPos;                                // Position of dialog box
 
 public:
 
@@ -52,23 +56,29 @@ public:
 
   afx_msg int     OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg LRESULT OnResetToolBar(WPARAM wParam, LPARAM lParam);
-  afx_msg void    changeReady();
   afx_msg void    onAppAbout();
   afx_msg void    onHelp();
 
+  afx_msg void    OnMove(int x, int y);
+#ifdef DialogSizable
+  afx_msg void    OnSize(UINT nType, int cx, int cy);
+#endif
+  afx_msg BOOL    OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult);
+
+#ifdef Examples
+  afx_msg void    changeReady();
   afx_msg void    onDispatch();
   afx_msg void    onOption01();
   afx_msg void    onOption02();
   afx_msg void    onDispatch1();
   afx_msg void    onOption11();
   afx_msg void    onOption12();
+  afx_msg void    onSaveHist();
 
   afx_msg void    onX();
   afx_msg void    onComboBoxChng();
   afx_msg void    onTBEditBox();
-
-  afx_msg void    onSaveHist();
-  afx_msg BOOL    OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult);
+#endif
   };
 
 

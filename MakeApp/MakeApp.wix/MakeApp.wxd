@@ -1,7 +1,8 @@
 [SolutionInfo]
+RootPath=D:\Sources\MakeApp
 Path=D:\Sources\MakeApp\MakeApp\MakeApp.sln
 Name=MakeApp
-Version=2.0
+Version=2.100000
 [DefaultPath]
 NPaths=16
 DefKey0=MakeApp.ftr
@@ -46,8 +47,7 @@ IconPath=D:\Sources\MakeApp\MakeApp.prj\res\MakeApp01.ico
 ProductName=MakeApp
 Company=Bob -- K6RWY
 WixName=MakeApp
-WixVersion=1.5.22.0
-UpgradeGUID=07B80D4F-179C-4439-836D-E3743B3AAA5F
+WixVersion=1.5.24.0
 UpgradeCode=07B80D4F-179C-4439-836D-E3743B3AAA5F
 SaveVerAllowed=0
 LicenseRequired=0

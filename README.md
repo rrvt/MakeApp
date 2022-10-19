@@ -160,6 +160,19 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 10/16/22
+
+One of my commercial applications does not start at the same place and size as it is setup to do.
+Something happened between Win7 and Win11.  So I've taken charge of this feature in this application
+and in the templates for creating new applications.
+
+The Dialog Application Template has been updated to exclude the example toolbar features.  It also has
+a feature to change the main dialog box from fixed size to variable size.
+
+### Update 9/28/22
+
+Fixed the generation of UUIDs in the various files.  Other copy operations were included and fixed.
+
 ### Update 8/26/22
 
 Add a copy of three additional directories from the application templates:  "<help dir>\Images" and

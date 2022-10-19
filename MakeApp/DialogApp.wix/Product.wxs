@@ -2,18 +2,18 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
 <Product Id="*" UpgradeCode="D104D446-92BA-4AAF-89C2-78BFC679A918" Language="1033"
-         Manufacturer="Bob -- K6RWY" Name="DialogApp"
-         Version="!(bind.fileVersion.DialogApp.cmp)"
-         >
+                  Manufacturer="Bob -- K6RWY" Name="DialogApp"
+                  Version="!(bind.fileVersion.DialogApp.cmp)"
+                  >
 
   <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"
-           Manufacturer="Bob -- K6RWY" Description="Installs DialogApp"
-           Comments="Copyright (c) Bob -- K6RWY"
-           />
+                      Manufacturer="Bob -- K6RWY" Description="Installs DialogApp"
+                      Comments="Copyright (c) Bob -- K6RWY"
+                      />
 
   <MajorUpgrade Schedule="afterInstallInitialize"
-                AllowDowngrades="no"   IgnoreRemoveFailure="no"   AllowSameVersionUpgrades="no"
-                DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+                                AllowDowngrades="no"   IgnoreRemoveFailure="no"   AllowSameVersionUpgrades="no"
+                                DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
   <MediaTemplate EmbedCab="yes" />
 
@@ -36,7 +36,7 @@
 
   <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
     <ComponentGroupRef Id="App.ftr"/>
-    <ComponentGroupRef Id="UninstallDialogApp.ftr"/>
+    <ComponentGroupRef Id="Uninstall_DialogApp.ftr"/>
   </Feature>
 </Product>
 
@@ -45,8 +45,8 @@
   <ComponentRef Id="DialogApp.cmp"/>
   <ComponentRef Id="Help.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="UninstallDialogApp.ftr">
-  <ComponentRef Id="UninstallDialogApp.cmp"/>
+<ComponentGroup Id="Uninstall_DialogApp.ftr">
+  <ComponentRef Id="Uninstall_DialogApp.cmp"/>
 </ComponentGroup>
 </Fragment>
 
@@ -62,6 +62,7 @@
     </Directory>
 
     <Directory Id="DesktopFolder" />
+
   </Directory>
 
   <Property Id="ApplicationFolderName" Value="DialogApp" />
@@ -104,8 +105,8 @@
 
 <Fragment>
 
-  <Component Id="UninstallDialogApp.cmp" 
-                                Guid="8DE6E34D-E856-47F0-AF10-DE57231664E7" Directory="DialogApp.pmf">
+  <Component Id="Uninstall_DialogApp.cmp" 
+                                Guid="785F2AD0-F5C8-4C88-9775-D853652BA3FB" Directory="DialogApp.pmf">
 
     <Shortcut Id               = "UninstallDialogApp.shc"
               Name             = "Uninstall DialogApp"
@@ -115,7 +116,7 @@
               Icon             = "DialogApp01Icon.ico"
               />
     <RemoveFolder Id="DialogApp.uni" Directory="DialogApp.pmf" On="uninstall"/>
-    <RegistryValue Root="HKCU" Key="Software\UninstallDialogApp.cmp" Name="installed"
+    <RegistryValue Root="HKCU" Key="Software\Uninstall_DialogApp.cmp" Name="installed"
                    Type="integer" Value="1" KeyPath="yes"/>
   </Component>
 

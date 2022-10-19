@@ -71,6 +71,7 @@ private:
   void    renamVisibleName(String& s);
   void    renamDesc(String& s);
   void    fixPath(String& srcPath, String& dstPath, String& s);
+  void    renameMakeApp(String& s);
   };
 
 

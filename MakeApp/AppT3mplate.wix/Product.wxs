@@ -2,18 +2,18 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
 <Product Id="*" UpgradeCode="8D8880AE-E847-4148-B89A-0A9DC3339F65" Language="1033"
-         Manufacturer="Bob -- K6RWY" Name="AppT3mplate"
-         Version="!(bind.fileVersion.AppT3mplate.cmp)"
-         >
+                  Manufacturer="Bob -- K6RWY" Name="AppT3mplate"
+                  Version="!(bind.fileVersion.AppT3mplate.cmp)"
+                  >
 
   <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"
-           Manufacturer="Bob -- K6RWY" Description="Installs AppT3mplate"
-           Comments="Copyright (c) Bob -- K6RWY"
-           />
+                      Manufacturer="Bob -- K6RWY" Description="Installs AppT3mplate"
+                      Comments="Copyright (c) Bob -- K6RWY"
+                      />
 
   <MajorUpgrade Schedule="afterInstallInitialize"
-                AllowDowngrades="no"   IgnoreRemoveFailure="no"   AllowSameVersionUpgrades="no"
-                DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+                                AllowDowngrades="no"   IgnoreRemoveFailure="no"   AllowSameVersionUpgrades="no"
+                                DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
   <MediaTemplate EmbedCab="yes" />
 
@@ -36,7 +36,7 @@
 
   <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
     <ComponentGroupRef Id="AppT3mplate.ftr"/>
-    <ComponentGroupRef Id="UninstallAppT3mplate.ftr"/>
+    <ComponentGroupRef Id="Uninstall_AppT3mplate.ftr"/>
   </Feature>
 </Product>
 
@@ -45,8 +45,8 @@
   <ComponentRef Id="AppT3mplate.cmp"/>
   <ComponentRef Id="Help.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="UninstallAppT3mplate.ftr">
-  <ComponentRef Id="UninstallAppT3mplate.cmp"/>
+<ComponentGroup Id="Uninstall_AppT3mplate.ftr">
+  <ComponentRef Id="Uninstall_AppT3mplate.cmp"/>
 </ComponentGroup>
 </Fragment>
 
@@ -62,6 +62,7 @@
     </Directory>
 
     <Directory Id="DesktopFolder" />
+
   </Directory>
 
   <Property Id="ApplicationFolderName" Value="AppT3mplate" />
@@ -103,8 +104,8 @@
 
 <Fragment>
 
-  <Component Id="UninstallAppT3mplate.cmp" 
-                              Guid="9A0D8254-007D-4C31-823E-7C0852F9E00E" Directory="AppT3mplate.pmf">
+  <Component Id="Uninstall_AppT3mplate.cmp" 
+                              Guid="1D4884FE-C18B-40E5-B7F5-85433C15F28E" Directory="AppT3mplate.pmf">
 
     <Shortcut Id               = "UninstallAppT3mplate.shc"
               Name             = "Uninstall AppT3mplate"
@@ -114,7 +115,7 @@
               Icon             = "AppT3mplate01Icon.ico"
               />
     <RemoveFolder Id="AppT3mplate.uni" Directory="AppT3mplate.pmf" On="uninstall"/>
-    <RegistryValue Root="HKCU" Key="Software\UninstallAppT3mplate.cmp" Name="installed"
+    <RegistryValue Root="HKCU" Key="Software\Uninstall_AppT3mplate.cmp" Name="installed"
                    Type="integer" Value="1" KeyPath="yes"/>
   </Component>
 

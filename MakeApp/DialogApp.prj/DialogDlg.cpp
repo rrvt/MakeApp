@@ -16,6 +16,7 @@ static TCchar* MenuCaption = _T("Popup Menu");
 IMPLEMENT_DYNAMIC(DialogDlg, CDialogEx)
 
 
+#ifdef Examples
 static TCchar* CbxCaption =   _T("Greeks +");
 
 static CbxItem CbxText[]  = {{_T("Zeta"),    1},
@@ -40,11 +41,13 @@ static CbxItem PopupItems[] = {{_T("Option11"), ID_Option11},
                                {_T("Option12"), ID_Option12}
                                };
 static const TCchar* ItemsCaption = _T("Items Menu");
+#endif
 
 
 BEGIN_MESSAGE_MAP(DialogDlg, CDialogEx)
   ON_WM_CREATE()
 
+#ifdef Examples
   ON_COMMAND(      ID_ChangeReady,  &changeReady)
 
   ON_CBN_SELCHANGE(ID_CBox,         &onComboBoxChng)        // Process secelection from list
@@ -62,10 +65,16 @@ BEGIN_MESSAGE_MAP(DialogDlg, CDialogEx)
   ON_COMMAND(      ID_Button,       &onX)
 
   ON_COMMAND(      ID_SaveHist,     &onSaveHist)
+#endif
 
   ON_COMMAND(      ID_Help,         &onHelp)
   ON_COMMAND(      ID_App_About,    &onAppAbout)
   ON_COMMAND(      ID_App_Exit,     &OnOK)
+
+  ON_WM_MOVE()
+#ifdef DialogSizable
+  ON_WM_SIZE()
+#endif
 
   ON_NOTIFY_EX(    TTN_NEEDTEXT, 0, &OnTtnNeedText)         // Do ToolTips
 
@@ -74,7 +83,7 @@ END_MESSAGE_MAP()
 
 
 DialogDlg::DialogDlg(TCchar* helpPth, CWnd* pParent) :
-                                                helpPath(helpPth), CDialogEx(IDD_DialogApp, pParent) { }
+                           helpPath(helpPth), CDialogEx(IDD_DialogApp, pParent), isInitialized(false) { }
 
 
 DialogDlg::~DialogDlg() { }
@@ -89,16 +98,19 @@ int DialogDlg::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 
 
 BOOL DialogDlg::OnInitDialog() {
+CRect winRect;
 
   CDialogEx::OnInitDialog();
 
   if (!toolBar.create(this, IDR_TOOLBAR)) return false;
 
+  GetWindowRect(&winRect);   toolBar.move(winRect);   SetBackgroundColor(RGB(255,255,255));
+
   if (!statusBar.create(this, IDC_StatusBar)) return false;
 
   statusBar.setReady();
 
-  return true;
+  winPos.initialPos(this, winRect);   isInitialized = true;   return true;
   }
 
 
@@ -115,6 +127,7 @@ LRESULT DialogDlg::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar();
 void DialogDlg::setupToolBar() {
 CRect winRect;   GetWindowRect(&winRect);   toolBar.initialize(winRect);
 
+#ifdef Examples
   toolBar.installBtn(ID_Button, _T(" My Button "));
 
   if (toolBar.installComboBox(ID_CBox)) setComboBox();
@@ -130,9 +143,29 @@ CRect winRect;   GetWindowRect(&winRect);   toolBar.initialize(winRect);
     toolBar.addPopupItems(  ID_PopupMenu1, PopupItems, noElements(PopupItems));
     toolBar.setPopupCaption(ID_PopupMenu1, ItemsCaption);
     }
+#endif
   }
 
 
+void DialogDlg::OnMove(int x, int y)
+            {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CDialogEx::OnMove(x, y);}
+
+
+#ifdef DialogSizable
+
+void DialogDlg::OnSize(UINT nType, int cx, int cy) {
+CRect winRect;
+
+  CDialogEx::OnSize(nType, cx, cy);
+
+  if (!isInitialized) return;
+
+  GetWindowRect(&winRect);   winPos.set(winRect);   toolBar.move(winRect);   statusBar.move(winRect);
+  }
+#endif
+
+
+#ifdef Examples
 void DialogDlg::onDispatch()  {toolBar.dispatch(ID_PopupMenu,  MenuCaption);}
 void DialogDlg::onDispatch1() {toolBar.dispatch(ID_PopupMenu1, ItemsCaption);}
 
@@ -163,6 +196,7 @@ String t;
 
 
 void DialogDlg::onTBEditBox() {String s;   toolBar.getEbxText(ID_EditBox, s);   statusBar.setText(1, s);}
+#endif
 
 
 // Do ToolTips
@@ -171,10 +205,10 @@ BOOL DialogDlg::OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult)
                                                                   {return toolBar.OnTtnNeedText(pNMHDR);}
 
 
+#ifdef Examples
 void DialogDlg::onSaveHist() {
   history.saveData();
   }
-
 
 
 void DialogDlg::changeReady() {
@@ -182,7 +216,6 @@ bool status = statusBar.isReady();
 
   statusBar.setReady(!status);
   }
-
 
 
 void DialogDlg::onOption01() {
@@ -209,6 +242,7 @@ void DialogDlg::onX() {
   statusBar.setText(1, _T("XYZabc"));
   toolBar.setEbxText(ID_EditBox, _T("XYZabc"));
   }
+#endif
 
 
 void DialogDlg::onHelp() {
