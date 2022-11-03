@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1684
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DialogApp", "..\DialogApp.prj\DialogApp.vcxproj", "{150DED69-871C-491F-A49A-38598909E792}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -13,14 +13,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Library", "..\..\Library\Li
 		{A24D8786-F273-48D7-A306-4E3DFAF41347} = {A24D8786-F273-48D7-A306-4E3DFAF41347}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DialogAppHlp", "..\DialogApp.hlp\DialogAppHlp.vcxproj", "{A24D8786-F273-48D7-A306-4E3DFAF41347}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DialogApp.hlp", "..\DialogApp.hlp\DialogApp.hlp.vcxproj", "{A24D8786-F273-48D7-A306-4E3DFAF41347}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DialogAppWix", "..\DialogApp.wix\DialogAppWix.wixproj", "{A6ADAE4F-432E-4BE0-BFBC-85FDEFE7A6CE}"
-	ProjectSection(ProjectDependencies) = postProject
-		{150DED69-871C-491F-A49A-38598909E792} = {150DED69-871C-491F-A49A-38598909E792}
-		{A24D8786-F273-48D7-A306-4E3DFAF41347} = {A24D8786-F273-48D7-A306-4E3DFAF41347}
-		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B} = {CF57F3EC-D3DB-4469-8519-3F9D73785D9B}
-	EndProjectSection
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DialogApp.wix", "..\DialogApp.wix\DialogApp.wix.wixproj", "{A6ADAE4F-432E-4BE0-BFBC-85FDEFE7A6CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

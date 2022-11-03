@@ -20,7 +20,6 @@ protected:                                          // create from serialization
 
   MainFrame() noexcept;
 
-
   DECLARE_DYNCREATE(MainFrame)
 
 public:                                             // Overrides

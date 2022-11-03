@@ -106,7 +106,7 @@
 <Fragment>
 
   <Component Id="Uninstall_DialogApp.cmp" 
-                                Guid="785F2AD0-F5C8-4C88-9775-D853652BA3FB" Directory="DialogApp.pmf">
+                                Guid="DA20258A-C58B-4D8A-8D65-E51FE677D6E4" Directory="DialogApp.pmf">
 
     <Shortcut Id               = "UninstallDialogApp.shc"
               Name             = "Uninstall DialogApp"

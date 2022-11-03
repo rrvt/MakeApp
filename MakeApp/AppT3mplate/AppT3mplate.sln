@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1000
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppT3mplate", "..\AppT3mplate.prj\AppT3mplate.vcxproj", "{04A5A256-D474-44DE-89F3-EF00F06D1226}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -13,14 +13,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Library", "..\..\Library\Li
 		{93A8B622-BA54-4A41-B456-9AB2629A5607} = {93A8B622-BA54-4A41-B456-9AB2629A5607}
 	EndProjectSection
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "AppT3mplateWix", "..\AppT3mplate.wix\AppT3mplateWix.wixproj", "{892912CC-5A92-4843-898E-A6F6A2263669}"
-	ProjectSection(ProjectDependencies) = postProject
-		{93A8B622-BA54-4A41-B456-9AB2629A5607} = {93A8B622-BA54-4A41-B456-9AB2629A5607}
-		{04A5A256-D474-44DE-89F3-EF00F06D1226} = {04A5A256-D474-44DE-89F3-EF00F06D1226}
-		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B} = {CF57F3EC-D3DB-4469-8519-3F9D73785D9B}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppT3mplate.hlp", "..\AppT3mplate.hlp\AppT3mplate.hlp.vcxproj", "{93A8B622-BA54-4A41-B456-9AB2629A5607}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppT3mplateHlp", "..\AppT3mplate.hlp\AppT3mplateHlp.vcxproj", "{93A8B622-BA54-4A41-B456-9AB2629A5607}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "AppT3mplate.wix", "..\AppT3mplate.wix\AppT3mplate.wix.wixproj", "{892912CC-5A92-4843-898E-A6F6A2263669}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,13 +31,13 @@ Global
 		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B}.Debug|Win32.Build.0 = Debug|Win32
 		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B}.Release|Win32.ActiveCfg = Release|Win32
 		{CF57F3EC-D3DB-4469-8519-3F9D73785D9B}.Release|Win32.Build.0 = Release|Win32
-		{892912CC-5A92-4843-898E-A6F6A2263669}.Debug|Win32.ActiveCfg = Debug|x86
-		{892912CC-5A92-4843-898E-A6F6A2263669}.Release|Win32.ActiveCfg = Release|x86
-		{892912CC-5A92-4843-898E-A6F6A2263669}.Release|Win32.Build.0 = Release|x86
 		{93A8B622-BA54-4A41-B456-9AB2629A5607}.Debug|Win32.ActiveCfg = Debug|Win32
 		{93A8B622-BA54-4A41-B456-9AB2629A5607}.Debug|Win32.Build.0 = Debug|Win32
 		{93A8B622-BA54-4A41-B456-9AB2629A5607}.Release|Win32.ActiveCfg = Release|Win32
 		{93A8B622-BA54-4A41-B456-9AB2629A5607}.Release|Win32.Build.0 = Release|Win32
+		{892912CC-5A92-4843-898E-A6F6A2263669}.Debug|Win32.ActiveCfg = Debug|x86
+		{892912CC-5A92-4843-898E-A6F6A2263669}.Release|Win32.ActiveCfg = Release|x86
+		{892912CC-5A92-4843-898E-A6F6A2263669}.Release|Win32.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

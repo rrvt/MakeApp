@@ -36,9 +36,9 @@ static TCchar* TestHlpDir  = _T("AppT3mplate.hlp\\");
 
 void Project::getBaseDir() {
 
-  iniFile.readString(MakeAppSect, BaseDirKey, dstBase);   appBase = dstBase;
+  iniFile.readString(MakeAppSect, BaseDirKey, dstRoot);   appRoot = dstRoot;
 
-  notePad << _T("Base Directory: ") << dstBase << nCrlf;
+  notePad << _T("Base Directory: ") << dstRoot << nCrlf;
   }
 
 
@@ -51,13 +51,13 @@ Tchar  ch;
 
   lng = path.length();  ch = path[lng-1];  if (ch != _T('\\')) path += _T('\\');
 
-  appBase = dstBase = path;
+  appRoot = dstRoot = path;
 
-  iniFile.writeString(MakeAppSect, BaseDirKey, dstBase);
+  iniFile.writeString(MakeAppSect, BaseDirKey, dstRoot);
 
   notePad.clear();
 
-  notePad << _T("Base Directory: ") << dstBase << nCrlf;
+  notePad << _T("Base Directory: ") << dstRoot << nCrlf;
   }
 
 
@@ -67,7 +67,7 @@ String   s = helpPath;
 int      pos;
 FileSrch dirs;
 String   t;
-String   tgt = AppT3mplate;  tgt += _T("*.*");
+String   tgt = AppT3mplate;  tgt += _T(".wix");
 String   path;
 bool     rslt;
 
@@ -88,7 +88,7 @@ bool     rslt;
     t = t.substr(0, pos);
     }
 
-  if (rslt) srcBase = t + _T('\\');
+  if (rslt) srcRoot = t + _T('\\');
   }
 
 
@@ -104,9 +104,11 @@ String s;
   if (visible.isEmpty())     visible     = name;
   if (description.isEmpty()) description = visible;
 
-  appBase = dstBase;   addSegment(appBase, name);
+  appRoot = dstRoot;   addSegment(appRoot, name);
 
   mngGuid.clear();
+
+  copyGlobal(_T("README-Template.md"), _T("README.md"));
 
   copyFiles(targetName);
 
@@ -127,28 +129,42 @@ String s;
 
 void Project::copyFiles(TCchar* srcDirName) {
 FileSrch files;
-String   fileName;
-FileType fileType;
+String   path;
 
   preparePath(srcDirName);
 
-  for (files.findAllFiles(srcPath); files.getName(fileName);) {
+  for (files.findAllFiles(srcPath); files.getName(path);) copyFixable(path);
+  }
 
-    fileName = removePath(fileName);   if (!mustCopy(fileName, fileType)) continue;
 
-    switch (fileType) {
-      case NilType: copyFile(srcPath, dstPath, fileName);         break;
-      case PrjType: copyFile(srcPath, dstPath, fileName, PrjFix); break;
-      case SlnType: copyFile(srcPath, dstPath, fileName, SlnFix); break;
-      case SrcType: copyFile(srcPath, dstPath, fileName, SrcFix); break;
-      case SEType : copyFile(srcPath, dstPath, fileName, SEFix);  break;
-      case VxcType: fileList.clear(); incl.clear(); cmpl.clear();
-                    res.clear();      none.clear(); image.clear();
-                    copyFile(srcPath, dstPath, fileName, VxcFix); break;
-      case WxsType: copyFile(srcPath, dstPath, fileName, WxsFix); break;
-      case WxdType: copyFile(srcPath, dstPath, fileName, WxdFix); break;
-      default     : break;
-      }
+void Project::copyGlobal(TCchar* srcName, TCchar* dstName) {
+String srcFilePath = srcRoot + srcName;
+String dstFilePath = appRoot;
+
+  createDir(dstFilePath);   dstFilePath += dstName;
+
+  CopyFile(srcFilePath, dstFilePath, false);
+  }
+
+
+void Project::copyFixable(TCchar* path) {
+String   fileName;
+FileType fileType;
+
+  fileName = removePath(path);   if (!mustCopy(fileName, fileType)) return;
+
+  switch (fileType) {
+    case NilType: copyFile(fileName);         break;
+    case PrjType: copyFile(fileName, PrjFix); break;
+    case SlnType: copyFile(fileName, SlnFix); break;
+    case SrcType: copyFile(fileName, SrcFix); break;
+    case SEType : copyFile(fileName, SEFix);  break;
+    case VxcType: fileList.clear(); incl.clear(); cmpl.clear();
+                  res.clear();      none.clear(); image.clear();
+                  copyFile(fileName, VxcFix); break;
+    case WxsType: copyFile(fileName, WxsFix); break;
+    case WxdType: copyFile(fileName, WxdFix); break;
+    default     : break;
     }
   }
 
@@ -156,29 +172,31 @@ FileType fileType;
 bool Project::mustCopy(String& fileName, FileType& fileType) {
 String ext = getExtension(fileName);
 
-  if (ext == _T("h"))               {fileType = SrcType; return true;}
-  if (ext == _T("cpp"))             {fileType = SrcType; return true;}
-  if (ext == _T("rc"))              {fileType = SrcType; return true;}
-  if (ext == _T("rc2"))             {fileType = SrcType; return true;}
-  if (ext == _T("sln"))             {fileType = SlnType; return true;}
-  if (ext == _T("vcxproj"))         {fileType = VxcType; return true;}
-  if (ext == _T("filters"))         {fileType = PrjType; return true;}
-  if (ext == _T("user"))            {fileType = PrjType; return true;}
-  if (ext == _T("vpj"))             {fileType = SEType;  return true;}
-  if (ext == _T("bmp"))             {fileType = NilType; return true;}
-  if (ext == _T("ico"))             {fileType = NilType; return true;}
-  if (ext == _T("wxd"))             {fileType = WxdType; return true;}
-  if (ext == _T("wxs"))             {fileType = WxsType; return true;}
-  if (ext == _T("wxl"))             {fileType = NilType; return true;}
-  if (ext == _T("wixproj"))         {fileType = WxsType; return true;}
-  if (ext == _T("dwt"))             {fileType = NilType; return true;}
-  if (ext == _T("css"))             {fileType = NilType; return true;}
-  if (ext == _T("hhc"))             {fileType = SrcType; return true;}
-  if (ext == _T("hhp"))             {fileType = SrcType; return true;}
-  if (ext == _T("bat"))             {fileType = SrcType; return true;}
-  if (ext == _T("htm"))             {fileType = SrcType; return true;}
-  if (ext == _T("jpg"))             {fileType = NilType; return true;}
-  if (fileName == _T("makefile"))   {fileType = SrcType; return true;}
+  if (ext == _T("h"))             {fileType = SrcType; return true;}
+  if (ext == _T("cpp"))           {fileType = SrcType; return true;}
+  if (ext == _T("rc"))            {fileType = SrcType; return true;}
+  if (ext == _T("rc2"))           {fileType = SrcType; return true;}
+  if (ext == _T("sln"))           {fileType = SlnType; return true;}
+  if (ext == _T("vcxproj"))       {fileType = VxcType; return true;}
+  if (ext == _T("filters"))       {fileType = PrjType; return true;}
+  if (ext == _T("user"))          {fileType = PrjType; return true;}
+  if (ext == _T("vpj"))           {fileType = SEType;  return true;}
+  if (ext == _T("bmp"))           {fileType = NilType; return true;}
+  if (ext == _T("ico"))           {fileType = NilType; return true;}
+  if (ext == _T("wxd"))           {fileType = WxdType; return true;}
+  if (ext == _T("wxs"))           {fileType = WxsType; return true;}
+  if (ext == _T("wxl"))           {fileType = NilType; return true;}
+  if (ext == _T("wixproj"))       {fileType = WxsType; return true;}
+  if (ext == _T("dwt"))           {fileType = NilType; return true;}
+  if (ext == _T("css"))           {fileType = NilType; return true;}
+  if (ext == _T("hhc"))           {fileType = SrcType; return true;}
+  if (ext == _T("hhp"))           {fileType = SrcType; return true;}
+  if (ext == _T("bat"))           {fileType = SrcType; return true;}
+  if (ext == _T("htm"))           {fileType = SrcType; return true;}
+  if (ext == _T("jpg"))           {fileType = NilType; return true;}
+  if (ext == _T("rtf"))           {fileType = NilType; return true;}
+  if (ext == _T("md"))            {fileType = NilType; return true;}
+  if (fileName == _T("makefile")) {fileType = SrcType; return true;}
 
   return false;
   }
@@ -186,9 +204,11 @@ String ext = getExtension(fileName);
 
 void Project::preparePath(TCchar* pathName, TCchar* segment) {
 
-  srcPath = srcBase;   if (segment) addSegment(srcPath, segment);   addSegment(srcPath, pathName);
+  srcPath = srcRoot;   if (segment)  addSegment(srcPath, segment);
+                       if (pathName) addSegment(srcPath, pathName);
 
-  dstPath = appBase;   if (segment) addSegment(dstPath, segment);   dstPath += pathName;
+  dstPath = appRoot;   if (segment)  addSegment(dstPath, segment);
+                       if (pathName) dstPath += pathName;
 
   renameAppName(dstPath);   createDir(dstPath);  dstPath += _T('\\');
   }
@@ -209,7 +229,16 @@ String s;
   }
 
 
-void Project::copyFile(String& srcPath, String& dstPath, TCchar* srcName, FixIt fixIt) {
+void Project::copyFile(String& srcName) {
+String srcFilePath = srcPath + srcName;
+String dstName     = srcName;  renameAppName(dstName);
+String dstFilePath = dstPath + dstName;
+
+  CopyFile(srcFilePath, dstFilePath, false);
+  }
+
+
+void Project::copyFile(TCchar* srcName, FixIt fixIt) {
 String dstName     = srcName;                  renameAppName(dstName);
 String srcFilePath = srcPath + srcName;
 String dstFilePath = dstPath + dstName;
@@ -225,12 +254,12 @@ Data*  d;
 
     switch(fixIt) {
       case SlnFix : renameAppName(s); mngGuid.fixBraceGuids(s); break;
-      case VxcFix : mngGuid.fixBraceGuids(s);
+      case VxcFix : mngGuid.fixBraceGuids(s);   fixReadMe(s);
       case SEFix  :
       case PrjFix : renameAppName(s);   break;
       case SrcFix : renameAppName(s);   renamDesc(s);   renamVisibleName(s); break;
       case WxsFix : mngGuid.fixWxsGuid(s); renameAppName(s); break;
-      case WxdFix : mngGuid.fixWxdGuid(s); renameAppName(s);  fixPath(srcBase, appBase, s);
+      case WxdFix : mngGuid.fixWxdGuid(s); renameAppName(s);  fixPath(srcRoot, appRoot, s);
                     renameMakeApp(s); break;
       }
     }
@@ -262,8 +291,18 @@ int    i;
   }
 
 
+static TCchar* ReadMeTgt = _T("README-Template.md");
+static TCchar* ReadMeRpl = _T("README.md");
+
+void Project::fixReadMe(String& s) {
+int pos;
+
+  for (pos = s.find(ReadMeTgt); pos >= 0; pos = s.find(ReadMeTgt)) replace(s, pos, pos + 18, ReadMeRpl);
+  }
+
+
 void Project::renameAppName(String& s) {
-int    pos;
+int pos;
 
   for (pos = s.find(targetName); pos >= 0; pos = s.find(targetName))
                                                         replace(s, pos, pos + targetName.length(), name);
@@ -306,14 +345,4 @@ int pos = s.find(_T("MakeApp"));
   if (pos >= 0)
     replace(s, pos, pos+7, name);
   }
-
-
-void Project::copyFile(TCchar* srcPath, TCchar* dstPath, String& srcName) {
-String srcFilePath = srcPath + srcName;
-String dstName     = srcName;  renameAppName(dstName);
-String dstFilePath = dstPath + dstName;
-
-  CopyFile(srcFilePath, dstFilePath, false);
-  }
-
 

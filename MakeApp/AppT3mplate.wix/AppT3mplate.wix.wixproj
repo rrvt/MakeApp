@@ -8,6 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>AppT3mplate</OutputName>
     <OutputType>Package</OutputType>
+    <Name>AppT3mplate.wix</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>$(SolutionDir)..\$(Configuration)\</OutputPath>

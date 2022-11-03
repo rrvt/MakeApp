@@ -21,29 +21,40 @@
 <!-- InstanceBeginEditable name="Body" -->
 <h2>Introduction</h2>
 <p>
-MakeApp copies AppT3mplate to a new directory (usually in the same directory as Library parent
-directory).  MakeApp requires just a little information to produce the first version of the
-application.
+For some reason I've needed to create both doc/view apps and dialog apps.  So I've added templates for
+both types of apps to MakeApp.  This app just copies a copy of the selected template to a directory
+changing all the names, etc. to the new app that is being created.  Usually, one just needs to compile
+the new app to get started.  The apps have examples of menu commands and toolbar commands.
 </p>
 <p>
-The first step is to identify the parent (i.e. base) directory of the application.  The first toolbar icon, <img src="Images/SetDir.jpg" width="16" height="15">, will bring up a dialog box to specify the base directory. The Library
-Project should be in same base directory.  The second step is to describe the new application a bit.  </p>
+The first step is to identify the parent (i.e. base) directory of the application.  The first toolbar 
+icon, <img src="Images/SetDir.jpg" width="16" height="15">, will bring up a dialog box to specify 
+the base directory. The Library
+Project should be in same base directory.  The second step is to describe the new application a bit.  
+</p>
 <p>
 The second toolbar icon, <img src="Images/BuildApp02.jpg" width="16" height="15"> (which purports to be a factory) brings up a dialog box which asks
 for three items:
+</p>
 <ul>
-<li>The Project Name, usually one word</li>
-<li>The Visible Name (which will show up on the windows title bar)</li>
-<li>The Window Description (which will also show up on the window title bar)</li>
+<li>The Project Name, usually one word (no spaces)</li>
+<li>The Visible Name (which will show up on the windows title bar) (most characters allowed)</li>
+<li>The Window Description (which will also show up on the window title bar) (most characters allowed)</li>
 </ul>
+<p>
 When OK is selected the new application is created and is writen  to the new directory.
 The directory structure looks a little like this:
+</p>
 <ul>
 <li>ProjectName
   <ul>
-    <li>ProjectName -- The directory in which the the VS solution file is stored</li>
+    <li>
+    ProjectName -- The directory in which the the VS solution file (i.e. ProjectName.sln) is 
+    stored
+    </li>
+    <li>ProjectName.hlp -- The directory in which the help files are stored and ProjectName.hlp.vcxproj</li>
     <li>ProjectName.prj -- The directory in which the project files are stored</li>
-    <li>ProjectName.hlp -- The directory in which the help files are stored</li>
+    <li>ProjectName.wix -- The directory in which the installer</li>
   </ul>
 </li>
 <li>Library -- The top most directory of the Library</li>

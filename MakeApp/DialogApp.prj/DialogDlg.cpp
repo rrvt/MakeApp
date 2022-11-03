@@ -46,6 +46,12 @@ static const TCchar* ItemsCaption = _T("Items Menu");
 
 BEGIN_MESSAGE_MAP(DialogDlg, CDialogEx)
   ON_WM_CREATE()
+  ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)
+  ON_NOTIFY_EX(    TTN_NEEDTEXT, 0, &OnTtnNeedText)         // Do ToolTips
+  ON_WM_MOVE()
+#ifdef DialogSizable
+  ON_WM_SIZE()
+#endif
 
 #ifdef Examples
   ON_COMMAND(      ID_ChangeReady,  &changeReady)
@@ -70,15 +76,6 @@ BEGIN_MESSAGE_MAP(DialogDlg, CDialogEx)
   ON_COMMAND(      ID_Help,         &onHelp)
   ON_COMMAND(      ID_App_About,    &onAppAbout)
   ON_COMMAND(      ID_App_Exit,     &OnOK)
-
-  ON_WM_MOVE()
-#ifdef DialogSizable
-  ON_WM_SIZE()
-#endif
-
-  ON_NOTIFY_EX(    TTN_NEEDTEXT, 0, &OnTtnNeedText)         // Do ToolTips
-
-  ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)
 END_MESSAGE_MAP()
 
 

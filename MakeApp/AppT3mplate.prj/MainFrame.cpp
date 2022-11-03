@@ -79,8 +79,6 @@ void MainFrame::OnSysCommand(UINT nID, LPARAM lParam) {
   }
 
 
-
-
 void MainFrame::OnMove(int x, int y)
            {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CFrameWndEx::OnMove(x, y);}
 

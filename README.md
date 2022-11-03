@@ -160,6 +160,16 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update
+
+A few name changes.
+
+### Update 11/1/22
+
+Added a Git ReadMe.md file to the targets.  Updated the toolbar backgrounds for MakeApp, AppTemplate and
+the DialogTemplate.  Added code to start both app types with the same position and size as when it had
+exited the last time.
+
 ### Update 10/19/22
 
 Discovered that toolBar.move is only useful for Dialog Apps as the Doc/View Apps have internal machinery

@@ -15,28 +15,28 @@ class Project {
 enum FileType {NilType, SlnType, VxcType, PrjType, SrcType, SEType, WxsType, WxdType};
 enum FixIt    {         SlnFix,  VxcFix,  PrjFix,  SrcFix,  SEFix,  WxsFix,  WxdFix};
 
-String        name;
-String        visible;
-String        description;
+String     name;
+String     visible;
+String     description;
 
-String        srcBase;                            // Base Path where MakeApp resides
-String        srcPath;                            // Current Source Path
+String     srcRoot;                             // Base Path where MakeApp resides
+String     srcPath;                             // Current Source Path
 
-String        dstBase;                            // Destiantion base Direcotry
-String        appBase;                            // application base directory
-String        dstPath;                            // Current destination directory
+String     dstRoot;                             // Destiantion base Direcotry
+String     appRoot;                             // application base directory
+String     dstPath;                             // Current destination directory
 
-String        targetName;
+String     targetName;
 
-String        defFileName;
+String     defFileName;
 
-ManageGuid    mngGuid;
+ManageGuid mngGuid;
 
-Bounds        incl;
-Bounds        cmpl;
-Bounds        res;
-Bounds        none;
-Bounds        image;
+Bounds     incl;
+Bounds     cmpl;
+Bounds     res;
+Bounds     none;
+Bounds     image;
 
 public:
 
@@ -52,26 +52,29 @@ public:
 
 private:
 
-          // if Segment not zero, then path includes it
-          // returns source path in src, destination path as return value
+       // if Segment not zero, then path includes it
+       // returns source path in src, destination path as return value
 
-  void    preparePath(TCchar* pathName, TCchar* segment = 0);
-  void    addSegment(String& s, TCchar* segment) {s += segment;  s += _T('\\');}
+  void preparePath(TCchar* pathName, TCchar* segment = 0);
+  void addSegment(String& s, TCchar* segment) {s += segment;  s += _T('\\');}
 
-  void    copyFiles(TCchar* srcDirName);
-  bool    mustCopy(String& fileName, FileType& fileType);
-  bool    createDir(TCchar* path);
+  void copyFiles(TCchar* srcDirName);
+  void copyGlobal(TCchar* srcName, TCchar* dstName);
+  void copyFixable(TCchar* path);
+  bool mustCopy(String& fileName, FileType& fileType);
+  bool createDir(TCchar* path);
 
-  void    copyFile(String& srcPath, String& dstPath, TCchar* dstName, FixIt fixIt);
-  void    copyFile(TCchar* srcPath, TCchar* dstPath, String& srcName);
+  void copyFile(TCchar* dstName, FixIt fixIt);
+  void copyFile(String& srcName);
 
-  void    getFiles();
+  void getFiles();
 
-  void    renameAppName(String& s);
-  void    renamVisibleName(String& s);
-  void    renamDesc(String& s);
-  void    fixPath(String& srcPath, String& dstPath, String& s);
-  void    renameMakeApp(String& s);
+  void fixReadMe(String& s);
+  void renameAppName(String& s);
+  void renamVisibleName(String& s);
+  void renamDesc(String& s);
+  void fixPath(String& srcPath, String& dstPath, String& s);
+  void renameMakeApp(String& s);
   };
 
 

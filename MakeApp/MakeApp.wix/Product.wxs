@@ -3,7 +3,7 @@
 
 <Product Id="*" UpgradeCode="07B80D4F-179C-4439-836D-E3743B3AAA5F" Language="1033"
                   Manufacturer="Bob -- K6RWY" Name="MakeApp"
-                  Version="!(bind.fileVersion.MakeApp.cmp)"
+                  Version="!(bind.fileVersion.Make_App.cmp)"
                   >
 
   <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"
@@ -49,14 +49,15 @@
     <ComponentGroupRef Id="DialogAppHlpImg.ftr"/>
     <ComponentGroupRef Id="AppT3mplateHlpTmpl.ftr"/>
     <ComponentGroupRef Id="AppT3mplateHlpImg.ftr"/>
-    <ComponentGroupRef Id="Uninstall_MakeApp.ftr"/>
+    <ComponentGroupRef Id="Uninstall_Make_App.ftr"/>
   </Feature>
 </Product>
 
 <Fragment>
 <ComponentGroup Id="MakeApp.ftr">
-  <ComponentRef Id="MakeApp.cmp"/>
+  <ComponentRef Id="Make_App.cmp"/>
   <ComponentRef Id="Help.cmp"/>
+  <ComponentRef Id="ReadMe.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="AppT3mplate.ftr">
   <ComponentRef Id="AppT3mplateSln.cmp"/>
@@ -146,6 +147,7 @@
   <ComponentRef Id="DAMyEnUsWxl.cmp"/>
   <ComponentRef Id="DAProduct.cmp"/>
   <ComponentRef Id="DialogAppWixVpj.cmp"/>
+  <ComponentRef Id="DlgLicenseFile.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="AppT3mplateWix.ftr">
   <ComponentRef Id="AppT3mplateWxd.cmp"/>
@@ -153,6 +155,7 @@
   <ComponentRef Id="ATMyEnUsWxl.cmp"/>
   <ComponentRef Id="ATProductWxs.cmp"/>
   <ComponentRef Id="AppT3mplateWixVpj.cmp"/>
+  <ComponentRef Id="LicenseFile.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="DialogAppHelpTmpl.ftr">
   <ComponentRef Id="OneColumn.cmp"/>
@@ -178,8 +181,8 @@
   <ComponentRef Id="T3Options.jpg.cmp"/>
   <ComponentRef Id="T3Printer.jpg.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="Uninstall_MakeApp.ftr">
-  <ComponentRef Id="Uninstall_MakeApp.cmp"/>
+<ComponentGroup Id="Uninstall_Make_App.ftr">
+  <ComponentRef Id="Uninstall_Make_App.cmp"/>
 </ComponentGroup>
 </Fragment>
 
@@ -224,11 +227,11 @@
 
 <Fragment>
 
-  <Component Id="MakeApp.cmp"  Guid="41281DE2-5E79-4364-9435-BA0D4641D262" Directory="MakeApp.pff">
-    <File Id="MakeApp.cmp" Source="$(var.SolutionDir)..\Release\MakeApp.exe" KeyPath="yes"/>
+  <Component Id="Make_App.cmp"  Guid="41281DE2-5E79-4364-9435-BA0D4641D262" Directory="MakeApp.pff">
+    <File Id="Make_App.cmp" Source="$(var.SolutionDir)..\Release\MakeApp.exe" KeyPath="yes"/>
 
     <Shortcut Id               = "MakeApp.shc"
-              Name             = "MakeApp"
+              Name             = "Make App"
               Description      = "Make App"
               Advertise        = "yes"
               Directory        = "MakeApp.pmf"
@@ -237,7 +240,7 @@
               />
 
     <Shortcut Id               = "MakeApp.dsk"
-              Name             = "MakeApp"
+              Name             = "Make App"
               Description      = "Make App"
               Advertise        = "yes"
               Directory        = "DesktopFolder"
@@ -248,6 +251,10 @@
 
   <Component Id="Help.cmp"  Guid="03774BDF-4DCE-417F-9071-7A7B0A21CB99" Directory="MakeApp.pff">
     <File Id="Help.cmp" Source="$(var.SolutionDir)..\Release\MakeApp.chm" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="ReadMe.cmp"  Guid="826EAF5C-B54F-4CAA-9722-02C3FF030426" Directory="MakeApp.pff">
+    <File Id="ReadMe.cmp" Source="$(var.SolutionDir)..\README-Template.md" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -284,19 +291,19 @@
   <Component Id="AppT3mplateHelpVcx.cmp" 
                   Guid="10730E74-AD2D-4044-9EE3-76E118569EB2" Directory="MakeApp_AppT3mplate.hlp.pff">
     <File Id="AppT3mplateHelpVcx.cmp"
-                  Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplateHlp.vcxproj" KeyPath="yes"/>
+                Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplate.hlp.vcxproj" KeyPath="yes"/>
   </Component>
 
   <Component Id="AppT3mplateHelpVcxFltr.cmp" 
                   Guid="578DE298-A95F-48E1-A527-648C653DBBF9" Directory="MakeApp_AppT3mplate.hlp.pff">
     <File Id="AppT3mplateHelpVcxFltr.cmp"
-          Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplateHlp.vcxproj.filters" KeyPath="yes"/>
+        Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplate.hlp.vcxproj.filters" KeyPath="yes"/>
   </Component>
 
   <Component Id="AppT3mplateHelpVcxUsr.cmp" 
                   Guid="59D9E892-7FE5-4BAD-8EB8-CA0B4030E2F2" Directory="MakeApp_AppT3mplate.hlp.pff">
     <File Id="AppT3mplateHelpVcxUsr.cmp"
-            Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplateHlp.vcxproj.user" KeyPath="yes"/>
+            Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplate.hlp.vcxproj.user" KeyPath="yes"/>
   </Component>
 
   <Component Id="ATHelpCompBat.cmp"  Guid="86F0874C-8CA2-4320-B3EA-EFC9A7CE1F0B"
@@ -325,7 +332,7 @@
   <Component Id="ATAppT3mplateHlpVpj.cmp" 
                   Guid="15F4EEB3-CD9D-45CA-8C3E-88D554C435D8" Directory="MakeApp_AppT3mplate.hlp.pff">
     <File Id="ATAppT3mplateHlpVpj.cmp"
-                      Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplateHlp.vpj" KeyPath="yes"/>
+                    Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplate.hlp.vpj" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -500,19 +507,19 @@
   <Component Id="DialogAppHlpVcx.cmp"  Guid="6E1AA52D-744B-4080-807E-4BD2B7234156"
                                                                 Directory="MakeApp_DialogApp.hlp.pff">
     <File Id="DialogAppHlpVcx.cmp"
-                      Source="$(var.SolutionDir)..\DialogApp.hlp\DialogAppHlp.vcxproj" KeyPath="yes"/>
+                    Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vcxproj" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppHlpVcxFltr.cmp" 
                     Guid="5BE6D7F4-88F2-4903-8E80-67DE7DD92342" Directory="MakeApp_DialogApp.hlp.pff">
     <File Id="DialogAppHlpVcxFltr.cmp"
-              Source="$(var.SolutionDir)..\DialogApp.hlp\DialogAppHlp.vcxproj.filters" KeyPath="yes"/>
+            Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vcxproj.filters" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppHlpVcxUsr.cmp" 
                     Guid="40FFDA38-8DC3-46BC-89E4-6C867D023773" Directory="MakeApp_DialogApp.hlp.pff">
     <File Id="DialogAppHlpVcxUsr.cmp"
-                Source="$(var.SolutionDir)..\DialogApp.hlp\DialogAppHlp.vcxproj.user" KeyPath="yes"/>
+                Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vcxproj.user" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppHlpHhc.cmp"  Guid="33BDB01F-48E8-4C08-9271-AEC00791FA1F"
@@ -553,7 +560,7 @@
   <Component Id="DialogAppHlpVpj.cmp"  Guid="E913FA5C-7FF2-4C5D-84AE-8D8FB04B0678"
                                                                 Directory="MakeApp_DialogApp.hlp.pff">
     <File Id="DialogAppHlpVpj.cmp"
-                          Source="$(var.SolutionDir)..\DialogApp.hlp\DialogAppHlp.vpj" KeyPath="yes"/>
+                        Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vpj" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -664,7 +671,7 @@
   <Component Id="DialogAppWixPrj.cmp"  Guid="C85D3A10-CB89-443D-87A2-0BFCB425E431"
                                                                 Directory="MakeApp_DialogApp.wix.pff">
     <File Id="DialogAppWixPrj.cmp"
-                      Source="$(var.SolutionDir)..\DialogApp.wix\DialogAppWix.wixproj" KeyPath="yes"/>
+                    Source="$(var.SolutionDir)..\DialogApp.wix\DialogApp.wix.wixproj" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppWixWxd.cmp"  Guid="D72F450B-1FBF-4E23-9ECE-DFA76B0012F5"
@@ -689,6 +696,12 @@
                           Source="$(var.SolutionDir)..\DialogApp.wix\DialogAppWix.vpj" KeyPath="yes"/>
   </Component>
 
+  <Component Id="DlgLicenseFile.cmp"  Guid="A0EE11FD-8171-4416-994F-B7AD433930EF"
+                                                                Directory="MakeApp_DialogApp.wix.pff">
+    <File Id="DlgLicenseFile.cmp"
+                          Source="$(var.SolutionDir)..\DialogApp.wix\LicenseFile.rtf" KeyPath="yes"/>
+  </Component>
+
 </Fragment>
 
 <Fragment>
@@ -702,7 +715,7 @@
   <Component Id="AppT3mplateWixPrj.cmp" 
                   Guid="602AD4FC-5894-4634-A61F-9762676306DA" Directory="MakeApp_AppT3mplate.wix.pff">
     <File Id="AppT3mplateWixPrj.cmp"
-                  Source="$(var.SolutionDir)..\AppT3mplate.wix\AppT3mplateWix.wixproj" KeyPath="yes"/>
+                Source="$(var.SolutionDir)..\AppT3mplate.wix\AppT3mplate.wix.wixproj" KeyPath="yes"/>
   </Component>
 
   <Component Id="ATMyEnUsWxl.cmp"  Guid="72895337-14B5-4BB8-9FD4-E8B6110BA836"
@@ -720,7 +733,13 @@
   <Component Id="AppT3mplateWixVpj.cmp" 
                   Guid="05D4F55E-0057-4A2D-A703-3DD41746A348" Directory="MakeApp_AppT3mplate.wix.pff">
     <File Id="AppT3mplateWixVpj.cmp"
-                      Source="$(var.SolutionDir)..\AppT3mplate.wix\AppT3mplateWix.vpj" KeyPath="yes"/>
+                    Source="$(var.SolutionDir)..\AppT3mplate.wix\AppT3mplate.wix.vpj" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="LicenseFile.cmp"  Guid="07886886-8EA0-40D3-8C98-F89CA09C60AC"
+                                                              Directory="MakeApp_AppT3mplate.wix.pff">
+    <File Id="LicenseFile.cmp"
+                        Source="$(var.SolutionDir)..\AppT3mplate.wix\LicenseFile.rtf" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -838,18 +857,18 @@
 
 <Fragment>
 
-  <Component Id="Uninstall_MakeApp.cmp" 
-                                  Guid="EEC94443-DB6F-4234-8708-1CAA6D33EB5F" Directory="MakeApp.pmf">
+  <Component Id="Uninstall_Make_App.cmp" 
+                                  Guid="D104D8B9-54D5-487E-8781-752AEE7D2288" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
-              Name             = "Uninstall MakeApp"
-              Description      = "Uninstalls MakeApp"
+              Name             = "Uninstall Make App"
+              Description      = "Uninstalls Make App"
               Target           = "[System64Folder]msiexec.exe"
               Arguments        = "/x [ProductCode]"
               Icon             = "MakeApp01Icon.ico"
               />
     <RemoveFolder Id="MakeApp.uni" Directory="MakeApp.pmf" On="uninstall"/>
-    <RegistryValue Root="HKCU" Key="Software\Uninstall_MakeApp.cmp" Name="installed"
+    <RegistryValue Root="HKCU" Key="Software\Uninstall_Make_App.cmp" Name="installed"
                    Type="integer" Value="1" KeyPath="yes"/>
   </Component>
 

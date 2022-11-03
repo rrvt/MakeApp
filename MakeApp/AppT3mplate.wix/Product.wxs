@@ -105,7 +105,7 @@
 <Fragment>
 
   <Component Id="Uninstall_AppT3mplate.cmp" 
-                              Guid="1D4884FE-C18B-40E5-B7F5-85433C15F28E" Directory="AppT3mplate.pmf">
+                              Guid="2643F799-A2DE-4B50-B1FB-5F8ECF610C7D" Directory="AppT3mplate.pmf">
 
     <Shortcut Id               = "UninstallAppT3mplate.shc"
               Name             = "Uninstall AppT3mplate"
