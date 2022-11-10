@@ -1,7 +1,7 @@
 // Sample Data Store
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "FileStore.h"
 #include "NotePad.h"
 #include "qsort.h"

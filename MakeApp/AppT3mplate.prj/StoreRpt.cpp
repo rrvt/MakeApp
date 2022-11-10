@@ -1,7 +1,7 @@
 // Store Report -- Template for such a report
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "StoreRpt.h"
 #include "CScrView.h"
 #include "Store.h"

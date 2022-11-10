@@ -1,7 +1,7 @@
 // Utilities -- Little functions that may be used anywhere
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "MkAppUtilities.h"
 
 

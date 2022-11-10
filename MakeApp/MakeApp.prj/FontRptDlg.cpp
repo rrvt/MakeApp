@@ -1,7 +1,7 @@
 // FontRptDlg.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "pch.h"
 #include "FontRptDlg.h"
 #include "Resource.h"
 

@@ -1,7 +1,7 @@
 // Manage GUIDs
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "ManageGuid.h"
 #include "Guid.h"
 #include "match.h"

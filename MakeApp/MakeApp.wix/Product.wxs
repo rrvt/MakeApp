@@ -89,14 +89,15 @@
   <ComponentRef Id="MainFrameCpp.cmp"/>
   <ComponentRef Id="MainFrameH.cmp"/>
   <ComponentRef Id="ATResourceH.cmp"/>
-  <ComponentRef Id="stdafxCpp.cmp"/>
-  <ComponentRef Id="stdafxH.cmp"/>
   <ComponentRef Id="ATtargetVerH.cmp"/>
   <ComponentRef Id="AppT3mplateVpj.cmp"/>
   <ComponentRef Id="Store.h.cmp"/>
   <ComponentRef Id="Store.cpp.cmp"/>
   <ComponentRef Id="StoreRpt.h.cmp"/>
   <ComponentRef Id="StoreRpt.cpp.cmp"/>
+  <ComponentRef Id="PchH.cmp"/>
+  <ComponentRef Id="pchCpp.cmp"/>
+  <ComponentRef Id="FrameworkH.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="AppT3mplateRes.ftr">
   <ComponentRef Id="AppT3mplate.ico.cmp"/>
@@ -129,9 +130,9 @@
   <ComponentRef Id="DialogAppVcxUsr.cmp"/>
   <ComponentRef Id="DialogDlgCpp.cmp"/>
   <ComponentRef Id="DialogDlgH.cmp"/>
-  <ComponentRef Id="FrameworkH.cmp"/>
-  <ComponentRef Id="PchCpp.cmp"/>
-  <ComponentRef Id="PchH.cmp"/>
+  <ComponentRef Id="DialogFrameworkH.cmp"/>
+  <ComponentRef Id="DialogPchCpp.cmp"/>
+  <ComponentRef Id="DialogPchH.cmp"/>
   <ComponentRef Id="DAResourceH.cmp"/>
   <ComponentRef Id="DATargetverH.cmp"/>
   <ComponentRef Id="DialogAppPrjVpj.cmp"/>
@@ -415,16 +416,6 @@
     <File Id="ATResourceH.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\Resource.h" KeyPath="yes"/>
   </Component>
 
-  <Component Id="stdafxCpp.cmp"  Guid="0F980CE6-3790-4DC3-9529-0AE0D1D8A80E"
-                                                              Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="stdafxCpp.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\stdafx.cpp" KeyPath="yes"/>
-  </Component>
-
-  <Component Id="stdafxH.cmp"  Guid="2C1A6E44-8430-481E-A27C-D106F0362731"
-                                                              Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="stdafxH.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\stdafx.h" KeyPath="yes"/>
-  </Component>
-
   <Component Id="ATtargetVerH.cmp"  Guid="D05FA80F-D293-47CE-86E3-222392E034A3"
                                                               Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="ATtargetVerH.cmp"
@@ -456,6 +447,21 @@
                                                               Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="StoreRpt.cpp.cmp"
                             Source="$(var.SolutionDir)..\AppT3mplate.prj\StoreRpt.cpp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="PchH.cmp"  Guid="F9CDDE86-9E9D-4BEB-9369-9EFE2A9288CA"
+                                                              Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="PchH.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\pch.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="pchCpp.cmp"  Guid="D0AF0E76-3AF1-4C76-B44A-FBE4E33E1D99"
+                                                              Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="pchCpp.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\pch.cpp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="FrameworkH.cmp"  Guid="EA895394-5AA9-405D-9DC1-5E895D216C08"
+                                                              Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="FrameworkH.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\framework.h" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -612,19 +618,20 @@
     <File Id="DialogDlgH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\DialogDlg.h" KeyPath="yes"/>
   </Component>
 
-  <Component Id="FrameworkH.cmp"  Guid="1895EC1A-0FA1-490A-8577-432D4611770E"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="FrameworkH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\framework.h" KeyPath="yes"/>
+  <Component Id="DialogFrameworkH.cmp" 
+                    Guid="1895EC1A-0FA1-490A-8577-432D4611770E" Directory="MakeApp_DialogApp.prj.pff">
+    <File Id="DialogFrameworkH.cmp"
+                              Source="$(var.SolutionDir)..\DialogApp.prj\framework.h" KeyPath="yes"/>
   </Component>
 
-  <Component Id="PchCpp.cmp"  Guid="CC1C6769-E5C3-4082-8A3F-EAA55C170299"
+  <Component Id="DialogPchCpp.cmp"  Guid="CC1C6769-E5C3-4082-8A3F-EAA55C170299"
                                                                 Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="PchCpp.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\pch.cpp" KeyPath="yes"/>
+    <File Id="DialogPchCpp.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\pch.cpp" KeyPath="yes"/>
   </Component>
 
-  <Component Id="PchH.cmp"  Guid="7A7C5DA0-0DE4-494F-9C8E-B41B5B03BF02"
+  <Component Id="DialogPchH.cmp"  Guid="7A7C5DA0-0DE4-494F-9C8E-B41B5B03BF02"
                                                                 Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="PchH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\pch.h" KeyPath="yes"/>
+    <File Id="DialogPchH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\pch.h" KeyPath="yes"/>
   </Component>
 
   <Component Id="DAResourceH.cmp"  Guid="1DECE613-8941-4B1A-815E-AE5E053965DF"
@@ -858,7 +865,7 @@
 <Fragment>
 
   <Component Id="Uninstall_Make_App.cmp" 
-                                  Guid="D104D8B9-54D5-487E-8781-752AEE7D2288" Directory="MakeApp.pmf">
+                                  Guid="449630F4-AAFD-4793-A295-43FB9DC157DA" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"

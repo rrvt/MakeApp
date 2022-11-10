@@ -1,9 +1,9 @@
 // ProjectNameDlg.cpp : implementation file
 //
 
-#include "stdafx.h"
-#include "MakeApp.h"
+#include "pch.h"
 #include "ProjectNameDlg.h"
+#include "MakeApp.h"
 #include "Resource.h"
 
 
@@ -18,12 +18,10 @@ END_MESSAGE_MAP()
 
 
 ProjectNameDlg::ProjectNameDlg(CWnd* pParent) : CDialogEx(IDD_DIALOG1, pParent),
-                                                dialogApp(false),
-                                                docViewApp(false),
                                                 name(_T("")),
                                                 description(_T("")),
                                                 visibleName(_T("")),
-                                                appType(0) { }
+                                                appType(DocViewType) { }
 
 ProjectNameDlg::~ProjectNameDlg() { }
 

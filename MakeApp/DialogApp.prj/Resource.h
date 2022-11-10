@@ -2,11 +2,13 @@
 // Microsoft Visual C++ generated include file.
 // Used by DialogApp.rc
 
+
+#pragma once
+
 // DialogSizable will cause the inclusion of statments and functions that allow the main Dialog Box to
 // be resized
 
 //#define DialogSizable
-#define Examples
 
 
 #define IDR_MAINFRAME                   100
@@ -50,5 +52,14 @@
 #define _APS_NEXT_CONTROL_VALUE         301
 #define _APS_NEXT_SYMED_VALUE           201
 #endif
+#endif
+
+
+
+
+
+
+#if 0
+#define Examples
 #endif
 

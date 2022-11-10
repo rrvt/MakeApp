@@ -1,7 +1,7 @@
 // AppT3mplate.cpp : Defines the class behaviors for the application.
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "AppT3mplate.h"
 #include "AboutDlg.h"
 #include "ExtraResource.h"

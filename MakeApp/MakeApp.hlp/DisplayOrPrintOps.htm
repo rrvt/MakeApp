@@ -23,7 +23,7 @@
 <p>
 Windows is more or less event driven.  For example, a program cannot directly change the displayed output in the
 window.  It is done by a slight of hand indirection.  OK, bad analogy, but to change the screen/window in MS
-Windows on must make windows think that the screen/window is not correct.  Then it asks the program, nicely mind
+Windows one must make windows think that the screen/window is not correct.  Then it asks the program, nicely mind
 you, to fix the incorrect window.
 Printing is not quite as bizarre but the program still must request windows to start the printing from the
 program.
@@ -34,6 +34,7 @@ to windows.  Windows will then preform the necessary actions to get the output t
 </p>
 <p>
 It all sounds easy, but alas it is not.  Here is a list of functions that need to be overridden:
+</p>
 <ul>
 <li>OnInitialUpdate</li>
 <li>OnUpdate</li>
@@ -45,7 +46,6 @@ It all sounds easy, but alas it is not.  Here is a list of functions that need t
 <li>OnBeginPrinting</li>
 <li>OnEndPrinting</li>
 </ul>
-</p>
 
 <p>
 To display some data in the window the CScrollView (or parent) function, Invalidate(), must be called.  CApp
@@ -103,6 +103,7 @@ The print and print preview commands result in slightly different flow of contro
 <p>
 OnBeginPrinting returns control to Windows MFC, then control is passed to the application again:
 </p>
+<ul>
 <li>App::OnPrepareDC -- which can tell if the device is a printer or display</li>
 <li>CScrView::OnPrepareDC</li>
 <li>pMgr.OnPrepardDC -- note the printer device manager</li>
@@ -130,13 +131,16 @@ The next step in this explanation is to describe the onPrepareOutput.  This expl
 be understood first, NotePad.  All data in a store must be translated from its form in the store to characters.
 Some time ago during the early windows incarnation and c++ the concept of "streaming" was introduced.  That
 is, one could effect input and output with non-C like lines:
+</p>
 <blockquote>
   x << cin;<br/>
   cout << "today is the day";
 </blockquote>
+<p>
 This would still work with a command line program, but it doesn't work with a "windows" application.  So I
 reinvented it...
 </p>
+
 <h2>NotePad class</h2>
 <p>
 This description will describe most (maybe all) the features of NotePad.  It is an object that will contain
@@ -306,19 +310,20 @@ DataSource ds = doc()->dataSrc();<br/>
 &nbsp;&nbsp;if (printing) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;switch(ds) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case NotePadSrc : prtNote.print(*this);  break;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc   : prtStore.print(*this); break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc&nbsp;&nbsp; : prtStore.print(*this); break;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
 &nbsp;&nbsp;else {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;switch(ds) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case NotePadSrc : dspNote.display(*this);  break;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc   : dspStore.display(*this); break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc&nbsp;&nbsp; : dspStore.display(*this); break;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
 <br/>
 &nbsp;&nbsp;CScrView::onPrepareOutput(printing);<br/>
 &nbsp;&nbsp;}
 </blockquote>
+
 <h3>Report Organization</h3>
 <p>
 The data is available, how should the report be organized.  The first consideration should be that whether one
@@ -329,6 +334,7 @@ bottom of the page.  Displaying is easier, just output all the data.  Printing w
 of the page so that a page break is issued to the printer, headers and footers output at the correct times.  So
 I am going to describe one way to achieve these goals.  Your mileage may vary...
 </p>
+
 <h4>Report Organization</h4>
 <p>
 The report module needs a few entry points.  It is initialized with a reference to a NotePad object.  The display

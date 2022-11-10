@@ -1,7 +1,7 @@
 // Sample Data Store
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "Store.h"
 #include "NotePad.h"
 #include "qsort.h"
@@ -37,7 +37,12 @@ String s;
 
 
 void Store::store(Archive& ar) {
+DSIter iter(*this);
+Datum* datum;
 
+  for (datum = iter(); datum; datum = iter++) {
+    ar.write(datum->get());  ar.crlf();
+    }
   }
 
 

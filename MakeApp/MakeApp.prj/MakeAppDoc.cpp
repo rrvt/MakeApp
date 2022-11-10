@@ -1,7 +1,7 @@
 // MakeAppDoc.cpp : implementation of the MakeAppDoc class
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "MakeAppDoc.h"
 #include "CalibDspPrt.h"
 #include "CopyFile.h"
@@ -54,14 +54,13 @@ BEGIN_MESSAGE_MAP(MakeAppDoc, CDoc)
   ON_COMMAND(ID_CalibDspPrt,  &OnCalibDspPrt)
   ON_COMMAND(ID_ListFonts,    &OnFontRptOpt)
   ON_COMMAND(ID_Options,      &OnOptions)
-  ON_COMMAND(ID_File_Save,    &OnFileSave)
 END_MESSAGE_MAP()
 
 
 // MakeAppDoc construction/destruction
 
 MakeAppDoc::MakeAppDoc() noexcept : dataSource(NotePadSrc) {
-  saveAsTitle = _T("Make App");   defExt = _T("txt");   defFilePat = _T("*.txt");
+//  saveAsTitle = _T("Make App");   defExt = _T("txt");   defFilePat = _T("*.txt");
   }
 
 
@@ -76,22 +75,12 @@ void MakeAppDoc::OnNameProject() {
 ProjectNameDlg dlg;
 String         path;
 
-  dlg.appType = iniFile.readInt(   PrjSection, PrjAppType, 0);
+  dlg.appType = iniFile.readInt(PrjSection, PrjAppType, 0);
   iniFile.read(PrjSection, PrjNameKey, dlg.name);
   iniFile.read(PrjSection, PrjVisKey,  dlg.visibleName);
   iniFile.read(PrjSection, PrjDesc,    dlg.description);
 
   if (dlg.DoModal() == IDOK) {
-
-    notePad << _T("App Type: ") << dlg.appType << _T(" -- ");
-
-    switch (dlg.appType) {
-      case 0  : notePad << _T("DocView"); break;
-      case 1  : notePad << _T("Dialog");  break;
-      case 2  : notePad << _T("Radio2");  break;
-      default : notePad << _T("Unknown"); break;
-      }
-    notePad << nCrlf;
 
     iniFile.write(PrjSection, PrjAppType, dlg.appType);
     iniFile.write(PrjSection, PrjNameKey, dlg.name);
@@ -108,18 +97,24 @@ String         path;
 
 
 void MakeAppDoc::OnFixSlickEdit() {
-String    path;
+//String    path;
 String    mainName;
 SlickEdit se;
-String    saveAsTitle;
+//String    saveAsTitle;
 
   notePad.clear();
 
-  saveAsTitle = _T("Slickedit Project File");   defExt = _T("vpj");   defFilePat = _T("*.vpj");
+  pathDlgDsc(_T("Slickedit Project File"), 0, _T("vpj"), _T("*.vpj"));
+#if 1
+  if (!setOpenPath(pathDlgDsc)) return;
+#else
+//  saveAsTitle = ;   defExt = ;   defFilePat = ;
 
-  if (!getPathDlg(saveAsTitle, 0, defExt, defFilePat, path)) return;
+//  if (!getPathDlg(saveAsTitle, 0, defExt, defFilePat, path)) return;
+#endif
+//  defFileName = path;
 
-  defFileName = path;
+  pathDlgDsc.name = path;
 
   if (!OnOpenDocument(path)) return;
 
@@ -188,11 +183,13 @@ void MakeAppDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 
 void MakeAppDoc::OnFileSave() {
-String path;
-
+#if 1
+  if (!setSaveAsPath(pathDlgDsc)) return;
+#else
   if (!getSaveAsPathDlg(saveAsTitle, defFileName, defExt, defFilePat, path)) return;
+#endif
 
-  backupFile(path, 5);
+  backupFile(5);
 
   OnSaveDocument(path);
   }

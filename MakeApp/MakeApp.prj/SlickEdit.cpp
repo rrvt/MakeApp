@@ -1,7 +1,7 @@
 // Fix SlickEdit Property Operations
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "SlickEdit.h"
 #include "FileStore.h"
 #include "MessageBox.h"

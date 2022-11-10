@@ -51,6 +51,12 @@
     <ClInclude Include="..\..\Library\Extras\AboutDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -80,6 +86,9 @@
     <ClCompile Include="..\..\Library\Extras\AboutDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AppT3mplate.rc">
@@ -87,7 +96,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\README.md" />
     <None Include="res\AppT3mplate.rc2">
       <Filter>Resource Files</Filter>
     </None>
@@ -100,6 +108,8 @@
     <None Include="..\..\Library\Extras\AboutDlg.rc2">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="C:\Users\rrvt\AppData\Roaming\AppT3mplate\AppT3mplate.ini" />
+    <None Include="..\README-Template.md" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ShortToolbar.bmp">

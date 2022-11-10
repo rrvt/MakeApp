@@ -1,7 +1,7 @@
 // MakeApp.cpp : Defines the class behaviors for the application.
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "MakeApp.h"
 #include "AboutDlg.h"
 #include "GetPathDlg.h"

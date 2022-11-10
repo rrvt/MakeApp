@@ -1,7 +1,7 @@
 // Font Report Option -- Choose Leading letter of Font to display
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "FontRptOpt.h"
 #include "FontRptDlg.h"
 

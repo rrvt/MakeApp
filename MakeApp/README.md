@@ -160,9 +160,15 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
-### Update
+### Update 11/9/22
 
-A few name changes.
+Update the help file icons to correspond to the actual toolbar icons (particularly the background).
+
+The standard header file stdafx.h has been replaced with two header files: pch.h and framework.h.  Don't
+know why, but everytime I create a new dialog box class #include pch.h shows up.  So I've stopped fighting
+it and am in the process of changing all references to stdafx.h to pch.h/framework.h.
+
+Several other small changes.
 
 ### Update 11/1/22
 

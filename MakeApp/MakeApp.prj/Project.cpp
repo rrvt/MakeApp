@@ -1,7 +1,7 @@
 // Project Management -- Make changes and copy
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "Project.h"
 #include "filename.h"
 #include "filesrch.h"
@@ -12,7 +12,6 @@
 #include "MakeAppDoc.h"
 #include "MkAppUtilities.h"
 #include "NotePad.h"
-#include "ProjectNameDlg.h"
 #include "SlickEdit.h"
 
 #include "MessageBox.h"   //debug
@@ -96,9 +95,23 @@ bool Project::operator() (ProjectNameDlg& dlg) {
 String t;
 String s;
 
-  targetName = dlg.appType ? DialogApp : AppT3mplate;
+  appType = (AppType) dlg.appType;
+
+  notePad << _T("App Type: ") << appType << _T(" -- ");
+
+  switch (appType) {
+    case DocViewType : notePad << _T("Doc/View"); break;
+    case DialogType  : notePad << _T("Dialog");   break;
+    default          : notePad << _T("Unknown") << nCrlf; return false;
+    }
+  notePad << nCrlf;
 
   name = dlg.name; visible = dlg.visibleName; description = dlg.description;
+
+  switch (appType) {
+    case DocViewType : targetName = AppT3mplate; break;
+    case DialogType  : targetName = DialogApp; dialogName = name + _T("Dlg"); break;
+    }
 
   if (name.isEmpty())        return false;
   if (visible.isEmpty())     visible     = name;
@@ -301,11 +314,16 @@ int pos;
   }
 
 
+static TCchar* DialogDlg = _T("DialogDlg");
+
 void Project::renameAppName(String& s) {
 int pos;
 
   for (pos = s.find(targetName); pos >= 0; pos = s.find(targetName))
                                                         replace(s, pos, pos + targetName.length(), name);
+
+  if (appType == DialogType)
+    for (pos = s.find(DialogDlg); pos >= 0; pos = s.find(DialogDlg)) replace(s, pos, pos + 9, dialogName);
   }
 
 

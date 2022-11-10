@@ -1,7 +1,11 @@
+// ProjectNameDlg dialog
+
+
 #pragma once
 
 
-// ProjectNameDlg dialog
+enum AppType {DocViewType, DialogType};
+
 
 class ProjectNameDlg : public CDialogEx {
 
@@ -9,8 +13,7 @@ class ProjectNameDlg : public CDialogEx {
 
 public:
 
-BOOL    dialogApp;
-BOOL    docViewApp;
+int     appType;
 Cstring name;
 Cstring description;
 Cstring visibleName;
@@ -30,5 +33,4 @@ protected:
   DECLARE_MESSAGE_MAP()
 public:
   virtual BOOL OnInitDialog();
-  int appType;
-};
+  };

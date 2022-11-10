@@ -1,7 +1,7 @@
 // AppT3mplateView.cpp : implementation of the AppT3mplateView class
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "AppT3mplateView.h"
 #include "AppT3mplate.h"
 #include "AppT3mplateDoc.h"

@@ -34,37 +34,89 @@ Of course that means I had to override serialize too.
 </p>
 <p>
 The only other feature in the template is the declaration of:
+</p>
 <blockquote>
 enum DataSource {NoteSource, StoreSource, FontSource};
 </blockquote>
+<p>
 Then a single object of DataSource is defined in the applications Document.  The purpose of this enum is
 to specify to serialize and the view object what is being loaded, stored, displayed and/or printed.  Serialize
 and some of the View functions (more later) contain a switch statement like the following:
+</p>
 <blockquote>
 void AppTemplateDoc::serialize(Archive& ar) {<br/>
 <br/>
 &nbsp;&nbsp;if (ar.isStoring())<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;switch(dataSource) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case NotePadSrc : notePad.archive(ar); return;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc: store.store(ar); return;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default         : return;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc&nbsp;&nbsp;   : store.store(ar); return;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : return;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
 <br/>
 &nbsp;&nbsp;else<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;switch(dataSource) {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc: store.load(ar); return;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default         : return;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case StoreSrc : store.load(ar); return;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : return;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
 &nbsp;&nbsp;}
 </blockquote>
+<p>
+The actual loading and storing occurs in the store object.  
+</p>
+
+<h3>Opening a File for Reading</h3>
+<p>
+CDoc contains one object/variable:  String path.  Many of the functions in CDoc interact with "path".  
+There are three separate steps for reading a file in the Document class:
+</p>
+<ul>
+<li>Determining the path to the file</li>
+<li>Opening the file for reading</li>
+<li>Reading the characters/bytes from the file and storing them somewhere.</li>
+</ul>
+
+<p>
+The first step is accomplished by calling the CDoc function:
+</p>
+<blockquote>
+if (!setOpenPath(pathDlgDsc)) return;
+</blockquote>
+<p>
+The CDoc function, setOpenPath, invokes an MFC Open File Dialog and needs some data to populate the dialog so that it
+makes some kind of sense to the user.  The object, pathDlgDsc, conveys the strings needed by the Open File Dialog.  
+The function setOpenPath stores the path to the open file in the path String.  The path string is public and is available
+to any function in the Document class.
 </p>
 <p>
-The actual loading and storing occurs in the store object.  The details can be discerned from the store module and
-are not particularly interesting.
+The file is opened by calling:
 </p>
-<h3>ExpandableP Module</h3>
+<blockquote>
+  if (!OnOpenDocument(path)) messageBox(_T(" Not Loaded!"));
+</blockquote>
 <p>
-However, there is one detail that may be interesting.  Over the years I've implemented link list, hash tables,
+OnOpenDocument initializes an Archive object and passes the object to serialize which is a virtual function in CDoc that
+must be over ridden in the application's Document class. See the above section for a description of serialize.
+</p>
+<p>
+Archive is a class that supplies several functions for reading and writing from/to files. Here is an example of reading a
+file.
+</p>
+<blockquote>
+void Store::load(Archive& ar) {<br>
+String s;<br>
+<br>
+  &nbsp;&nbsp;data.clear();<br>
+<br>
+  &nbsp;&nbsp;while (ar.read(s)) add(s);<br>
+  &nbsp;&nbsp;}
+</blockquote>
+<p>
+In the load function above, add takes a line read from the "archive object", ar, and stores it somewhere, usually at the
+end of a data structure.  Which brings us to another data structure, Expandable, a vector of objects (e.g. strings).
+</p>
+<h3>Expandable(P) Module</h3>
+<p>
+Over the years I've implemented link list, hash tables,
 arrays (single dimension and multidimensional).  Hash tables have a nice property of having a short
 search time.  The easiest method involved a fixed size chunk of memory.  This had a downside of getting full
 (e.g. 85% of slots being filled).  So in the days of assembly language and C I "invented" a method to double
@@ -88,6 +140,7 @@ as required.  Of course there are some rules that makes all this work fairly sim
 <p>
 C++ allows any object to be the element of an array.  This is very nice.  If I wanted to keep all the attributes
 of a dog in an object:
+</p>
 <blockquote>
 class ADog {<br/>
 &nbsp;&nbsp;String name;<br/>
@@ -96,11 +149,12 @@ class ADog {<br/>
 &nbsp;&nbsp;String breed;<br/>
 &nbsp;&nbsp;};<br/>
 </blockquote>
+<p>
 Then I could keep a list of dogs in an array:
+</p>
 <blockquote>
 ADog dogs[10];
 </blockquote>
-</p>
 <p>
 The following are typical uses of the array dogs:
 </p>
@@ -126,7 +180,6 @@ For example, the ADog class must implement a copy constructor and the assignment
 &nbsp;&nbsp;ADog(Adog& aDog) {copy(aDog);}<br/>
 &nbsp;&nbsp;ADog& operator= (ADog& aDog) {copy(aDog); return *this;}
 </blockquote>
-</p>
 <p>
 There is one more little feature that ADog must have:  The destructor (i.e. ~ADog();) must clean up after itself.
 That is if there are any heap nodes pointed to by an ADog object then the ADog destructor is responsible for
@@ -150,15 +203,19 @@ element.
 </p>
 <p>
 The ExpandableP Template along with the RcdPtrT template implement an array of pointers to objects:
+</p>
 <blockquote>
 class Datum { ... };<br/><br/>
 typedef RcdPtrT&#8249;Datum&#8250; DatumP;<br/>
 </blockquote>
+<p>
 Then later in the class that will contain the expandable object declare:
+</p>
 <blockquote>
 class Store {<br/><br/>
 ExpandableP&#8249;Datum, DatumP, 2&#8250; data;
 </blockquote>
+<p>
 The record pointer template will handle all of the allocation, constructor call, deallocation and destructor
 call of the Datum objects.  The pointers are moved but the actual data objects do not.
 </p>
@@ -174,26 +231,31 @@ A pointer is returned for each element in the array and when the end is reached 
 is returned.  Now it just so
 happens that zero is a special value in C/C++.  Zero is always treated as boolean false.  Any non-zero value is
 always treated as boolean true.  This means we can write a loop like this:
+</p>
 <blockquote>
 Element* elem;<br/><br/>
 &nbsp;&nbsp;for (elem = f(); elem; elem = g()) { ... }
 </blockquote>
+<p>
 where f() and g() return a pointer to an Element object.  This is just about the simplest loop can write.  There
 is no need to find out how many elements are in the array (if f() and g() reference an array) and the body
 of the loop (the stuff between the squiggly brackets) can trust that the pointer is valid.
 </p>
 <p>
 The IterT defines an iterator for a specific class that contains a single expandable object as follows:
+</p>
 <blockquote>
 class Store;<br/>
 typedef IterT&#8249;Store, Datum&#8250; DSIter;                        // Iterator for the Store
 </blockquote>
+<p>
 It does not require the actual expandable data structure, just the class that contains the expandable data
 structure.  It also needs the object that is being returned by the iterator, in this case the Datum.
 </p>
 <p>
 By itself, the iterator can do very little so it requires some helper functions in the Store class.  They can
 all be public or private or some combination of public and private.  Here is the list of functions:
+</p>
 <blockquote>
 private:<br/><br/>
 
@@ -203,15 +265,16 @@ private:<br/><br/>
 &nbsp;&nbsp;void  removeDatum(int i) {if (0 &#8249;= i && i &#8249; nData()) data.del(i);}<br/><br/>
 &nbsp;&nbsp;friend typename DSIter;
 </blockquote>
-</p>
 <p>
 The iterator then can implement the following loops:
+</p>
 <blockquote>
 DSIter iter(store);<br/>
 Datum* dtm;<br/><br/>
 &nbsp;&nbsp;for (dtm = iter(); dtm; dtm = iter++) { ... }<br/><br/>
 &nbsp;&nbsp;for (dtm = iter(Rev); dtm; dtm = iter--) { ... }
 </blockquote>
+<p>
 Where the first loop starts at zero and indexes towards the last entry and
 the second loop starts at the last entry and indexes towards the first entry.  There are some additional
 features in the template code, just look them up.

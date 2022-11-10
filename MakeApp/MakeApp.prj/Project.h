@@ -5,9 +5,9 @@
 #include "Bounds.h"
 #include "FileList.h"
 #include "ManageGuid.h"
+#include "ProjectNameDlg.h"
 
 class MakeAppDoc;
-class ProjectNameDlg;
 
 
 class Project {
@@ -15,6 +15,8 @@ class Project {
 enum FileType {NilType, SlnType, VxcType, PrjType, SrcType, SEType, WxsType, WxdType};
 enum FixIt    {         SlnFix,  VxcFix,  PrjFix,  SrcFix,  SEFix,  WxsFix,  WxdFix};
 
+
+AppType    appType;
 String     name;
 String     visible;
 String     description;
@@ -27,6 +29,7 @@ String     appRoot;                             // application base directory
 String     dstPath;                             // Current destination directory
 
 String     targetName;
+String     dialogName;
 
 String     defFileName;
 

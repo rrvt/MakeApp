@@ -1,7 +1,7 @@
 // Bounds in files to process further
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "Bounds.h"
 #include "FileList.h"
 #include "FileStore.h"

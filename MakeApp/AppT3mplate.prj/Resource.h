@@ -3,12 +3,7 @@
 // Used by AppT3mplate.rc
 
 
-// Define Examples if examples must execute in new application
-// Also define/undefine in stdafx.h
-
 #pragma once
-
-#define Examples
 
 #define IDR_MAINFRAME                   100
 #define IDR_ToolBarImages               101
@@ -50,5 +45,15 @@
 #define _APS_NEXT_CONTROL_VALUE         204
 #define _APS_NEXT_SYMED_VALUE           300
 #endif
+#endif
+
+
+
+
+#if 0
+// Define Examples if examples must execute in new application
+// Also define/undefine in framework.h
+
+#define Examples
 #endif
 

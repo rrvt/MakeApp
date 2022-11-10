@@ -12,10 +12,14 @@ class MakeAppDoc : public CDoc {
 
 DataSource dataSource;
 
+#if 1
+PathDlgDsc  pathDlgDsc;
+#else
 String     saveAsTitle;                                      // Save As Parameters, examples:
 String     defFileName;                                      // _T("mumble.txt")
 String     defExt;                                           // _T("txt")
 String     defFilePat;                                       // _T("*.txt")
+#endif
 
 protected: // create from serialization only
 

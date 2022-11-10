@@ -1,7 +1,7 @@
 // MakeAppView.cpp : implementation of the MakeAppView class
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "MakeAppView.h"
 #include "ListFonts.h"
 #include "MakeApp.h"

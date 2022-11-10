@@ -1,7 +1,7 @@
  // AppT3mplateDoc.cpp : implementation of the AppT3mplateDoc class
 
 
-#include "stdafx.h"
+#include "pch.h"
 #include "AppT3mplateDoc.h"
 #include "ClipLine.h"
 #include "ExtraResource.h"
@@ -212,7 +212,7 @@ void AppT3mplateDoc::OnFileOpen() {
 
   pathDlgDsc(_T("Ugly Example"), pathDlgDsc.name, _T("txt"), _T("*.txt"));
 
-  if (!setPath(pathDlgDsc)) return;
+  if (!setOpenPath(pathDlgDsc)) return;
 
   pathDlgDsc.name = getMainName(path);
 
@@ -230,8 +230,6 @@ void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 
 
-
-
 void AppT3mplateDoc::OnFileSave() {if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);}
 
 
@@ -243,7 +241,7 @@ void AppT3mplateDoc::serialize(Archive& ar) {
     switch(dataSource) {
       case NotePadSrc : notePad.archive(ar); return;
 #ifdef Examples
-      case StoreSrc: store.store(ar); return;
+      case StoreSrc   : store.store(ar); return;
 #endif
       default         : return;
       }
