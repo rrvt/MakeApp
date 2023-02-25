@@ -16,8 +16,8 @@
 #include "MakeAppView.h"
 #include "MessageBox.h"
 #include "NotePad.h"
-#include "Options.h"
 #include "OptionsDlg.h"
+#include "Printer.h"
 #include "Project.h"
 #include "ProjectNameDlg.h"
 #include "qsort.h"
@@ -53,15 +53,12 @@ BEGIN_MESSAGE_MAP(MakeAppDoc, CDoc)
   ON_COMMAND(ID_Test,         &OnTest)
   ON_COMMAND(ID_CalibDspPrt,  &OnCalibDspPrt)
   ON_COMMAND(ID_ListFonts,    &OnFontRptOpt)
-  ON_COMMAND(ID_Options,      &OnOptions)
 END_MESSAGE_MAP()
 
 
 // MakeAppDoc construction/destruction
 
-MakeAppDoc::MakeAppDoc() noexcept : dataSource(NotePadSrc) {
-//  saveAsTitle = _T("Make App");   defExt = _T("txt");   defFilePat = _T("*.txt");
-  }
+MakeAppDoc::MakeAppDoc() noexcept : dataSource(NotePadSrc) { }
 
 
 MakeAppDoc::~MakeAppDoc() { }
@@ -97,22 +94,14 @@ String         path;
 
 
 void MakeAppDoc::OnFixSlickEdit() {
-//String    path;
 String    mainName;
 SlickEdit se;
-//String    saveAsTitle;
 
   notePad.clear();
 
   pathDlgDsc(_T("Slickedit Project File"), 0, _T("vpj"), _T("*.vpj"));
-#if 1
-  if (!setOpenPath(pathDlgDsc)) return;
-#else
-//  saveAsTitle = ;   defExt = ;   defFilePat = ;
 
-//  if (!getPathDlg(saveAsTitle, 0, defExt, defFilePat, path)) return;
-#endif
-//  defFileName = path;
+  if (!setOpenPath(pathDlgDsc)) return;
 
   pathDlgDsc.name = path;
 
@@ -150,7 +139,7 @@ int         n;
 
   notePad << nFont << nFont << nFont;
 
-  n = options.orient == Landscape ? 10 : 8;
+  n = printer.orient == LandOrient ? 10 : 8;
 
   notePad << nFFace(_T("Courier New")) << nFSize(12.0);   testLine(n);   notePad << nFont << nFont;
 
@@ -175,19 +164,13 @@ int i;
 void MakeAppDoc::OnFontRptOpt() {fontRptOpt();  notePad.clear();  display(FontSrc);}
 
 
-void MakeAppDoc::OnOptions() {options(view());  view()->setOrientation(options.orient);}
-
-
 void MakeAppDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 
 
 void MakeAppDoc::OnFileSave() {
-#if 1
+
   if (!setSaveAsPath(pathDlgDsc)) return;
-#else
-  if (!getSaveAsPathDlg(saveAsTitle, defFileName, defExt, defFilePat, path)) return;
-#endif
 
   backupFile(5);
 
@@ -198,6 +181,7 @@ void MakeAppDoc::OnFileSave() {
 // MakeAppDoc serialization
 
 void MakeAppDoc::serialize(Archive& ar) {
+
   if (ar.isStoring()) {fileStore.store(ar); return;}
 
   fileStore.load(ar);
@@ -207,14 +191,26 @@ void MakeAppDoc::serialize(Archive& ar) {
 // MakeAppDoc diagnostics
 
 #ifdef _DEBUG
-void MakeAppDoc::AssertValid() const
-{
-  CDocument::AssertValid();
-}
-
-void MakeAppDoc::Dump(CDumpContext& dc) const
-{
-  CDocument::Dump(dc);
-}
+void MakeAppDoc::AssertValid() const {CDocument::AssertValid();}
+void MakeAppDoc::Dump(CDumpContext& dc) const {CDocument::Dump(dc);}
 #endif //_DEBUG
+
+
+
+
+
+#if 1
+#else
+//  saveAsTitle = ;   defExt = ;   defFilePat = ;
+
+//  if (!getPathDlg(saveAsTitle, 0, defExt, defFilePat, path)) return;
+#endif
+//  defFileName = path;
+//String    path;
+//String    saveAsTitle;
+#if 1
+#else
+  if (!getSaveAsPathDlg(saveAsTitle, defFileName, defExt, defFilePat, path)) return;
+#endif
+//  saveAsTitle = _T("Make App");   defExt = _T("txt");   defFilePat = _T("*.txt");
 

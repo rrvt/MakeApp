@@ -160,6 +160,19 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 2/25/23
+
+This is an intermediate release and is not intended to be a final release.  I was working on the printing
+of files when I discovered that the wrap mechanism was incorrectly architected.  Then I started trying to
+fix this problem by removing the duplication of wrap at two different levels.  The upper level just did
+not have enough data to correctly implement wrapping the text when the lines were too long.  So I've
+moved the wrapping operation to just before output to the device where all the details of the output
+device are known.  This has taken a little work to reorganize but is not completed.
+
+So this update is to capture what has been done at this point even though it is not complete.  The
+non-wrap output works fine now.  I am capturing the Library in this interim state so that if things do
+not go well I can come back to this point and start over...
+
 ### Update 11/9/22
 
 Update the help file icons to correspond to the actual toolbar icons (particularly the background).

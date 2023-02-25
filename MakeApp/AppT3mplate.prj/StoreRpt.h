@@ -12,20 +12,18 @@ public:
   StoreRpt(NotePad& notePad) : ReportBase(notePad) { }
  ~StoreRpt() { }
 
-//  void StoreRpt::display(CScrView& vw);
-  void print(CScrView& vw);
+ void dspHeader(DevBase& dev, int pageNo = 1) {prtHeader(dev, pageNo);}
+ void dspFooter(DevBase& dev, int pageNo = 1) {prtFooter(dev, pageNo);}
 
-//  void detWraps(  CScrView& vw);               // Wrap each entity in the report body
+  void onBeginPrinting(CScrView& vw);
 
-//  void detNoPages(CScrView& vw);               // Performs a dummy printer output to determine the
-                                                  // number of pages that will be produced
-  void footer(Device& dev, int pageNo);          // Output page Footer to NotePad
+  void prtHeader(DevBase& dev, int pageNo = 1);
+  void prtFooter(DevBase& dev, int pageNo);
 
 private:
 
-  StoreRpt() : ReportBase(*(NotePad*)0) { }
+  void getData(CScrView& vw);
 
-  void create(CScrView& vw);
-  int  header(NotePad& np, bool printing);
+  StoreRpt() : ReportBase(*(NotePad*)0) { }
   };
 

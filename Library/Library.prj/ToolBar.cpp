@@ -291,12 +291,3 @@ CRect  rect;                                          // button rectangle relati
   return false;
   }
 
-
-
-#if 0
-  linRect       = rect;
-  linRect.top   = linRect.bottom = linRect.top + 24;
-  linRect.left  = winRect.left  + 24;
-  linRect.right = winRect.right - 24;
-#endif
-

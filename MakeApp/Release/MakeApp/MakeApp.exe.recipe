@@ -2,6 +2,12 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
+      <FullPath>D:\Sources\MakeApp\Release\AppT3mplate.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>D:\Sources\MakeApp\Release\DialogApp.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
       <FullPath>D:\Sources\MakeApp\Release\MakeApp.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>

@@ -20,7 +20,7 @@ Expandable<String,  16> descrip;
 
   Operation& operator= (Operation& op);
 
-  void       get(int& lineNo, Data*& d, FSIter& iter);
+  void       get(int& lineNo, Datum*& d, FSIter& iter);
   void       fixSaveOption(String& s);
   void       fixClearBuffer(String& s);
   };
@@ -29,7 +29,7 @@ Expandable<String,  16> descrip;
 class SlickEdit {
 
 FSIter iter;
-Data*  d;
+Datum* d;
 int    lineNo;
 
 
@@ -45,7 +45,7 @@ public:
 
 private:
 
-  void fixAmenu(Data*& d);
+  void fixAmenu(Datum*& d);
   void addToData(TCchar* name);
   void copyOperToData(Operation& op);
   void clear() {lineNo = 0; data.clear(); operators.clear();}

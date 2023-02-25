@@ -17,7 +17,6 @@ NoteManip nClrTabs;         // add to stream to clear tabs:                  dsp
 NoteManip nCrlf;            // add to stream to terminate a line on display: dsp << "xyz" << dCrlf;
 NoteManip nEndPage;         // add to stream to terminate page when printing otherwise ignore
 NoteManip nTab;             // add to stream to tab to next tab position:    dsp << dTab << "xyz";
-NoteManip nTableName;       // Set bit to identify table name note:          dsp << dTableName << "xyz";
 NoteManip nCenter;          // Set bit to center from here to crlf;
 NoteManip nRight;           // Set bit to right align from here to crlf;
 NoteManip nBeginLine;       // Begin and end line under text.
@@ -29,12 +28,12 @@ NoteManip nItalic;          // set font to italic
 NoteManip nUnderLine;       // underline font
 NoteManip nStrikeOut;       // strike out font
 
+NtManipInt& nSetLMargin(int val) {return setupManipInt(NotePad::doSetLMargin, val);}
 NtManipInt& nSetTab(    int val) {return setupManipInt(NotePad::doSetTab,     val);}
 NtManipInt& nSetRTab(   int val) {return setupManipInt(NotePad::doSetRTab,    val);}
-NtManipInt& nSetLMargin(int val) {return setupManipInt(NotePad::doSetLMargin, val);}
+
 NtManipInt& nSetWidth(  int val) {return setupManipInt(NotePad::doSetWidth,   val);}
 NtManipInt& nSetPrec(   int val) {return setupManipInt(NotePad::doSetPrec,    val);}
-NtManipInt& nEditBox(   int val) {return setupManipInt(NotePad::doEditBox,    val);}
 NtManipStg& nFFace( TCchar* face){return setupManipStg(NotePad::doFFace,      face);}
 NtManipDbl& nFSize(  double val) {return setupManipDbl(NotePad::doFSize,      val);}
 
@@ -58,11 +57,11 @@ void NotePad::clear() {noteList.removeAll(); note = 0; initialize();}
 
 void NotePad::initialize() {
 
-  nCrlf.n      = this; nCrlf.func      = NotePad::doCrlf;
   nClrTabs.n   = this; nClrTabs.func   = NotePad::doClrTabs;
-  nEndPage.n   = this; nEndPage.func   = NotePad::doEndPage;
   nTab.n       = this; nTab.func       = NotePad::doTab;
-  nTableName.n = this; nTableName.func = NotePad::setTableName;
+
+  nCrlf.n      = this; nCrlf.func      = NotePad::doCrlf;
+  nEndPage.n   = this; nEndPage.func   = NotePad::doEndPage;
   nCenter.n    = this; nCenter.func    = NotePad::doCenter;
   nRight.n     = this; nRight.func     = NotePad::doRight;
   nBeginLine.n = this; nBeginLine.func = NotePad::doBeginLine;
@@ -90,8 +89,7 @@ int          cnt;
   for (note = iter(); note; note = iter++) {
 
     if (note->clrTabs)   tPos.clrTabs();
-    if (note->tabValue)  tPos.setTab(applyTabFactor(note->tabValue));
-    if (note->rTabValue) tPos.setRTab(applyTabFactor(note->rTabValue));
+    if (note->tabValue)  tPos.setTab(applyTabFactor(note->tabValue), note->rightTab);
 
     hasTab = note->tab;
 
@@ -135,144 +133,237 @@ int x = from.getCharPos();
   }
 
 
-NotePad& NotePad::append(Wrap& w) {
-Note& note = getNote();  if (!note.line.isEmpty()) this->note = 0;
 
-  getNote().wrap = w; return *this;
-  }
+NotePad& NotePad::append(const String& line) {getNote(EndLnNAttr).line += line;  return *this;}
+
+NotePad& NotePad::append(Tchar   v)          {getNote(EndLnNAttr).line += v;     return *this;}
+NotePad& NotePad::append(Cchar* cs)
+                          {ToUniCode uni(cs); getNote(EndLnNAttr).line += uni(); return *this;}
+NotePad& NotePad::append(Date    v)          {String s = v;                      return append(s);}
+
+
+NotePad& NotePad::doSetWidth(  NotePad& n, int v) {n.getNote(NmbrNAttr).nmbr.width = v;   return n;}
+NotePad& NotePad::doSetPrec(   NotePad& n, int v) {n.getNote(NmbrNAttr).nmbr.prec  = v;   return n;}
+
+
+NotePad& NotePad::doNmbr(long   v)
+                  {getNote(NmbrNAttr).nmbr.longVal  = v;   note->nmbr.typ = IntNmbrTyp;    return *this;}
+NotePad& NotePad::doNmbr(ulong  v)
+                  {getNote(NmbrNAttr).nmbr.uLongVal = v;   note->nmbr.typ = UIntNmbrTyp;   return *this;}
+NotePad& NotePad::doNmbr(double v)
+                  {getNote(NmbrNAttr).nmbr.dblVal   = v;   note->nmbr.typ = DblNmbTyp;     return *this;}
 
 
 
-NotePad& NotePad::doClrTabs(NotePad& n) {
+
+
+
+
+NotePad& NotePad::doSetLMargin(NotePad& n, int v) {n.getNote(LMgnNAttr).leftMargin = v;    return n;}
+NotePad& NotePad::doClrTabs(   NotePad& n)        {n.getNote(StTbsNAttr).clrTabs   = true; return n;}
+NotePad& NotePad::doSetTab(    NotePad& n, int v) {n.getNote(StTbsNAttr).tabValue  = v;    return n;}
+NotePad& NotePad::doSetRTab(   NotePad& n, int v)
+     {Note& note = n.getNote(StTbsNAttr);   note.rightTab = true;   note.tabValue  = v;    return n;}
+NotePad& NotePad::doTab(       NotePad& n)        {n.getNote(TbNAttr).tab          = true; return n;}
+NotePad& NotePad::doCenter(    NotePad& n)        {n.getNote(CtrNAttr).center      = true; return n;}
+NotePad& NotePad::doRight(     NotePad& n)        {n.getNote(RghtNAttr).right      = true; return n;}
+NotePad& NotePad::doBeginLine( NotePad& n)        {n.getNote(BgLnNAttr).beginLine  = true; return n;}
+NotePad& NotePad::doEndLine(   NotePad& n)        {n.getNote(EndLnNAttr).endLine   = true; return n;}
+
+NotePad& NotePad::crlf() {noLines++;   getNote(CrlfNAttr).crlf = true;                     return *this;}
+NotePad& NotePad::endPage()
+                        {if (noLines) {getNote(EndPgNAttr).endPage = true; noLines = 0;}   return *this;}
+
+
+//Note& NotePad::getNote(NoteAttr attr) {return note && !note->isAfter(attr) ? *note : allocNote();}
+
+
+
+//NoteManip nStartHdr;        // Start Header Output (saves pending output)
+//NoteManip nEndHdr;          // End Header Output
+//  nStartHdr.n  = this; nStartHdr.func  = doStartHdr;
+//  nEndHdr.n    = this; nEndHdr.func    = doEndHdr;
+#if 1
+#else
 Note& note = n.getNote();
 
-  if (!note.line.empty() || note.clrTabs || note.right || note.tab ||
-                                                             note.tabValue || note.rTabValue) n.note = 0;
-  n.getNote().clrTabs   = true;   return n;
-  }
-
-
-NotePad& NotePad::doTab(NotePad& n) {
-Note& note = n.getNote();
-
-  if (!note.line.empty() || note.tab || note.beginLine || note.right || note.editBoxX >= 0) n.note = 0;
-
-  n.getNote().tab = true; return n;
-  }
-
-
-NotePad& NotePad::doSetLMargin(NotePad& n, int v) {
-Note& note = n.getNote();
-
-  if (note.leftMargin != v) n.note = 0;   n.getNote().leftMargin = v; return n;
-  }
-
-
-NotePad& NotePad::doCrlf(NotePad& n) {
-Note& note = n.getNote();
-
-  if (note.leftMargin) n.note = 0;
-
-  return n.crlf();
-  }
-
-
-NotePad& NotePad::crlf() {getNote().crlf = true;   note = 0;   noLines++;   return *this;}
-
-
-NotePad& NotePad::endPage() {
-
-  if (noLines) {note = 0; getNote().endPage = true; note->line; note = 0; noLines = 0;}
-
-  return *this;
-  }
-
-
-NotePad& NotePad::doCenter( NotePad& n)    {
-Note& note = n.getNote();
-
-  if (!note.line.empty()) n.note = 0;
-
-  n.getNote().center = true; return n;
-  }
-
-
-NotePad& NotePad::doRight(  NotePad& n)    {
-Note& note = n.getNote();
-
-  if (!note.line.empty() || note.right || note.tab || note.beginLine) n.note = 0;
-
-  n.getNote().right  = true; return n;
-  }
-
-
-NotePad& NotePad::doBeginLine( NotePad& n) {
-Note& note = n.getNote();
-
-  if (!note.line.empty() || note.right || note.tab) n.note = 0;
-
-  n.getNote().beginLine = true; return n;
-  }
-
-
-NotePad& NotePad::doSetTab(NotePad& n, int v) {
-  if (n.getNote().tabValue) n.note = 0;
-
-  n.getNote().tabValue = v;   return n;
-  }
-
-
-NotePad& NotePad::doSetRTab(NotePad& n, int v) {
-  if (n.getNote().rTabValue) n.note = 0;
-
-  n.getNote().rTabValue = v;  return n;
-  }
-
-
+  if (note.leftMargin != v) n.note = 0;   n.getNote().leftMargin = v;
+#endif
+#if 0
 NotePad& NotePad::doEditBox(NotePad& n, int v) {
 
   if (n.getNote().editBoxX) n.note = 0;
 
   n.getNote().editBoxX = v; return n;
   }
+#endif
+#if 0
+NotePad& NotePad::append(Wrap& w) {
+Note& note = getNote();  if (!note.line.isEmpty()) this->note = 0;
 
+  getNote().wrap = w; return *this;
+  }
+#endif
+//NoteManip nTableName;       // Set bit to identify table name note:          dsp << dTableName << "xyz";
 
+//NotePad& NotePad::append(TCchar* tc)         {getNote(EndLnNAttr).line += tc;    return *this;}
+//NotePad& NotePad::append(CTimeSpan& v) {String s;     return append(s);}
+#if 0
 void NotePad::noFontReq(NotePad& n) {
 Note& note = n.getNote();
 
   if (!note.fFace.isEmpty() || note.fSize     || note.prevFont  || note.bold || note.italic ||
                                note.underline || note.strikeOut || !note.line.empty()) n.note = 0;
   }
+#endif
+#if 0
+NotePad& NotePad::doCrlf(NotePad& n) {
+#if 1
+#else
+Note& note = n.getNote();
 
+  if (note.leftMargin) n.note = 0;
+#endif
 
+  return n.crlf();
+  }
+#endif
+#if 1
+#else
+Note& note = n.getNote();
+
+  if (!note.line.empty() || note.right || note.tab) n.note = 0;
+
+  n.getNote().beginLine = true;
+#endif
+#if 1
+#else
+Note& note = n.getNote();
+
+  if (!note.line.empty() || note.right || note.tab || note.beginLine) n.note = 0;
+
+  n.getNote().right  = true;
+#endif
+#if 1
+#else
+Note& note = n.getNote();
+
+  if (!note.line.empty() || note.right || note.tab || note.beginLine) n.note = 0;
+
+  n.getNote().right  = true;
+#endif
+//NtManipInt& nEditBox(   int val) {return setupManipInt(NotePad::doEditBox,    val);}
+//  nTableName.n = this; nTableName.func = NotePad::setTableName;
+#if 1
+
+#else
+Note& note = n.getNote();
+
+  if (!note.line.empty() || note.clrTabs || note.right || note.tab ||
+                                                             note.tabValue || note.rTabValue) n.note = 0;
+  n.getNote().clrTabs   = true;
+#endif
+#if 1
+#else
+  if (n.getNote().tabValue) n.note = 0;
+
+  n.getNote().tabValue = v;
+#endif
+#if 1
+#else
+  if (n.getNote().rTabValue) n.note = 0;
+
+  n.getNote().rTabValue = v;
+#endif
+#if 1
+#else
+Note& note = n.getNote();
+
+  if (!note.line.empty() || note.tab || note.beginLine || note.right) n.note = 0;
+
+  n.getNote().tab = true;
+#endif
+#if 1
+
+#else
+Note& note = n.getNote();
+
+  if (!note.line.empty()) n.note = 0;
+
+  n.getNote().center = true;
+#endif
+#if 0
 NotePad& NotePad::append(int v) {
-Note&    note    = getNote();
-NotePad& notePad = append(intToString(v, note.width));
+#if 1
+int  prec;
+bool needTab = doNumAttr(prec);   append(intToString(v, 0));   if (needTab) doTab(*this);   return *this;
 
-  note.width = 0; return notePad;
+#else
+Note&    note  = getNote(EndLnNAttr);
+int      width = note.width;
+
+  if (width < 0) doSetTab(*this, -width);   else if (width > 0) {doSetRTab(*this, width);  doTab(*this);}
+
+  append(intToString(v, 0));   note.width = 0;
+
+  if (width < 0) doTab(*this);
+#endif
+  }
+
+
+bool NotePad::doNumAttr(int& prec) {
+#if 0
+Note&    note  = getNote(EndLnNAttr);
+int      width = note.width;   note.width = 0;   prec = note.precision;   note.precision = 0;
+
+  if (width < 0) {doSetTab(*this, 1-width);   return true;}
+
+  if (width > 0) {doSetRTab(*this, width);   doTab(*this);}
+#endif
+  return false;
   }
 
 
 NotePad& NotePad::append(long v) {
-Note&    note    = getNote();
-NotePad& notePad = append(intToString(v, note.width));
+#if 1
 
-  note.width = 0; return notePad;
-  }
+int  prec;
+bool needTab = doNumAttr(prec);   append(intToString(v, 0));   if (needTab) doTab(*this);   return *this;
+
+#else
+Note&    note    = getNote(EndLnNAttr);
+NotePad& notePad = append(intToString(v, note.width));   note.width = 0; return notePad;
+#endif
+}
 
 
 NotePad& NotePad::append(ulong v) {
-Note&    note    = getNote();
-NotePad& notePad = append(intToString(v, note.width));
+#if 1
 
-  note.width = 0; return notePad;
+int  prec;
+bool needTab = doNumAttr(prec);   append(uintToString(v, 0));   if (needTab) doTab(*this);   return *this;
+
+#else
+Note&    note    = getNote(EndLnNAttr);
+NotePad& notePad = append(intToString(v, note.width));   note.width = 0; return notePad;
+#endif
   }
 
 
 NotePad& NotePad::append(double v) {
-Note&    note    = getNote();
+#if 1
+
+int  prec;
+bool needTab = doNumAttr(prec);    append(dblToString(v, 0, prec));   if (needTab) doTab(*this);
+
+  return *this;
+
+#else
+Note&    note    = getNote(EndLnNAttr);
 NotePad& notePad = append(dblToString(v, note.width, note.precision));
 
   note.width = 0; note.precision = 0; return notePad;
+#endif
   }
+#endif
 

@@ -31,7 +31,7 @@
   <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
 
   <Icon     Id="DialogApp01Icon.ico"
-                                SourceFile="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp01.ico"/>
+                                SourceFile="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp.ico"/>
   <Property Id="ARPPRODUCTICON"  Value="DialogApp01Icon.ico" />
 
   <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
@@ -105,7 +105,7 @@
 
 <Fragment>
 
-  <Component Id="Uninstall_DialogApp.cmp" 
+  <Component Id="Uninstall_DialogApp.cmp"
                                 Guid="DA20258A-C58B-4D8A-8D65-E51FE677D6E4" Directory="DialogApp.pmf">
 
     <Shortcut Id               = "UninstallDialogApp.shc"

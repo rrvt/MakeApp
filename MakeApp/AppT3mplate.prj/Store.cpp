@@ -13,7 +13,6 @@ const int TabVal = 5;
 Store store;                                        // Global since all classes need access
 
 
-
 void Store::setName(String& s) {name = s; dt.getToday();}
 
 
@@ -40,15 +39,11 @@ void Store::store(Archive& ar) {
 DSIter iter(*this);
 Datum* datum;
 
-  for (datum = iter(); datum; datum = iter++) {
-    ar.write(datum->get());  ar.crlf();
-    }
+  for (datum = iter(); datum; datum = iter++) {ar.write((*datum)());  ar.crlf();}
   }
 
 
-void Store::add(String& s) {data.nextData().add(s);}
-
-
+void Store::add(String& s) {data.nextData().add(s);   lastModified.getToday();}
 
 
 // Parse the data into the record
@@ -63,36 +58,6 @@ int pos = stg.find('\n');
 void Store::sort() {qsort(&data[0], &data[data.end()-1]);}
 
 
-
-
-int Datum::wrap(Device& dev, CDC* dc) {
-int  chWidth = dev.flChWidth();
-
-  dev << dCR << dClrTabs << dSetTab(TabVal) << dTab;    // Return to left margin (dCR), clear Tabs and
-                                                        // tab to position desired for wrap
-    wrp.initialize(dc, dev.remaining(), dev.maxWidth(), false);
-
-  dev<< dCR << dClrTabs;                                // return to left margin and clear tabs
-
-  return wrp(s);                                        // wrap string
-  }
-
-
-
-int Datum::display() {
-WrapIter  iter(wrp);
-WrapData* wd;
-int       i;
-
-  notePad << nClrTabs << nSetTab(TabVal) << nTab;       // The tab is set to the same value as in wrap
-
-  for (wd = iter(), i = 0; wd; wd = iter++, i++) {
-    if (i) notePad << nTab;
-
-    notePad << wd->line << nCrlf;
-    }
-
-  return i;
-  }
+int Datum::display() {notePad << s << nCrlf;   return 1;}
 
 

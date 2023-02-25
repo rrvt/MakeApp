@@ -10,7 +10,7 @@
 #include "MakeAppDoc.h"
 #include "MakeAppView.h"
 #include "NotePad.h"
-#include "Options.h"
+#include "OptionsDlg.h"
 #include "Project.h"
 #include "Resource.h"
 
@@ -24,7 +24,6 @@ IniFile   iniFile;
 BEGIN_MESSAGE_MAP(MakeApp, CWinAppEx)
   ON_COMMAND(ID_SpecifyBaseDir,   &OnSpecifyBaseDir)
   ON_COMMAND(ID_App_About,        &OnAppAbout)
-  ON_COMMAND(ID_FILE_PRINT_SETUP, &OnFilePrintSetup)
   ON_COMMAND(ID_Help,             &OnHelp)
 END_MESSAGE_MAP()
 
@@ -76,23 +75,11 @@ BOOL MakeApp::InitInstance() {
 
   project.determineBasePath(m_pszHelpFilePath);
 
-  options.load();
+//  options.load();
 
   m_pMainWnd->ShowWindow(SW_SHOW);   m_pMainWnd->UpdateWindow();   return TRUE;
   }
 
-
-void MakeApp::OnFilePrintSetup() {
-PrtrOrient orient;
-
-  view()->setPrntrOrient(getDevMode());
-
-    CWinApp::OnFilePrintSetup();
-
-  orient = view()->getPrntrOrient(getDevMode());
-
-  options.setOrient(orient);   view()->setOrientation(options.orient);
-  }
 
 
 void MakeApp::OnHelp() {
@@ -108,3 +95,20 @@ void MakeApp::OnSpecifyBaseDir() {project.getBaseDirUser();   invalidate();}
 
 void MakeApp::OnAppAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
 
+
+
+
+#if 0
+
+void MakeApp::OnFilePrintSetup() {
+PrtrOrient orient;
+
+  view()->setPrntrOrient(getDevMode());
+
+    CWinApp::OnFilePrintSetup();
+
+  orient = view()->getPrntrOrient(getDevMode());
+
+  options.setOrient(orient);   view()->setOrientation(options.orient);
+  }
+#endif

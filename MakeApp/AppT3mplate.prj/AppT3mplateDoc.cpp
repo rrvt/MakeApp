@@ -3,21 +3,16 @@
 
 #include "pch.h"
 #include "AppT3mplateDoc.h"
+#include "AppT3mplate.h"
 #include "ClipLine.h"
-#include "ExtraResource.h"
 #include "filename.h"
-#include "GetPathDlg.h"
 #include "MessageBox.h"
 #include "NotePad.h"
-#include "Options.h"
+#include "Printer.h"
 #include "Resource.h"
-#include "AppT3mplate.h"
-#include "AppT3mplateView.h"
 #ifdef Examples
 #include "Store.h"
 #endif
-#include "ToolBar.h"
-
 
 // AppT3mplateDoc
 
@@ -26,8 +21,7 @@ IMPLEMENT_DYNCREATE(AppT3mplateDoc, CDoc)
 BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
   ON_COMMAND(      ID_File_Open,  &OnFileOpen)
   ON_COMMAND(      ID_File_Save,  &OnFileSave)
-  ON_COMMAND(      ID_Options,    &OnOptions)
-  ON_COMMAND(       ID_EDIT_COPY, &onEditCopy)
+  ON_COMMAND(      ID_EDIT_COPY,  &onEditCopy)
 
 #ifdef Examples
   ON_COMMAND(      ID_Test,       &OnTest)
@@ -154,7 +148,7 @@ int n;
 
   notePad << nFont << nFont << nFont;
 
-  n = options.orient == Landscape ? 10 : 8;
+  n = printer.orient == LandOrient ? 10 : 8;
 
   notePad << nFFace(_T("Courier New")) << nFSize(12.0);   testLine(n);   notePad << nFont << nFont;
 
@@ -201,9 +195,6 @@ void AppT3mplateDoc::displayDataStore() {display(StoreSrc);}
 
 
 void AppT3mplateDoc::onEditCopy() {clipLine.load();}
-
-
-void AppT3mplateDoc::OnOptions() {options(view());  view()->setOrientation(options.orient);}
 
 
 void AppT3mplateDoc::OnFileOpen() {
@@ -270,4 +261,16 @@ void AppT3mplateDoc::Dump(CDumpContext& dc) const
   CDocument::Dump(dc);
 }
 #endif //_DEBUG
+
+
+
+
+
+
+#if 0
+#include "AppT3mplateView.h"
+#include "ExtraResource.h"
+#include "GetPathDlg.h"
+#include "ToolBar.h"
+#endif
 

@@ -6,25 +6,40 @@
 #include "MessageBox.h"
 
 
-VertMgmt::VertMgmt() {clear();}
+VertMgmt::VertMgmt(DevCtx& devCtx) : dvx(devCtx) {clear();}
 
 
-void VertMgmt::clear() {
-  y = yMax = maxHeight = uLineDelta = botEdge = topBnd = botBnd = 0; chHeight = 1;  topMgn = botMgn = 0.0;
+void VertMgmt::clear() {y = yMax = topBnd = botBnd = 0;   beginPage = endPage = false;}
 
-  beginPage = endPage = false; noLines = maxLines = 0;
+
+void VertMgmt::initBounds() {
+double factor;
+
+  factor = dvx.chHeight;   factor /= 2;
+
+  topBnd = y = int(dvx.topMgn * factor);
+  botBnd =     int(dvx.pgHeight - dvx.botMgn * factor);
   }
 
 
-void VertMgmt::setAttributes(int height, double topMargin, double botMargin) {
-  botEdge = height; topMgn = topMargin; botMgn = botMargin; initY();
+bool VertMgmt::lf(bool printing, bool footer) {
+
+  if (printing && !footer && exceedsBnd()) {setEndPage(); return false;}
+
+  y += maxHeight;   maxHeight = dvx.chHeight;   setMaxY(y);   return true;
   }
 
 
-void VertMgmt::setTopMargin(double v) {topMgn = v;  initY();}
-void VertMgmt::setBotMargin(double v) {botMgn = v;  initY();}
+
+//  if (printing) maxLines = (botBnd - topBnd) / chHeight;   bool printing
+//  if (printing && !footer && noLines > maxLines) maxLines = noLines;
 
 
+//bool VertMgmt::exceedsBnd(int n)
+
+
+//void VertMgmt::setEndPage() {setBottom(); endPage = true;}
+#if 0
 void VertMgmt::setHeight(CDC* dc) {
 TEXTMETRIC metric;
 
@@ -37,27 +52,9 @@ TEXTMETRIC metric;
     uLineDelta = chHeight - metric.tmInternalLeading - metric.tmExternalLeading;
     }
   }
+#endif
 
 
-bool VertMgmt::exceedsBnd(int n) {return y + n * maxHeight > botBnd;}
-
-
-bool VertMgmt::lf(bool printing, bool footer) {
-
-  if (printing && !footer && exceedsBnd(1)) {setEndPage(); return false;}
-
-  y += maxHeight;   maxHeight = chHeight;   setMaxY(y);   noLines++;
-
-  if (printing && !footer && noLines > maxLines) maxLines = noLines;
-
-  return true;
-  }
-
-
-void VertMgmt::setEndPage() {y = botBnd; endPage = true;}
-
-
-void VertMgmt::initY() {
-  topBnd = y = int(topMgn * chHeight/2);  botBnd = int(botEdge - botMgn * chHeight);
-  }
+//void VertMgmt::setTopMargin(double v) {initY();}
+//void VertMgmt::setBotMargin(double v) {initY();}
 

@@ -9,9 +9,6 @@ class AppT3mplateDoc;
 class AppT3mplateView;
 
 
-// AppT3mplate:
-// See AppT3mplate.cpp for the implementation of this class
-
 class AppT3mplate : public CApp {
 
 public:
@@ -27,9 +24,8 @@ public:
 
   DECLARE_MESSAGE_MAP()
 
-  afx_msg void OnFilePrintSetup();
-  afx_msg void OnAppAbout();
-  afx_msg void OnHelp();
+  afx_msg void onAppAbout();
+  afx_msg void onHelp();
   };
 
 

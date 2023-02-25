@@ -15,16 +15,19 @@ public:
  ~FontRpt() { }
 
  void display(CScrView& vw);
- void print(CScrView& vw);
 
- void footer(Device& dev, int pageNo);          // Output page Footer to NotePad
+ virtual void dspHeader(DevBase& dev, int pageNo = 1) { }
+ virtual void dspFooter(DevBase& dev, int pageNo = 1) { }
+
+ void onBeginPrinting(CScrView& vw);
+
+ virtual void prtHeader(DevBase& dev, int pageNo) { }
+ virtual void prtFooter(DevBase& dev, int pageNo) { }
 
 private:
 
-  void create(CScrView& vw);
+  void getData(CScrView& vw);
   bool filter(TCchar* name);
-  int  header(NotePad& np, bool printing);
 
   FontRpt() : ReportBase(*(NotePad*)0) { }
-
   };

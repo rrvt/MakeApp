@@ -4,14 +4,11 @@
 #include "pch.h"
 #include "AppT3mplate.h"
 #include "AboutDlg.h"
-#include "ExtraResource.h"
-#include "IniFile.h"
-#include "MainFrame.h"
-#include "NotePad.h"
-#include "Options.h"
 #include "AppT3mplateDoc.h"
 #include "AppT3mplateView.h"
-
+#include "IniFile.h"
+#include "NotePad.h"
+#include "Resource.h"
 
 AppT3mplate theApp;                       // The one and only AppT3mplate object
 IniFile     iniFile;
@@ -20,10 +17,9 @@ IniFile     iniFile;
 // AppT3mplate
 
 BEGIN_MESSAGE_MAP(AppT3mplate, CWinAppEx)
-  ON_COMMAND(ID_File_New,         &CWinAppEx::OnFileNew)
-  ON_COMMAND(ID_FILE_PRINT_SETUP, &OnFilePrintSetup)
-  ON_COMMAND(ID_Help,             &OnHelp)
-  ON_COMMAND(ID_App_About,        &OnAppAbout)
+  ON_COMMAND(ID_File_New,  &CWinAppEx::OnFileNew)
+  ON_COMMAND(ID_Help,      &onHelp)
+  ON_COMMAND(ID_App_About, &onAppAbout)
 END_MESSAGE_MAP()
 
 
@@ -71,24 +67,9 @@ BOOL AppT3mplate::InitInstance() {
 
   view()->setFont(_T("Arial"), 12.0);
 
-  options.load();    view()->setOrientation(options.orient);
-
   m_pMainWnd->ShowWindow(SW_SHOW);   m_pMainWnd->UpdateWindow();   return TRUE;
   }
 
-
-
-void AppT3mplate::OnFilePrintSetup() {
-PrtrOrient orient;
-
-  view()->setPrntrOrient(getDevMode());
-
-    CWinApp::OnFilePrintSetup();
-
-  orient = view()->getPrntrOrient(getDevMode());
-
-  options.setOrient(orient);   view()->setOrientation(options.orient);
-  }
 
 
 int AppT3mplate::ExitInstance() {
@@ -101,12 +82,12 @@ int AppT3mplate::ExitInstance() {
   }
 
 
-void AppT3mplate::OnHelp() {
+void AppT3mplate::onHelp() {
 String topic = m_pszHelpFilePath; topic += _T(">Introduction");
 
   ::HtmlHelp(m_pMainWnd->m_hWnd, topic,  HH_DISPLAY_TOC, 0);
   }
 
 
-void AppT3mplate::OnAppAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
+void AppT3mplate::onAppAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
 

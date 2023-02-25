@@ -31,7 +31,7 @@
   <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
 
   <Icon     Id="AppT3mplate01Icon.ico"
-                            SourceFile="$(var.SolutionDir)..\AppT3mplate.prj\res\AppT3mplate01.ico"/>
+                            SourceFile="$(var.SolutionDir)..\AppT3mplate.prj\res\AppT3mplate.ico"/>
   <Property Id="ARPPRODUCTICON"  Value="AppT3mplate01Icon.ico" />
 
   <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
@@ -104,7 +104,7 @@
 
 <Fragment>
 
-  <Component Id="Uninstall_AppT3mplate.cmp" 
+  <Component Id="Uninstall_AppT3mplate.cmp"
                               Guid="2643F799-A2DE-4B50-B1FB-5F8ECF610C7D" Directory="AppT3mplate.pmf">
 
     <Shortcut Id               = "UninstallAppT3mplate.shc"

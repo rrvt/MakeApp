@@ -7,7 +7,6 @@
 #include "TBBtnCtx.h"
 
 
-
 // MainFrame
 
 IMPLEMENT_DYNCREATE(MainFrame, CFrameWndEx)
@@ -117,16 +116,7 @@ CRect winRect;   GetWindowRect(&winRect);   toolBar.initialize(winRect);
 // MainFrame diagnostics
 
 #ifdef _DEBUG
-void MainFrame::AssertValid() const
-{
-  CFrameWndEx::AssertValid();
-}
-
-void MainFrame::Dump(CDumpContext& dc) const
-{
-  CFrameWndEx::Dump(dc);
-}
+void MainFrame::AssertValid() const          {CFrameWndEx::AssertValid();}
+void MainFrame::Dump(CDumpContext& dc) const {CFrameWndEx::Dump(dc);}
 #endif //_DEBUG
 
-
-// MainFrame message handlers

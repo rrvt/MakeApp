@@ -27,8 +27,8 @@
     </Publish>
   </UI>
 
-  <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp"/>
-  <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
+  <WixVariable Id="WixUIDialogBmp" Value="D:\Sources\WixApp\Release\dialog.bmp"/>
+  <WixVariable Id="WixUIBannerBmp" Value="D:\Sources\WixApp\Release\banner.bmp"/>
 
   <Icon     Id="MakeApp01Icon.ico" SourceFile="$(var.SolutionDir)..\MakeApp.prj\res\MakeApp01.ico"/>
   <Property Id="ARPPRODUCTICON"  Value="MakeApp01Icon.ico" />
@@ -289,19 +289,19 @@
                         Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplate.hhp" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateHelpVcx.cmp" 
+  <Component Id="AppT3mplateHelpVcx.cmp"
                   Guid="10730E74-AD2D-4044-9EE3-76E118569EB2" Directory="MakeApp_AppT3mplate.hlp.pff">
     <File Id="AppT3mplateHelpVcx.cmp"
                 Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplate.hlp.vcxproj" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateHelpVcxFltr.cmp" 
+  <Component Id="AppT3mplateHelpVcxFltr.cmp"
                   Guid="578DE298-A95F-48E1-A527-648C653DBBF9" Directory="MakeApp_AppT3mplate.hlp.pff">
     <File Id="AppT3mplateHelpVcxFltr.cmp"
         Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplate.hlp.vcxproj.filters" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateHelpVcxUsr.cmp" 
+  <Component Id="AppT3mplateHelpVcxUsr.cmp"
                   Guid="59D9E892-7FE5-4BAD-8EB8-CA0B4030E2F2" Directory="MakeApp_AppT3mplate.hlp.pff">
     <File Id="AppT3mplateHelpVcxUsr.cmp"
             Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplate.hlp.vcxproj.user" KeyPath="yes"/>
@@ -313,7 +313,7 @@
                             Source="$(var.SolutionDir)..\AppT3mplate.hlp\helpComp.bat" KeyPath="yes"/>
   </Component>
 
-  <Component Id="ATIntroductionHtm.cmp" 
+  <Component Id="ATIntroductionHtm.cmp"
                   Guid="A762C43D-FB2C-424C-B3CF-357E6F0F726D" Directory="MakeApp_AppT3mplate.hlp.pff">
     <File Id="ATIntroductionHtm.cmp"
                         Source="$(var.SolutionDir)..\AppT3mplate.hlp\Introduction.htm" KeyPath="yes"/>
@@ -330,7 +330,7 @@
                           Source="$(var.SolutionDir)..\AppT3mplate.hlp\Operations.htm" KeyPath="yes"/>
   </Component>
 
-  <Component Id="ATAppT3mplateHlpVpj.cmp" 
+  <Component Id="ATAppT3mplateHlpVpj.cmp"
                   Guid="15F4EEB3-CD9D-45CA-8C3E-88D554C435D8" Directory="MakeApp_AppT3mplate.hlp.pff">
     <File Id="ATAppT3mplateHlpVpj.cmp"
                     Source="$(var.SolutionDir)..\AppT3mplate.hlp\AppT3mplate.hlp.vpj" KeyPath="yes"/>
@@ -364,19 +364,19 @@
                     Source="$(var.SolutionDir)..\AppT3mplate.prj\AppT3mplate.vcxproj" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateVcxFltr.cmp" 
+  <Component Id="AppT3mplateVcxFltr.cmp"
                   Guid="9E23630D-B8D1-4241-85E6-5E7BB8818D8E" Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="AppT3mplateVcxFltr.cmp"
             Source="$(var.SolutionDir)..\AppT3mplate.prj\AppT3mplate.vcxproj.filters" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateVcxUsr.cmp" 
+  <Component Id="AppT3mplateVcxUsr.cmp"
                   Guid="26A84BDD-8C5B-4C04-973F-0F2D2553061C" Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="AppT3mplateVcxUsr.cmp"
                 Source="$(var.SolutionDir)..\AppT3mplate.prj\AppT3mplate.vcxproj.user" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateDocCpp.cmp" 
+  <Component Id="AppT3mplateDocCpp.cmp"
                   Guid="5E4A7BF1-5A4A-4EEC-A8DE-11EA689F819B" Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="AppT3mplateDocCpp.cmp"
                       Source="$(var.SolutionDir)..\AppT3mplate.prj\AppT3mplateDoc.cpp" KeyPath="yes"/>
@@ -388,13 +388,13 @@
                         Source="$(var.SolutionDir)..\AppT3mplate.prj\AppT3mplateDoc.h" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateViewCpp.cmp" 
+  <Component Id="AppT3mplateViewCpp.cmp"
                   Guid="527511BF-C2DC-468A-9633-812B488DAE9A" Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="AppT3mplateViewCpp.cmp"
                     Source="$(var.SolutionDir)..\AppT3mplate.prj\AppT3mplateView.cpp" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateViewH.cmp" 
+  <Component Id="AppT3mplateViewH.cmp"
                   Guid="551402B1-5A57-4A81-8DF4-E673A0AD63D2" Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="AppT3mplateViewH.cmp"
                       Source="$(var.SolutionDir)..\AppT3mplate.prj\AppT3mplateView.h" KeyPath="yes"/>
@@ -471,7 +471,7 @@
   <Component Id="AppT3mplate.ico.cmp"  Guid="9CE11ABC-3524-42E3-8196-721E0A1FCF1A"
                                                           Directory="MakeApp_AppT3mplate.prj_res.pff">
     <File Id="AppT3mplate.ico.cmp"
-                  Source="$(var.SolutionDir)..\AppT3mplate.prj\res\AppT3mplate01.ico" KeyPath="yes"/>
+                  Source="$(var.SolutionDir)..\AppT3mplate.prj\res\AppT3mplate.ico" KeyPath="yes"/>
   </Component>
 
   <Component Id="AppT3mplateRc2.cmp"  Guid="D054F6D3-374B-46CA-93E4-1F292C681E4C"
@@ -516,13 +516,13 @@
                     Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vcxproj" KeyPath="yes"/>
   </Component>
 
-  <Component Id="DialogAppHlpVcxFltr.cmp" 
+  <Component Id="DialogAppHlpVcxFltr.cmp"
                     Guid="5BE6D7F4-88F2-4903-8E80-67DE7DD92342" Directory="MakeApp_DialogApp.hlp.pff">
     <File Id="DialogAppHlpVcxFltr.cmp"
             Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vcxproj.filters" KeyPath="yes"/>
   </Component>
 
-  <Component Id="DialogAppHlpVcxUsr.cmp" 
+  <Component Id="DialogAppHlpVcxUsr.cmp"
                     Guid="40FFDA38-8DC3-46BC-89E4-6C867D023773" Directory="MakeApp_DialogApp.hlp.pff">
     <File Id="DialogAppHlpVcxUsr.cmp"
                 Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vcxproj.user" KeyPath="yes"/>
@@ -618,7 +618,7 @@
     <File Id="DialogDlgH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\DialogDlg.h" KeyPath="yes"/>
   </Component>
 
-  <Component Id="DialogFrameworkH.cmp" 
+  <Component Id="DialogFrameworkH.cmp"
                     Guid="1895EC1A-0FA1-490A-8577-432D4611770E" Directory="MakeApp_DialogApp.prj.pff">
     <File Id="DialogFrameworkH.cmp"
                               Source="$(var.SolutionDir)..\DialogApp.prj\framework.h" KeyPath="yes"/>
@@ -657,7 +657,7 @@
   <Component Id="DialogAppIco.cmp"  Guid="BCBE4704-7600-4E56-A789-1B5DE4169037"
                                                             Directory="MakeApp_DialogApp.prj_res.pff">
     <File Id="DialogAppIco.cmp"
-                      Source="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp01.ico" KeyPath="yes"/>
+                      Source="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp.ico" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppRc2.cmp"  Guid="343D8664-F55D-4CD6-8A2C-9F8A89BDCD97"
@@ -719,7 +719,7 @@
                         Source="$(var.SolutionDir)..\AppT3mplate.wix\AppT3mplate.wxd" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateWixPrj.cmp" 
+  <Component Id="AppT3mplateWixPrj.cmp"
                   Guid="602AD4FC-5894-4634-A61F-9762676306DA" Directory="MakeApp_AppT3mplate.wix.pff">
     <File Id="AppT3mplateWixPrj.cmp"
                 Source="$(var.SolutionDir)..\AppT3mplate.wix\AppT3mplate.wix.wixproj" KeyPath="yes"/>
@@ -737,7 +737,7 @@
                             Source="$(var.SolutionDir)..\AppT3mplate.wix\Product.wxs" KeyPath="yes"/>
   </Component>
 
-  <Component Id="AppT3mplateWixVpj.cmp" 
+  <Component Id="AppT3mplateWixVpj.cmp"
                   Guid="05D4F55E-0057-4A2D-A703-3DD41746A348" Directory="MakeApp_AppT3mplate.wix.pff">
     <File Id="AppT3mplateWixVpj.cmp"
                     Source="$(var.SolutionDir)..\AppT3mplate.wix\AppT3mplate.wix.vpj" KeyPath="yes"/>
@@ -808,7 +808,7 @@
 
 <Fragment>
 
-  <Component Id="OneColumnPage.dwt.cmp" 
+  <Component Id="OneColumnPage.dwt.cmp"
         Guid="301C9D66-95C1-44FC-AE2F-767640667EC1" Directory="MakeApp_AppT3mplate.hlp_Templates.pff">
     <File Id="OneColumnPage.dwt.cmp"
             Source="$(var.SolutionDir)..\AppT3mplate.hlp\Templates\OneColumnPage.dwt" KeyPath="yes"/>
@@ -864,8 +864,8 @@
 
 <Fragment>
 
-  <Component Id="Uninstall_Make_App.cmp" 
-                                  Guid="449630F4-AAFD-4793-A295-43FB9DC157DA" Directory="MakeApp.pmf">
+  <Component Id="Uninstall_Make_App.cmp"
+                                  Guid="23FED01E-9595-4593-824B-3CA0A063ADED" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"

@@ -256,7 +256,7 @@ String dstName     = srcName;                  renameAppName(dstName);
 String srcFilePath = srcPath + srcName;
 String dstFilePath = dstPath + dstName;
 FSIter iter(fileStore);
-Data*  d;
+Datum* d;
 
   if (!doc()->OnOpenDocument(srcFilePath)) return;
 
@@ -288,7 +288,7 @@ Data*  d;
 
 void Project::getFiles() {
 FSIter iter(fileStore);
-Data*  d;
+Datum* d;
 int    i;
 
   for (d = iter(), i = 0; d; d = iter++, i++) {

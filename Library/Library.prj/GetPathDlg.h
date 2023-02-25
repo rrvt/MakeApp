@@ -33,7 +33,7 @@ String pattern;       // _T("*.txt")
                             {title = ttl; name = nm ? nm : _T(""); ext = e; pattern = pat; return *this;}
   TCchar* getPath();
 
-private:
+protected:
 
   void copy(PathDlgDsc& dsc);
   };

@@ -17,7 +17,6 @@ NotePadRpt prtNote;
 FontRpt    dspFonts;
 FontRpt    prtFonts;
 
-
 protected:              // create from serialization only
 
   MakeAppView() noexcept;
@@ -25,12 +24,13 @@ protected:              // create from serialization only
 
 public:
 
-  virtual ~MakeAppView() { }
-  virtual void OnPrepareDC(CDC* pDC, CPrintInfo* pInfo = NULL);
-  virtual void onPrepareOutput(bool printing);
+              ~MakeAppView() { }
+  virtual void onBeginPrinting();
+  virtual void onDisplayOutput();
 
-  virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
-  virtual void printFooter(Device& dev, int pageNo);
+  virtual void OnPrepareDC(CDC* dc, CPrintInfo* info = 0);                // Display/Printer Override
+
+  virtual void printFooter(DevBase& dev, int pageNo);
   virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 
   MakeAppDoc* GetDocument() const;
@@ -45,12 +45,19 @@ public:
 public:
   DECLARE_MESSAGE_MAP()
 
+  afx_msg void onOptions();
   afx_msg void OnSetFocus(CWnd* pOldWnd);
   };
 
 
 #ifndef _DEBUG  // debug version in MakeAppView.cpp
-inline MakeAppDoc* MakeAppView::GetDocument() const
-   { return reinterpret_cast<MakeAppDoc*>(m_pDocument); }
+inline MakeAppDoc* MakeAppView::GetDocument() const {return reinterpret_cast<MakeAppDoc*>(m_pDocument);}
 #endif
+
+
+
+
+//  virtual void OnPrepareDC(CDC* pDC, CPrintInfo* pInfo = NULL);
+//  virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
+//  afx_msg void onSetupPrinter();
 

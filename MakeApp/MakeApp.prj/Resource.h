@@ -29,20 +29,23 @@
 
 #define ID_File_New                     400
 #define ID_File_Open                    401
-#define ID_File_Save                    402
-#define ID_Help                         403
-#define ID_Test                         404
-#define ID_SpecifyBaseDir               405
-#define ID_NameProject                  406
-#define ID_FixSlickEdit                 407
-#define ID_ListFonts                    408
+#define ID_Options                      402
+#define ID_CalibDspPrt                  403
+#define ID_File_Save                    404
+#define ID_App_About                    405
+#define ID_Help                         406
+#define ID_Test                         407
+#define ID_SpecifyBaseDir               408
+#define ID_NameProject                  409
+#define ID_FixSlickEdit                 410
+#define ID_ListFonts                    411
 
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        105
-#define _APS_NEXT_COMMAND_VALUE         410
+#define _APS_NEXT_COMMAND_VALUE         420
 #define _APS_NEXT_CONTROL_VALUE         219
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

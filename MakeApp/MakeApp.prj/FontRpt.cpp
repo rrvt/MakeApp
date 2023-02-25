@@ -8,15 +8,10 @@
 #include "NotePad.h"
 
 
-
-void FontRpt::display(CScrView& vw) {create(vw);}
-
-
-void FontRpt::print(CScrView& vw) {create(vw);}
+void FontRpt::display(CScrView& vw) {getData(vw);}
 
 
-void FontRpt::footer(Device& dev, int pageNo) { }
-
+void FontRpt::onBeginPrinting(CScrView& vw) {getData(vw);}
 
 
 static TCchar* fontTypeName[] = {_T(""),
@@ -27,7 +22,7 @@ static TCchar* fontTypeName[] = {_T(""),
                                  };
 
 
-void FontRpt::create(CScrView& vw) {
+void FontRpt::getData(CScrView& vw) {
 LFIter   iter(listFonts);
 FontAtr* fa;
 int      n;
@@ -87,7 +82,4 @@ Tchar ch = *name;   if (_T('a') <= ch && ch <= _T('z')) ch = _T('A') - _T('a');
   }
 
 
-int FontRpt::header(NotePad& np, bool printing) {
-  return 0;
-  }
 

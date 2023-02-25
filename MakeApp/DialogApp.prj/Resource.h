@@ -23,22 +23,23 @@
 
 #define IDC_StatusBar                   300       // Includes 301 & 302
 
-#define ID_Help                         400
+#define ID_App_About                    400
+#define ID_Help                         401
 
 #ifdef Examples
-#define ID_ChangeReady                  401
-#define ID_Button                       402
-#define ID_CBox                         403
-#define ID_EditBox                      404
+#define ID_ChangeReady                  402
+#define ID_Button                       403
+#define ID_CBox                         404
+#define ID_EditBox                      405
 
-#define ID_PopupMenu                    405
-#define ID_Option01                     406
-#define ID_Option02                     407
-#define ID_PopupMenu1                   408
-#define ID_Option11                     409
-#define ID_Option12                     410
+#define ID_PopupMenu                    406
+#define ID_Option01                     407
+#define ID_Option02                     408
+#define ID_PopupMenu1                   409
+#define ID_Option11                     410
+#define ID_Option12                     411
 
-#define ID_SaveHist                     411
+#define ID_SaveHist                     412
 #endif
 #define ID_App_Exit                     420
 

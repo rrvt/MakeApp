@@ -13,6 +13,7 @@ const int TabVal = 5;
 FileStore fileStore;                                        // Global since all classes need access
 
 
+#if 0
 // The destructor needs to return the Data records to the heap.
 
 FileStore::~FileStore() {
@@ -24,9 +25,11 @@ int i;
     delete dataP.p;  dataP.p = 0;
     }
   }
+#endif
 
 
 void FileStore::clear() {
+#if 0
 int i;
 
   for (i = 0; i < data.end(); i++) {
@@ -34,8 +37,9 @@ int i;
 
     delete dataP.p;  dataP.p = 0;
     }
+#endif
 
-  data.clear();
+  data.clear();   name.clear();   dt.clear();   mssnNo = 0;
   }
 
 
@@ -64,30 +68,24 @@ String s;
 
 void FileStore::store(Archive& ar) {
 FSIter iter(*this);
-Data*  d;
+Datum* d;
 
-  for (d = iter(); d; d = iter++) {
-    ar.write(d->get() + _T('\n'));
-    }
+  for (d = iter(); d; d = iter++) ar.write((*d)() + _T('\n'));
   }
 
 
 static String nilStg = _T("");
 
 
-String& FileStore::operator() (int i) {Data* d = datum(i);  return d ? d->get() : nilStg;}
+String& FileStore::operator() (int i) {Datum* d = datum(i);  return d ? d->get() : nilStg;}
 
 
 void FileStore::add(String& s) {data.nextData().add(s);}
 
 
-
-void DataP::add(String& s) {if (!p) p = new Data;   p->add(s);}
-
-
 // Parse the data into the record
 
-void Data::add(String& stg) {
+void Datum::add(String& stg) {
 int pos = stg.find('\n');
 
   s = pos >= 0 ? stg.substr(0, pos) : stg;
@@ -104,12 +102,9 @@ void FileStore::sort(int beg, int end) {
   }
 
 
-
-
-
 void FileStore::display(TCchar* fileName) {
 FSIter iter(fileStore);
-Data*  d;
+Datum* d;
 int    i;
 
   notePad << nClrTabs;   for (i = 0; i < 30; i++) notePad << nSetTab(i*2);
@@ -147,21 +142,28 @@ int    pos;
   }
 
 
-int Data::wrap(Device& dev, CDC* dc) {
-//int  chWidth = dev.flChWidth();
+#if 0
+int Data::wrap(DevBase& dev, CDC* dc) {
 
   dev << dCR << dClrTabs << dSetTab(TabVal) << dTab;    // Return to left margin (dCR), clear Tabs and
                                                         // tab to position desired for wrap
-    wrp.initialize(dc, dev.remaining(), dev.maxWidth(), false);
+    wrp.initialize(true, dc, dev.remaining(), dev.maxWidth(), false);
 
   dev<< dCR << dClrTabs;                                // return to left margin and clear tabs
 
-  return wrp(s);                                        // wrap string
+  return wrp(dev.maxWidth() - dev.remaining(), s);                                        // wrap string
   }
+#endif
+
+
+int Datum::display() {notePad << s << nCrlf;   return 1;}
 
 
 
-int Data::display() {
+
+//int  chWidth = dev.flChWidth();
+#if 1
+#else
 WrapIter  iter(wrp);
 WrapData* wd;
 int       i;
@@ -175,6 +177,5 @@ int       i;
     }
 
   return i;
-  }
-
+#endif
 

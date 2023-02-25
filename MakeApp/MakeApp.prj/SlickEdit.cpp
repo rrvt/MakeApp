@@ -38,7 +38,7 @@ int n;
   }
 
 
-void SlickEdit::fixAmenu(Data*& d) {
+void SlickEdit::fixAmenu(Datum*& d) {
 int i;
 int n;
 
@@ -61,7 +61,7 @@ int n;
   }
 
 
-void Operation::get(int& lineNo, Data*& d, FSIter& iter) {
+void Operation::get(int& lineNo, Datum*& d, FSIter& iter) {
 int begX;
 int endX;
 

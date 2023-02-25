@@ -5,53 +5,34 @@
 #include "Wrap.h"
 
 
-void Wrap::initialize(CDC* pDC, int widthLeft, int maxWidth, bool isItalic)
-                          {dc = pDC; extent = widthLeft; maxExtent = maxWidth; this->isItalic = isItalic;}
-
-
-int Wrap::operator() (TCchar* p) {
-String s         = p;
-String t;
+bool Wrap::operator() (double pos, String& s) {
 int    threshold = 5 * extent / 8;
 int    posWh;
 int    posComma;
 int    brkPt;
 String word;
-bool   indented = true;
 
-  lines.clear();
-
-  if (!enabled) {WrapData wd; wd.line = s; lines += wd;  return lines.end();}
+  if (!enabled) {frag = s;   s.clear();   return false;}
 
   word = findFirst(s);
 
-  if (extent <= width(word))
-                      {WrapData wd; wd.line = s; wd.indented = false; lines += wd;  return lines.end();}
+  if (extent <= dvx.width(word)) {frag = s;   s.clear();   return false;}
 
-  while (width(s) > extent) {
-    brkPt    = 0;   t.clear();
+  brkPt    = 0;
 
-    posWh    = findLast(_T(' '), s);
-    posComma = findLast(_T(','), s);
+  posWh    = findLast(_T(' '), s);
+  posComma = findLast(_T(','), s);
 
-    if (posWh    > brkPt) brkPt = posWh;
-    if (posComma > brkPt) brkPt = posComma;
-    if (brkPt > 0) t = s.substr(0, brkPt);
+  if (posWh    > brkPt) brkPt = posWh;
+  if (posComma > brkPt) brkPt = posComma;
+  if (brkPt > 0) frag = s.substr(0, brkPt);
 
-    if (width(t) < threshold) {brkPt = findLastChar(s); t = s.substr(0, brkPt);}
-    if (t.isEmpty())          {brkPt = s.length() / 2;  t = s.substr(0, brkPt);}
+  if (dvx.width(frag) < threshold) {brkPt = findLastChar(s); frag = s.substr(0, brkPt);}
+  if (frag.isEmpty())          {brkPt = s.length() / 2;  frag = s.substr(0, brkPt);}
 
-    if (extent < maxExtent / 3)
-      {extent = maxExtent; indented = false;}
+  if (extent < maxExtent / 3) extent = maxExtent;
 
-    WrapData wd; wd.line = t;   wd.indented = indented;
-
-    lines += wd;    s = s.substr(brkPt);  s.trimLeft();
-    }
-
-  if (!s.isEmpty()) {WrapData wd; wd.line = s; wd.indented = indented; lines += wd;}
-
-  return lines.end();
+  s = s.substr(brkPt);  s.trimLeft();   return !s.isEmpty();
   }
 
 
@@ -73,7 +54,7 @@ int     lastPos = -1;
     if (s[i] == ch) {
       part = s.substr(0, i);
 
-      if (width(part) > extent) break;
+      if (dvx.width(part) > extent) break;
 
       lastPos = i;
       }
@@ -89,20 +70,9 @@ int     lng = s.size();
 String  part;
 CString cs;
 
-  for (i = 1; i <= lng; i++) {part = s.substr(0, i);    if (width(part) > extent) break;}
+  for (i = 1; i <= lng; i++) {part = s.substr(0, i);    if (dvx.width(part) > extent) break;}
 
   return i-1;
-  }
-
-
-
-// returns CString and width in current units
-
-int Wrap::width(String& s) {
-CSize   sz;
-Cstring cs = s;   sz = dc->GetOutputTextExtent(cs);
-
-  if (isItalic) sz.cx += 2;   return sz.cx;
   }
 
 
@@ -118,4 +88,50 @@ int   i;
   return lastPos;
   }
 
+
+
+#if 0
+if (0 < posWh && posWh < 100) {
+  String u;   u.format(_T("posWh = %i"), posWh);
+  messageBox(u);
+  }
+#endif
+#if 1
+
+#else
+  add(i, t, pos);
+  WrapData wd; wd.line = t;   if (i && pos > 0) {wd.indent = true;   wd.pos = pos;}
+
+  data += wd;
+#endif
+#if 0
+void Wrap::initialize(bool enable, CDC* pDC, int widthLeft, int maxWidth, bool isItalic)
+       {enabled = enable; dc = pDC; extent = widthLeft; maxExtent = maxWidth; this->isItalic = isItalic;}
+
+void Wrap::copy(Wrap& w) {
+  enabled  = w.enabled;
+  dc       = w.dc;
+  extent   = w.extent;
+  maxExtent= w.maxExtent;
+  isItalic = w.isItalic;
+  frag     = w.frag;
+//  data     = w.data;
+  }
+#endif
+//String t;
+//int    i;
+#if 0
+void Wrap::add(int i, TCchar* line, double pos)
+   {WrapData wd;   wd.line = line;   if (i && pos > 0) {wd.indent = true;   wd.pos = pos;}    data += wd;}
+#endif
+#if 0
+// returns CString and width in current units
+
+int Wrap::width(String& s) {
+CSize   sz;
+Cstring cs = s;   sz = dc->GetOutputTextExtent(cs);
+
+  if (isItalic) sz.cx += 2;   return sz.cx;
+  }
+#endif
 

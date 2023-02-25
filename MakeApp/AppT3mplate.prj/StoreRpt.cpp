@@ -7,53 +7,39 @@
 #include "Store.h"
 
 
-void StoreRpt::print(CScrView& vw) {
-
-  printing = true;
-
-  maxLines = vw.noLinesPrPg();
-
-  vw.disableWrap(printing);
-
-  detNoPages(vw);
-
-  create(vw);
-  }
+void StoreRpt::onBeginPrinting(CScrView& vw) {printing = true;   vw.disablePrtWrap();   getPageAttr(vw);}
 
 
-void StoreRpt::create(CScrView& vw) {
+void StoreRpt::getData(CScrView& vw) {
 DSIter iter(store);
 Datum* datum;
 int    i;
 
-  np.clear();   noLines = BigNmbr;                      // Skip first header
+  np.clear();   dateModified = store.lastModified;
 
-  for (i = 0, datum = iter(); datum; i++, datum = iter++) {
+  np << nClrTabs << nFSize(12) << nSetRTab(3) << nSetTab(5);
 
-    if (noLines + 1 > maxLines) {
-
-      if (i) np << nEndPage;
-
-      noLines = header(np, printing);  np << nClrTabs << nSetTab(10);
-      }
-
-    np << datum->get() << nCrlf;   noLines += 1;
-    }
+  for (i = 0, datum = iter(); datum; i++, datum = iter++) np << (*datum)() << nCrlf;
   }
 
 
-int StoreRpt::header(NotePad& np, bool printing) {
+void StoreRpt::prtHeader(DevBase& dev, int pageNo) {
 String s = store.date() + _T(" ") + store.time();
 
-  np << store.name << nRight << s << nCrlf << nCrlf;   return 2;
+  dev << dFSize(12);
+  dev << dClrTabs << dSetRTab(3) << dSetTab(5);
+  dev << dTab    << dBold      << _T("No")   << dFont;
+  dev << dCenter << dItalic    << store.name << dFont;
+  dev << dRight  << dUnderLine << s          << dFont;
+  dev << dCrlf << dCrlf;
   }
 
 
-void StoreRpt::footer(Device& dev, int pageN) {
+void StoreRpt::prtFooter(DevBase& dev, int pageN) {
 
   if (pageN > maxPages) maxPages = pageN;
 
-  dev << dRight << pageN << _T(" of ") << maxPages << dFlushFtr;
+  dev << dCenter << pageN << _T(" of ") << maxPages << dFlushFtr;
   }
 
 
