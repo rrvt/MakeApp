@@ -36,8 +36,13 @@ uint      noPages;
                   ~DevBase() {}
 
           void     clear();
-          void     initialize(TCchar* face, double fontSize, CDC* pDC);
-          void     initPageSize();
+
+  virtual void     prepare(CDC* dc, CPrintInfo* pInfo) { }
+  virtual void     initFont(TCchar* face, double fontSize);
+
+          void     initTxt() {txt->initialize();}
+//          void     initPageSize();
+//          void     initPageSize() {txt->initialize();}
           void     setHorzMgns(double left, double right);
           void     setVertMgns(double top,  double bot);
 
@@ -47,11 +52,9 @@ uint      noPages;
           void     endContext();
 
           void     setFooter() {footer = true;   startContext();   vert.setBottom();}
-          void     clrFooter() {footer = false;  endContext();   txt->nonBlankLine = false;}
+          void     clrFooter() {footer = false;    endContext();   txt->nonBlankLine = false;}
 
           void     lf() {vert.lf(printing, footer);}
-
-          void     chkFontData() {dvx.chkFontData();}
 
           double   getFontScale()      {return dvx.scale;}
           void     setFontScale(double scale) {dvx.scale = scale;}
@@ -62,6 +65,8 @@ uint      noPages;
 
           void     disableWrap() {txt->wrapEnabled = false;}
           void     enableWrap()  {txt->wrapEnabled = true;}
+          void     cleanupWrap() {txt->cleanupWrap();}
+          void     clearOps()    {txt->clearOps();}
 
           void     suppressOutput() {dvx.suppress = true;}
           void     negateSuppress() {dvx.suppress = false;}
@@ -70,58 +75,58 @@ uint      noPages;
           int      chHeight() {return vert.heightCh();}
           int      lgChWidth(){return dvx.lgChWidth();}
 
-          DevBase& operator<< (NoteNmbr& nn) {return evalNmbr(nn);}
-          DevBase& operator<< (String&    s) {return stg(s);}
-          DevBase& operator<< (TCchar*    s) {return stg(s);}
-          DevBase& operator<< (int        v) {return append(v);}
-          DevBase& operator<< (ulong      v) {return append(v);}
-          DevBase& operator<< (DspManip&  m) {return m.func(*this);}
+          DevBase& operator<< (NoteNmbr&  nn) {return evalNmbr(nn);}
+          DevBase& operator<< (String&     s) {return stg(s);}
+          DevBase& operator<< (TCchar*     s) {return stg(s);}
+          DevBase& operator<< (int         v) {return append(v);}
+          DevBase& operator<< (ulong       v) {return append(v);}
+          DevBase& operator<< (DspManip&   m) {return m.func(*this);}
           DevBase& operator<< (DsManipInt& m);
-//                                {NewAlloc(DsManipInt); m.func(*this, m.v); FreeNode(&m); return *this;}
           DevBase& operator<< (DsManipDbl& m);
-//                                {NewAlloc(DsManipDbl); m.func(*this, m.v); FreeNode(&m); return *this;}
           DevBase& operator<< (DsManipStg& m);
-//                                {NewAlloc(DsManipStg); m.func(*this, m.v); FreeNode(&m); return *this;}
 
   virtual bool     doEndPageChk() {return false;}
   virtual void     atEndPageCond() { }
           bool     isEndPage() {return vert.isEndPage();}
+          bool     isWrapFin() {return txt->isWrapFin();}
+
+          void      examineCurFont(TCchar* tc) {dvx.examineCurFont(tc);}
 
 protected:
          bool     isPortrait(CPrintInfo* pInfo);
 
-  static DevBase& doSetLMargin(    DevBase& d, int v) {(*d.txt)(LeftAftr, v); return d;}
+  static DevBase& doSetLMargin(    DevBase& d, int v)     {(*d.txt)(LeftAftr, v); return d;}
 
-  static DevBase& doClrTabs(       DevBase& d)        {(*d.txt)(clrTbsAftr); return d;}
-  static DevBase& doTab(           DevBase& d)        {(*d.txt)(TabAftr);    return d;}
+  static DevBase& doClrTabs(       DevBase& d)            {(*d.txt)(clrTbsAftr);  return d;}
+  static DevBase& doTab(           DevBase& d)            {(*d.txt)(TabAftr);     return d;}
 
-  static DevBase& doCrlf(          DevBase& d)        {(*d.txt)(DoCrlfAftr); return d;}
-  static DevBase& doCR(            DevBase& d)        {(*d.txt)(CRAftr);     return d;}
+  static DevBase& doCrlf(          DevBase& d)            {(*d.txt)(DoCrlfAftr);  return d;}
+  static DevBase& doCR(            DevBase& d)            {(*d.txt)(CRAftr);      return d;}
 
   static DevBase& doEndPage(       DevBase& d);
 
-  static DevBase& doCenter(        DevBase& d)        {(*d.txt)(CenterAftr); return d;}
-  static DevBase& doRight(         DevBase& d)        {(*d.txt)(RightAftr);  return d;}
+  static DevBase& doCenter(        DevBase& d)            {(*d.txt)(CenterAftr);  return d;}
+  static DevBase& doRight(         DevBase& d)            {(*d.txt)(RightAftr);   return d;}
   static DevBase& doBeginLine(     DevBase& d);
   static DevBase& doEndLine(       DevBase& d);
 
-  static DevBase& doBold(          DevBase& d) {d.bold();          return d;}
-  static DevBase& doItalic(        DevBase& d) {d.italic();        return d;}
-  static DevBase& doUnderLine(     DevBase& d) {d.underLine();     return d;}
-  static DevBase& doStrikeOut(     DevBase& d) {d.strikeOut();     return d;}
-  static DevBase& doPrev(          DevBase& d) {d.prev();          return d;}
+  static DevBase& doBold(          DevBase& d)            {d.bold();              return d;}
+  static DevBase& doItalic(        DevBase& d)            {d.italic();            return d;}
+  static DevBase& doUnderLine(     DevBase& d)            {d.underLine();         return d;}
+  static DevBase& doStrikeOut(     DevBase& d)            {d.strikeOut();         return d;}
+  static DevBase& doPrev(          DevBase& d)            {d.prev();              return d;}
 
   static DevBase& doFlushFtr(      DevBase& d);
   static DevBase& doFlush(         DevBase& d);
-                                                              //horz.setTab(v)   horz.setRTab(v)
-  static DevBase& doSetTab(        DevBase& d, int     v) {d.txt->setTab(v);  return d;}
-  static DevBase& doSetRTab(       DevBase& d, int     v) {d.txt->setRTab(v); return d;}
-  static DevBase& doFFace(         DevBase& d, String& v) {d.setFontFace(v);  return d;}
-  static DevBase& doFSize(         DevBase& d, double  v) {d.setFontSize(v);  return d;}
+
+  static DevBase& doSetTab(        DevBase& d, int     v) {d.txt->setTab(v);      return d;}
+  static DevBase& doSetRTab(       DevBase& d, int     v) {d.txt->setRTab(v);     return d;}
+  static DevBase& doFFace(         DevBase& d, String& v) {d.setFontFace(v);      return d;}
+  static DevBase& doFSize(         DevBase& d, double  v) {d.setFontSize(v);      return d;}
 
 
-          DevBase& stg(TCchar*  s) {txt->stg(s); return *this;}
-          DevBase& stg(String&  s) {txt->stg(s); return *this;}
+          DevBase& stg(TCchar*  s)                        {txt->stg(s);           return *this;}
+          DevBase& stg(String&  s)                        {txt->stg(s);           return *this;}
           DevBase& append(int   v);
           DevBase& append(ulong v);
 
@@ -150,6 +155,7 @@ protected:
   friend DsManipStg& dFFace( TCchar* val);
   friend DsManipDbl& dFSize(  double val);
   friend DsManipInt& dEditBox(   int val);
+  friend class ToDevBase;                     // Debugging Only
   friend class  DspPrtDv;
   friend class  TxtOut;
   friend struct TxtOps;
@@ -163,7 +169,6 @@ extern DspManip dItalic;
 extern DspManip dUnderLine;
 extern DspManip dStrikeOut;
 extern DspManip dFont;
-extern DspManip dPrevFont;       // Restore previous font
 
 extern DspManip dClrTabs;        // add to stream to clear tabs:                   dsp << dClrTabs;
 extern DspManip dCrlf;           // add to stream to terminate a line on display:  dsp << "xyz" << dCrlf;
@@ -186,7 +191,4 @@ DsManipInt& dSetLMargin(int val);
 DsManipInt& dSetTab(    int val);
 DsManipInt& dSetRTab(   int val);
 
-
-
-//          void     clearMaxHeight()  {vert.clearMax();}
 

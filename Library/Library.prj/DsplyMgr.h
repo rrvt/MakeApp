@@ -25,9 +25,9 @@ public:
   void     setMgns(double left, double top, double right, double bot)
                              {leftMargin = left; topMargin = top;  rightMargin = right;  botMargin = bot;}
 
-  void     OnPrepareDC(CDC* dc);
+  void     onPrepareDC(CDC* dc);
   void     startDev() {displayOut.startDev();}
-  void     OnDraw(CDC* pDC);
+  void     onDraw(CDC* pDC);
   void     setScrollSize();
 
 private:

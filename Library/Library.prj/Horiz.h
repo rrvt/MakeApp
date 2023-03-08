@@ -58,7 +58,6 @@ public:
   void     restorePos(double pos) {position = pos;}
 
   double   avgLgChWidth() {return dvx.avgLgChWidth;}
-//  int      lgChWidth()    {return dvx.lgChWidth();}
 
   // Operate on text width to position the text
 

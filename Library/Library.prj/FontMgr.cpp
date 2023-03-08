@@ -33,11 +33,6 @@ void FontMgr::pop() {
   }
 
 
-FontAttr::~FontAttr() {
-//  messageBox(this, sizeof(*this));
-  }
-
-
 void FontAttr::clear() {
   face.clear();
   sz        = 0;
@@ -110,12 +105,5 @@ FontAttr* attr = datum(i);
   if (!attr) {NewAlloc(FontAttr);   attr = AllocNode;   data[i].p = attr;}
 
   return attr;
-  }
-
-
-void FontMgr::chkData() {
-  if (stkX >= 0 && datum(0) == 0) {
-    messageBox(_T("Got it"));
-    }
   }
 

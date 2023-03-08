@@ -11,8 +11,6 @@
 #include "History.h"                      // Debug Only
 #endif
 
-#include "MessageBox.h"
-
 
 static const DWORD TBStyle = WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_TOOLTIPS | CBRS_FLYBY |
 AFX_DEFAULT_TOOLBAR_STYLE;

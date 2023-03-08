@@ -32,8 +32,8 @@ void CScrView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 
 void CScrView::OnPrepareDC(CDC* dc, CPrintInfo* info) {
 
-  if (dc->IsPrinting())                    pMgr.OnPrepareDC(dc, info);
-  else {CScrollView::OnPrepareDC(dc, 0);   dMgr.OnPrepareDC(dc);}
+  if (dc->IsPrinting())                    pMgr.onPrepareDC(dc, info);
+  else {CScrollView::OnPrepareDC(dc, 0);   dMgr.onPrepareDC(dc);}
   }
 
 

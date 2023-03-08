@@ -13,7 +13,6 @@ CDC*    dc;
 
 bool    suppress;                              // Suppress output when true;
 
-int     savedDC;
 FontMgr font;
 
 public:
@@ -34,8 +33,8 @@ double  avgLgChWidth;                          // Character Width
 int     chHeight;                              // Text height
 int     uLineDelta;                            // Y delta from y for the line option
 
-  DevCtx();
- ~DevCtx();
+           DevCtx();
+          ~DevCtx();
 
   void     set(CDC* pDC)         {dc    = pDC;   if (dc) dc->SetMapMode(MM_TEXT);}
   CDC*     get()                 {return dc;}
@@ -52,7 +51,6 @@ int     uLineDelta;                            // Y delta from y for the line op
 
   // Font Manipulation of CDC
 
-//  void     clrFont()             {font.clear();}
   void     setBaseFont(TCchar* face, double size) {font.setBase(*this, face, size);   setMetric();}
   bool     isFontItalic() {return font.isFontItalic();}
   void     setFace(TCchar* face) {font.setFace(face);    setMetric();}
@@ -63,8 +61,6 @@ int     uLineDelta;                            // Y delta from y for the line op
   void     setStrikeOut()        {font.setStrikeOut();   setMetric();}
   void     pop()                 {font.pop();            setMetric();}
   void     restoreFontCtx()      {font.restoreContext(); setMetric();}
-  void     chkFontData()         {font.chkData();}
-
 
   bool     getLogFont(TCchar* face, double sz, LOGFONT& logFont);
   bool     createFont(LOGFONT& logFont, CFont& font);
@@ -76,11 +72,30 @@ int     uLineDelta;                            // Y delta from y for the line op
   void     setBkColor( COLORREF color) {dc->SetBkColor(color);}         // Background color
   void     setTxtColor(COLORREF color) {dc->SetTextColor(color);}       // Text Color
 
-  void     save();                                                      // Save/restore current dc
-  void     restore();
-
   void     saveDvx(DevCtxBkp& bkp);
   void     restoreDvx(DevCtxBkp& bkp);
+
+/*
+typedef struct tagLOGFONTW {
+  LONG  lfHeight;
+  LONG  lfWidth;
+  LONG  lfEscapement;
+  LONG  lfOrientation;
+  LONG  lfWeight;
+  BYTE  lfItalic;
+  BYTE  lfUnderline;
+  BYTE  lfStrikeOut;
+  BYTE  lfCharSet;
+  BYTE  lfOutPrecision;
+  BYTE  lfClipPrecision;
+  BYTE  lfQuality;
+  BYTE  lfPitchAndFamily;
+  WCHAR lfFaceName[LF_FACESIZE];
+} LOGFONTW, *PLOGFONTW, *NPLOGFONTW, *LPLOGFONTW;
+*/
+
+  void     examineCurFont(TCchar* tc);
+  bool     getCurFont(LOGFONT& logFont);
 
 private:
 
@@ -90,11 +105,11 @@ private:
   void     outError(TCchar* stg);
 
   friend class DevBase;
+  friend class ClipLine;
   };
 
 
 struct DevCtxBkp {
-int     savedDC;
 bool    suppress;
 FontMgr font;
 double  scale;
@@ -113,7 +128,9 @@ double  avgLgChWidth;                          // Character Width
 int     chHeight;                              // Text height
 int     uLineDelta;                            // Y delta from y for the line option
 
-  DevCtxBkp() : savedDC(0) { }
+  DevCtxBkp() { }
  ~DevCtxBkp();
   };
+
+
 

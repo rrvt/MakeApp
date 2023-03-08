@@ -30,7 +30,7 @@ public:
   virtual void       OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);    // Override
 
   virtual void       onDisplayOutput() { }
-  virtual void       OnDraw(CDC* pDC) {dMgr.OnDraw(pDC);}
+  virtual void       OnDraw(CDC* pDC) {dMgr.onDraw(pDC);}
 
   virtual void       displayHeader(DevBase& dev) { }
   virtual void       displayFooter(DevBase& dev) { }
@@ -81,13 +81,12 @@ protected:
 */
 
   virtual BOOL OnPreparePrinting(CPrintInfo* info);                                 // print dialog box
-  virtual void OnBeginPrinting(CDC* dc, CPrintInfo* info) {pMgr.OnBeginPrinting(dc, info);}
+  virtual void OnBeginPrinting(CDC* dc, CPrintInfo* info) {pMgr.onBeginPrinting(dc, info);}
   virtual void OnPrepareDC(    CDC* dc, CPrintInfo* info = 0);                // Display/Printer Override
-  virtual void OnPrint(        CDC* dc, CPrintInfo* info) {pMgr.OnPrint(dc, info);}
-  virtual void OnEndPrinting(  CDC* dc, CPrintInfo* info) {pMgr.OnEndPrinting(dc, info);}
+  virtual void OnPrint(        CDC* dc, CPrintInfo* info) {pMgr.onPrint(dc, info);}
+  virtual void OnEndPrinting(  CDC* dc, CPrintInfo* info) {pMgr.onEndPrinting(dc, info);}
 
 public:
-//          int  noLinesPrPg() {return pMgr.noLinesPrPg();}       // Determine no lines per printed page
           void disablePrtWrap()     {pMgr.wrapEnabled = false;}
           void enablePrtWrap()      {pMgr.wrapEnabled = true;}
 

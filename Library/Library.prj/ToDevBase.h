@@ -25,6 +25,7 @@ uint     lastPageNo;
                                                         endDoc(false), debugging(false), lastPageNo(0) { }
                   ~ToDevBase() { }
 
+  void             clearOps() {dev.clearOps();}
   void             startDev() {note = npIter(); lastPageNo = 0; endDoc = debugging = false;}
   void             operator() ();
 
@@ -34,7 +35,6 @@ uint     lastPageNo;
   void             setHorzMgns(double left, double right) {dev.setHorzMgns(left, right);}
   void             setVertMgns(double top,  double bot)   {dev.setVertMgns(top, bot);}
 
-//  void             clrFont()                              {dev.clrFont();}
   double           getFontScale()                  {return dev.getFontScale();}
   void             setFontScale(double scl)               {dev.setFontScale(scl);}
 
@@ -45,13 +45,9 @@ uint     lastPageNo;
 
   virtual DevBase& getDevDC(CDC*& dc) {dc = dev.getDC(); return dev;}
 
-//          void     chkFontData() {dev.chkFontData();}
-
 private:
-
-  bool isEndPage() {if (dev.doEndPageChk()) {incDev();  return true;}   return false;}
-  void incDev()    {note = npIter++;}
 
   ToDevBase() : npIter(*(NotePad*)0), dev(*(DevBase*)0) { }
   };
+
 

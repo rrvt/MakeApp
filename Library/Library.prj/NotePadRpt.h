@@ -33,14 +33,4 @@ private:
 
 
 
-//  void detWraps(  CScrView& vw);                  // Wrap each entity in the report body
-
-//  void detNoPages(CScrView& vw);                  // Performs a dummy printer output to determine the
-//  void display(CScrView& vw);
-#if 0
-  virtual void saveTab(Note& note);
-  virtual void restoreTabs();
-#endif
-//  virtual int  header(NotePad& np, bool printing);
-
 

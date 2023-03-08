@@ -11,11 +11,12 @@ class NtPdToDsply : public ToDevBase {
 DevDsply dev;
 
 public:
-           NtPdToDsply(NotePad& np) : ToDevBase(np, dev) { }    //src, TCchar* src,  src
+           NtPdToDsply(NotePad& np) : ToDevBase(np, dev) { }
           ~NtPdToDsply() { }
 
-  void     prepare( TCchar* font, double fontSize, CDC* pDC)
-                                                  {dev.prepare(font, fontSize, pDC); dev.setBeginPage();}
+  void     prepare(CDC* dc) {dev.prepare(dc); dev.setBeginPage();}
+  void     initFont(TCchar* face, double fontSize) {dev.initFont(face, fontSize);}
+
 
   void     disableWrap()              {dev.disableWrap();}
   void     enableWrap()               {dev.enableWrap();}

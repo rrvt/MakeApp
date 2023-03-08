@@ -5,7 +5,6 @@
 #include "TxtOps.h"
 #include "DevBase.h"
 #include "DevTabs.h"
-#include "MessageBox.h"
 #include "NoteNmbr.h"
 #include "TxtOut.h"
 #include "VertMgmt.h"
@@ -47,21 +46,61 @@ bool rTab = devTabs.cur->right;
   }
 
 
-void TxtOps::start(bool wrapEnabled) {
-  wrap.set(wrapEnabled, horz.remaining(), horz.maxExtent());
-  }
+void TxtOps::start(bool wrapEnabled) {wrap.set(wrapEnabled, horz.remaining(), horz.maxExtent());}
 
 
-bool TxtOps::operator() (String& sum) {
-  while (wrap(horz.pos(), sum)) {
-    pos = horz.pos();
+void TxtOps::cleanupWrap(String& sum) {txtOut.nonBlankLine = true;   output(sum);}
 
-      fragmentOut(wrap.stg());   txtOut.crlf();   if (txtOut.dev.isEndPage())  return false;
 
-    horz.restorePos(pos);
+bool TxtOps::output(String& sum) {
+
+  while (wrap(sum)) {
+
+    fragmentOut(wrap.stg());   txtOut.crlf();   horz.restorePos(pos);
+
+    if (txtOut.dev.isEndPage()) return false;
     }
 
   fragmentOut(wrap.stg());   return true;
+  }
+
+
+void TxtOps::evalNmbr(NoteNmbr& nmbr) {
+String s        = nmbr.stg();
+int    w        = dvx.width(s);
+int    nWidth   = nmbr.width;
+double fldWidth = dvx.avgLgChWidth * (nWidth < 0 ? -nWidth : nWidth);
+int    excess   = int(fldWidth - w);
+
+  if (nWidth > 0 && excess > 0) horz.move(excess);
+
+  fragmentOut(s);
+
+  if (nWidth < 0 && excess > 0) horz.move(excess);
+  }
+
+
+void TxtOps::fragmentOut(String& frag) {
+int w = dvx.width(frag);   if (!w) return;
+
+  if (clipLine.isOpen()) clipTabInvert();
+
+  clipLine.clipRegion(frag, horz.currentPos(), w, vert, dvx);
+
+  dvx.txtOut(frag, horz.currentPos(), vert.pos());
+
+  horz.move(w);   clipLine.setHzPos(horz.currentPos());
+  }
+
+
+void TxtOps::clipTabInvert() {
+int    hzPos = clipLine.tabWidth(horz.currentPos(), dvx.lgChWidth());
+int    w     = horz.currentPos() - hzPos;    if (w <= 0) return;
+String s;
+
+  do {s += _T(' ');} while (dvx.width(s) < w);
+
+  dvx.txtOut(s, hzPos, vert.pos());
   }
 
 
@@ -94,68 +133,6 @@ void TxtOps::afterTxtOut() {
   }
 
 
-
-void TxtOps::fragmentOut(String& frag) {
-int w = dvx.width(frag);   if (!w) return;
-
-  if (clipLine.isOpen()) clipTabInvert();
-
-  clipLine.clipRegion(frag, horz.currentPos(), w, vert, dvx);
-
-  dvx.txtOut(frag, horz.currentPos(), vert.pos());
-
-  horz.move(w);   clipLine.setHzPos(horz.currentPos());
-  }
-
-
-void TxtOps::clipTabInvert() {
-int    hzPos = clipLine.tabWidth(horz.currentPos(), dvx.lgChWidth());
-int    w     = horz.currentPos() - hzPos;    if (w <= 0) return;
-String s;
-
-  do {s += _T(' ');} while (dvx.width(s) < w);
-
-  dvx.txtOut(s, hzPos, vert.pos());
-  }
-
-
 void TxtOps::setMetric() {horz.initialize(); vert.getMaxHeight();}
 
-
-
-void TxtOps::evalNmbr(NoteNmbr& nmbr) {
-String s        = nmbr.stg();
-int    w        = dvx.width(s);
-int    nWidth   = nmbr.width;
-double fldWidth = dvx.avgLgChWidth * (nWidth < 0 ? -nWidth : nWidth);
-int    excess   = int(fldWidth - w);
-
-  if (nWidth > 0 && excess > 0) horz.move(excess);
-
-  fragmentOut(s);
-
-  if (nWidth < 0 && excess > 0) horz.move(excess);
-  }
-
-
-//dcOut(hzPos, s);
-#if 0
-int TxtOps::width(TCchar* tc) {
-CString cs = tc;
-CSize   sz = dc->GetOutputTextExtent(cs);
-
-  return font.isFontItalic() ? sz.cx + 2 : sz.cx;
-  }
-#endif
-#if 0
-void TxtOps::dcOut(int hzPos, String& s) {
-Cstring cs = s;
-  try {if (!dc->TextOut(hzPos, vert.pos(), cs)) {outError(cs); return;}}
-  catch (...)                                   {outError(cs); return;}
-  }
-
-
-void TxtOps::outError(TCchar* stg)
-                  {String err = _T("Unable to output: '"); err += stg; err += _T("'");   messageBox(err);}
-#endif
 

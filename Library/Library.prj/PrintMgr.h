@@ -14,8 +14,8 @@ class PrintMgr : public ShowMgr {
 NotePad     npd;
 NtPdToPrtr  pageOut;
 
-CDC*        cdc;                      // Capture during initialization for convenience
-CPrintInfo* pinfo;
+CDC*        dc;                       // Capture during initialization for convenience
+CPrintInfo* info;
 
 bool        endPrinting;              // Flag to end printing
 
@@ -58,24 +58,27 @@ public:
              V
      CMyView::OnEndPrinting        o Deallocate GDI resources
 */
-  void       OnBeginPrinting(CDC* dc, CPrintInfo* info);
-  void       OnPrepareDC(    CDC* dc, CPrintInfo* info);
-  void       OnPrint(        CDC* dC, CPrintInfo* info);
-  void       OnEndPrinting(  CDC* dc, CPrintInfo* info) {clear();}
+  void       onBeginPrinting(CDC* cdc, CPrintInfo* pInfo);
+  void       onPrepareDC(    CDC* cdc, CPrintInfo* pInfo);
+  void       onPrint(        CDC* cdC, CPrintInfo* pInfo);
+  void       onEndPrinting(  CDC* cdc, CPrintInfo* pInfo) {clear();}
 
   // Utilities
   void       startDev() {if (!endPrinting) pageOut.startDev();}
-//  int        noLinesPrPg() {return pageOut.getMaxLines();}
 
   int        getNoPages();
 
 private:
 
-  void       init(               CDC* dc, CPrintInfo* info);
-  void       preparePrinter(     CDC* dc, CPrintInfo* info);
+  void       prepareDC();
+  void       setMargins() {pageOut.setVertMgns(printer.topMargin, printer.botMargin);   setHorzMgns();}
+  void       setHorzMgns();
   void       findNextPreviewPage(CDC* dc, CPrintInfo* info);
   void       onePageOut();
   bool       isFinishedPrinting(CPrintInfo* info);
+
+//void       checkData(TCchar* tc, CDC* cdc, CPrintInfo* pInfo);
+//void       examineCurFont(TCchar* tc);
 
   PrintMgr() : ShowMgr(*(CScrView*)0, *(NotePad*)0, *(NtPdToPrtr*)0), pageOut(*(NotePad*)0) { }
   };

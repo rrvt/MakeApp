@@ -5,21 +5,19 @@
 #include "DevPrntr.h"
 
 
-void DevPrntr::prepare(TCchar* face, double fontSize, CDC* pDC, CPrintInfo* pInfo) {
+void DevPrntr::prepare(CDC* dc, CPrintInfo* pInfo) {
 
-  if (!pInfo) return;
+  dvx.set(dc);   pInfo->m_bContinuePrinting = printing = true;   initTxt();
 
-  pInfo->m_bContinuePrinting = printing = true;    initialize(face, fontSize, pDC);
-
-  dvx.dcDim();   initPageSize();   setBeginPage();
+  dvx.dcDim();   /*initPageSize();*/   setBeginPage();
   }
 
 
 bool DevPrntr::doEndPageChk() {
 
-  if (vert.isEndPage()) {vert.atEndPageCond();  return true;}
+  if (!vert.isEndPage()) return false;
 
-  return false;
+  vert.atEndPageCond();  return true;
   }
 
 

@@ -27,18 +27,18 @@ struct TxtOps {
 TxtOut&   txtOut;
 DevCtx&   dvx;
 
-Horiz&    horz;                             // Manage Horizontal movement in window or page
+Horiz&    horz;                               // Manage Horizontal movement in window or page
 DevTabs&  devTabs;
-VertMgmt& vert;                             // Manage vertical movement in window or page
+VertMgmt& vert;                               // Manage vertical movement in window or page
 
-AfterTxt  afterTxt;                         // Operation to perform after text wrap concludes
-double    afterVal;                         // The value to be used by the ater operation
-String    fontFace;                         // Font Face when afterTxt chooses this option
+AfterTxt  afterTxt;                           // Operation to perform after text wrap concludes
+double    afterVal;                           // The value to be used by the ater operation
+String    fontFace;                           // Font Face when afterTxt chooses this option
 
-bool      center;                            // center string horizonally in window when true;
-bool      right;                             // right align in window when true;
+bool      center;                             // center string horizonally in window when true;
+bool      right;                              // right align in window when true;
 
-double    pos;
+double    pos;                                // position each line uses during wrap operation
 Wrap      wrap;
 
   TxtOps() : txtOut(*(TxtOut*)0), dvx(*(DevCtx*)0), horz(*(Horiz*)0),
@@ -54,12 +54,14 @@ Wrap      wrap;
 
   void start(bool wrapEnabled);
 
-  bool operator() (String& sum);
+  bool operator() (String& sum) {pos = horz.pos();   return output(sum);}
+  void cleanupWrap(String& sum);
 
   void afterTxtOut();
 
 private:
 
+  bool output(String& sum);
   void fragmentOut(String& frag);
   void clipTabInvert();
   void setMetric();
@@ -71,10 +73,4 @@ private:
   };
 
 
-
-//class  FontMgr;
-//CDC*      dc;
-//  int  width(TCchar* tc);                              // returns width in current units
-//  void dcOut(int hzPos, String& s);
-//  void outError(TCchar* stg);
 

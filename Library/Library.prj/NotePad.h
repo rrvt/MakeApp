@@ -194,18 +194,3 @@ private:
 
 
 
-
-//  static NotePad& doStartHdr(     NotePad& n) {n.getNote().startHdr = true; return n;}
-//  static NotePad& doEndHdr(       NotePad& n) {n.getNote().endHdr   = true; return n;}
-//extern NoteManip nStartHdr;   // Start Header Output (saves pending output)
-//extern NoteManip nEndHdr;     // End Header Output
-//#include "Wrap.h"
-//  static NotePad& doEditBox(      NotePad& n, int v);
-//  static NotePad& setTableName(   NotePad& n) {n.getNote().isTable   = true; return n;}
-//extern NoteManip nTableName;  // Set bit to identify table name note:      dsp << dTableName << "xyz";
-//  static void     noFontReq(      NotePad& n);
-//  friend NtManipInt& nEditBox(   int val);
-  //  NotePad& operator <<(Tchar*         tc) {return append(tc);}
-//  NotePad& operator <<(CTimeSpan&      v) {return append(v);}
-//NotePad& append(CTimeSpan&  v);// {String s;     return append(s);}
-

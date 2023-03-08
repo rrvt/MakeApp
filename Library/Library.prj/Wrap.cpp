@@ -5,41 +5,32 @@
 #include "Wrap.h"
 
 
-bool Wrap::operator() (double pos, String& s) {
+void Wrap::set(bool enable, int widthLeft, int maxWidth)
+        {enabled = enable && maxWidth >= 100; extent = widthLeft; maxExtent = maxWidth; usedMax = false;}
+
+
+bool Wrap::operator() (String& s) {
 int    threshold = 5 * extent / 8;
 int    posWh;
 int    posComma;
-int    brkPt;
+int    brkPt = 0;
 String word;
 
-  if (!enabled) {frag = s;   s.clear();   return false;}
-
-  word = findFirst(s);
-
-  if (extent <= dvx.width(word)) {frag = s;   s.clear();   return false;}
-
-  brkPt    = 0;
+  if (!enabled || dvx.width(s) <= extent) {frag = s;   s.clear();   return false;}
 
   posWh    = findLast(_T(' '), s);
   posComma = findLast(_T(','), s);
 
   if (posWh    > brkPt) brkPt = posWh;
   if (posComma > brkPt) brkPt = posComma;
-  if (brkPt > 0) frag = s.substr(0, brkPt);
+  if (!brkPt)           brkPt = findMaxExt(s);
 
-  if (dvx.width(frag) < threshold) {brkPt = findLastChar(s); frag = s.substr(0, brkPt);}
-  if (frag.isEmpty())          {brkPt = s.length() / 2;  frag = s.substr(0, brkPt);}
+  if (usedMax || brkPt > 10) frag = s.substr(0, brkPt);
+  else {extent = maxExtent;   usedMax = true;  return (*this)(s);}
 
-  if (extent < maxExtent / 3) extent = maxExtent;
+  if (dvx.width(frag) < threshold) {brkPt = findMaxExt(s); frag = s.substr(0, brkPt);}
 
   s = s.substr(brkPt);  s.trimLeft();   return !s.isEmpty();
-  }
-
-
-String Wrap::findFirst(String& s) {
-int pos = s.find(_T(' '));   if (pos < 0) pos = s.find(_T(','));   if (pos < 0) pos = s.length();
-
-  return pos <= 0 ? String(_T("WWWWW")) : s.substr(0, pos);
   }
 
 
@@ -64,74 +55,16 @@ int     lastPos = -1;
   }
 
 
-int Wrap::findLastChar(String& s) {
-int     i;
-int     lng = s.size();
-String  part;
-CString cs;
+int Wrap::findMaxExt(TCchar* tc) {
+String t = tc;
+int    n = t.length();
+int    i;
+String part;
 
-  for (i = 1; i <= lng; i++) {part = s.substr(0, i);    if (dvx.width(part) > extent) break;}
+  for (i = n-2; i > 0; i--) {part = t.substr(0, i);  if (dvx.width(part) <= extent) break;}
 
-  return i-1;
+  return i;
   }
 
 
-int Wrap::findLastWh(String& s, int noChars) {
-int   lastPos = 0;
-int   n = s.length();
-int   i;
-
-  n = n < noChars ? n : noChars;
-
-  for (i = 0; i < n; i++) if (s[i] <= _T(' ')) lastPos = i;
-
-  return lastPos;
-  }
-
-
-
-#if 0
-if (0 < posWh && posWh < 100) {
-  String u;   u.format(_T("posWh = %i"), posWh);
-  messageBox(u);
-  }
-#endif
-#if 1
-
-#else
-  add(i, t, pos);
-  WrapData wd; wd.line = t;   if (i && pos > 0) {wd.indent = true;   wd.pos = pos;}
-
-  data += wd;
-#endif
-#if 0
-void Wrap::initialize(bool enable, CDC* pDC, int widthLeft, int maxWidth, bool isItalic)
-       {enabled = enable; dc = pDC; extent = widthLeft; maxExtent = maxWidth; this->isItalic = isItalic;}
-
-void Wrap::copy(Wrap& w) {
-  enabled  = w.enabled;
-  dc       = w.dc;
-  extent   = w.extent;
-  maxExtent= w.maxExtent;
-  isItalic = w.isItalic;
-  frag     = w.frag;
-//  data     = w.data;
-  }
-#endif
-//String t;
-//int    i;
-#if 0
-void Wrap::add(int i, TCchar* line, double pos)
-   {WrapData wd;   wd.line = line;   if (i && pos > 0) {wd.indent = true;   wd.pos = pos;}    data += wd;}
-#endif
-#if 0
-// returns CString and width in current units
-
-int Wrap::width(String& s) {
-CSize   sz;
-Cstring cs = s;   sz = dc->GetOutputTextExtent(cs);
-
-  if (isItalic) sz.cx += 2;   return sz.cx;
-  }
-#endif
 

@@ -160,6 +160,45 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 3/7/23
+
+Grrr!  Microsoft.   Here is a summary of the calls to implement printing to a device:
+
+   Doc/View Framework Calls to implement printing
+     CMyView::OnPreparePrinting    o Set length of doc if known
+             |                     o Call DoPreparePrining to display Print dialog box which creates DC
+             V
+     CMyView::OnBeginPrinting      o Set length of document based on DC
+             |                     o Allocate DGI resources
+             V
+         CDC::StartDoc
+             |
+             V
+  |->CMyView::OnPrepareDC          o Change DC attributes
+  |          |                     o Check for end of document
+  |          V
+  |      CDC::StartPage
+  |          |
+  |          V
+  |  CMyView::OnPrint              o Print specified page, including Headers and Footers
+  |          |
+  |          V
+  -------CDC::EndPage
+             |
+             V
+         CDC::EndDoc
+             |
+             V
+     CMyView::OnEndPrinting        o Deallocate GDI resources
+
+And it turns out to be pretty accurate.  The thing that got me is "Change DC attributes" in OnPrepareDC.
+I set the font and orientation up in OnBeginPrinting assuming that it would prevail for the life of the
+DC.  Well more fool me...  After careful study I discovered that all my careful "installing" of fonts and
+orientation were thrown away when the same DC (checked that too) was presented at OnPrepareDC.  Why-o-why
+would Microsoft throw carefully added attributes (font, orientation) between each page?
+
+Anyway print preview and print seem to be working now.
+
 ### Update 2/25/23
 
 This is an intermediate release and is not intended to be a final release.  I was working on the printing

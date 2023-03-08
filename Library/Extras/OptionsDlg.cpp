@@ -229,11 +229,3 @@ TCchar* OptionsDlg::toStg(PrtrOrient orient) {
 
 
 
-#if 1
-#else
-  cs = printer.getChars();     charsCtl.SetWindowText(cs);
-  cs = printer.getXodd();      oddCtl.SetWindowText(cs);
-  cs = printer.getXeven();     evenCtl.SetWindowText(cs);
-  cs = printer.getXtweak();    tweakCtl.SetWindowText(cs);
-#endif
-

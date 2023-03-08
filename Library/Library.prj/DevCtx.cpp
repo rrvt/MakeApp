@@ -6,7 +6,7 @@
 #include "MessageBox.h"
 
 
-DevCtx::DevCtx() : dc(0), suppress(false), savedDC(0), scale(1000),
+DevCtx::DevCtx() : dc(0), suppress(false), scale(1000),     //  savedDC(0),
                    pgWidth(0), rightMgn(0), leftMgn(0),
                    pgHeight(0),  topMgn(0),  botMgn(0),
                    avgLgChWidth(1), avgFlChWidth(1),
@@ -103,16 +103,8 @@ TEXTMETRIC metric;
   }
 
 
-
-void DevCtx::save() {savedDC = dc->SaveDC();}
-
-
-void DevCtx::restore() {if (savedDC) dc->RestoreDC(savedDC);   savedDC = 0;}
-
-
 void DevCtx::saveDvx(DevCtxBkp& bkp) {
 
-  bkp.savedDC      = dc->SaveDC();
   bkp.suppress     = suppress;
   bkp.font         = font;
   bkp.scale        = scale;
@@ -134,7 +126,6 @@ void DevCtx::saveDvx(DevCtxBkp& bkp) {
 
 
 void DevCtx::restoreDvx(DevCtxBkp& bkp) {
-  if (bkp.savedDC) dc->RestoreDC(bkp.savedDC);   bkp.savedDC = 0;
   suppress     = bkp.suppress;
   font         = bkp.font;
   scale        = bkp.scale;
@@ -152,6 +143,23 @@ void DevCtx::restoreDvx(DevCtxBkp& bkp) {
 
   chHeight     = bkp.chHeight;
   uLineDelta   = bkp.uLineDelta;
+  }
+
+
+void DevCtx::examineCurFont(TCchar* tc) {
+LOGFONT logFont;
+String  s;
+
+  if (!dc->m_bPrinting) return;
+
+  if (getCurFont(logFont)) {s = tc;   s += _T(":  ");   s += logFont.lfFaceName;   messageBox(s);}
+  }
+
+
+bool DevCtx::getCurFont(LOGFONT& logFont) {
+CFont* f = dc->GetCurrentFont();
+
+  return f ? f->GetLogFont(&logFont) : false;
   }
 
 

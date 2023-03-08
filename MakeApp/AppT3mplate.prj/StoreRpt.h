@@ -12,8 +12,10 @@ public:
   StoreRpt(NotePad& notePad) : ReportBase(notePad) { }
  ~StoreRpt() { }
 
- void dspHeader(DevBase& dev, int pageNo = 1) {prtHeader(dev, pageNo);}
- void dspFooter(DevBase& dev, int pageNo = 1) {prtFooter(dev, pageNo);}
+  void dspHeader(DevBase& dev, int pageNo = 1) {prtHeader(dev, pageNo);}
+  void dspFooter(DevBase& dev, int pageNo = 1) {prtFooter(dev, pageNo);}
+
+  void display(CScrView& vw);
 
   void onBeginPrinting(CScrView& vw);
 

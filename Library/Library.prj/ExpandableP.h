@@ -126,8 +126,6 @@ class Datum {
 
 #pragma once
 
-#include "MessageBox.h"
-
 
 #define ExpandableException _T("Corrupted Expandable(P) structure")
 

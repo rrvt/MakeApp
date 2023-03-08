@@ -49,7 +49,7 @@ void ClipLine::open(DevCtx& dvx) {
 
   if (opened) return;
 
-  opened = true;   dvx.save();   clipped.clear();
+  opened = true;   save(dvx.dc);   clipped.clear();
 
   bkgdColor = dvx.getBkColor();
   textColor = dvx.getTxtColor();               // InvertRgn(CRgn* rgn);
@@ -70,7 +70,7 @@ int blu = GetBValue(c);   blu ^= 0xff;
 
 
 void ClipLine::close(DevCtx& dvx) {
-  if (opened) {dvx.restore();   opened = false;}
+  if (opened) {restore(dvx.dc);   opened = false;}
   }
 
 

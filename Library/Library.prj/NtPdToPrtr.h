@@ -11,23 +11,23 @@ class NtPdToPrtr : public ToDevBase {
 DevPrntr dev;
 
 public:
-           NtPdToPrtr(NotePad& np) : ToDevBase(np, dev) { }    //src,  TCchar* src,
+           NtPdToPrtr(NotePad& np) : ToDevBase(np, dev) { }
           ~NtPdToPrtr() { }
 
-  void     prepare(TCchar* font, double fontSize, CDC* pDC, CPrintInfo* pInfo)
-                                                                {dev.prepare(font, fontSize, pDC, pInfo);}
-  bool     isEndDoc()   {return endDoc;}
+  void     prepare(CDC* dc, CPrintInfo* pInfo)     {dev.prepare(dc, pInfo);}
+  void     initFont(TCchar* face, double fontSize) {dev.initFont(face, fontSize);}
+
+  bool     isEndDoc()   {return endDoc && dev.isWrapFin();}
 
   void     suppressOutput() {dev.suppressOutput();}
   void     negateSuppress() {dev.negateSuppress();}
   void     disableWrap()    {dev.disableWrap();}
   void     enableWrap()     {dev.enableWrap();}
 
-//  void     clrLines()       {dev.clrLines();}
-//  int      getMaxLines()    {return dev.getMaxLines();}
-
 private:
 
   NtPdToPrtr() : ToDevBase(*(NotePad*)0, *(DevBase*)0) { }
   };
+
+
 

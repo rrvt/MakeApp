@@ -22,7 +22,7 @@ bool    strikeout;
   FontAttr(DevCtx& devCtx) : dvx(&devCtx), sz(0.0), bold(false), italic(false),
                                                                         underline(false), strikeout(0) { }
 
- ~FontAttr();
+ ~FontAttr() { }
 
   FontAttr& operator= (FontAttr& d) {copy(d); return *this;}
 
@@ -72,8 +72,6 @@ public:
 
   bool      isFontItalic() {return cur ? cur->italic : false;}
 
-  void      chkData();
-
 private:
 
   FontAttr* next();
@@ -92,47 +90,4 @@ private:
 
 
 
-
-#if 0
-struct FontAttrP {
-FontAttr* p;
-
-  FontAttrP()                 {p = 0;}
-  FontAttrP(FontAttrP& dataP) {p = dataP.p;}
- ~FontAttrP() { }
-
-  FontAttrP& operator= (FontAttrP& dataP) {
-    p = dataP.p;
-    return *this;
-    }
-
-  FontAttr*  get();
-  };
-#endif
-
-  //  double    getScale() {return scale;}
-  //  void      setScale(double scl) {scale = scl;}
-//  bool      createFont(FontAttr& attr);
-//  bool      createPointFont(CDC* dc, TCchar* face, double size, CFont& font);
-//  bool      select(CFont& font, CDC* dc);
-
-#if 1
-#else
-  FontAttr* datum(int i) {return 0 <= i && i < nData() ? stk[i].get() : 0;}
-
-  int       nData()      {return stk.end();}
-
-  void      removeDatum(int i) {if (0 <= i && i < nData()) stk.del(i);}
-#endif
-//class FontMgr;
-//typedef IterT<FontMgr, FontAttr> FontIter;
-
-//  friend typename FontIter;
-//CDC*   dc;                // Current CDC
-
-//  bool createPointFont(CFont& font);
-//  bool select(CFont& font);
-
-//double scale;
-//FontAttr& current() {return *cur;}
 

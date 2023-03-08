@@ -39,8 +39,8 @@ public:
 
   void setMaxY(int v) {if (v > yMax) yMax = v;}
 
-  bool exceedsBnd() {return y + (3 * maxHeight) / 2 >= botBnd;}
-  void setEndPage() {setBottom(); endPage = true;}
+  bool exceedsBnd();
+  void setEndPage() {endPage = true;}
   void setBottom()  {y = y + maxHeight < botBnd ? botBnd : y + maxHeight/8;}
 
   int  pos()          {return y;}
@@ -52,6 +52,7 @@ public:
 private:
 
   void initY();
+  friend class DevBase;
   };
 
 

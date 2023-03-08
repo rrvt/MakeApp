@@ -36,7 +36,6 @@ bool wrapEnabled;
 
           DevBase& getDevDC(CDC*& dc) {return dpDev.getDevDC(dc);}
 
-//          void     chkFontData() {dpDev.chkFontData();}
 private:
 
   ShowMgr() : vw(*(CScrView*)0), npd(*(NotePad*)0), dpDev(*(ToDevBase*)0) { }

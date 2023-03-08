@@ -37,12 +37,7 @@ bool     beginLine;                 // begin underline at current position
 
 String   line;                      // add text to output after all of the above is performed
 
-#if 1
 NoteNmbr nmbr;
-#else
-int    precision;                 // Precision for floating point display (digits after period)
-int    width;                     // Width of Integer or floating point field
-#endif
 
 bool     endLine;                   // end underline at current position
 bool     crlf;                      // output crlf after text
@@ -120,15 +115,4 @@ class NoteListLoop : public ListLoop {
   };
 
 
-
-
-
-//bool   startHdr;                  // Start Header (saving anything that could be stuck
-                                  // in the device output functions
-//bool   endHdr;                    // End Header output
-//Wrap   wrap;                      // Multiple lines to be treated as a group
-                                  // left adjust next value
-//bool   isTable;
-//int    editBoxX;                  // Index of edit box in EditBoxes class
-//#include "Wrap.h"
 

@@ -54,17 +54,3 @@ Tab curPos;
   }
 
 
-
-
-#if 0
-// Insert an approximate character position for the next tab position
-
-void TextPosition::setRTab(int charPos) {
-Tab xTab;
-
-  xTab.pos = (charPos > 0 ? charPos : (charsPerLine() + charPos)) * width + leftEdge;
-
-  xTab.right = true; tabs = xTab;
-  }
-#endif
-

@@ -7,11 +7,11 @@
 #include "DevTabs.h"
 
 
-void DsplyMgr::OnPrepareDC(CDC* dc) {
+void DsplyMgr::onPrepareDC(CDC* dc) {
 
-  displayOut.clear();
+  displayOut.clear();   displayOut.prepare(dc);
 
-  displayOut.prepare(font, fontSize, dc);
+  displayOut.initFont(font, fontSize);
 
   displayOut.setHorzMgns(leftMargin, rightMargin);   displayOut.setVertMgns(topMargin, botMargin);
 
@@ -21,14 +21,14 @@ void DsplyMgr::OnPrepareDC(CDC* dc) {
 
 // CScrView drawing,  Override
 
-void DsplyMgr::OnDraw(CDC* pDC) {
+void DsplyMgr::onDraw(CDC* pDC) {
 DevBase& dev = displayOut.getDev();
 
-  dev.startContext();   vw.displayHeader(dev);   dev.endContext();
+  dev.startContext();   dev.disableWrap();   vw.displayHeader(dev);   dev.endContext();
 
-    dev.disableWrap();   displayOut();
+    if (wrapEnabled) dev.enableWrap(); else dev.disableWrap();   displayOut();
 
-  dev.setFooter();   vw.displayFooter(dev);  dev.clrFooter();
+  dev.setFooter();   dev.disableWrap();   vw.displayFooter(dev);  dev.clrFooter();
 
   setScrollSize();
   }

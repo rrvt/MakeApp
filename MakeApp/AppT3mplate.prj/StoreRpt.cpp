@@ -7,7 +7,10 @@
 #include "Store.h"
 
 
-void StoreRpt::onBeginPrinting(CScrView& vw) {printing = true;   vw.disablePrtWrap();   getPageAttr(vw);}
+void StoreRpt::display(CScrView& vw) {printing = false;   vw.enableDplWrap();   getData(vw);}
+
+
+void StoreRpt::onBeginPrinting(CScrView& vw) {printing = true;   vw.enablePrtWrap();   getPageAttr(vw);}
 
 
 void StoreRpt::getData(CScrView& vw) {
@@ -19,14 +22,15 @@ int    i;
 
   np << nClrTabs << nFSize(12) << nSetRTab(3) << nSetTab(5);
 
-  for (i = 0, datum = iter(); datum; i++, datum = iter++) np << (*datum)() << nCrlf;
+  for (i = 0, datum = iter(); datum; i++, datum = iter++) {
+    np << nTab << i << nTab << (*datum)() << nCrlf;
+    }
   }
 
 
 void StoreRpt::prtHeader(DevBase& dev, int pageNo) {
 String s = store.date() + _T(" ") + store.time();
 
-  dev << dFSize(12);
   dev << dClrTabs << dSetRTab(3) << dSetTab(5);
   dev << dTab    << dBold      << _T("No")   << dFont;
   dev << dCenter << dItalic    << store.name << dFont;

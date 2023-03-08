@@ -7,6 +7,8 @@
 #include "CScrView.h"
 #include "Printer.h"
 
+#include "MessageBox.h"
+
 /* Doc/View Framework Calls to implement printing
      CMyView::OnPreparePrinting    o Set length of doc if known
              |                     o Call DoPreparePrining to display Print dialog box which creates DC
@@ -48,40 +50,14 @@ void OnEndPrinting(  CDC* pDC, CPrintInfo* pInfo);  -- last
 */
 
 
-PrintMgr::PrintMgr(CScrView& view) : ShowMgr(view, npd, pageOut), pageOut(npd), cdc(0), pinfo(0),
+PrintMgr::PrintMgr(CScrView& view) : ShowMgr(view, npd, pageOut), pageOut(npd), dc(0), info(0),
                                      endPrinting(false), pageNo(0) { }
 
 
-void PrintMgr::clear() {
-  npd.clear();   pageOut.clear();   cdc = 0;   pinfo = 0;   endPrinting = false;
-  leftFooter.clear();   date.clear();   pageNo = 0;
-  }
 
+void PrintMgr::onBeginPrinting(CDC* cdc, CPrintInfo* pInfo) {
 
-
-void PrintMgr::OnBeginPrinting(CDC* dc, CPrintInfo* info) {
-
-  clear();   cdc = dc;   pinfo = info;
-
-  init(dc, info);    preparePrinter(dc, info);
-
-  vw.onBeginPrinting();   pageOut.startDev();
-  }
-
-
-void PrintMgr::OnPrepareDC(CDC* dc, CPrintInfo* info) {                       // Override
-
-  preparePrinter(dc, info);
-
-  if (info->m_bPreview) findNextPreviewPage(dc, info);
-  }
-
-
-
-void PrintMgr::init(CDC* dc, CPrintInfo* info) {
-DEVMODE devMode;
-
-  memset(&devMode, 0, sizeof(devMode));   dc->ResetDC(&devMode); // sets the Addtribut devmode parameter
+  clear();   dc = cdc;   info = pInfo;
 
   info->m_bContinuePrinting = true;     endPrinting = false;
 
@@ -89,26 +65,62 @@ DEVMODE devMode;
 
   info->SetMinPage(1);   info->SetMaxPage(9999);
 
-  pageOut.clear();
+  pageOut.prepare(dc, info);
 
-  pageOut.prepare(font, fontSize, dc, info);
-
-  pageOut.setVertMgns(printer.topMargin, printer.botMargin);
+  vw.onBeginPrinting();   pageOut.startDev();
   }
 
 
-// Initialize dc for printer and other initialization, called for each page
+// To determine number of pages
 
-void PrintMgr::preparePrinter(CDC* dc, CPrintInfo* info) {
-double  leftMgn;
-double  rightMgn;
+int  PrintMgr::getNoPages() {
+uint     i;
 
-  pageNo = info->m_nCurPage;
+  prepareDC();   setMargins();   pageOut.startDev();   pageOut.suppressOutput();
+
+  for (i = 0; !pageOut.isEndDoc(); i++) onePageOut();
+
+  pageOut.negateSuppress(); return i;
+  }
+
+
+void PrintMgr::clear() {
+  npd.clear();   pageOut.clear();   dc = 0;   info = 0;   endPrinting = false;
+  leftFooter.clear();   date.clear();   pageNo = 0;
+  }
+
+
+void PrintMgr::onPrepareDC(CDC* pDC, CPrintInfo* pInfo) {                       // Override
+
+  prepareDC();   setMargins();
+
+  if (info->m_bPreview) findNextPreviewPage(dc, info);
+  }
+
+
+void PrintMgr::prepareDC() {
+DEVMODE devMode;
+
+  memset(&devMode, 0, sizeof(devMode));   dc->ResetDC(&devMode); // sets the Addtribut devmode parameter
+
+  pageOut.initFont(font, fontSize);
+  }
+
+
+
+
+void PrintMgr::setHorzMgns() {
+double leftMgn;
+double rightMgn;
+
+  pageNo   = info->m_nCurPage;
+
   leftMgn  = pageNo & 1 ? printer.leftOdd  : printer.leftEven;
   rightMgn = pageNo & 1 ? printer.rightOdd : printer.rightEven;
 
   pageOut.setHorzMgns(leftMgn, rightMgn);
   }
+
 
 
 // Find the next preview page by suppressing the output of preceding pages.
@@ -117,12 +129,9 @@ double  rightMgn;
 void PrintMgr::findNextPreviewPage(CDC* dc, CPrintInfo* info) {
 uint i;
 
-  pageOut.suppressOutput();   pageOut.startDev();
+  pageOut.clearOps();   pageOut.suppressOutput();   pageOut.startDev();
 
-  for (i = 1; i < info->m_nCurPage; i++) {
-
-    onePageOut();
-    }
+  for (i = 1; i < info->m_nCurPage; i++) onePageOut();
 
   pageOut.negateSuppress();
   }
@@ -130,39 +139,22 @@ uint i;
 
 // Draw on Printer (i.e. Output to Printer) -- Called by Windows after OnPrepareDC (thru CScrView)
 
-void PrintMgr::OnPrint(CDC* dC, CPrintInfo* info)
-                                    {onePageOut();   if (isFinishedPrinting(info)) {endPrinting = true;}}
+void PrintMgr::onPrint(CDC* cdc, CPrintInfo* pInfo) {
 
-
-// To determine number of pages
-
-int  PrintMgr::getNoPages() {
-uint     i;
-
-  pageOut.startDev();
-
-  pageOut.suppressOutput();    //if (wrapEnabled) pageOut.enableWrap(); else pageOut.disableWrap();
-
-  pageOut.prepare(font, fontSize, cdc, pinfo);
-
-  for (i = 0; !pageOut.isEndDoc(); i++) onePageOut();
-
-//  pageOut.clrFont();
-
-  pageOut.negateSuppress(); return i;
+  onePageOut();   if (isFinishedPrinting(info)) endPrinting = true;
   }
 
 
 void PrintMgr::onePageOut() {
 DevBase& dev = pageOut.getDev();
 
-  dev.setBeginPage();   if (wrapEnabled) dev.enableWrap(); else dev.disableWrap();
+  dev.setBeginPage();
 
-  dev.startContext();   vw.printHeader(dev, pageNo);   dev.endContext();
+  dev.startContext();   dev.disableWrap();   vw.printHeader(dev, pageNo);   dev.endContext();
 
-    pageOut();
+    if (wrapEnabled) dev.enableWrap(); else dev.disableWrap();   pageOut();
 
-  dev.setFooter();      vw.printFooter(dev, pageNo);   dev.clrFooter();
+  dev.setFooter();   dev.disableWrap();   vw.printFooter(dev, pageNo);   dev.clrFooter();
   }
 
 
@@ -179,44 +171,39 @@ bool fin = pageOut.isEndDoc();
   }
 
 
-
-
-#if 1
-#else
-    pageOut.setBeginPage();
-
-    dev.startContext();   vw.printHeader(dev, pageNo);   dev.endContext();
-
-      pageOut();
-
-    dev.setFooter();    vw.printFooter(dev, pageNo);   dev.clrFooter();
-#endif
-#if 1
-#else
-  if (wrapEnabled) dev.enableWrap(); else dev.disableWrap();
-
-  dev.startContext();   vw.printHeader(dev, info->m_nCurPage);    dev.endContext();
-
-    pageOut.setBeginPage();   pageOut();
-
-  dev.setFooter();   vw.printFooter(dev, info->m_nCurPage);   dev.clrFooter();
-#endif
-//DevBase& dev = pageOut.getDev();    pageOut.clrLines();
-//DevBase& dev = pageOut.getDev();
-#if 1
-#else
-    if (wrapEnabled) pageOut.enableWrap(); else pageOut.disableWrap();
-
-    pageOut.setBeginPage();   pageOut();
-
-//    if (!isFinishedPrinting(info)) pageOut.prepare(font, fontSize, dc, info);
-#endif
-  /*pageOut.setBeginPage();*/
 #if 0
+void PrintMgr::checkData(TCchar* tc, CDC* cdc, CPrintInfo* pInfo) {
+String s;
+
+  if (cdc != dc) {
+    s = tc;   s += _T(":  ");   s += _T("new dc");   messageBox(s);
+    }
+  if (pInfo != info) {
+    s = tc;   s += _T(":  ");   s +=   _T("new info");   messageBox(s);
+    }
+  }
+
+
+void PrintMgr::examineCurFont(TCchar* tc) {DevBase& dev = pageOut.getDev();    dev.examineCurFont(tc);}
+#endif
+
+
+#if 0
+void PrintMgr::init(CDC* dc, CPrintInfo* info) {
+
+  memset(&devMode, 0, sizeof(devMode));   dc->ResetDC(&devMode); // sets the Addtribut devmode parameter
+
   info->m_bContinuePrinting = true;     endPrinting = false;
 
   info->m_nNumPreviewPages = 1;
 
   info->SetMinPage(1);   info->SetMaxPage(9999);
+
+  pageOut.clear();
+
+  pageOut.prepare(font, fontSize, dc, info);
+
+  pageOut.setVertMgns(printer.topMargin, printer.botMargin);
+  }
 #endif
 

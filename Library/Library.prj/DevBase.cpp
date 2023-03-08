@@ -5,7 +5,6 @@
 #include "pch.h"
 #include "DevBase.h"
 #include "EditBoxes.h"
-#include "MessageBox.h"
 
 
 static const long maxScroll = 2147483647;
@@ -91,7 +90,8 @@ void DevBase::clear() {txt->clear();   vert.clear();   noPages = 0;}
 
 
 void DevBase::startContext() {
-  dvx.saveDvx(txt->bkp);
+
+  dvx.saveDvx(txt->bkp);   txt->bkMaxHeight = vert.maxHeight;
 
   txt = txtStk.push();
   }
@@ -99,22 +99,20 @@ void DevBase::startContext() {
 
 void DevBase::endContext() {
   txt = txtStk.pop();
-  dvx.restoreDvx(txt->bkp);
+
+  vert.maxHeight = txt->bkMaxHeight;   dvx.restoreDvx(txt->bkp);   dvx.restoreFontCtx();
   }
 
 
-void DevBase::initialize(TCchar* face, double fontSize, CDC* pDC)
-                                  {dvx.set(pDC);   dvx.setBaseFont(face, fontSize);   txt->initialize();}
+void DevBase::initFont(TCchar* face, double fontSize) {dvx.setBaseFont(face, fontSize);}
 
 
-void DevBase::initPageSize() {txt->initialize();}
-
-
-void DevBase::setHorzMgns(double left, double right) {dvx.leftMgn = left;   dvx.rightMgn = right;}
+void DevBase::setHorzMgns(double left, double right)
+                                       {dvx.leftMgn = left;   dvx.rightMgn = right;    txt->initBounds();}
 
 
 void DevBase::setVertMgns(double top,  double bot)
-                                              {dvx.topMgn = top;   dvx.botMgn = bot;   vert.initBounds();}
+                                       {dvx.topMgn  = top;     dvx.botMgn  = bot;      vert.initBounds();}
 
 
 DevBase& DevBase::append(int   v) {txt->append(v); return *this; }
@@ -179,5 +177,6 @@ void DevBase::italic()                  {(*txt)(ItalicAftr);}
 void DevBase::underLine()               {(*txt)(UnderLineAftr);}
 void DevBase::strikeOut()               {(*txt)(StrikeOutAftr);}
 void DevBase::prev()                    {(*txt)(PopAftr);}
+
 
 

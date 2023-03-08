@@ -34,16 +34,19 @@ public:
 String    sum;
 Horiz     horz;
 bool      wrapEnabled;
-bool      center;                            // center string horizonally in window when true;
-bool      right;                             // right align in window when true;
-bool      nonBlankLine;                  // true when first non blank line is encountered during printing
+bool      center;                       // center string horizonally in window when true;
+bool      right;                        // right align in window when true;
+bool      nonBlankLine;                 // true when first non blank line is encountered during printing
 
 DevCtxBkp bkp;
+int       bkMaxHeight;                  // Backup Max character height to deal with font changes
+
 
   TxtOut(DevBase& d);
  ~TxtOut() { }
 
   void     initialize();
+  void     initBounds() {horz.initialize();}
 
   void     clear();
 
@@ -77,9 +80,11 @@ DevCtxBkp bkp;
 
   bool     operator() (AfterTxt after, double val = 0, TCchar* fontFace = 0);
 
-private:
+  void     clearOps();
+  bool     isWrapFin() {return ops == 0;}
+  void     cleanupWrap();
 
-//  void setMetric();
+private:
 
   void allocOps(AfterTxt aftr, double aftrVal, TCchar* face);
   void freeOps();
@@ -116,36 +121,4 @@ public:
   TxtOut* pop();
   };
 
-
-
-//  TxtOut(TxtOut& txo) : dev(txo.dev) {dc = txo.dc; font = txo.font; sum = txo.sum;}
-
-//  void copy(TxtOut& txo);
-
-//  TxtOut& operator= (TxtOut& txo) {copy(txo); return *this;}
-//  double   getFontScale()      {return font.scale;}
-//  void     setFontScale(double scale) {font.scale = scale;}
-//  void     doCrlf() {(*this)(DoCrlfAftr);}
-
-//  void evalNmbr(NoteNmbr& nmbr);
-//  void fragmentOut(String& s);
-
-//  void clipTabInvert();
-//  int  txtWidth(String& s);                       // returns CString and width in current units
-
-//  void dcOut(int hzPos, String& s);
-//  void outError(TCchar* stg);
-// {NewAlloc(TxtOps);  if (!ops) ops = AllocNode;  if (p) {new(p) T(init);}}
-//  void     setPosition();
-//CDC*      dc;
-//#include "FontMgr.h"
-//  void     setWidth(int width);
-//  void     setMargins();
-
-//  void     clrFont()       {font.clear();}
-//  int      lgChWidth() {return horz.lgChWidth();}
-#if 0
-  void     initContext();
-  void     restoreContext();
-#endif
 

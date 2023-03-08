@@ -20,8 +20,3 @@ String s;
   }
 
 
-#if 0
-
-dbgBlk.label(_T("Tab"));   dbgBlk.hex(&tab, sizeof(tab));  dbgBlk.crlf();
-
-#endif
