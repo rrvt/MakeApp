@@ -6,7 +6,7 @@
 #include "MainFrame.h"
 
 
-enum DataSource {NotePadSrc, StoreSrc, FontSrc};
+enum DataSource {NotePadSrc, StoreSrc, StrTxtSrc, FontSrc};
 
 
 class AppT3mplateDoc : public CDoc {
@@ -38,6 +38,9 @@ public:
 #endif
 
 private:
+
+  void saveFile(TCchar* title, TCchar* suffix, TCchar* fileType);
+
 
   void testLine(int n);
   void wholePage();

@@ -6,17 +6,21 @@
 #include "AppT3mplate.h"
 #include "AppT3mplateDoc.h"
 #include "ClipLine.h"
+#include "IniFile.h"
 #include "OptionsDlg.h"
 #include "Resource.h"
 #include "Resources.h"
+#include "RptOrietnDlg.h"
 
 
-// AppT3mplateView
+static TCchar* StrOrietnKey = _T("Store");
+
 
 IMPLEMENT_DYNCREATE(AppT3mplateView, CScrView)
 
 BEGIN_MESSAGE_MAP(AppT3mplateView, CScrView)
-  ON_COMMAND(ID_Options, &onOptions)
+  ON_COMMAND(ID_Options,     &onOptions)
+  ON_COMMAND(ID_Orientation, &onRptOrietn)
 
   ON_WM_LBUTTONDOWN()
   ON_WM_LBUTTONDBLCLK()
@@ -29,7 +33,7 @@ BEGIN_MESSAGE_MAP(AppT3mplateView, CScrView)
 END_MESSAGE_MAP()
 
 
-AppT3mplateView::AppT3mplateView() noexcept : dspNote(dMgr.getNotePad()), prtNote(pMgr.getNotePad()),
+AppT3mplateView::AppT3mplateView() noexcept :
 #ifdef Examples
                                             dspStore(dMgr.getNotePad()), prtStore(pMgr.getNotePad()) {
 #endif
@@ -48,14 +52,60 @@ String       pn;
 BOOL AppT3mplateView::PreCreateWindow(CREATESTRUCT& cs) {return CScrView::PreCreateWindow(cs);}
 
 
+void AppT3mplateView::OnInitialUpdate() {
+  CScrView::OnInitialUpdate();       // Get prtrOrietn here...
+  }
+
+
 void AppT3mplateView::onOptions() {
 OptionsDlg dlg;
 
   if (printer.name.isEmpty()) printer.load(0);
 
-  if (dlg.DoModal() == IDOK) pMgr.setFontScale(printer.scale);
+  if (dlg.DoModal() == IDOK) {
+    pMgr.setFontScale(printer.scale);
+
+    saveNoteOrietn();
+    }
   }
 
+
+void AppT3mplateView::onRptOrietn() {
+RptOrietnDlg dlg;
+
+  dlg.ntpd = printer.toStg(prtNote.prtrOrietn);
+  dlg.str  = printer.toStg(prtStore.prtrOrietn);
+
+  if (dlg.DoModal() == IDOK) {
+    prtNote.prtrOrietn  = printer.toOrient(dlg.ntpd);
+    prtStore.prtrOrietn = printer.toOrient(dlg.str);
+    saveRptOrietn();
+    }
+  }
+
+
+void AppT3mplateView::initRptOrietn() {
+  initNoteOrietn();
+  prtStore.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, StrOrietnKey, PortOrient);
+  }
+
+
+void AppT3mplateView::saveRptOrietn() {
+  saveNoteOrietn();
+  iniFile.write(RptOrietnSect, StrOrietnKey,  (int) prtStore.prtrOrietn);
+  }
+
+
+
+void AppT3mplateView::onPreparePrinting(CPrintInfo* info) {
+
+  switch(doc()->dataSrc()) {
+    case NotePadSrc : prtNote.onPreparePrinting(info);     break;
+#ifdef Examples
+    case StoreSrc   : prtStore.onPreparePrinting(info);    break;
+#endif
+    }
+  }
 
 
 // Perpare output (i.e. report) then start the output with the call to SCrView
@@ -188,9 +238,4 @@ AppT3mplateDoc* AppT3mplateView::GetDocument() const
 #endif //_DEBUG
 
 
-
-
-#if 0
-#include "Printer.h"
-#endif
 

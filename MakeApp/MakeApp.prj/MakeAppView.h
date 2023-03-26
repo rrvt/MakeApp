@@ -12,8 +12,6 @@ class MakeAppDoc;
 
 class MakeAppView : public CScrView {
 
-NotePadRpt dspNote;
-NotePadRpt prtNote;
 FontRpt    dspFonts;
 FontRpt    prtFonts;
 
@@ -25,6 +23,9 @@ protected:              // create from serialization only
 public:
 
               ~MakeAppView() { }
+
+  virtual void OnInitialUpdate();
+
   virtual void onBeginPrinting();
   virtual void onDisplayOutput();
 

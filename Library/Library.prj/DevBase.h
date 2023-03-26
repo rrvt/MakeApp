@@ -75,7 +75,7 @@ uint      noPages;
           int      chHeight() {return vert.heightCh();}
           int      lgChWidth(){return dvx.lgChWidth();}
 
-          DevBase& operator<< (NoteNmbr&  nn) {return evalNmbr(nn);}
+          DevBase& operator<< (NoteNmbr&  nn);
           DevBase& operator<< (String&     s) {return stg(s);}
           DevBase& operator<< (TCchar*     s) {return stg(s);}
           DevBase& operator<< (int         v) {return append(v);}
@@ -130,7 +130,7 @@ protected:
           DevBase& append(int   v);
           DevBase& append(ulong v);
 
-          DevBase& evalNmbr(NoteNmbr& nmbr);
+//          DevBase& evalNmbr(NoteNmbr& nmbr);
 
           void     tab();
           void     findNextTab();

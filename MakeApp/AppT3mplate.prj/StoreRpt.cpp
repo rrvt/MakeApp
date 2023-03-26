@@ -10,6 +10,9 @@
 void StoreRpt::display(CScrView& vw) {printing = false;   vw.enableDplWrap();   getData(vw);}
 
 
+void StoreRpt::onPreparePrinting(CPrintInfo* info) {printer.set(prtrOrietn);}
+
+
 void StoreRpt::onBeginPrinting(CScrView& vw) {printing = true;   vw.enablePrtWrap();   getPageAttr(vw);}
 
 

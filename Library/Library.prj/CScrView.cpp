@@ -5,7 +5,12 @@
 #include "CScrView.h"
 #include "CApp.h"
 #include "Display.h"
+#include "IniFile.h"
 #include "Printer.h"
+
+
+       TCchar* RptOrietnSect = _T("ReportOrientn");
+static TCchar* NoteOrietnKey = _T("NotePad");
 
 
 int CScrView::lastPos = 0;
@@ -23,12 +28,23 @@ void CScrView::OnInitialUpdate() {
   CScrollView::OnInitialUpdate();
 
   display.load();  dMgr.setFontScale(display.scale);
-  printer.load(0); pMgr.setFontScale(printer.scale);    //pMgr.orient = printer.orient;
+  printer.load(0); pMgr.setFontScale(printer.scale);
+
+  initNoteOrietn();   initRptOrietn();
   }
+
+
+void CScrView::initNoteOrietn() {
+  dspNote.prtrOrietn = prtNote.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, NoteOrietnKey, PortOrient);}
+
+
+void CScrView::saveNoteOrietn() {iniFile.write(RptOrietnSect, NoteOrietnKey, prtNote.prtrOrietn);}
+
 
 
 void CScrView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
                                     {dMgr.setScrollSize(); CScrollView::OnUpdate(pSender, lHint, pHint);}
+
 
 void CScrView::OnPrepareDC(CDC* dc, CPrintInfo* info) {
 
@@ -96,6 +112,8 @@ BOOL CScrView::OnPreparePrinting(CPrintInfo* pInfo) {
 bool          rslt;
 CPrintDialog* dlg;
 String        name;
+
+  onPreparePrinting(pInfo);
 
   if (pInfo->m_bPreview) {pInfo->m_nNumPreviewPages = 1;}
 

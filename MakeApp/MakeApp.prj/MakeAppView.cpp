@@ -20,8 +20,7 @@ BEGIN_MESSAGE_MAP(MakeAppView, CScrView)
 END_MESSAGE_MAP()
 
 
-MakeAppView::MakeAppView() noexcept : dspFonts(dMgr.getNotePad()), prtFonts(pMgr.getNotePad()),
-                                      dspNote( dMgr.getNotePad()), prtNote( pMgr.getNotePad()) {
+MakeAppView::MakeAppView() noexcept : dspFonts(dMgr.getNotePad()), prtFonts(pMgr.getNotePad()) {
 ResourceData res;
 String       pn;
   if (res.getProductName(pn)) prtNote.setTitle(pn);
@@ -29,12 +28,19 @@ String       pn;
 
 
 
+void MakeAppView::OnInitialUpdate() {
+  CScrView::OnInitialUpdate();
+  }
+
+
 void MakeAppView::onOptions() {
 OptionsDlg dlg;
 
   if (printer.name.isEmpty()) printer.load(0);
 
-  if (dlg.DoModal() == IDOK) pMgr.setFontScale(printer.scale);
+  if (dlg.DoModal() == IDOK) {
+    pMgr.setFontScale(printer.scale);
+    }
   }
 
 
@@ -46,6 +52,7 @@ void MakeAppView::OnPrepareDC(CDC* dc, CPrintInfo* info) {
   CScrView::OnPrepareDC(dc, info);
   }
 #endif
+
 
 // Perpare output (i.e. report) then start the output with the call to SCrView
 
@@ -126,4 +133,12 @@ double botMgn   = options.botMargin.stod(x);
   }
 #endif
 //pMgr.orient = printer.orient; pMgr.pagePlex = printer.pagePlex;
+#if 1
+#else
+OptionsDlg dlg;
+
+  if (printer.name.isEmpty()) printer.load(0);
+
+  if (dlg.DoModal() == IDOK) pMgr.setFontScale(printer.scale);
+#endif
 

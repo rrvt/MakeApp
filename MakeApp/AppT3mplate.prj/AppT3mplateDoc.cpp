@@ -4,6 +4,7 @@
 #include "pch.h"
 #include "AppT3mplateDoc.h"
 #include "AppT3mplate.h"
+#include "AppT3mplateView.h"
 #include "ClipLine.h"
 #include "filename.h"
 #include "MessageBox.h"
@@ -221,7 +222,45 @@ void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 
 
-void AppT3mplateDoc::OnFileSave() {if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);}
+#if 0
+  switch (dataSource) {
+    case NotePadSrc : messageBox(_T("NotePadSrc")); break;
+    case Log211Src  : dataSource = LogTxtSrc;  saveFile(_T("Log"),         _T("Log"),  _T("txt")); break;
+    case MemberSrc  : dataSource = MbrTxtSrc;  saveFile(_T("Member List"), _T("Mbrs"), _T("txt")); break;
+    case RosterSrc  : dataSource = RstrTxtSrc; saveFile(_T("Roster"),      _T("Rstr"), _T("txt")); break;
+    }
+
+  invalidate();
+#endif
+
+
+void AppT3mplateDoc::OnFileSave() {
+#if 1
+  switch (dataSource) {
+    case NotePadSrc : if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);   break;
+    case StoreSrc   : dataSource = StrTxtSrc;  saveFile(_T("Store"), _T("Str"), _T("txt")); break;
+    }
+
+  invalidate();
+#else
+  if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);
+#endif
+  }
+
+
+void AppT3mplateDoc::saveFile(TCchar* title, TCchar* suffix, TCchar* fileType) {
+String fileName = path;
+int    pos      = fileName.find_last_of(_T('\\'));
+String ext      = _T("*."); ext += fileType;
+String ttl      = title;    ttl += _T(" Output");
+
+  fileName = fileName.substr(pos+1);   pos = fileName.find_first_of(_T('.'));
+  fileName = fileName.substr(0, pos);  fileName += suffix;
+
+  pathDlgDsc(ttl, fileName, fileType, ext);
+
+  if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);
+  }
 
 
 // UglyDoc serialization
@@ -233,6 +272,7 @@ void AppT3mplateDoc::serialize(Archive& ar) {
       case NotePadSrc : notePad.archive(ar); return;
 #ifdef Examples
       case StoreSrc   : store.store(ar); return;
+      case StrTxtSrc  : view()->storeRpt().txtOut( ar, 1.35); dataSource = StoreSrc; return;
 #endif
       default         : return;
       }
@@ -264,13 +304,4 @@ void AppT3mplateDoc::Dump(CDumpContext& dc) const
 
 
 
-
-
-
-#if 0
-#include "AppT3mplateView.h"
-#include "ExtraResource.h"
-#include "GetPathDlg.h"
-#include "ToolBar.h"
-#endif
 

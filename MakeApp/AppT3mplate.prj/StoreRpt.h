@@ -17,6 +17,7 @@ public:
 
   void display(CScrView& vw);
 
+  void onPreparePrinting(CPrintInfo* info);
   void onBeginPrinting(CScrView& vw);
 
   void prtHeader(DevBase& dev, int pageNo = 1);

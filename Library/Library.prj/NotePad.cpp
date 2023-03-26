@@ -79,19 +79,19 @@ void NotePad::initialize() {
 
 void NotePad::archive(Archive& ar) {
 NtPdIter     iter(*this);
-Note*        note;
+Note*        nt;
 TextPosition tPos;
 Tab          tab;
 bool         hasTab;
 bool         rightTab;
 int          cnt;
 
-  for (note = iter(); note; note = iter++) {
+  for (nt = iter(); nt; nt = iter++) {
 
-    if (note->clrTabs)   tPos.clrTabs();
-    if (note->tabValue)  tPos.setTab(applyTabFactor(note->tabValue), note->rightTab);
+    if (nt->clrTabs)   tPos.clrTabs();
+    if (nt->tabValue)  tPos.setTab(applyTabFactor(nt->tabValue), nt->rightTab);
 
-    hasTab = note->tab;
+    hasTab = nt->tab;
 
     if (hasTab) {
       tab = tPos.findNextTab();   rightTab = tab.right;
@@ -99,20 +99,42 @@ int          cnt;
       if (!rightTab) movPos(tPos, tab.pos, ar);
       }
 
-    if (note->right) {
+    if (nt->right) {
       tab.pos = arWidth; tab.right = rightTab = hasTab = true;
       }
 
-    cnt = note->line.length();
+    cnt = nt->line.length();
 
-    if (note->center) movPos(tPos, (arWidth - cnt) / 2, ar);
+    if (nt->center) movPos(tPos, (arWidth - cnt) / 2, ar);
 
     if (hasTab && rightTab) movPos(tPos, tab.pos - cnt, ar);
 
-    if (cnt) {ar.write(note->line); tPos.move(cnt);}
+    if (cnt) {ar.write(nt->line); tPos.move(cnt);}
 
-    if (note->crlf) {ar.write(_T('\n'));   tPos.doCR();}
+    archive(nt->nmbr, tPos, ar);
+
+    if (nt->crlf) {ar.write(_T('\n'));   tPos.doCR();}
     }
+  }
+
+
+void NotePad::archive(NoteNmbr& nn, TextPosition& tPos, Archive& ar) {
+String s;
+int    lng;
+int    nWidth;
+int    excess;
+
+  if (!nn.typ) return;
+
+  s = nn.stg();   lng = s.length();   nWidth = nn.width;
+
+  excess = (nWidth >= 0 ? nWidth : -nWidth) - lng;
+
+  if (nWidth > 0 && excess > 0) movPos(tPos, tPos.getCharPos() + excess, ar);
+
+  ar.write(s);   tPos.move(s.length());
+
+  if (nWidth < 0 && excess > 0) movPos(tPos, tPos.getCharPos() + excess, ar);
   }
 
 
@@ -134,11 +156,11 @@ int x = from.getCharPos();
 
 
 
-NotePad& NotePad::append(const String& line) {getNote(EndLnNAttr).line += line;  return *this;}
+NotePad& NotePad::append(const String& line) {getNote(NmbrNAttr).line += line;  return *this;}
 
-NotePad& NotePad::append(Tchar   v)          {getNote(EndLnNAttr).line += v;     return *this;}
+NotePad& NotePad::append(Tchar   v)          {getNote(NmbrNAttr).line += v;     return *this;}
 NotePad& NotePad::append(Cchar* cs)
-                          {ToUniCode uni(cs); getNote(EndLnNAttr).line += uni(); return *this;}
+                          {ToUniCode uni(cs); getNote(NmbrNAttr).line += uni(); return *this;}
 NotePad& NotePad::append(Date    v)          {String s = v;                      return append(s);}
 
 

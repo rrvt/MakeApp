@@ -6,6 +6,9 @@
 #include "CScrView.h"
 
 
+void NotePadRpt::onPreparePrinting(CPrintInfo* info) {printer.set(prtrOrietn);}
+
+
 void NotePadRpt::onBeginPrinting(CScrView& vw) {printing = true;  vw.disablePrtWrap();  getPageAttr(vw);}
 
 

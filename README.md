@@ -160,6 +160,11 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 3/26/23
+
+Made changes due to Library changes.  Added a "feature" to th Doc/view App template that will output to a
+text file a representation of the data displayed on the screen.
+
 ### Update 3/7/23
 
 Grrr!  Microsoft.   Here is a summary of the calls to implement printing to a device:

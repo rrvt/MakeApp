@@ -14,8 +14,6 @@ class AppT3mplateDoc;
 
 class AppT3mplateView : public CScrView {
 
-NotePadRpt dspNote;
-NotePadRpt prtNote;
 #ifdef Examples
 StoreRpt   dspStore;
 StoreRpt   prtStore;
@@ -35,10 +33,12 @@ public:
   virtual        ~AppT3mplateView() { }
 
   virtual BOOL    PreCreateWindow(CREATESTRUCT& cs);
+  virtual void    OnInitialUpdate();
 
   virtual void    displayHeader(DevBase& dev);
   virtual void    displayFooter(DevBase& dev);
 
+  virtual void    onPreparePrinting(CPrintInfo* info);
   virtual void    onBeginPrinting();
   virtual void    onDisplayOutput();
 
@@ -47,6 +47,11 @@ public:
   virtual void    OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 
   AppT3mplateDoc* GetDocument() const;
+
+  void            initRptOrietn();
+  void            saveRptOrietn();
+
+  StoreRpt&       storeRpt()  {return dspStore;}
 
 public:
 
@@ -60,6 +65,8 @@ public:
   DECLARE_MESSAGE_MAP()
 
   afx_msg void onOptions();
+  afx_msg void onRptOrietn();
+
   afx_msg void OnSetFocus(CWnd* pOldWnd);
 
   afx_msg void OnLButtonDown(  UINT nFlags, CPoint point);
@@ -70,6 +77,8 @@ public:
   afx_msg void onPup1();
   afx_msg void onPup2();
   };
+
+
 
 #ifndef _DEBUG  // debug version in AppT3mplateView.cpp
 inline AppT3mplateDoc* AppT3mplateView::GetDocument() const {return reinterpret_cast<AppT3mplateDoc*>(m_pDocument);}

@@ -8,9 +8,6 @@
 #include <Winspool.h>
 
 
-static TCchar* PortraitKey  = _T("Portrait");
-static TCchar* LandscapeKey = _T("Landscape");
-
 static const ulong EnumFlags = PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS;
 static const ulong DscType   = 4;
 
@@ -35,7 +32,7 @@ END_MESSAGE_MAP()
 
 
 OptionsDlg::OptionsDlg(CWnd* pParent) : CDialogEx(IDD_Options, pParent),
-     topMargin(_T("")), leftOdd(_T("")), rightOdd(_T("")), botMargin(_T("")), orient(_T("")),
+     topMargin(_T("")), leftOdd(_T("")), rightOdd(_T("")), botMargin(_T("")),
      dspScale(_T("")), prtScale(_T("")), printerName(_T("")) { }
 
 
@@ -47,7 +44,6 @@ BOOL OptionsDlg::OnInitDialog() {
   dspScale    = toStg(display.scale);
 
   printerName = printer.name;
-  orient      = toStg(printer.orient);
   topMargin   = printer.topMargin;
   botMargin   = printer.botMargin;
   leftOdd     = printer.leftOdd;
@@ -61,8 +57,8 @@ BOOL OptionsDlg::OnInitDialog() {
 
   printers();
 
-  orientCtrl.AddString(PortraitKey);
-  orientCtrl.AddString(LandscapeKey);
+//  orientCtrl.AddString(PortraitKey);
+//  orientCtrl.AddString(LandscapeKey);
 
   return TRUE;
   }
@@ -108,8 +104,8 @@ String  s;
   if (!printerName.isEmpty() && printerName != newPrntr) printer.store();
 
   printer.load(newPrntr);
-  orient      = toStg(printer.orient);
-  orientCtrl.SelectString(-1, orient);
+//  orient      = printer.toStg(printer.orient);
+//  orientCtrl.SelectString(-1, orient);
   topMargin   = printer.topMargin;              topCtrl.SetWindowText(topMargin);
   botMargin   = printer.botMargin;              botCtrl.SetWindowText(botMargin);
   leftOdd     = printer.leftOdd;                leftOddCtrl.SetWindowText(leftOdd);
@@ -129,8 +125,8 @@ void OptionsDlg::DoDataExchange(CDataExchange* pDX) {
   DDX_Control( pDX, IDC_PrinterName, printerNameCtrl);
   DDX_CBString(pDX, IDC_PrinterName, printerName);
 
-  DDX_Control( pDX, IDC_Orientation, orientCtrl);
-  DDX_CBString(pDX, IDC_Orientation, orient);
+//  DDX_Control( pDX, IDC_Orientation, orientCtrl);
+//  DDX_CBString(pDX, IDC_Orientation, orient);
 
   DDX_Text(    pDX, IDC_TopMargin,   topMargin);
   DDX_Text(    pDX, IDC_BotMargin,   botMargin);
@@ -195,7 +191,7 @@ void OptionsDlg::OnOK() {
   display.scale     = toDbl(dspScale);    display.store();
 
   printer.name      = printerName;
-  printer.orient    = toOrient(orient);
+//  printer.orient    = printer.toOrient(orient);
   printer.topMargin = toDbl(topMargin);
   printer.botMargin = toDbl(botMargin);
   printer.leftOdd   = toDbl(leftOdd);
@@ -216,16 +212,5 @@ double v = s.stod(x);
 
 
 String OptionsDlg::toStg(double v) {String s = v;   return s;}
-
-
-PrtrOrient OptionsDlg::toOrient(Cstring& cs)
-                                {String s = cs;   return s == LandscapeKey ? LandOrient : PortOrient;}
-
-
-TCchar* OptionsDlg::toStg(PrtrOrient orient) {
-  return printer.orient == PortOrient ? PortraitKey : LandscapeKey;
-  }
-
-
 
 

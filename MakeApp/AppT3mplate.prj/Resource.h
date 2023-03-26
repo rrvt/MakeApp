@@ -10,6 +10,11 @@
 #define IDR_PopupMenu1                  102
 #define IDR_PopupMenu2                  103
 
+#define IDD_Orientation                 104
+
+#define IDC_NtpdOrietn                  200
+#define IDC_StrOrietn                   201
+
 #define ID_File_New                     400
 #define ID_File_Open                    401
 #define ID_Options                      402
@@ -33,6 +38,7 @@
 #define ID_Pup0                         423
 #define ID_Pup1                         424
 #define ID_Pup2                         425
+#define ID_Orientation                  426
 
 // Next default values for new objects
 //
@@ -46,12 +52,4 @@
 #endif
 
 
-
-
-#if 0
-// Define Examples if examples must execute in new application
-// Also define/undefine in framework.h
-
-#define Examples
-#endif
 
