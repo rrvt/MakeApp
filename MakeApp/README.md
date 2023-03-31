@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 3/30/23
+
+More Library updates and corresponding updates to the doc/view template application.
+
 ### Update 3/26/23
 
 Made changes due to Library changes.  Added a "feature" to th Doc/view App template that will output to a

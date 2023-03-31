@@ -5,7 +5,7 @@
 #include "MakeAppDoc.h"
 #include "CalibDspPrt.h"
 #include "CopyFile.h"
-#include "ExtraResource.h"
+#include "ResourceExtra.h"
 #include "FileStore.h"
 #include "filename.h"
 #include "FontRptOpt.h"

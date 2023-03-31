@@ -97,8 +97,6 @@
   <ComponentRef Id="PchH.cmp"/>
   <ComponentRef Id="pchCpp.cmp"/>
   <ComponentRef Id="FrameworkH.cmp"/>
-  <ComponentRef Id="RptOrietnDlgH.cmp"/>
-  <ComponentRef Id="RptOrietnDlgCpp.cmp"/>
   <ComponentRef Id="AppT3TargetverH.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="AppT3mplateRes.ftr">
@@ -458,18 +456,6 @@
   <Component Id="FrameworkH.cmp"  Guid="EA895394-5AA9-405D-9DC1-5E895D216C08"
                                                               Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="FrameworkH.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\framework.h" KeyPath="yes"/>
-  </Component>
-
-  <Component Id="RptOrietnDlgH.cmp"  Guid="2779CE4F-A9DD-476B-A3E0-9C59D87DD85C"
-                                                              Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="RptOrietnDlgH.cmp"
-                          Source="$(var.SolutionDir)..\AppT3mplate.prj\RptOrietnDlg.h" KeyPath="yes"/>
-  </Component>
-
-  <Component Id="RptOrietnDlgCpp.cmp"  Guid="1019A4AF-1E55-4DEA-9C41-0D724289683E"
-                                                              Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="RptOrietnDlgCpp.cmp"
-                        Source="$(var.SolutionDir)..\AppT3mplate.prj\RptOrietnDlg.cpp" KeyPath="yes"/>
   </Component>
 
   <Component Id="AppT3TargetverH.cmp"  Guid="7ADBB2A2-7035-44CA-BB15-9A17E1B156EF"
@@ -879,7 +865,7 @@
 <Fragment>
 
   <Component Id="Uninstall_Make_App.cmp" 
-                                  Guid="7EE3888F-FE49-448F-B7B2-A6C46E53FB8D" Directory="MakeApp.pmf">
+                                  Guid="9FBA3FFB-AE8D-426E-9332-87566E87A25A" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"

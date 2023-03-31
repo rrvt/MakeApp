@@ -10,7 +10,7 @@
 #include "OptionsDlg.h"
 #include "Resource.h"
 #include "Resources.h"
-#include "RptOrietnDlg.h"
+#include "RptOrientDlgTwo.h"
 
 
 static TCchar* StrOrietnKey = _T("Store");
@@ -52,9 +52,7 @@ String       pn;
 BOOL AppT3mplateView::PreCreateWindow(CREATESTRUCT& cs) {return CScrView::PreCreateWindow(cs);}
 
 
-void AppT3mplateView::OnInitialUpdate() {
-  CScrView::OnInitialUpdate();       // Get prtrOrietn here...
-  }
+void AppT3mplateView::OnInitialUpdate() {CScrView::OnInitialUpdate();}
 
 
 void AppT3mplateView::onOptions() {
@@ -62,38 +60,31 @@ OptionsDlg dlg;
 
   if (printer.name.isEmpty()) printer.load(0);
 
-  if (dlg.DoModal() == IDOK) {
-    pMgr.setFontScale(printer.scale);
-
-    saveNoteOrietn();
-    }
+  if (dlg.DoModal() == IDOK) pMgr.setFontScale(printer.scale);
   }
 
 
 void AppT3mplateView::onRptOrietn() {
 RptOrietnDlg dlg;
 
+  dlg.lbl01 = _T("Store:");
   dlg.ntpd = printer.toStg(prtNote.prtrOrietn);
-  dlg.str  = printer.toStg(prtStore.prtrOrietn);
+  dlg.rpt1 = printer.toStg(prtStore.prtrOrietn);
 
   if (dlg.DoModal() == IDOK) {
     prtNote.prtrOrietn  = printer.toOrient(dlg.ntpd);
-    prtStore.prtrOrietn = printer.toOrient(dlg.str);
+    prtStore.prtrOrietn = printer.toOrient(dlg.rpt1);
     saveRptOrietn();
     }
   }
 
 
-void AppT3mplateView::initRptOrietn() {
-  initNoteOrietn();
-  prtStore.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, StrOrietnKey, PortOrient);
-  }
+void AppT3mplateView::initRptOrietn()
+            {prtStore.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, StrOrietnKey, PortOrient);}
 
 
-void AppT3mplateView::saveRptOrietn() {
-  saveNoteOrietn();
-  iniFile.write(RptOrietnSect, StrOrietnKey,  (int) prtStore.prtrOrietn);
-  }
+void AppT3mplateView::saveRptOrietn()
+             {saveNoteOrietn();   iniFile.write(RptOrietnSect, StrOrietnKey,  (int) prtStore.prtrOrietn);}
 
 
 

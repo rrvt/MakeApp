@@ -47,7 +47,7 @@ IconPath=D:\Sources\MakeApp\MakeApp.prj\res\MakeApp01.ico
 ProductName=MakeApp
 Company=Bob -- K6RWY
 WixName=MakeApp
-WixVersion=1.6.11.0
+WixVersion=1.6.13.0
 UpgradeCode=07B80D4F-179C-4439-836D-E3743B3AAA5F
 SaveVerAllowed=0
 LicenseRequired=0
@@ -243,8 +243,8 @@ Guid=15F4EEB3-CD9D-45CA-8C3E-88D554C435D8
 FeatureID=AppT3mplatePrj
 ProgramID=MakeApp\AppT3mplate.prj
 StartMenuID=
-CurSel=AppT3TargetverH
-NoComponents=24
+CurSel=AppT3mplateCpp
+NoComponents=22
 [Ftr03Cmp00]
 ID=AppT3mplateCpp
 Path=D:\Sources\MakeApp\AppT3mplate.prj\AppT3mplate.cpp
@@ -330,14 +330,6 @@ ID=FrameworkH
 Path=D:\Sources\MakeApp\AppT3mplate.prj\framework.h
 Guid=EA895394-5AA9-405D-9DC1-5E895D216C08
 [Ftr03Cmp21]
-ID=RptOrietnDlgH
-Path=D:\Sources\MakeApp\AppT3mplate.prj\RptOrietnDlg.h
-Guid=2779CE4F-A9DD-476B-A3E0-9C59D87DD85C
-[Ftr03Cmp22]
-ID=RptOrietnDlgCpp
-Path=D:\Sources\MakeApp\AppT3mplate.prj\RptOrietnDlg.cpp
-Guid=1019A4AF-1E55-4DEA-9C41-0D724289683E
-[Ftr03Cmp23]
 ID=AppT3TargetverH
 Path=D:\Sources\MakeApp\AppT3mplate.prj\targetver.h
 Guid=7ADBB2A2-7035-44CA-BB15-9A17E1B156EF

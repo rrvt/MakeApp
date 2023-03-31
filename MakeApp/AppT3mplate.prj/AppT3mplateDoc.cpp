@@ -221,30 +221,13 @@ void AppT3mplateDoc::OnFileOpen() {
 void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 
-
-#if 0
-  switch (dataSource) {
-    case NotePadSrc : messageBox(_T("NotePadSrc")); break;
-    case Log211Src  : dataSource = LogTxtSrc;  saveFile(_T("Log"),         _T("Log"),  _T("txt")); break;
-    case MemberSrc  : dataSource = MbrTxtSrc;  saveFile(_T("Member List"), _T("Mbrs"), _T("txt")); break;
-    case RosterSrc  : dataSource = RstrTxtSrc; saveFile(_T("Roster"),      _T("Rstr"), _T("txt")); break;
-    }
-
-  invalidate();
-#endif
-
-
 void AppT3mplateDoc::OnFileSave() {
-#if 1
   switch (dataSource) {
     case NotePadSrc : if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);   break;
     case StoreSrc   : dataSource = StrTxtSrc;  saveFile(_T("Store"), _T("Str"), _T("txt")); break;
     }
 
   invalidate();
-#else
-  if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);
-#endif
   }
 
 
@@ -291,15 +274,8 @@ void AppT3mplateDoc::serialize(Archive& ar) {
 // AppT3mplateDoc diagnostics
 
 #ifdef _DEBUG
-void AppT3mplateDoc::AssertValid() const
-{
-  CDocument::AssertValid();
-}
-
-void AppT3mplateDoc::Dump(CDumpContext& dc) const
-{
-  CDocument::Dump(dc);
-}
+void AppT3mplateDoc::AssertValid() const {         CDocument::AssertValid();}
+void AppT3mplateDoc::Dump(CDumpContext& dc) const {CDocument::Dump(dc);}
 #endif //_DEBUG
 
 
