@@ -30,8 +30,8 @@
   <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp"/>
   <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp"/>
 
-  <Icon     Id="MakeApp01Icon.ico" SourceFile="$(var.SolutionDir)..\MakeApp.prj\res\MakeApp01.ico"/>
-  <Property Id="ARPPRODUCTICON"  Value="MakeApp01Icon.ico" />
+  <Icon     Id="MakeApp_Icon.exe" SourceFile="$(var.SolutionDir)..\MakeApp.prj\res\MakeApp.ico"/>
+  <Property Id="ARPPRODUCTICON"  Value="MakeApp_Icon.exe" />
 
   <Feature Id="ProductFeatures" Title="Main Product" Level="1" >
     <ComponentGroupRef Id="MakeApp.ftr"/>
@@ -237,7 +237,7 @@
               Advertise        = "yes"
               Directory        = "MakeApp.pmf"
               WorkingDirectory = "MakeApp.pff"
-              Icon             = "MakeApp01Icon.ico"
+              Icon             = "MakeApp_Icon.exe"
               />
 
     <Shortcut Id               = "MakeApp.dsk"
@@ -246,7 +246,7 @@
               Advertise        = "yes"
               Directory        = "DesktopFolder"
               WorkingDirectory = "MakeApp.pff"
-              Icon             = "MakeApp01Icon.ico"
+              Icon             = "MakeApp_Icon.exe"
               />
   </Component>
 
@@ -865,14 +865,14 @@
 <Fragment>
 
   <Component Id="Uninstall_Make_App.cmp" 
-                                  Guid="9FBA3FFB-AE8D-426E-9332-87566E87A25A" Directory="MakeApp.pmf">
+                                  Guid="F58D59B7-EA09-46A5-AEC9-D98BAEE3BEE5" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"
               Description      = "Uninstalls Make App"
               Target           = "[System64Folder]msiexec.exe"
               Arguments        = "/x [ProductCode]"
-              Icon             = "MakeApp01Icon.ico"
+              Icon             = "MakeApp_Icon.exe"
               />
     <RemoveFolder Id="MakeApp.uni" Directory="MakeApp.pmf" On="uninstall"/>
     <RegistryValue Root="HKCU" Key="Software\Uninstall_Make_App.cmp" Name="installed"

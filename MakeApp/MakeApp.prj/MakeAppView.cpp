@@ -3,12 +3,17 @@
 
 #include "pch.h"
 #include "MakeAppView.h"
+#include "IniFile.h"
 #include "ListFonts.h"
 #include "MakeApp.h"
 #include "MakeAppDoc.h"
 #include "OptionsDlg.h"
 #include "Resource.h"
 #include "Resources.h"
+#include "RptOrientDlgTwo.h"
+
+
+static TCchar* FontOrietnKey = _T("Font");
 
 
 // MakeAppView
@@ -16,7 +21,8 @@
 IMPLEMENT_DYNCREATE(MakeAppView, CScrView)
 
 BEGIN_MESSAGE_MAP(MakeAppView, CScrView)
-  ON_COMMAND(ID_Options, &onOptions)
+  ON_COMMAND(ID_Options,     &onOptions)
+  ON_COMMAND(ID_Orientation, &onRptOrietn)
 END_MESSAGE_MAP()
 
 
@@ -44,6 +50,29 @@ OptionsDlg dlg;
   }
 
 
+void MakeAppView::onRptOrietn() {
+RptOrietnDlg dlg;
+
+  dlg.lbl01 = _T("Font:");
+  dlg.ntpd = printer.toStg(prtNote.prtrOrietn);
+  dlg.rpt1 = printer.toStg(prtFonts.prtrOrietn);
+
+  if (dlg.DoModal() == IDOK) {
+    prtNote.prtrOrietn  = printer.toOrient(dlg.ntpd);
+    prtFonts.prtrOrietn = printer.toOrient(dlg.rpt1);
+    saveRptOrietn();
+    }
+  }
+
+
+void MakeAppView::initRptOrietn()
+            {prtFonts.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, FontOrietnKey, PortOrient);}
+
+
+void MakeAppView::saveRptOrietn()
+             {saveNoteOrietn();   iniFile.write(RptOrietnSect, FontOrietnKey,  (int) prtFonts.prtrOrietn);}
+
+
 #if 1
 void MakeAppView::OnPrepareDC(CDC* dc, CPrintInfo* info) {
 
@@ -52,6 +81,17 @@ void MakeAppView::OnPrepareDC(CDC* dc, CPrintInfo* info) {
   CScrView::OnPrepareDC(dc, info);
   }
 #endif
+
+
+void MakeAppView::onPreparePrinting(CPrintInfo* info) {
+
+  switch(doc()->dataSrc()) {
+    case NotePadSrc : prtNote.onPreparePrinting(info);     break;
+#ifdef Examples
+    case FontSrc    : prtFonts.onPreparePrinting(info);    break;
+#endif
+    }
+  }
 
 
 // Perpare output (i.e. report) then start the output with the call to SCrView

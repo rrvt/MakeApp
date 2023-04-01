@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 4/1/23
+
+Add Report Orientation Dialog to MakeApp.
+
 ### Update 3/30/23
 
 More Library updates and corresponding updates to the doc/view template application.

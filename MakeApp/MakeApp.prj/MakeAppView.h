@@ -24,8 +24,12 @@ public:
 
               ~MakeAppView() { }
 
+  void         initRptOrietn();
+  void         saveRptOrietn();
+
   virtual void OnInitialUpdate();
 
+  virtual void onPreparePrinting(CPrintInfo* info);
   virtual void onBeginPrinting();
   virtual void onDisplayOutput();
 
@@ -47,6 +51,7 @@ public:
   DECLARE_MESSAGE_MAP()
 
   afx_msg void onOptions();
+  afx_msg void onRptOrietn();
   afx_msg void OnSetFocus(CWnd* pOldWnd);
   };
 

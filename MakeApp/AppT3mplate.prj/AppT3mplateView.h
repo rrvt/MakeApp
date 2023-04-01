@@ -32,6 +32,9 @@ public:
 
   virtual        ~AppT3mplateView() { }
 
+  void            initRptOrietn();
+  void            saveRptOrietn();
+
   virtual BOOL    PreCreateWindow(CREATESTRUCT& cs);
   virtual void    OnInitialUpdate();
 
@@ -47,9 +50,6 @@ public:
   virtual void    OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 
   AppT3mplateDoc* GetDocument() const;
-
-  void            initRptOrietn();
-  void            saveRptOrietn();
 
   StoreRpt&       storeRpt()  {return dspStore;}
 

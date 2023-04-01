@@ -40,19 +40,19 @@ AppT3mplateHlpImg.ftr.Path=D:\Sources\MakeApp\AppT3mplate.hlp\Images\
 [Icons]
 NoIcons=1
 [Icon00]
-IconID=MakeApp01
-WixID=MakeApp01Icon.ico
-IconPath=D:\Sources\MakeApp\MakeApp.prj\res\MakeApp01.ico
+IconID=MakeApp
+WixID=MakeApp_Icon.exe
+IconPath=D:\Sources\MakeApp\MakeApp.prj\res\MakeApp.ico
 [Product]
 ProductName=MakeApp
 Company=Bob -- K6RWY
 WixName=MakeApp
-WixVersion=1.6.13.0
+WixVersion=1.6.14.0
 UpgradeCode=07B80D4F-179C-4439-836D-E3743B3AAA5F
 SaveVerAllowed=0
 LicenseRequired=0
 LicensePath=D:\Sources\MakeApp\MakeApp\
-IconID=MakeApp01
+IconID=MakeApp
 [PFFDirectories]
 NoDirectories=15
 [PFFDirDesc00]
@@ -155,7 +155,7 @@ Name=MakeApp
 HasChildren=0
 [Features]
 Count=15
-CurSel=AppT3mplatePrj
+CurSel=MakeApp
 [Ftr00]
 FeatureID=MakeApp
 ProgramID=MakeApp
@@ -167,7 +167,7 @@ ID=Make App
 Path=D:\Sources\MakeApp\Release\MakeApp.exe
 Guid=41281DE2-5E79-4364-9435-BA0D4641D262
 Description=Make App
-IconID=MakeApp01
+IconID=MakeApp
 IsStartMenu=1
 IsDeskTop=1
 IsVersionAvail=1
