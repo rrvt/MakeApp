@@ -162,6 +162,12 @@ The result is after a couple of false starts everything compiled and executed.
 
 ### Update 4/1/23
 
+Discovered that Visual Studio removed #define symbols in the "rc" file and replaced them with integer
+constants in several places.  This is not good.  So I found all the places with the specific integer
+constants and restored the #define symbols.
+
+### Update 4/1/23
+
 Add Report Orientation Dialog to MakeApp.
 
 ### Update 3/30/23
