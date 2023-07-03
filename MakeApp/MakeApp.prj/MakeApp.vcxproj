@@ -155,7 +155,6 @@
     <ClInclude Include="..\..\Library\Extras\OptionsDlg.h" />
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="..\..\Library\Extras\CalibDspPrtDlg.h" />
-    <ClInclude Include="..\..\Library\Extras\ExtraResource.h" />
     <ClInclude Include="FileList.h" />
     <ClInclude Include="FileStore.h" />
     <ClInclude Include="FontRpt.h" />
@@ -175,7 +174,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SlickEdit.h" />
     <ClInclude Include="targetver.h" />
-  <ClInclude Include="..\..\Library\Extras\ResourceExtra.h" />
+    <ClInclude Include="..\..\Library\Extras\ResourceExtra.h" />
     <ClInclude Include="..\..\Library\Extras\RptOrientDlgTwo.h" />
   </ItemGroup>
   <ItemGroup>
@@ -199,7 +198,7 @@
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="ProjectNameDlg.cpp" />
     <ClCompile Include="SlickEdit.cpp" />
-  <ClCompile Include="..\..\Library\Extras\RptOrientDlgTwo.cpp" />
+    <ClCompile Include="..\..\Library\Extras\RptOrientDlgTwo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MakeApp.rc" />
@@ -210,11 +209,10 @@
     <None Include="..\..\Library\Extras\Options.rc2" />
     <None Include="res\MakeApp.rc2" />
     <None Include="..\README.md" />
-  <None Include="res\MakeApp.ico" />
+    <None Include="res\MakeApp.ico" />
     <None Include="res\Toolbar.bmp" />
-  <None Include="..\..\Library\Extras\RptOrientTwo.rc2" />
+    <None Include="..\..\Library\Extras\RptOrientTwo.rc2" />
   </ItemGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\..\Library\Library.prj\Library.vcxproj">
       <Project>{cf57f3ec-d3db-4469-8519-3f9d73785d9b}</Project>

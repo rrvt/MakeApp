@@ -25,7 +25,7 @@ static TCchar* MakeTarget  = _T("MakeApp\\");
 static TCchar* MakeAppSect = _T("MakeApp");
 static TCchar* BaseDirKey  = _T("BaseDir");
 static TCchar* AppT3mplate = _T("AppT3mplate");
-static TCchar* DialogApp   = _T("DialogApp");
+static TCchar* DialogApp   = _T("Dialog4pp");
 
 
 static TCchar* TestSolDir  = _T("AppT3mplate\\");
@@ -314,7 +314,7 @@ int pos;
   }
 
 
-static TCchar* DialogDlg = _T("DialogDlg");
+static TCchar* DialogDlg = _T("Dialog4ppDlg");
 
 void Project::renameAppName(String& s) {
 int pos;

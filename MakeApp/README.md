@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 7/1/23
+
+Library Update.  Changed "DialogApp" to "Dialog4pp" to avoid confusion during copy operation.
+
 ### Update 4/1/23
 
 Discovered that Visual Studio removed #define symbols in the "rc" file and replaced them with integer

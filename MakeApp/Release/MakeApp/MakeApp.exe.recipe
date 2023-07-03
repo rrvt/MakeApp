@@ -5,7 +5,7 @@
       <FullPath>D:\Sources\MakeApp\Release\AppT3mplate.exe</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>D:\Sources\MakeApp\Release\DialogApp.exe</FullPath>
+      <FullPath>D:\Sources\MakeApp\Release\Dialog4pp.exe</FullPath>
     </ProjectOutput>
     <ProjectOutput>
       <FullPath>D:\Sources\MakeApp\Release\MakeApp.exe</FullPath>
@@ -15,13 +15,13 @@
   <SatelliteDlls />
   <NonRecipeFileRefs>
     <NonRecipeFileRef>
+      <FullPath>D:\Sources\MakeApp\Dialog4pp.hlp\Dialog4pp.hlp.vcxproj</FullPath>
+    </NonRecipeFileRef>
+    <NonRecipeFileRef>
       <FullPath>D:\Sources\MakeApp\MakeApp.hlp\MakeApp.hlp.vcxproj</FullPath>
     </NonRecipeFileRef>
     <NonRecipeFileRef>
       <FullPath>D:\Sources\MakeApp\AppT3mplate.hlp\AppT3mplate.hlp.vcxproj</FullPath>
-    </NonRecipeFileRef>
-    <NonRecipeFileRef>
-      <FullPath>D:\Sources\MakeApp\DialogApp.hlp\DialogApp.hlp.vcxproj</FullPath>
     </NonRecipeFileRef>
   </NonRecipeFileRefs>
 </Project>

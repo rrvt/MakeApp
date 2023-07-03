@@ -39,14 +39,14 @@
     <ComponentGroupRef Id="AppT3mplateHlp.ftr"/>
     <ComponentGroupRef Id="AppT3mplatePrj.ftr"/>
     <ComponentGroupRef Id="AppT3mplateRes.ftr"/>
-    <ComponentGroupRef Id="DialogApp.ftr"/>
-    <ComponentGroupRef Id="DialogAppHlp.ftr"/>
-    <ComponentGroupRef Id="DialogAppPrj.ftr"/>
-    <ComponentGroupRef Id="DialogAppPrjRes.ftr"/>
-    <ComponentGroupRef Id="DialogAppWix.ftr"/>
+    <ComponentGroupRef Id="Dialog4pp.ftr"/>
+    <ComponentGroupRef Id="Dialog4ppHlp.ftr"/>
+    <ComponentGroupRef Id="Dialog4ppPrj.ftr"/>
+    <ComponentGroupRef Id="Dialog4ppPrjRes.ftr"/>
+    <ComponentGroupRef Id="Dialog4ppWix.ftr"/>
     <ComponentGroupRef Id="AppT3mplateWix.ftr"/>
-    <ComponentGroupRef Id="DialogAppHelpTmpl.ftr"/>
-    <ComponentGroupRef Id="DialogAppHlpImg.ftr"/>
+    <ComponentGroupRef Id="Dialog4ppHelpTmpl.ftr"/>
+    <ComponentGroupRef Id="Dialog4ppHlpImg.ftr"/>
     <ComponentGroupRef Id="AppT3mplateHlpTmpl.ftr"/>
     <ComponentGroupRef Id="AppT3mplateHlpImg.ftr"/>
     <ComponentGroupRef Id="Uninstall_Make_App.ftr"/>
@@ -105,10 +105,10 @@
   <ComponentRef Id="Toolbar.bmp.cmp"/>
   <ComponentRef Id="ShortToolBar.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="DialogApp.ftr">
+<ComponentGroup Id="Dialog4pp.ftr">
   <ComponentRef Id="Solution.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="DialogAppHlp.ftr">
+<ComponentGroup Id="Dialog4ppHlp.ftr">
   <ComponentRef Id="DAAppCss.cmp"/>
   <ComponentRef Id="DialogAppHlpVcx.cmp"/>
   <ComponentRef Id="DialogAppHlpVcxFltr.cmp"/>
@@ -121,7 +121,7 @@
   <ComponentRef Id="DAOperationsHtm.cmp"/>
   <ComponentRef Id="DialogAppHlpVpj.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="DialogAppPrj.ftr">
+<ComponentGroup Id="Dialog4ppPrj.ftr">
   <ComponentRef Id="DialogAppCpp.cmp"/>
   <ComponentRef Id="DialogAppH.cmp"/>
   <ComponentRef Id="DialogAppRc.cmp"/>
@@ -137,12 +137,12 @@
   <ComponentRef Id="DATargetverH.cmp"/>
   <ComponentRef Id="DialogAppPrjVpj.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="DialogAppPrjRes.ftr">
+<ComponentGroup Id="Dialog4ppPrjRes.ftr">
   <ComponentRef Id="DialogAppIco.cmp"/>
   <ComponentRef Id="DialogAppRc2.cmp"/>
   <ComponentRef Id="ToolBar.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="DialogAppWix.ftr">
+<ComponentGroup Id="Dialog4ppWix.ftr">
   <ComponentRef Id="DialogAppWixPrj.cmp"/>
   <ComponentRef Id="DialogAppWixWxd.cmp"/>
   <ComponentRef Id="DAMyEnUsWxl.cmp"/>
@@ -158,10 +158,10 @@
   <ComponentRef Id="AppT3mplateWixVpj.cmp"/>
   <ComponentRef Id="LicenseFile.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="DialogAppHelpTmpl.ftr">
+<ComponentGroup Id="Dialog4ppHelpTmpl.ftr">
   <ComponentRef Id="OneColumn.cmp"/>
 </ComponentGroup>
-<ComponentGroup Id="DialogAppHlpImg.ftr">
+<ComponentGroup Id="Dialog4ppHlpImg.ftr">
   <ComponentRef Id="About.jpg.cmp"/>
   <ComponentRef Id="EditBoox.jpg.cmp"/>
   <ComponentRef Id="Exit.jpg.cmp"/>
@@ -200,16 +200,16 @@
         <Directory Id="MakeApp_AppT3mplate.prj.pff" Name="AppT3mplate.prj">
           <Directory Id="MakeApp_AppT3mplate.prj_res.pff" Name="res" />
         </Directory>
-        <Directory Id="MakeApp_DialogApp.pff" Name="DialogApp" />
-        <Directory Id="MakeApp_DialogApp.hlp.pff" Name="DialogApp.hlp">
-          <Directory Id="MakeApp_DialogApp.hlp_Templates.pff" Name="Templates" />
-          <Directory Id="MakeApp_DialogApp.hlp_Images.pff" Name="Images" />
-        </Directory>
-        <Directory Id="MakeApp_DialogApp.prj.pff" Name="DialogApp.prj">
-          <Directory Id="MakeApp_DialogApp.prj_res.pff" Name="res" />
-        </Directory>
-        <Directory Id="MakeApp_DialogApp.wix.pff" Name="DialogApp.wix" />
         <Directory Id="MakeApp_AppT3mplate.wix.pff" Name="AppT3mplate.wix" />
+        <Directory Id="MakeApp_Dialog4pp.pff" Name="Dialog4pp" />
+        <Directory Id="MakeApp_Dialog4pp.hlp.pff" Name="Dialog4pp.hlp">
+          <Directory Id="MakeApp_Dialog4pp.hlp_Templates.pff" Name="Templates" />
+          <Directory Id="MakeApp_Dialog4pp.hlp_Images.pff" Name="Images" />
+        </Directory>
+        <Directory Id="MakeApp_Dialog4pp.prj.pff" Name="Dialog4pp.prj">
+          <Directory Id="MakeApp_Dialog4pp.prj_res.pff" Name="res" />
+        </Directory>
+        <Directory Id="MakeApp_Dialog4pp.wix.pff" Name="Dialog4pp.wix" />
       </Directory>
     </Directory>
 
@@ -497,8 +497,8 @@
 <Fragment>
 
   <Component Id="Solution.cmp"  Guid="5B09A6C6-7B9F-440C-A654-583BC7B38D2A"
-                                                                    Directory="MakeApp_DialogApp.pff">
-    <File Id="Solution.cmp" Source="$(var.SolutionDir)..\DialogApp\DialogApp.sln" KeyPath="yes"/>
+                                                                    Directory="MakeApp_Dialog4pp.pff">
+    <File Id="Solution.cmp" Source="$(var.SolutionDir)..\Dialog4pp\Dialog4pp.sln" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -506,67 +506,67 @@
 <Fragment>
 
   <Component Id="DAAppCss.cmp"  Guid="4200F56D-EB1A-4ACB-BE72-ECD7B757929D"
-                                                                Directory="MakeApp_DialogApp.hlp.pff">
-    <File Id="DAAppCss.cmp" Source="$(var.SolutionDir)..\DialogApp.hlp\App.css" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.hlp.pff">
+    <File Id="DAAppCss.cmp" Source="$(var.SolutionDir)..\Dialog4pp.hlp\App.css" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppHlpVcx.cmp"  Guid="6E1AA52D-744B-4080-807E-4BD2B7234156"
-                                                                Directory="MakeApp_DialogApp.hlp.pff">
+                                                                Directory="MakeApp_Dialog4pp.hlp.pff">
     <File Id="DialogAppHlpVcx.cmp"
-                    Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vcxproj" KeyPath="yes"/>
+                    Source="$(var.SolutionDir)..\Dialog4pp.hlp\Dialog4pp.hlp.vcxproj" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppHlpVcxFltr.cmp" 
-                    Guid="5BE6D7F4-88F2-4903-8E80-67DE7DD92342" Directory="MakeApp_DialogApp.hlp.pff">
+                    Guid="5BE6D7F4-88F2-4903-8E80-67DE7DD92342" Directory="MakeApp_Dialog4pp.hlp.pff">
     <File Id="DialogAppHlpVcxFltr.cmp"
-            Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vcxproj.filters" KeyPath="yes"/>
+            Source="$(var.SolutionDir)..\Dialog4pp.hlp\Dialog4pp.hlp.vcxproj.filters" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppHlpVcxUsr.cmp" 
-                    Guid="40FFDA38-8DC3-46BC-89E4-6C867D023773" Directory="MakeApp_DialogApp.hlp.pff">
+                    Guid="40FFDA38-8DC3-46BC-89E4-6C867D023773" Directory="MakeApp_Dialog4pp.hlp.pff">
     <File Id="DialogAppHlpVcxUsr.cmp"
-                Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vcxproj.user" KeyPath="yes"/>
+                Source="$(var.SolutionDir)..\Dialog4pp.hlp\Dialog4pp.hlp.vcxproj.user" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppHlpHhc.cmp"  Guid="33BDB01F-48E8-4C08-9271-AEC00791FA1F"
-                                                                Directory="MakeApp_DialogApp.hlp.pff">
+                                                                Directory="MakeApp_Dialog4pp.hlp.pff">
     <File Id="DialogAppHlpHhc.cmp"
-                            Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hhc" KeyPath="yes"/>
+                            Source="$(var.SolutionDir)..\Dialog4pp.hlp\Dialog4pp.hhc" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppHlpHhp.cmp"  Guid="FB42D264-87F8-4936-900D-FC7EC95C2FED"
-                                                                Directory="MakeApp_DialogApp.hlp.pff">
+                                                                Directory="MakeApp_Dialog4pp.hlp.pff">
     <File Id="DialogAppHlpHhp.cmp"
-                            Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hhp" KeyPath="yes"/>
+                            Source="$(var.SolutionDir)..\Dialog4pp.hlp\Dialog4pp.hhp" KeyPath="yes"/>
   </Component>
 
   <Component Id="DAHelpCompBat.cmp"  Guid="57C19EA8-36EA-4166-963F-0E4FF3A47F39"
-                                                                Directory="MakeApp_DialogApp.hlp.pff">
+                                                                Directory="MakeApp_Dialog4pp.hlp.pff">
     <File Id="DAHelpCompBat.cmp"
-                              Source="$(var.SolutionDir)..\DialogApp.hlp\helpComp.bat" KeyPath="yes"/>
+                              Source="$(var.SolutionDir)..\Dialog4pp.hlp\helpComp.bat" KeyPath="yes"/>
   </Component>
 
   <Component Id="DAIntroHtm.cmp"  Guid="C5382617-35EC-416B-ABF0-869B36D118D5"
-                                                                Directory="MakeApp_DialogApp.hlp.pff">
+                                                                Directory="MakeApp_Dialog4pp.hlp.pff">
     <File Id="DAIntroHtm.cmp"
-                          Source="$(var.SolutionDir)..\DialogApp.hlp\Introduction.htm" KeyPath="yes"/>
+                          Source="$(var.SolutionDir)..\Dialog4pp.hlp\Introduction.htm" KeyPath="yes"/>
   </Component>
 
   <Component Id="DAMakeFile.cmp"  Guid="684CF889-DB0F-41B2-AAA0-1FD6D81FB29C"
-                                                                Directory="MakeApp_DialogApp.hlp.pff">
-    <File Id="DAMakeFile.cmp" Source="$(var.SolutionDir)..\DialogApp.hlp\makefile" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.hlp.pff">
+    <File Id="DAMakeFile.cmp" Source="$(var.SolutionDir)..\Dialog4pp.hlp\makefile" KeyPath="yes"/>
   </Component>
 
   <Component Id="DAOperationsHtm.cmp"  Guid="726866B1-4EC4-41D2-A89E-033881068E8D"
-                                                                Directory="MakeApp_DialogApp.hlp.pff">
+                                                                Directory="MakeApp_Dialog4pp.hlp.pff">
     <File Id="DAOperationsHtm.cmp"
-                            Source="$(var.SolutionDir)..\DialogApp.hlp\Operations.htm" KeyPath="yes"/>
+                            Source="$(var.SolutionDir)..\Dialog4pp.hlp\Operations.htm" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppHlpVpj.cmp"  Guid="E913FA5C-7FF2-4C5D-84AE-8D8FB04B0678"
-                                                                Directory="MakeApp_DialogApp.hlp.pff">
+                                                                Directory="MakeApp_Dialog4pp.hlp.pff">
     <File Id="DialogAppHlpVpj.cmp"
-                        Source="$(var.SolutionDir)..\DialogApp.hlp\DialogApp.hlp.vpj" KeyPath="yes"/>
+                        Source="$(var.SolutionDir)..\Dialog4pp.hlp\Dialog4pp.hlp.vpj" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -574,80 +574,80 @@
 <Fragment>
 
   <Component Id="DialogAppCpp.cmp"  Guid="2ADCE361-6DCE-4EFE-BC28-3F7E7F5D32C5"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
     <File Id="DialogAppCpp.cmp"
-                            Source="$(var.SolutionDir)..\DialogApp.prj\DialogApp.cpp" KeyPath="yes"/>
+                            Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4pp.cpp" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppH.cmp"  Guid="8CA04DEF-C4F2-4145-9994-4BF91F995345"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="DialogAppH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\DialogApp.h" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="DialogAppH.cmp" Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4pp.h" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppRc.cmp"  Guid="1E06C889-CC24-41CC-AF4C-88EDB08FA5E3"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="DialogAppRc.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\DialogApp.rc" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="DialogAppRc.cmp" Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4pp.rc" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppVcx.cmp"  Guid="373D00D3-2FC5-4560-AEC2-6AAC3CD57FD2"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
     <File Id="DialogAppVcx.cmp"
-                        Source="$(var.SolutionDir)..\DialogApp.prj\DialogApp.vcxproj" KeyPath="yes"/>
+                        Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4pp.vcxproj" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogVcxFltr.cmp"  Guid="33ABE86B-6C19-4A79-81A0-3D891400F521"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
     <File Id="DialogVcxFltr.cmp"
-                Source="$(var.SolutionDir)..\DialogApp.prj\DialogApp.vcxproj.filters" KeyPath="yes"/>
+                Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4pp.vcxproj.filters" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppVcxUsr.cmp"  Guid="B011DC57-FB19-4409-9773-22BC2B078002"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
     <File Id="DialogAppVcxUsr.cmp"
-                    Source="$(var.SolutionDir)..\DialogApp.prj\DialogApp.vcxproj.user" KeyPath="yes"/>
+                    Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4pp.vcxproj.user" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogDlgCpp.cmp"  Guid="1D757E60-B630-4F93-8E74-78C5DE2CA40D"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
     <File Id="DialogDlgCpp.cmp"
-                            Source="$(var.SolutionDir)..\DialogApp.prj\DialogDlg.cpp" KeyPath="yes"/>
+                          Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4ppDlg.cpp" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogDlgH.cmp"  Guid="71B96988-4EFD-4393-97EB-D15925D9A80C"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="DialogDlgH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\DialogDlg.h" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="DialogDlgH.cmp" Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4ppDlg.h" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogFrameworkH.cmp" 
-                    Guid="1895EC1A-0FA1-490A-8577-432D4611770E" Directory="MakeApp_DialogApp.prj.pff">
+                    Guid="1895EC1A-0FA1-490A-8577-432D4611770E" Directory="MakeApp_Dialog4pp.prj.pff">
     <File Id="DialogFrameworkH.cmp"
-                              Source="$(var.SolutionDir)..\DialogApp.prj\framework.h" KeyPath="yes"/>
+                              Source="$(var.SolutionDir)..\Dialog4pp.prj\framework.h" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogPchCpp.cmp"  Guid="CC1C6769-E5C3-4082-8A3F-EAA55C170299"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="DialogPchCpp.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\pch.cpp" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="DialogPchCpp.cmp" Source="$(var.SolutionDir)..\Dialog4pp.prj\pch.cpp" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogPchH.cmp"  Guid="7A7C5DA0-0DE4-494F-9C8E-B41B5B03BF02"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="DialogPchH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\pch.h" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="DialogPchH.cmp" Source="$(var.SolutionDir)..\Dialog4pp.prj\pch.h" KeyPath="yes"/>
   </Component>
 
   <Component Id="DAResourceH.cmp"  Guid="1DECE613-8941-4B1A-815E-AE5E053965DF"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="DAResourceH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\Resource.h" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="DAResourceH.cmp" Source="$(var.SolutionDir)..\Dialog4pp.prj\Resource.h" KeyPath="yes"/>
   </Component>
 
   <Component Id="DATargetverH.cmp"  Guid="541BC7F3-AEC3-4BA2-8158-B598DE839993"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
-    <File Id="DATargetverH.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\targetver.h" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="DATargetverH.cmp" Source="$(var.SolutionDir)..\Dialog4pp.prj\targetver.h" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppPrjVpj.cmp"  Guid="67EAF0C4-C8D0-426E-B849-CD419E6F415C"
-                                                                Directory="MakeApp_DialogApp.prj.pff">
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
     <File Id="DialogAppPrjVpj.cmp"
-                            Source="$(var.SolutionDir)..\DialogApp.prj\DialogApp.vpj" KeyPath="yes"/>
+                            Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4pp.vpj" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -655,20 +655,20 @@
 <Fragment>
 
   <Component Id="DialogAppIco.cmp"  Guid="BCBE4704-7600-4E56-A789-1B5DE4169037"
-                                                            Directory="MakeApp_DialogApp.prj_res.pff">
+                                                            Directory="MakeApp_Dialog4pp.prj_res.pff">
     <File Id="DialogAppIco.cmp"
-                        Source="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp.ico" KeyPath="yes"/>
+                        Source="$(var.SolutionDir)..\Dialog4pp.prj\res\Dialog4pp.ico" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppRc2.cmp"  Guid="343D8664-F55D-4CD6-8A2C-9F8A89BDCD97"
-                                                            Directory="MakeApp_DialogApp.prj_res.pff">
+                                                            Directory="MakeApp_Dialog4pp.prj_res.pff">
     <File Id="DialogAppRc2.cmp"
-                        Source="$(var.SolutionDir)..\DialogApp.prj\res\DialogApp.rc2" KeyPath="yes"/>
+                        Source="$(var.SolutionDir)..\Dialog4pp.prj\res\Dialog4pp.rc2" KeyPath="yes"/>
   </Component>
 
   <Component Id="ToolBar.cmp"  Guid="F545DDEA-74B2-4F51-A367-46BAC48758AE"
-                                                            Directory="MakeApp_DialogApp.prj_res.pff">
-    <File Id="ToolBar.cmp" Source="$(var.SolutionDir)..\DialogApp.prj\res\Toolbar.bmp" KeyPath="yes"/>
+                                                            Directory="MakeApp_Dialog4pp.prj_res.pff">
+    <File Id="ToolBar.cmp" Source="$(var.SolutionDir)..\Dialog4pp.prj\res\Toolbar.bmp" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -676,37 +676,37 @@
 <Fragment>
 
   <Component Id="DialogAppWixPrj.cmp"  Guid="C85D3A10-CB89-443D-87A2-0BFCB425E431"
-                                                                Directory="MakeApp_DialogApp.wix.pff">
+                                                                Directory="MakeApp_Dialog4pp.wix.pff">
     <File Id="DialogAppWixPrj.cmp"
-                    Source="$(var.SolutionDir)..\DialogApp.wix\DialogApp.wix.wixproj" KeyPath="yes"/>
+                    Source="$(var.SolutionDir)..\Dialog4pp.wix\Dialog4pp.wix.wixproj" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppWixWxd.cmp"  Guid="D72F450B-1FBF-4E23-9ECE-DFA76B0012F5"
-                                                                Directory="MakeApp_DialogApp.wix.pff">
+                                                                Directory="MakeApp_Dialog4pp.wix.pff">
     <File Id="DialogAppWixWxd.cmp"
-                            Source="$(var.SolutionDir)..\DialogApp.wix\DialogApp.wxd" KeyPath="yes"/>
+                            Source="$(var.SolutionDir)..\Dialog4pp.wix\Dialog4pp.wxd" KeyPath="yes"/>
   </Component>
 
   <Component Id="DAMyEnUsWxl.cmp"  Guid="AB1F8075-6702-4A5E-A300-0B44ABF7DD47"
-                                                                Directory="MakeApp_DialogApp.wix.pff">
-    <File Id="DAMyEnUsWxl.cmp" Source="$(var.SolutionDir)..\DialogApp.wix\My_en-us.wxl" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.wix.pff">
+    <File Id="DAMyEnUsWxl.cmp" Source="$(var.SolutionDir)..\Dialog4pp.wix\My_en-us.wxl" KeyPath="yes"/>
   </Component>
 
   <Component Id="DAProduct.cmp"  Guid="46B3E281-C004-4D81-A86B-4F9B3BF30A65"
-                                                                Directory="MakeApp_DialogApp.wix.pff">
-    <File Id="DAProduct.cmp" Source="$(var.SolutionDir)..\DialogApp.wix\Product.wxs" KeyPath="yes"/>
+                                                                Directory="MakeApp_Dialog4pp.wix.pff">
+    <File Id="DAProduct.cmp" Source="$(var.SolutionDir)..\Dialog4pp.wix\Product.wxs" KeyPath="yes"/>
   </Component>
 
   <Component Id="DialogAppWixVpj.cmp"  Guid="48332899-82E2-4803-8C5E-6457C9958C7F"
-                                                                Directory="MakeApp_DialogApp.wix.pff">
+                                                                Directory="MakeApp_Dialog4pp.wix.pff">
     <File Id="DialogAppWixVpj.cmp"
-                          Source="$(var.SolutionDir)..\DialogApp.wix\DialogAppWix.vpj" KeyPath="yes"/>
+                          Source="$(var.SolutionDir)..\Dialog4pp.wix\Dialog4ppWix.vpj" KeyPath="yes"/>
   </Component>
 
   <Component Id="DlgLicenseFile.cmp"  Guid="A0EE11FD-8171-4416-994F-B7AD433930EF"
-                                                                Directory="MakeApp_DialogApp.wix.pff">
+                                                                Directory="MakeApp_Dialog4pp.wix.pff">
     <File Id="DlgLicenseFile.cmp"
-                          Source="$(var.SolutionDir)..\DialogApp.wix\LicenseFile.rtf" KeyPath="yes"/>
+                          Source="$(var.SolutionDir)..\Dialog4pp.wix\LicenseFile.rtf" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -754,9 +754,9 @@
 <Fragment>
 
   <Component Id="OneColumn.cmp"  Guid="140823B0-C0AE-47A4-A84A-532D99145E90"
-                                                      Directory="MakeApp_DialogApp.hlp_Templates.pff">
+                                                      Directory="MakeApp_Dialog4pp.hlp_Templates.pff">
     <File Id="OneColumn.cmp"
-              Source="$(var.SolutionDir)..\DialogApp.hlp\Templates\OneColumnPage.dwt" KeyPath="yes"/>
+              Source="$(var.SolutionDir)..\Dialog4pp.hlp\Templates\OneColumnPage.dwt" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -764,44 +764,44 @@
 <Fragment>
 
   <Component Id="About.jpg.cmp"  Guid="AFB8EEB5-C46C-48C2-9706-A43F1A59D03A"
-                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
     <File Id="About.jpg.cmp"
-                          Source="$(var.SolutionDir)..\DialogApp.hlp\Images\About.jpg" KeyPath="yes"/>
+                          Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\About.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="EditBoox.jpg.cmp"  Guid="FD3395CC-80F0-4EB6-AFAE-076BDEA7D639"
-                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
     <File Id="EditBoox.jpg.cmp"
-                      Source="$(var.SolutionDir)..\DialogApp.hlp\Images\EditBoox.jpg" KeyPath="yes"/>
+                      Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\EditBoox.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="Exit.jpg.cmp"  Guid="136013E7-1CD0-43A2-BF79-91BBC9379673"
-                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
-    <File Id="Exit.jpg.cmp" Source="$(var.SolutionDir)..\DialogApp.hlp\Images\Exit.jpg" KeyPath="yes"/>
+                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
+    <File Id="Exit.jpg.cmp" Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\Exit.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="Greeks.jpg.cmp"  Guid="4F694340-BDF0-4262-ADAF-2A023464CA25"
-                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
     <File Id="Greeks.jpg.cmp"
-                        Source="$(var.SolutionDir)..\DialogApp.hlp\Images\Greeks.jpg" KeyPath="yes"/>
+                        Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\Greeks.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="ItemsMenu.jpg.cmp"  Guid="B21713CD-114B-4C5E-A595-A5699FDFABAC"
-                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
     <File Id="ItemsMenu.jpg.cmp"
-                      Source="$(var.SolutionDir)..\DialogApp.hlp\Images\ItemsMenu.jpg" KeyPath="yes"/>
+                      Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\ItemsMenu.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="MyButton.jpg.cmp"  Guid="0CB6807C-5B94-4A97-9319-C7AEA56FE6E6"
-                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
     <File Id="MyButton.jpg.cmp"
-                      Source="$(var.SolutionDir)..\DialogApp.hlp\Images\MyButton.jpg" KeyPath="yes"/>
+                      Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\MyButton.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="PopupMenu.jpg.cmp"  Guid="DCEF4B37-B5F9-404E-85E0-1B53116C7E2D"
-                                                        Directory="MakeApp_DialogApp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
     <File Id="PopupMenu.jpg.cmp"
-                      Source="$(var.SolutionDir)..\DialogApp.hlp\Images\PopupMenu.jpg" KeyPath="yes"/>
+                      Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\PopupMenu.jpg" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -865,7 +865,7 @@
 <Fragment>
 
   <Component Id="Uninstall_Make_App.cmp" 
-                                  Guid="F58D59B7-EA09-46A5-AEC9-D98BAEE3BEE5" Directory="MakeApp.pmf">
+                                  Guid="E3E7D921-03E7-46E0-9A98-B52FD468178B" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"
