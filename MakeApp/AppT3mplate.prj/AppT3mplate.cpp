@@ -6,6 +6,7 @@
 #include "AboutDlg.h"
 #include "AppT3mplateDoc.h"
 #include "AppT3mplateView.h"
+#include "FileName.h"
 #include "IniFile.h"
 #include "NotePad.h"
 #include "Resource.h"
@@ -30,6 +31,9 @@ BOOL AppT3mplate::InitInstance() {
   CWinAppEx::InitInstance();
 
   iniFile.setAppDataPath(m_pszHelpFilePath, *this);
+
+  roamPath = getPath(iniFile.getAppDataPath(m_pszHelpFilePath));
+  appPath  = getPath(m_pszHelpFilePath);
 
   notePad.clear();
 

@@ -53,6 +53,7 @@ public:
   bool           installComboBox( uint id);
   bool           installEditBox(  uint id, int noChars);
   bool           installMenu(     uint id, uint idr, TCchar* caption);
+  bool           installMenu(     uint id, uint idr, uint imageIndex);
   bool           installPopupMenu(uint id);
 
   bool           addPopupItems(uint id, const CbxItem* items, int noItems, bool sorted = false);

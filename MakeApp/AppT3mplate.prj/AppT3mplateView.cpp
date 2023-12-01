@@ -33,15 +33,16 @@ BEGIN_MESSAGE_MAP(AppT3mplateView, CScrView)
 END_MESSAGE_MAP()
 
 
-AppT3mplateView::AppT3mplateView() noexcept :
 #ifdef Examples
-                                            dspStore(dMgr.getNotePad()), prtStore(pMgr.getNotePad()) {
+AppT3mplateView::AppT3mplateView() noexcept : dspStore(dMgr.getNotePad()), prtStore(pMgr.getNotePad()) {
+#else
+AppT3mplateView::AppT3mplateView() noexcept {
 #endif
 ResourceData res;
 String       pn;
   if (res.getProductName(pn)) prtNote.setTitle(pn);
 
-  sub.LoadMenu(ID_PopupMenu);
+  sub.LoadMenu(IDR_PopupMenu);
   menu.CreatePopupMenu();
   menu.AppendMenu(MF_POPUP, (UINT_PTR) sub.GetSafeHmenu(), _T(""));        //
 
@@ -69,22 +70,36 @@ RptOrietnDlg dlg;
 
   dlg.lbl01 = _T("Store:");
   dlg.ntpd = printer.toStg(prtNote.prtrOrietn);
+#ifdef Examples
   dlg.rpt1 = printer.toStg(prtStore.prtrOrietn);
+#endif
 
   if (dlg.DoModal() == IDOK) {
     prtNote.prtrOrietn  = printer.toOrient(dlg.ntpd);
+#ifdef Examples
     prtStore.prtrOrietn = printer.toOrient(dlg.rpt1);
+#endif
     saveRptOrietn();
     }
   }
 
 
 void AppT3mplateView::initRptOrietn()
+#ifdef Examples
+
             {prtStore.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, StrOrietnKey, PortOrient);}
+#else
+  { }
+#endif
 
 
-void AppT3mplateView::saveRptOrietn()
-             {saveNoteOrietn();   iniFile.write(RptOrietnSect, StrOrietnKey,  (int) prtStore.prtrOrietn);}
+void AppT3mplateView::saveRptOrietn() {
+  saveNoteOrietn();
+
+#ifdef Examples
+  iniFile.write(RptOrietnSect, StrOrietnKey,  (int) prtStore.prtrOrietn);
+#endif
+  }
 
 
 
@@ -126,7 +141,9 @@ void AppT3mplateView::onDisplayOutput() {
 void AppT3mplateView::displayHeader(DevBase& dev) {
   switch(doc()->dataSrc()) {
     case NotePadSrc   : dspNote.dspHeader(dev);   break;
-    case StoreSrc     : dspStore.dspHeader(dev); break;
+#ifdef Examples
+    case StoreSrc     : dspStore.dspHeader(dev);  break;
+#endif
     }
   }
 
@@ -134,7 +151,9 @@ void AppT3mplateView::displayHeader(DevBase& dev) {
 void AppT3mplateView::displayFooter(DevBase& dev) {
   switch(doc()->dataSrc()) {
     case NotePadSrc   : dspNote.dspFooter(dev);   break;
-    case StoreSrc     : dspStore.dspFooter(dev); break;
+#ifdef Examples
+    case StoreSrc     : dspStore.dspFooter(dev);  break;
+#endif
     }
   }
 
@@ -142,7 +161,9 @@ void AppT3mplateView::displayFooter(DevBase& dev) {
 void AppT3mplateView::printHeader(DevBase& dev, int pageNo) {
   switch(doc()->dataSrc()) {
     case NotePadSrc: prtNote.prtHeader(dev, pageNo);   break;
-    case StoreSrc  : dspStore.prtHeader(dev, pageNo); break;
+#ifdef Examples
+    case StoreSrc  : dspStore.prtHeader(dev, pageNo);  break;
+#endif
     }
   }
 

@@ -20,8 +20,13 @@
 IMPLEMENT_DYNCREATE(AppT3mplateDoc, CDoc)
 
 BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
-  ON_COMMAND(      ID_File_Open,  &OnFileOpen)
-  ON_COMMAND(      ID_File_Save,  &OnFileSave)
+  ON_COMMAND(      ID_File_Open,   &onFileOpen)
+
+  ON_COMMAND(      ID_SavePopup,   &onSaveFile)
+  ON_COMMAND(      ID_SaveFile,    &onSaveFile)
+  ON_COMMAND(      ID_SaveStrRpt,  &onSaveStrRpt)
+  ON_COMMAND(      ID_SaveNotePad, &onSaveNotePad)
+
   ON_COMMAND(      ID_EDIT_COPY,  &onEditCopy)
 
 #ifdef Examples
@@ -86,7 +91,7 @@ ToolBar& toolBar = getToolBar();
   toolBar.addCbxItems(  ID_CBox, cbxText, noElements(cbxText));
   toolBar.setCbxCaption(ID_CBox, CbxCaption);
 
-  notePad << _T("Loaded ") << CbxCaption << _T(" into ComboBx") << nCrlf;  display(NotePadSrc);
+  notePad << _T("Loaded ") << CbxCaption << _T(" into ComboBx") << nCrlf;  display();
   }
 
 
@@ -97,7 +102,7 @@ int      x;
 
   if (toolBar.getCbxSel(ID_CBox, s, x))
                                notePad << _T("On Change, Item = ") << s << _T(", Data = ") << x << nCrlf;
-  display(NotePadSrc);
+  display();
   }
 
 
@@ -108,7 +113,7 @@ String   s;
 
   if (toolBar.getEbxText(ID_EditBox, s)) notePad << s << nCrlf;
 
-  display(NotePadSrc);
+  display();
   }
 
 
@@ -118,21 +123,21 @@ String   s;
 
   if (toolBar.getEbxText(ID_EditBox, s)) notePad << s << nCrlf;
 
-  display(NotePadSrc);
+  display();
   }
 
 
-void AppT3mplateDoc::onOption11() {notePad << _T("Option 11") << nCrlf; display(NotePadSrc);}
-void AppT3mplateDoc::onOption12() {notePad << _T("Option 12") << nCrlf; display(NotePadSrc);}
-void AppT3mplateDoc::onOption13() {notePad << _T("Option 13") << nCrlf; wholePage(); display(NotePadSrc);}
+void AppT3mplateDoc::onOption11() {notePad << _T("Option 11") << nCrlf; display();}
+void AppT3mplateDoc::onOption12() {notePad << _T("Option 12") << nCrlf; display();}
+void AppT3mplateDoc::onOption13() {notePad << _T("Option 13") << nCrlf; wholePage(); display();}
 
 
-void AppT3mplateDoc::onOption21() {notePad << _T("Option 21") << nCrlf; display(NotePadSrc);}
-void AppT3mplateDoc::onOption22() {notePad << _T("Option 22") << nCrlf; display(NotePadSrc);}
-void AppT3mplateDoc::onOption23() {notePad << _T("Option 23") << nCrlf; display(NotePadSrc);}
+void AppT3mplateDoc::onOption21() {notePad << _T("Option 21") << nCrlf; display();}
+void AppT3mplateDoc::onOption22() {notePad << _T("Option 22") << nCrlf; display();}
+void AppT3mplateDoc::onOption23() {notePad << _T("Option 23") << nCrlf; display();}
 
 
-void AppT3mplateDoc::OnTestEditBoxes() {display(NotePadSrc);}
+void AppT3mplateDoc::OnTestEditBoxes() {display();}
 
 
 // AppT3mplateDoc commands
@@ -153,7 +158,7 @@ int n;
 
   notePad << nFFace(_T("Courier New")) << nFSize(12.0);   testLine(n);   notePad << nFont << nFont;
 
-  testLine(n);   display(NotePadSrc);
+  testLine(n);   display();
   }
 
 
@@ -198,7 +203,7 @@ void AppT3mplateDoc::displayDataStore() {display(StoreSrc);}
 void AppT3mplateDoc::onEditCopy() {clipLine.load();}
 
 
-void AppT3mplateDoc::OnFileOpen() {
+void AppT3mplateDoc::onFileOpen() {
 
   notePad.clear();   dataSource = StoreSrc;
 
@@ -218,17 +223,19 @@ void AppT3mplateDoc::OnFileOpen() {
   }
 
 
+void AppT3mplateDoc::onSaveFile()
+                 {dataSource = StoreSrc; saveFile(_T("Save File"), _T(""), _T("txt")); display(StoreSrc);}
+
+
+void AppT3mplateDoc::onSaveStrRpt()
+     {dataSource = StrRptSrc;   if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);   display(StoreSrc);}
+
+
+void AppT3mplateDoc::onSaveNotePad()
+    {dataSource = NotePadSrc;   if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);   display(StoreSrc);}
+
+
 void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}
-
-
-void AppT3mplateDoc::OnFileSave() {
-  switch (dataSource) {
-    case NotePadSrc : if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);   break;
-    case StoreSrc   : dataSource = StrTxtSrc;  saveFile(_T("Store"), _T("Str"), _T("txt")); break;
-    }
-
-  invalidate();
-  }
 
 
 void AppT3mplateDoc::saveFile(TCchar* title, TCchar* suffix, TCchar* fileType) {
@@ -255,7 +262,7 @@ void AppT3mplateDoc::serialize(Archive& ar) {
       case NotePadSrc : notePad.archive(ar); return;
 #ifdef Examples
       case StoreSrc   : store.store(ar); return;
-      case StrTxtSrc  : view()->storeRpt().txtOut( ar, 1.35); dataSource = StoreSrc; return;
+      case StrRptSrc  : view()->storeRpt().txtOut( ar, 1.35); return;
 #endif
       default         : return;
       }

@@ -6,7 +6,7 @@
 #include "MainFrame.h"
 
 
-enum DataSource {NotePadSrc, StoreSrc, StrTxtSrc, FontSrc};
+enum DataSource {NotePadSrc, StoreSrc, StrRptSrc, FontSrc};
 
 
 class AppT3mplateDoc : public CDoc {
@@ -25,7 +25,7 @@ public:
   virtual BOOL OnNewDocument();
 
   DataSource dataSrc() {return dataSource;}
-  void       display(DataSource ds);
+  void       display(DataSource ds = NotePadSrc);
 
   virtual void serialize(Archive& ar);
 
@@ -53,8 +53,12 @@ protected:
 
 public:
 
-  afx_msg void OnFileOpen();
-  afx_msg void OnFileSave();
+  afx_msg void onFileOpen();
+
+  afx_msg void onSaveFile();
+  afx_msg void onSaveStrRpt();
+  afx_msg void onSaveNotePad();
+
   afx_msg void onEditCopy();
 
 #ifdef Examples

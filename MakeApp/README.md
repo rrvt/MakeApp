@@ -160,6 +160,13 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 11/30/23
+
+Modified the tool bar save command to be a drop down menu with three options:
+  - Save Store data unchanged
+  - Save a Report of the Store data
+  - Save the content of the NotePad (which is visible on the screen when the store is not loaded)
+
 ### Update 7/1/23
 
 Library Update.  Changed "DialogApp" to "Dialog4pp" to avoid confusion during copy operation.

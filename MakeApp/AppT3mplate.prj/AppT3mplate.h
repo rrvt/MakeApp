@@ -11,6 +11,9 @@ class AppT3mplateView;
 
 class AppT3mplate : public CApp {
 
+String roamPath;
+String appPath;
+
 public:
 
                AppT3mplate() noexcept : CApp(this) { }
@@ -18,9 +21,11 @@ public:
   virtual BOOL InitInstance();
   virtual int  ExitInstance();
 
-          AppT3mplateDoc*  doc()  {return (AppT3mplateDoc*)  CApp::getDoc();}
-          AppT3mplateView* view() {return (AppT3mplateView*) CApp::getView();}
-          MainFrame*       mainFrm() {return (MainFrame*) m_pMainWnd;}
+          AppT3mplateDoc*  doc()         {return (AppT3mplateDoc*)  CApp::getDoc();}
+          AppT3mplateView* view()        {return (AppT3mplateView*) CApp::getView();}
+          MainFrame*       mainFrm()     {return (MainFrame*)       m_pMainWnd;}
+          String&          roamingPath() {return roamPath;}
+          String&          thisAppPath() {return appPath;}
 
   DECLARE_MESSAGE_MAP()
 

@@ -51,7 +51,9 @@ public:
 
   AppT3mplateDoc* GetDocument() const;
 
+#ifdef Examples
   StoreRpt&       storeRpt()  {return dspStore;}
+#endif
 
 public:
 

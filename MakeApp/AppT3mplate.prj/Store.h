@@ -5,7 +5,7 @@
 #include "Archive.h"
 #include "Date.h"
 #include "DevBase.h"
-#include "ExpandableP.h"
+#include "ExpandableX.h"
 #include "IterT.h"
 
 
@@ -48,7 +48,7 @@ public:
 // Define an object to hold a pointer to each datum.  When sorting, the pointer is moved, not the
 // datum (which could be large)
 
-typedef DatumPtrT<Datum> DatumP;
+typedef DatumPtrX<Datum, String> DatumP;
 
 // Define the iterator used to look at the data in the datastore.  It is here so that it can be friended
 
@@ -67,7 +67,7 @@ typedef IterT<Store, Datum> DSIter;                        // Iterator for the S
 
 class Store {
 
-ExpandableP<Datum, DatumP, 2> data;
+ExpandableX<Datum, String, DatumP, 2> data;
 
 public:
 

@@ -104,6 +104,7 @@ void MainFrame::setupToolBar() {
 CRect winRect;   GetWindowRect(&winRect);   toolBar.initialize(winRect);
 
   toolBar.installBtn(     ID_Btn1, _T("Load Combo"));
+  toolBar.installMenu(ID_SavePopup, IDR_SavePopup,  2);
   toolBar.installMenu(    ID_Menu1, IDR_PopupMenu1, _T("Menu 1"));
   toolBar.installMenu(    ID_Menu2, IDR_PopupMenu2, _T("Menu 2"));
   toolBar.installComboBox(ID_CBox);
