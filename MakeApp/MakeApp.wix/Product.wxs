@@ -191,7 +191,7 @@
 <Fragment>
   <Directory Id="TARGETDIR" Name="SourceDir">
     <Directory Id="ProgramFilesFolder">
-      <Directory Id="MakeApp.pff" Name="MakeApp">
+      <Directory Id="MAKEAPP.PFF" Name="MakeApp">
         <Directory Id="MakeApp_AppT3mplate.pff" Name="AppT3mplate" />
         <Directory Id="MakeApp_AppT3mplate.hlp.pff" Name="AppT3mplate.hlp">
           <Directory Id="MakeApp_AppT3mplate.hlp_Templates.pff" Name="Templates" />
@@ -204,12 +204,12 @@
         <Directory Id="MakeApp_Dialog4pp.pff" Name="Dialog4pp" />
         <Directory Id="MakeApp_Dialog4pp.hlp.pff" Name="Dialog4pp.hlp">
           <Directory Id="MakeApp_Dialog4pp.hlp_Templates.pff" Name="Templates" />
-          <Directory Id="MakeApp_Dialog4pp.hlp_Images.pff" Name="Images" />
+          <Directory Id="MakeApp_Dialog4pp.hlp_images.pff" Name="images" />
         </Directory>
+        <Directory Id="MakeApp_Dialog4pp.wix.pff" Name="Dialog4pp.wix" />
         <Directory Id="MakeApp_Dialog4pp.prj.pff" Name="Dialog4pp.prj">
           <Directory Id="MakeApp_Dialog4pp.prj_res.pff" Name="res" />
         </Directory>
-        <Directory Id="MakeApp_Dialog4pp.wix.pff" Name="Dialog4pp.wix" />
       </Directory>
     </Directory>
 
@@ -222,13 +222,13 @@
   </Directory>
 
   <Property Id="ApplicationFolderName" Value="MakeApp" />
-  <Property Id="WIXUI_INSTALLDIR"      Value="MakeApp.pff"/>
+  <Property Id="WIXUI_INSTALLDIR"      Value="MAKEAPP.PFF"/>
   <Property Id="WixAppFolder"          Value="WixPerMachineFolder" />
 </Fragment>
 
 <Fragment>
 
-  <Component Id="Make_App.cmp"  Guid="41281DE2-5E79-4364-9435-BA0D4641D262" Directory="MakeApp.pff">
+  <Component Id="Make_App.cmp"  Guid="41281DE2-5E79-4364-9435-BA0D4641D262" Directory="MAKEAPP.PFF">
     <File Id="Make_App.cmp" Source="$(var.SolutionDir)..\Release\MakeApp.exe" KeyPath="yes"/>
 
     <Shortcut Id               = "MakeApp.shc"
@@ -236,7 +236,7 @@
               Description      = "Make App"
               Advertise        = "yes"
               Directory        = "MakeApp.pmf"
-              WorkingDirectory = "MakeApp.pff"
+              WorkingDirectory = "MAKEAPP.PFF"
               Icon             = "MakeApp_Icon.exe"
               />
 
@@ -245,16 +245,16 @@
               Description      = "Make App"
               Advertise        = "yes"
               Directory        = "DesktopFolder"
-              WorkingDirectory = "MakeApp.pff"
+              WorkingDirectory = "MAKEAPP.PFF"
               Icon             = "MakeApp_Icon.exe"
               />
   </Component>
 
-  <Component Id="Help.cmp"  Guid="03774BDF-4DCE-417F-9071-7A7B0A21CB99" Directory="MakeApp.pff">
+  <Component Id="Help.cmp"  Guid="03774BDF-4DCE-417F-9071-7A7B0A21CB99" Directory="MAKEAPP.PFF">
     <File Id="Help.cmp" Source="$(var.SolutionDir)..\Release\MakeApp.chm" KeyPath="yes"/>
   </Component>
 
-  <Component Id="ReadMe.cmp"  Guid="826EAF5C-B54F-4CAA-9722-02C3FF030426" Directory="MakeApp.pff">
+  <Component Id="ReadMe.cmp"  Guid="826EAF5C-B54F-4CAA-9722-02C3FF030426" Directory="MAKEAPP.PFF">
     <File Id="ReadMe.cmp" Source="$(var.SolutionDir)..\README-Template.md" KeyPath="yes"/>
   </Component>
 
@@ -764,42 +764,42 @@
 <Fragment>
 
   <Component Id="About.jpg.cmp"  Guid="AFB8EEB5-C46C-48C2-9706-A43F1A59D03A"
-                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_images.pff">
     <File Id="About.jpg.cmp"
                           Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\About.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="EditBoox.jpg.cmp"  Guid="FD3395CC-80F0-4EB6-AFAE-076BDEA7D639"
-                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_images.pff">
     <File Id="EditBoox.jpg.cmp"
                       Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\EditBoox.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="Exit.jpg.cmp"  Guid="136013E7-1CD0-43A2-BF79-91BBC9379673"
-                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_images.pff">
     <File Id="Exit.jpg.cmp" Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\Exit.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="Greeks.jpg.cmp"  Guid="4F694340-BDF0-4262-ADAF-2A023464CA25"
-                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_images.pff">
     <File Id="Greeks.jpg.cmp"
                         Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\Greeks.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="ItemsMenu.jpg.cmp"  Guid="B21713CD-114B-4C5E-A595-A5699FDFABAC"
-                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_images.pff">
     <File Id="ItemsMenu.jpg.cmp"
                       Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\ItemsMenu.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="MyButton.jpg.cmp"  Guid="0CB6807C-5B94-4A97-9319-C7AEA56FE6E6"
-                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_images.pff">
     <File Id="MyButton.jpg.cmp"
                       Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\MyButton.jpg" KeyPath="yes"/>
   </Component>
 
   <Component Id="PopupMenu.jpg.cmp"  Guid="DCEF4B37-B5F9-404E-85E0-1B53116C7E2D"
-                                                        Directory="MakeApp_Dialog4pp.hlp_Images.pff">
+                                                        Directory="MakeApp_Dialog4pp.hlp_images.pff">
     <File Id="PopupMenu.jpg.cmp"
                       Source="$(var.SolutionDir)..\Dialog4pp.hlp\Images\PopupMenu.jpg" KeyPath="yes"/>
   </Component>
@@ -865,7 +865,7 @@
 <Fragment>
 
   <Component Id="Uninstall_Make_App.cmp" 
-                                  Guid="E3E7D921-03E7-46E0-9A98-B52FD468178B" Directory="MakeApp.pmf">
+                                  Guid="BE4A2A49-2309-485A-AB4C-10D40849459C" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"

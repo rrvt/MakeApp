@@ -46,7 +46,7 @@ public:
 
 
 #if 1
-typedef DatumPtrT<Datum> DatumP;
+typedef DatumPtrT<Datum, String> DatumP;
 #else
 
 // This facilitates the expansion of the Expandable array in the FileStore.  Essentially The pointers are
@@ -98,7 +98,7 @@ typedef IterT<FileStore, Datum> FSIter;                        // Iterator for t
 
 class FileStore {
 
-ExpandableP<Datum, DatumP, 4> data;
+ExpandableP<Datum, String, DatumP, 4> data;
 
 public:
 

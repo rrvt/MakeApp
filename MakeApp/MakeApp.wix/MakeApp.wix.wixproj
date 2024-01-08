@@ -36,6 +36,16 @@
   <ItemGroup>
     <Content Include="MakeApp.wxd" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MakeApp.prj\MakeApp.vcxproj">
+      <Name>MakeApp</Name>
+      <Project>{76210cad-9eb1-4493-8592-e3575de8fc20}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
   <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">

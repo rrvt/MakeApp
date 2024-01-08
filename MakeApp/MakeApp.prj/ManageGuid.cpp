@@ -4,7 +4,7 @@
 #include "pch.h"
 #include "ManageGuid.h"
 #include "Guid.h"
-#include "match.h"
+#include "RegExpr.h"
 
 
 static RegExpr UUIDExpr(_T("^[0-9A-Fa-f\\-][0-9A-Fa-f\\-]*$"));
