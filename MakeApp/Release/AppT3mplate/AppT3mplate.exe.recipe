@@ -9,9 +9,6 @@
   <SatelliteDlls />
   <NonRecipeFileRefs>
     <NonRecipeFileRef>
-      <FullPath>D:\Sources\MakeApp\Dialog4pp.hlp\Dialog4pp.hlp.vcxproj</FullPath>
-    </NonRecipeFileRef>
-    <NonRecipeFileRef>
       <FullPath>D:\Sources\MakeApp\MakeApp.hlp\MakeApp.hlp.vcxproj</FullPath>
     </NonRecipeFileRef>
     <NonRecipeFileRef>

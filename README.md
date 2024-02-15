@@ -160,6 +160,13 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 2/13/24
+
+Moved all the library build operations and data to the Library directory to avoid compiling the library
+static and dll librarys excessively.
+
+Update the ReadMe files for the two templates (dashes cause bullet items, not lower case 'o')/
+
 ### Update 1/7/24
 
 Library and other changes.

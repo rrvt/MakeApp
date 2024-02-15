@@ -69,9 +69,6 @@
     <ClInclude Include="..\..\Library\Extras\CalibDspPrtDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Library\Extras\ExtraResource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Library\Extras\AboutDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -85,6 +82,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Library\Extras\OptionsDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Library\Extras\ResourceExtra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Library\Extras\RptOrientDlgTwo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -149,6 +152,9 @@
     <ClCompile Include="..\..\Library\Extras\OptionsDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Library\Extras\RptOrientDlgTwo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -164,17 +170,15 @@
     <None Include="..\..\Library\Extras\Options.rc2">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="res\Toolbar07.bmp">
+    <None Include="res\MakeApp.ico">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\Toolbar26.bmp">
+    </None>
+    <None Include="res\Toolbar.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\MakeApp01.ico">
+    </None>
+    <None Include="..\..\Library\Extras\RptOrientTwo.rc2">
       <Filter>Resource Files</Filter>
-    </Image>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MakeApp.rc">

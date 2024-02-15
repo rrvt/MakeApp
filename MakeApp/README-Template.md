@@ -5,12 +5,12 @@ One Paragraph of project description goes here
 ## Getting Started
 
 This version was created with Visual Studion 2022 (VS22).  It was compiled with the following properties:
-  o Windows SDK Version: 10.0.xxxxx (latest)
-  o Platfor Toolset: visual Studio 2022 (latest)
-  o MFC: Use MFC in a Shared DLL
-  o Character Set:  Use Unicode Character Set
-  o Precompiled Header:  Not Using Precompiled Headers
-  o Linker/Additional Dependencies:  Htmlhelp.lib
+  - Windows SDK Version: 10.0.xxxxx (latest)
+  - Platfor Toolset: visual Studio 2022 (latest)
+  - MFC: Use MFC in a Shared DLL
+  - Character Set:  Use Unicode Character Set
+  - Precompiled Header:  Not Using Precompiled Headers
+  - Linker/Additional Dependencies:  Htmlhelp.lib
 
 The HTML Help Workshop (HHW), Version 4.74.8702.0 (the last one produced) was used to prepare the help
 file (WixApp.chm).  It is
