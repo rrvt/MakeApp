@@ -6,12 +6,7 @@
 #include "AboutDlg.h"
 #include "History.h"
 #include "StatusBar.h"
-#include "TBComboBox.h"
 
-
-static TCchar* MenuCaption = _T("Popup Menu");
-
-// Dialog4ppDlg dialog
 
 IMPLEMENT_DYNAMIC(Dialog4ppDlg, CDialogEx)
 
@@ -35,30 +30,23 @@ static CbxItem CbxText[]  = {{_T("Zeta"),    1},
                              {_T("Iota"),   14}
                              };
 
-static CbxItem CbxSingle    =  {_T("Single"), 3000};
 
-static CbxItem PopupItems[] = {{_T("Option11"), ID_Option11},
-                               {_T("Option12"), ID_Option12}
-                               };
-static const TCchar* ItemsCaption = _T("Items Menu");
+static CbxItem PopupItems1[] = {{_T("Option11"), ID_Option11},
+                                {_T("Option12"), ID_Option12}
+                                };
 #endif
 
 
 BEGIN_MESSAGE_MAP(Dialog4ppDlg, CDialogEx)
-  ON_WM_CREATE()
-  ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)
-  ON_NOTIFY_EX(    TTN_NEEDTEXT, 0, &OnTtnNeedText)         // Do ToolTips
-  ON_WM_MOVE()
-#ifdef DialogSizable
-  ON_WM_SIZE()
-#endif
 
 #ifdef Examples
+
+  ON_COMMAND(      ID_Button,       &onX)
+
   ON_COMMAND(      ID_ChangeReady,  &changeReady)
 
-  ON_CBN_SELCHANGE(ID_CBox,         &onComboBoxChng)        // Process secelection from list
-
   ON_EN_KILLFOCUS( ID_EditBox,      &onTBEditBox)           // Process content of edit box
+
 
   ON_CBN_SELCHANGE(ID_PopupMenu,    &onDispatch)            // Send Command Message with ID_...
   ON_COMMAND(      ID_Option01,     &onOption01)
@@ -68,7 +56,8 @@ BEGIN_MESSAGE_MAP(Dialog4ppDlg, CDialogEx)
   ON_COMMAND(      ID_Option11,     &onOption11)
   ON_COMMAND(      ID_Option12,     &onOption12)
 
-  ON_COMMAND(      ID_Button,       &onX)
+  ON_CBN_SELCHANGE(ID_CboBx,        &onCboBxChange)        // Process secelection from list
+  ON_CBN_SELCHANGE(ID_CboBx1,       &onCboBx1Change)        // Process secelection from list
 
   ON_COMMAND(      ID_SaveHist,     &onSaveHist)
 #endif
@@ -76,14 +65,22 @@ BEGIN_MESSAGE_MAP(Dialog4ppDlg, CDialogEx)
   ON_COMMAND(      ID_Help,         &onHelp)
   ON_COMMAND(      ID_App_About,    &onAppAbout)
   ON_COMMAND(      ID_App_Exit,     &OnOK)
+
+  ON_WM_CREATE()
+  ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)
+  ON_NOTIFY_EX(    TTN_NEEDTEXT, 0, &OnTtnNeedText)         // Do ToolTips
+  ON_WM_MOVE()
+#ifdef DialogSizable
+  ON_WM_SIZE()
+#endif
 END_MESSAGE_MAP()
 
 
-Dialog4ppDlg::Dialog4ppDlg(TCchar* helpPth, CWnd* pParent) :
-                           helpPath(helpPth), CDialogEx(IDD_Dialog4pp, pParent), isInitialized(false) { }
+Dialog4ppDlg::Dialog4ppDlg(TCchar* helpPth, CWnd* pParent) : CDialogEx(IDD_Dialog4pp, pParent),
+                                       helpPath(helpPth), toolBar(), statusBar(), isInitialized(false) { }
 
 
-Dialog4ppDlg::~Dialog4ppDlg() { }
+Dialog4ppDlg::~Dialog4ppDlg() {winPos.~WinPos();}
 
 
 int Dialog4ppDlg::OnCreate(LPCREATESTRUCT lpCreateStruct) {
@@ -101,13 +98,17 @@ CRect winRect;
 
   if (!toolBar.create(this, IDR_TOOLBAR)) return false;
 
-  GetWindowRect(&winRect);   toolBar.move(winRect);   SetBackgroundColor(RGB(255,255,255));
+  GetWindowRect(&winRect);   winPos.setDLUToPxls(winRect, DlgWidth, DlgDepth);
+
+  SetBackgroundColor(RGB(255,255,255));               // toolBar.move(winRect);
 
   if (!statusBar.create(this, IDC_StatusBar)) return false;
 
   statusBar.setReady();
 
-  winPos.initialPos(this, winRect);   isInitialized = true;   return true;
+  winPos.initialPos(this, winRect);   toolBar.move(winRect);   statusBar.move(winRect);
+
+  isInitialized = true;   return true;
   }
 
 
@@ -122,25 +123,15 @@ LRESULT Dialog4ppDlg::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar
 
 
 void Dialog4ppDlg::setupToolBar() {
-CRect winRect;   GetWindowRect(&winRect);   toolBar.initialize(winRect);
+CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
-#ifdef Examples
-  toolBar.installBtn(ID_Button, _T(" My Button "));
+  toolBar.addButton(ID_Button, _T(" My Button "));
 
-  if (toolBar.installComboBox(ID_CBox)) setComboBox();
-
-  toolBar.installEditBox(ID_EditBox, 20);
-
-  if (toolBar.installPopupMenu(ID_PopupMenu)) {
-    toolBar.addPopupMenu(   ID_PopupMenu, IDR_PopupMenu);
-    toolBar.setPopupCaption(ID_PopupMenu, MenuCaption);
-    }
-
-  if (toolBar.installPopupMenu(ID_PopupMenu1)) {
-    toolBar.addPopupItems(  ID_PopupMenu1, PopupItems, noElements(PopupItems));
-    toolBar.setPopupCaption(ID_PopupMenu1, ItemsCaption);
-    }
-#endif
+  toolBar.addEditBox(ID_EditBox, 20);
+  toolBar.addMenu(ID_PopupMenu,  IDR_PopupMenu, _T("My Caption"));
+  toolBar.addMenu(ID_PopupMenu1, PopupItems1, noElements(PopupItems1), _T("My Caption #1"));
+  toolBar.addCBx( ID_CboBx,      IDR_CbxMenu,   _T("A Combo Box"));
+  toolBar.addCBx( ID_CboBx1,     CbxText, noElements(CbxText), CbxCaption);
   }
 
 
@@ -151,40 +142,49 @@ void Dialog4ppDlg::OnMove(int x, int y)
 #ifdef DialogSizable
 
 void Dialog4ppDlg::OnSize(UINT nType, int cx, int cy) {
-CRect winRect;
 
-  CDialogEx::OnSize(nType, cx, cy);
+#if 1
+CRect winRect;
 
   if (!isInitialized) return;
 
+  winPos.set(cx, cy);   CDialogEx::OnSize(nType, cx, cy);
+
   GetWindowRect(&winRect);   winPos.set(winRect);   toolBar.move(winRect);   statusBar.move(winRect);
+
+#else
+CRect winRect;
+
+  CDialogEx::OnSize(nType, cx, cy);    if (!isInitialized) return;
+
+  GetWindowRect(&winRect);   winPos.set(winRect);   toolBar.move(winRect);   statusBar.move(winRect);
+#endif
   }
 #endif
 
 
-#ifdef Examples
-void Dialog4ppDlg::onDispatch()  {toolBar.dispatch(ID_PopupMenu,  MenuCaption);}
-void Dialog4ppDlg::onDispatch1() {toolBar.dispatch(ID_PopupMenu1, ItemsCaption);}
 
 
-void Dialog4ppDlg::setComboBox() {
+void Dialog4ppDlg::onTBChange(NMHDR* pNMHDR, LRESULT* pResult) {
 
-  toolBar.addCbxItems(  ID_CBox, CbxText, noElements(CbxText));
+  LV_KEYDOWN* pLVKeyDow = (LV_KEYDOWN*)pNMHDR;
 
-  toolBar.addCbxItem(   ID_CBox, CbxSingle);
+  // TODO: Add your control notification handler code here
 
-  toolBar.addResToCbx(  ID_CBox, IDR_CbxMenu);
-
-  toolBar.setCbxCaption(ID_CBox, CbxCaption);
+  *pResult = 0;
   }
 
 
-void Dialog4ppDlg::onComboBoxChng() {
+
+#ifdef Examples
+
+
+void Dialog4ppDlg::onCboBxChange() {
 String s;
 int    x;
 String t;
 
-  if (!toolBar.getCbxSel(ID_CBox, s, x)) return;
+  if (!toolBar.getCurSel(ID_CboBx, s, x)) return;
 
   t.format(_T("Item = %s, Data = %i"), s.str(), x);
 
@@ -192,7 +192,51 @@ String t;
   }
 
 
-void Dialog4ppDlg::onTBEditBox() {String s;   toolBar.getEbxText(ID_EditBox, s);   statusBar.setText(1, s);}
+void Dialog4ppDlg::onCboBx1Change() {
+String s;
+int    x;
+String t;
+
+  if (!toolBar.getCurSel(ID_CboBx1, s, x)) return;
+
+  t.format(_T("Item = %s, Data = %i"), s.str(), x);
+
+  statusBar.setText(1, t);
+  }
+
+
+void Dialog4ppDlg::onDispatch()  {toolBar.dispatch(ID_PopupMenu);}
+
+
+void Dialog4ppDlg::onOption00() {SetFocus();   onOption01();}
+
+
+void Dialog4ppDlg::onOption01() {
+  statusBar.setText(1, _T("Option 0.1"));
+  }
+
+
+void Dialog4ppDlg::onOption02() {
+  statusBar.setText(1, _T("Option 0.2"));
+  }
+
+
+void Dialog4ppDlg::onDispatch1() {toolBar.dispatch(ID_PopupMenu1);}
+
+
+void Dialog4ppDlg::onOption11() {
+  statusBar.setText(1, _T("Option 1.1"));
+  }
+
+
+void Dialog4ppDlg::onOption12() {
+  statusBar.setText(1, _T("Option 1.2"));
+  }
+
+
+void Dialog4ppDlg::onTBEditBox() {
+CString s = toolBar.getText(ID_EditBox);   statusBar.setText(1, s);
+}
 #endif
 
 
@@ -215,29 +259,8 @@ bool status = statusBar.isReady();
   }
 
 
-void Dialog4ppDlg::onOption01() {
-  statusBar.setText(1, _T("Option 0.1"));
-  }
-
-
-void Dialog4ppDlg::onOption02() {
-  statusBar.setText(1, _T("Option 0.2"));
-  }
-
-
-void Dialog4ppDlg::onOption11() {
-  statusBar.setText(1, _T("Option 1.1"));
-  }
-
-
-void Dialog4ppDlg::onOption12() {
-  statusBar.setText(1, _T("Option 1.2"));
-  }
-
-
 void Dialog4ppDlg::onX() {
-  statusBar.setText(1, _T("XYZabc"));
-  toolBar.setEbxText(ID_EditBox, _T("XYZabc"));
+  statusBar.setText(1, _T("My Button"));
   }
 #endif
 
@@ -254,23 +277,4 @@ void Dialog4ppDlg::onAppAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
 
 
 void Dialog4ppDlg::OnOK() {CDialogEx::OnOK();}
-
-
-
-
-#if 0
-
-  //bool  rslt;
-  //CRect rect;
-  //int   parts[2];
-  rect = CRect(0, 0, 0, 0);
-
-  rslt = statusBar.Create(WS_CHILD | WS_VISIBLE | CCS_BOTTOM, rect, this, IDC_StatusBar);
-
-  if (!rslt) return false;
-
-  statusBar.GetClientRect(&rect);   parts[0] = rect.right/2;  parts[1] =  -1;
-
-  rslt = statusBar.SetParts(2, parts);
-#endif
 

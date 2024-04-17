@@ -4,8 +4,7 @@
 #pragma once
 #include "Resource.h"
 #include "StatusBar.h"
-#include "TBBtnCtx.h"
-#include "ToolBar.h"
+#include "MyToolBar.h"
 #include "WinPos.h"
 
 class StatusBar;
@@ -19,11 +18,10 @@ DECLARE_DYNAMIC(Dialog4ppDlg)
 
 String    helpPath;
 
-ToolBar   toolBar;
+MyToolBar toolBar;
 StatusBar statusBar;
 
 bool      isInitialized;
-WinPos    winPos;                                // Position of dialog box
 
 public:
 
@@ -47,10 +45,7 @@ protected:
 
 private:
 
-  void     setupToolBar();
-  void     setComboBox();
-
-  ToolBar* getToolBar() {return &toolBar;}
+  void            setupToolBar();
 
 public:
 
@@ -67,7 +62,11 @@ public:
 
 #ifdef Examples
   afx_msg void    changeReady();
+
+  afx_msg void    onTBChange(NMHDR* pNMHDR, LRESULT* pResult);
+
   afx_msg void    onDispatch();
+  afx_msg void    onOption00();
   afx_msg void    onOption01();
   afx_msg void    onOption02();
   afx_msg void    onDispatch1();
@@ -76,7 +75,9 @@ public:
   afx_msg void    onSaveHist();
 
   afx_msg void    onX();
-  afx_msg void    onComboBoxChng();
+  afx_msg void    onCboBxChange();
+  afx_msg void    onCboBx1Change();
+
   afx_msg void    onTBEditBox();
 #endif
   };

@@ -3,19 +3,18 @@
 
 #pragma once
 #include "CMainFrm.h"
-#include "ToolBar.h"
+#include "MyToolBar.h"
 #include "WinPos.h"
 
 
 class MainFrame : public CMainFrm {
 
-CMFCMenuBar   m_wndMenuBar;
-CMFCStatusBar m_wndStatusBar;
-ToolBar       toolBar;
+CMFCMenuBar   menuBar;
+CMFCStatusBar statusBar;
+MyToolBar     toolBar;
 CMenu         menu;
 
 bool          isInitialized;
-WinPos        winPos;                               // Position of Window
 
 protected:                                          // create from serialization only
 

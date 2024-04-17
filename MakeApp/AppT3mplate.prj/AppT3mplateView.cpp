@@ -26,7 +26,7 @@ BEGIN_MESSAGE_MAP(AppT3mplateView, CScrView)
   ON_WM_LBUTTONDBLCLK()
 
   ON_WM_CONTEXTMENU()                     // Right Mouse Popup Menu
-  ON_COMMAND(ID_Pup0, &onCopy)
+  ON_COMMAND(ID_CopySel, &onCopy)
   ON_COMMAND(ID_Pup1, &onPup1)
   ON_COMMAND(ID_Pup2, &onPup2)
 
@@ -42,7 +42,7 @@ ResourceData res;
 String       pn;
   if (res.getProductName(pn)) prtNote.setTitle(pn);
 
-  sub.LoadMenu(IDR_PopupMenu);
+  sub.LoadMenu(IDR_RtMouseMenu);
   menu.CreatePopupMenu();
   menu.AppendMenu(MF_POPUP, (UINT_PTR) sub.GetSafeHmenu(), _T(""));        //
 

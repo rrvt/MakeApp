@@ -25,23 +25,29 @@
 
 #define ID_App_About                    400
 #define ID_Help                         401
+#define ID_File_New                     402
+#define ID_File_Open                    403
 
 #ifdef Examples
-#define ID_ChangeReady                  402
-#define ID_Button                       403
-#define ID_CBox                         404
-#define ID_EditBox                      405
+#define ID_ChangeReady                  404
+#define ID_Button                       405
+#define ID_EditBox                      406
+#define ID_PopupMenu                    407
+#define ID_Option01                     408
+#define ID_Option02                     419
+#define ID_PopupMenu1                   410
+#define ID_Option11                     411
+#define ID_Option12                     412
+#define ID_CboBx                        413
+#define ID_CboBx1                       414
 
-#define ID_PopupMenu                    406
-#define ID_Option01                     407
-#define ID_Option02                     408
-#define ID_PopupMenu1                   409
-#define ID_Option11                     410
-#define ID_Option12                     411
-
-#define ID_SaveHist                     412
+#define ID_SaveHist                     418
 #endif
+#define ID_Options                      419
 #define ID_App_Exit                     420
+
+#define DlgWidth                        400
+#define DlgDepth                        178
 
 
 // Next default values for new objects

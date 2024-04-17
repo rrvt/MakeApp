@@ -22,35 +22,35 @@ IMPLEMENT_DYNCREATE(AppT3mplateDoc, CDoc)
 BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
   ON_COMMAND(      ID_File_Open,   &onFileOpen)
 
-  ON_COMMAND(      ID_SavePopup,   &onSaveFile)
+  ON_COMMAND(      ID_Button,      &myButton)
+  ON_CBN_KILLFOCUS(ID_EditBox,     &OnTBEditBox)
+  ON_COMMAND(      ID_EditBox,     &OnTBEditBox)
+
+  ON_COMMAND(      ID_Menu,        &onOption11)
+  ON_COMMAND(      ID_Option11,    &onOption11)
+  ON_COMMAND(      ID_Option12,    &onOption12)
+  ON_COMMAND(      ID_Option13,    &onOption13)
+
+  ON_COMMAND(      ID_Menu1,       &onOption21)
+  ON_COMMAND(      ID_Option21,    &onOption21)
+  ON_COMMAND(      ID_Option22,    &onOption22)
+  ON_COMMAND(      ID_Option23,    &onOption23)
+
+  ON_CBN_SELCHANGE(ID_CboBx,       &OnComboBoxChng)
+  ON_COMMAND(      ID_CboBx,       &OnComboBoxChng)
+
+  ON_COMMAND(      ID_TBSaveMenu,  &onSaveFile)
   ON_COMMAND(      ID_SaveFile,    &onSaveFile)
   ON_COMMAND(      ID_SaveStrRpt,  &onSaveStrRpt)
   ON_COMMAND(      ID_SaveNotePad, &onSaveNotePad)
 
-  ON_COMMAND(      ID_EDIT_COPY,  &onEditCopy)
+  ON_COMMAND(      ID_EDIT_COPY,   &onEditCopy)
 
 #ifdef Examples
-  ON_COMMAND(      ID_Test,       &OnTest)
-  ON_COMMAND(      ID_SelDataStr, &displayDataStore)
-
-  ON_COMMAND(      ID_Btn1,       &myButton)
-
-  ON_CBN_SELCHANGE(ID_CBox,       &OnComboBoxChng)
-  ON_COMMAND(      ID_CBox,       &OnComboBoxChng)
-
-  ON_CBN_KILLFOCUS(ID_EditBox,    &OnTBEditBox)
-  ON_COMMAND(      ID_EditBox,    &OnTBEditBox)
-
-  ON_COMMAND(      ID_Menu1,      &onOption11)
-  ON_COMMAND(      ID_Option11,   &onOption11)
-  ON_COMMAND(      ID_Option12,   &onOption12)
-  ON_COMMAND(      ID_Option13,   &onOption13)
-
-  ON_COMMAND(      ID_Menu2,      &onOption21)
-  ON_COMMAND(      ID_Option21,   &onOption21)
-  ON_COMMAND(      ID_Option22,   &onOption22)
-  ON_COMMAND(      ID_Option23,   &onOption23)
+  ON_COMMAND(      ID_Test,        &OnTest)
+  ON_COMMAND(      ID_SelDataStr,  &displayDataStore)
 #endif
+
 END_MESSAGE_MAP()
 
 
@@ -80,27 +80,35 @@ static CbxItem cbxText[] = {{_T("Zeta"),     1},
                             {_T("Sigma"),   11},
                             {_T("Nu"),      12},
                             {_T("Kappa"),   13},
-                            {_T("Iota"),    14}
+                            {_T("Iota"),    14},
+                            {_T("This is a reallyt long Greek"), 15}
                             };
 static TCchar* CbxCaption = _T("Greeks");
 
 
 void AppT3mplateDoc::myButton() {
-ToolBar& toolBar = getToolBar();
+MyToolBar& toolBar = getToolBar();
+int        i;
+int        n;
 
-  toolBar.addCbxItems(  ID_CBox, cbxText, noElements(cbxText));
-  toolBar.setCbxCaption(ID_CBox, CbxCaption);
+  for (i = 0, n = noElements(cbxText); i < n; i++) {
+    CbxItem& item = cbxText[i];
+
+    toolBar.addCbxItemSorted(ID_CboBx, item.txt, item.data);
+    }
+  toolBar.setCaption(ID_CboBx, CbxCaption);
+  toolBar.setWidth(ID_CboBx);
 
   notePad << _T("Loaded ") << CbxCaption << _T(" into ComboBx") << nCrlf;  display();
   }
 
 
 void AppT3mplateDoc::OnComboBoxChng() {
-ToolBar& toolBar = getToolBar();
-String   s;
-int      x;
+MyToolBar& toolBar = getToolBar();
+String     s;
+int        x;
 
-  if (toolBar.getCbxSel(ID_CBox, s, x))
+  if (toolBar.getCurSel(ID_CboBx, s, x))
                                notePad << _T("On Change, Item = ") << s << _T(", Data = ") << x << nCrlf;
   display();
   }
@@ -108,20 +116,22 @@ int      x;
 
 
 void AppT3mplateDoc::OnTBEditBox() {
-ToolBar& toolBar = getToolBar();
-String   s;
+MyToolBar& toolBar = getToolBar();
+CString    cs      = toolBar.getText(ID_EditBox);
+String     s       = cs;
 
-  if (toolBar.getEbxText(ID_EditBox, s)) notePad << s << nCrlf;
+  if (!s.isEmpty()) notePad << s << nCrlf;
 
   display();
   }
 
 
 void AppT3mplateDoc::myButton1() {
-ToolBar& toolBar = getToolBar();
-String   s;
+MyToolBar& toolBar = getToolBar();
+CString    cs      = toolBar.getText(ID_EditBox);
+String     s       = cs;
 
-  if (toolBar.getEbxText(ID_EditBox, s)) notePad << s << nCrlf;
+  if (!s.isEmpty()) notePad << s << nCrlf;
 
   display();
   }
@@ -284,7 +294,5 @@ void AppT3mplateDoc::serialize(Archive& ar) {
 void AppT3mplateDoc::AssertValid() const {         CDocument::AssertValid();}
 void AppT3mplateDoc::Dump(CDumpContext& dc) const {CDocument::Dump(dc);}
 #endif //_DEBUG
-
-
 
 

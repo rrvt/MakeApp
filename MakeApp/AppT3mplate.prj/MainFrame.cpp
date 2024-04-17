@@ -4,7 +4,6 @@
 #include "pch.h"
 #include "MainFrame.h"
 #include "AboutDlg.h"
-#include "TBBtnCtx.h"
 
 
 // MainFrame
@@ -28,11 +27,10 @@ static UINT indicators[] = {
   ID_INDICATOR_SCRL,
   };
 
-// MainFrame construction/destruction
 
 MainFrame::MainFrame() noexcept : isInitialized(false) { }
 
-MainFrame::~MainFrame() { }
+MainFrame::~MainFrame() {winPos.~WinPos();}
 
 
 BOOL MainFrame::PreCreateWindow(CREATESTRUCT& cs) {
@@ -48,21 +46,21 @@ CRect winRect;
 
   if (CFrameWndEx::OnCreate(lpCreateStruct) == -1) return -1;
 
-  if (!m_wndMenuBar.Create(this)) {TRACE0("Failed to create menubar\n"); return -1;}
+  if (!menuBar.Create(this)) {TRACE0("Failed to create menubar\n"); return -1;}
 
   CMFCPopupMenu::SetForceMenuFocus(FALSE);
 
-  if (!toolBar.create(this, IDR_MAINFRAME)) {TRACE0("Failed to create status bar\n"); return -1;}
+  if (!toolBar.create(this, IDR_MAINFRAME)) {TRACE0("Failed to create toolbar\n"); return -1;}
 
   addAboutToSysMenu(IDD_AboutBox, IDS_AboutBox);
 
-  if (!m_wndStatusBar.Create(this)) {TRACE0("Failed to create status bar\n"); return -1;}
+  if (!statusBar.Create(this)) {TRACE0("Failed to create status bar\n"); return -1;}
 
-  m_wndStatusBar.SetIndicators(indicators, noElements(indicators));  //sizeof(indicators)/sizeof(UINT)
+  statusBar.SetIndicators(indicators, noElements(indicators));  //sizeof(indicators)/sizeof(UINT)
 
   GetWindowRect(&winRect);   winPos.initialPos(this, winRect);
 
-  DockPane(&m_wndMenuBar);   DockPane(&toolBar);
+  DockPane(&menuBar);   DockPane(&toolBar);
 
   CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows7));
                                                                          // Affects look of toolbar, etc.
@@ -83,13 +81,10 @@ void MainFrame::OnMove(int x, int y)
 
 
 void MainFrame::OnSize(UINT nType, int cx, int cy) {
-CRect winRect;
-
-  CFrameWndEx::OnSize(nType, cx, cy);
 
   if (!isInitialized) return;
 
-  GetWindowRect(&winRect);   winPos.set(winRect);
+  winPos.set(cx, cy);   CFrameWndEx::OnSize(nType, cx, cy);
   }
 
 
@@ -101,14 +96,14 @@ afx_msg LRESULT MainFrame::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupTo
 void MainFrame::setupToolBar() {
 
 #ifdef Examples
-CRect winRect;   GetWindowRect(&winRect);   toolBar.initialize(winRect);
+CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
-  toolBar.installBtn(     ID_Btn1, _T("Load Combo"));
-  toolBar.installMenu(ID_SavePopup, IDR_SavePopup,  2);
-  toolBar.installMenu(    ID_Menu1, IDR_PopupMenu1, _T("Menu 1"));
-  toolBar.installMenu(    ID_Menu2, IDR_PopupMenu2, _T("Menu 2"));
-  toolBar.installComboBox(ID_CBox);
-  toolBar.installEditBox( ID_EditBox, 20);
+  toolBar.addButton( ID_Button, _T("Load Combo"));
+  toolBar.addEditBox(ID_EditBox, 20);
+  toolBar.addMenu(   ID_Menu, IDR_TBMenu, _T("Menu 1"));
+  toolBar.addMenu(   ID_Menu1, IDR_TBMenu1, _T("Menu 2"));
+  toolBar.addCBx(    ID_CboBx);
+  toolBar.addMenu(   ID_TBSaveMenu, IDR_TBSaveMenu,  7);
 
 #endif
   }

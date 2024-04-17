@@ -98,6 +98,8 @@
   <ComponentRef Id="pchCpp.cmp"/>
   <ComponentRef Id="FrameworkH.cmp"/>
   <ComponentRef Id="AppT3TargetverH.cmp"/>
+  <ComponentRef Id="AppToolBarH.cmp"/>
+  <ComponentRef Id="AppToolBarCpp.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="AppT3mplateRes.ftr">
   <ComponentRef Id="AppT3mplate.ico.cmp"/>
@@ -136,6 +138,8 @@
   <ComponentRef Id="DAResourceH.cmp"/>
   <ComponentRef Id="DATargetverH.cmp"/>
   <ComponentRef Id="DialogAppPrjVpj.cmp"/>
+  <ComponentRef Id="DlgToolBarH.cmp"/>
+  <ComponentRef Id="DlgToolBarCpp.cmp"/>
 </ComponentGroup>
 <ComponentGroup Id="Dialog4ppPrjRes.ftr">
   <ComponentRef Id="DialogAppIco.cmp"/>
@@ -464,6 +468,17 @@
                             Source="$(var.SolutionDir)..\AppT3mplate.prj\targetver.h" KeyPath="yes"/>
   </Component>
 
+  <Component Id="AppToolBarH.cmp"  Guid="7D97665D-9283-406C-A6E0-B3D1CB7A7E50"
+                                                              Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="AppToolBarH.cmp" Source="$(var.SolutionDir)..\AppT3mplate.prj\MyToolBar.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="AppToolBarCpp.cmp"  Guid="0427D231-628A-497C-9D92-2911FF2AAA64"
+                                                              Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="AppToolBarCpp.cmp"
+                          Source="$(var.SolutionDir)..\AppT3mplate.prj\MyToolBar.cpp" KeyPath="yes"/>
+  </Component>
+
 </Fragment>
 
 <Fragment>
@@ -648,6 +663,17 @@
                                                                 Directory="MakeApp_Dialog4pp.prj.pff">
     <File Id="DialogAppPrjVpj.cmp"
                             Source="$(var.SolutionDir)..\Dialog4pp.prj\Dialog4pp.vpj" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="DlgToolBarH.cmp"  Guid="52A3843C-9297-49C9-AC99-55DE9E1DC285"
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="DlgToolBarH.cmp" Source="$(var.SolutionDir)..\Dialog4pp.prj\MyToolBar.h" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="DlgToolBarCpp.cmp"  Guid="6432A506-3464-4EDD-A902-D364CBBC54C9"
+                                                                Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="DlgToolBarCpp.cmp"
+                            Source="$(var.SolutionDir)..\Dialog4pp.prj\MyToolBar.cpp" KeyPath="yes"/>
   </Component>
 
 </Fragment>
@@ -865,7 +891,7 @@
 <Fragment>
 
   <Component Id="Uninstall_Make_App.cmp" 
-                                  Guid="BE4A2A49-2309-485A-AB4C-10D40849459C" Directory="MakeApp.pmf">
+                                  Guid="22201AF4-6F70-4592-84C3-7F42BA3864BE" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"

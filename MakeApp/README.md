@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 4/16/24
+
+Improved the way Toolbars and Window Position and size are handled.
+
 ### Update 2/13/24
 
 Moved all the library build operations and data to the Library directory to avoid compiling the library

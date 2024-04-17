@@ -7,37 +7,46 @@
 
 #define IDR_MAINFRAME                   100
 #define IDR_ToolBarImages               101
-#define IDR_PopupMenu                   102
-#define IDR_PopupMenu1                  103
-#define IDR_PopupMenu2                  104
-#define IDR_SavePopup                   105
-
+#define IDR_TBMenu                      102
+#define IDR_TBMenu1                     103
+#define IDR_TBSaveMenu                  104
+#define IDR_RtMouseMenu                 105
 
 #define ID_File_New                     400
 #define ID_File_Open                    401
-#define ID_Options                      402
-#define ID_SavePopup                    404
-#define ID_SaveFile                     405
-#define ID_SaveStrRpt                   406
-#define ID_SaveNotePad                  407
-#define ID_App_About                    408
-#define ID_Help                         409
-#define ID_Test                         410
-#define ID_SelDataStr                   411
-#define ID_Btn1                         412
-#define ID_Menu1                        413
-#define ID_CBox                         414
-#define ID_EditBox                      415
-#define ID_Option11                     416
-#define ID_Option12                     417
-#define ID_Option13                     418
-#define ID_Menu2                        419
-#define ID_Option21                     420
-#define ID_Option22                     421
-#define ID_Option23                     423
-#define ID_Pup0                         424
-#define ID_Pup1                         425
-#define ID_Pup2                         426
+
+#define ID_Button                       402
+#define ID_EditBox                      403
+
+#define ID_Menu                         404
+#define ID_Option11                     405
+#define ID_Option12                     406
+#define ID_Option13                     407
+
+#define ID_Menu1                        408
+#define ID_Option21                     409
+#define ID_Option22                     410
+#define ID_Option23                     411
+
+#define ID_CboBx                        412
+
+#define ID_TBSaveMenu                   413
+#define ID_SaveFile                     414
+#define ID_SaveStrRpt                   415
+#define ID_SaveNotePad                  416
+
+#define ID_Options                      417
+#define ID_App_About                    418
+
+#define ID_Help                         419
+#define ID_Test                         420
+#define ID_SelDataStr                   421
+
+// Right Mouse Context Menu
+#define ID_CopySel                      422
+#define ID_Pup1                         423
+#define ID_Pup2                         424
+
 
 // Next default values for new objects
 //

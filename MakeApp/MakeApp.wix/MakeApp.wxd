@@ -4,7 +4,7 @@ Path=D:\Sources\MakeApp\MakeApp\MakeApp.sln
 Name=MakeApp
 Version=2.100000
 [DefaultPath]
-NPaths=7
+NPaths=8
 DefKey0=MakeApp.ftr
 MakeApp.ftr.Path=D:\Sources\MakeApp\Release\
 DefKey1=Icon
@@ -19,6 +19,8 @@ DefKey5=AppT3mplateRes.ftr
 AppT3mplateRes.ftr.Path=D:\Sources\MakeApp\AppT3mplate.prj\res\
 DefKey6=Dialog4ppHlp.ftr
 Dialog4ppHlp.ftr.Path=D:\Sources\MakeApp\Dialog4pp.hlp\
+DefKey7=Dialog4ppPrj.ftr
+Dialog4ppPrj.ftr.Path=D:\Sources\MakeApp\Dialog4pp.prj\
 [Icons]
 NoIcons=1
 [Icon00]
@@ -29,7 +31,7 @@ IconPath=D:\Sources\MakeApp\MakeApp.prj\res\MakeApp.ico
 ProductName=MakeApp
 Company=Bob -- K6RWY
 WixName=MakeApp
-WixVersion=1.6.21.0
+WixVersion=1.7.2.0
 UpgradeCode=07B80D4F-179C-4439-836D-E3743B3AAA5F
 SaveVerAllowed=0
 LicenseRequired=0
@@ -137,7 +139,7 @@ Name=MakeApp
 HasChildren=0
 [Features]
 Count=15
-CurSel=MakeApp
+CurSel=AppT3mplatePrj
 [Ftr00]
 FeatureID=MakeApp
 ProgramID=MakeApp
@@ -225,8 +227,8 @@ Guid=15F4EEB3-CD9D-45CA-8C3E-88D554C435D8
 FeatureID=AppT3mplatePrj
 ProgramID=MakeApp\AppT3mplate.prj
 StartMenuID=
-CurSel=AppT3mplateCpp
-NoComponents=22
+CurSel=AppToolBarCpp
+NoComponents=24
 [Ftr03Cmp00]
 ID=AppT3mplateCpp
 Path=D:\Sources\MakeApp\AppT3mplate.prj\AppT3mplate.cpp
@@ -315,6 +317,14 @@ Guid=EA895394-5AA9-405D-9DC1-5E895D216C08
 ID=AppT3TargetverH
 Path=D:\Sources\MakeApp\AppT3mplate.prj\targetver.h
 Guid=7ADBB2A2-7035-44CA-BB15-9A17E1B156EF
+[Ftr03Cmp22]
+ID=AppToolBarH
+Path=D:\Sources\MakeApp\AppT3mplate.prj\MyToolBar.h
+Guid=7D97665D-9283-406C-A6E0-B3D1CB7A7E50
+[Ftr03Cmp23]
+ID=AppToolBarCpp
+Path=D:\Sources\MakeApp\AppT3mplate.prj\MyToolBar.cpp
+Guid=0427D231-628A-497C-9D92-2911FF2AAA64
 [Ftr04]
 FeatureID=AppT3mplateRes
 ProgramID=MakeApp\AppT3mplate.prj\res
@@ -401,8 +411,8 @@ Guid=E913FA5C-7FF2-4C5D-84AE-8D8FB04B0678
 FeatureID=Dialog4ppPrj
 ProgramID=MakeApp\Dialog4pp.prj
 StartMenuID=
-CurSel=DialogDlgH
-NoComponents=14
+CurSel=DlgToolBarH
+NoComponents=16
 [Ftr07Cmp00]
 ID=DialogAppCpp
 Path=D:\Sources\MakeApp\Dialog4pp.prj\Dialog4pp.cpp
@@ -459,6 +469,14 @@ Guid=541BC7F3-AEC3-4BA2-8158-B598DE839993
 ID=DialogAppPrjVpj
 Path=D:\Sources\MakeApp\Dialog4pp.prj\Dialog4pp.vpj
 Guid=67EAF0C4-C8D0-426E-B849-CD419E6F415C
+[Ftr07Cmp14]
+ID=DlgToolBarH
+Path=D:\Sources\MakeApp\Dialog4pp.prj\MyToolBar.h
+Guid=52A3843C-9297-49C9-AC99-55DE9E1DC285
+[Ftr07Cmp15]
+ID=DlgToolBarCpp
+Path=D:\Sources\MakeApp\Dialog4pp.prj\MyToolBar.cpp
+Guid=6432A506-3464-4EDD-A902-D364CBBC54C9
 [Ftr08]
 FeatureID=Dialog4ppPrjRes
 ProgramID=MakeApp\Dialog4pp.prj\res

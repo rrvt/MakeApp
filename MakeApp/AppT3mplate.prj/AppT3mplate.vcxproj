@@ -149,6 +149,7 @@
     <ClInclude Include="AppT3mplateView.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="MyToolBar.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Store.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="AppT3mplateDoc.cpp" />
     <ClCompile Include="AppT3mplateView.cpp" />
     <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="MyToolBar.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Store.cpp" />
     <ClCompile Include="StoreRpt.cpp" />
