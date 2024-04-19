@@ -35,7 +35,7 @@ MainFrame::~MainFrame() {winPos.~WinPos();}
 
 BOOL MainFrame::PreCreateWindow(CREATESTRUCT& cs) {
 
-  cs.style &= ~FWS_ADDTOTITLE;  cs.lpszName = _T("AddProj");         // Sets the default title left part
+  cs.style &= ~FWS_ADDTOTITLE;  cs.lpszName = _T("< Title >");         // Sets the default title left part
 
   return CFrameWndEx::PreCreateWindow(cs);
   }
@@ -81,8 +81,11 @@ void MainFrame::OnMove(int x, int y)
 
 
 void MainFrame::OnSize(UINT nType, int cx, int cy) {
+CRect r;
 
-  if (!isInitialized) return;
+  GetWindowRect(&r);
+
+  if (!isInitialized) {winPos.setInvBdrs(r, cx, cy);   return;}
 
   winPos.set(cx, cy);   CFrameWndEx::OnSize(nType, cx, cy);
   }
@@ -90,7 +93,7 @@ void MainFrame::OnSize(UINT nType, int cx, int cy) {
 
 // MainFrame message handlers
 
-afx_msg LRESULT MainFrame::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar();  return 0;}
+LRESULT MainFrame::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar();  return 0;}
 
 
 void MainFrame::setupToolBar() {

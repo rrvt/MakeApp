@@ -7,6 +7,8 @@
 #include "History.h"
 #include "StatusBar.h"
 
+#include "NotePad.h"
+
 
 IMPLEMENT_DYNAMIC(Dialog4ppDlg, CDialogEx)
 
@@ -117,6 +119,25 @@ void Dialog4ppDlg::DoDataExchange(CDataExchange* pDX) {
   }
 
 
+void Dialog4ppDlg::OnMove(int x, int y)
+            {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CDialogEx::OnMove(x, y);}
+
+
+#ifdef DialogSizable
+
+void Dialog4ppDlg::OnSize(UINT nType, int cx, int cy) {
+CRect r;
+
+  GetWindowRect(&r);
+
+  if (!isInitialized) {winPos.setInvBdrs(r, cx, cy);   return;}
+
+  winPos.set(cx, cy);   toolBar.move(r);   statusBar.move(r);    CDialogEx::OnSize(nType, cx, cy);
+  }
+
+#endif
+
+
 // MainFrame message handlers
 
 LRESULT Dialog4ppDlg::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar();  return 0;}
@@ -133,34 +154,6 @@ CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
   toolBar.addCBx( ID_CboBx,      IDR_CbxMenu,   _T("A Combo Box"));
   toolBar.addCBx( ID_CboBx1,     CbxText, noElements(CbxText), CbxCaption);
   }
-
-
-void Dialog4ppDlg::OnMove(int x, int y)
-            {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CDialogEx::OnMove(x, y);}
-
-
-#ifdef DialogSizable
-
-void Dialog4ppDlg::OnSize(UINT nType, int cx, int cy) {
-
-#if 1
-CRect winRect;
-
-  if (!isInitialized) return;
-
-  winPos.set(cx, cy);   CDialogEx::OnSize(nType, cx, cy);
-
-  GetWindowRect(&winRect);   winPos.set(winRect);   toolBar.move(winRect);   statusBar.move(winRect);
-
-#else
-CRect winRect;
-
-  CDialogEx::OnSize(nType, cx, cy);    if (!isInitialized) return;
-
-  GetWindowRect(&winRect);   winPos.set(winRect);   toolBar.move(winRect);   statusBar.move(winRect);
-#endif
-  }
-#endif
 
 
 

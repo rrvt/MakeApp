@@ -75,14 +75,13 @@
     <None Include="..\..\Library\Extras\AboutDlg.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="C:\Users\rrvt\AppData\Roaming\DialogApp\DialogApp.ini" />
-    <None Include="..\README-Template.md" />
     <None Include="..\..\Library\Extras\Options.rc2">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\Dialog4pp.rc2">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="C:\Users\rrvt\AppData\Roaming\Dialog4pp\Dialog4pp.ini" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ShortToolbar.bmp">

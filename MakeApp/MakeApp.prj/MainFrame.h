@@ -10,8 +10,8 @@
 class MainFrame : public CMainFrm {
 
 CMFCMenuBar   menuBar;
-CMFCStatusBar statusBar;
 MyToolBar     toolBar;
+CMFCStatusBar statusBar;
 CMenu         menu;
 
 bool          isInitialized;
@@ -20,16 +20,15 @@ protected:                                          // create from serialization
 
   MainFrame() noexcept;
 
-
   DECLARE_DYNCREATE(MainFrame)
 
 public:                                             // Overrides
 
   virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 
-  virtual ~MainFrame();
+  virtual     ~MainFrame();
 
-  void setupToolBar();
+  MyToolBar&   getToolBar() {return toolBar;}
 
 #ifdef _DEBUG
   virtual void AssertValid() const;
@@ -37,10 +36,17 @@ public:                                             // Overrides
 #endif
 
 protected:                                          // Generated message map functions
+
   DECLARE_MESSAGE_MAP()
 
   afx_msg int     OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg LRESULT OnResetToolBar(WPARAM wParam, LPARAM lParam);
+
+private:
+
+  void            setupToolBar();
+
+public:
 
   afx_msg void    OnMove(int x, int y);
   afx_msg void    OnSize(UINT nType, int cx, int cy);
