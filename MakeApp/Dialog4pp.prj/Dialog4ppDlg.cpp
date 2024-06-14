@@ -79,7 +79,7 @@ END_MESSAGE_MAP()
 
 
 Dialog4ppDlg::Dialog4ppDlg(TCchar* helpPth, CWnd* pParent) : CDialogEx(IDD_Dialog4pp, pParent),
-                                       helpPath(helpPth), toolBar(), statusBar(), isInitialized(false) { }
+                                helpPath(helpPth), toolBar(), statusBar(), isInitialized(false) { }
 
 
 Dialog4ppDlg::~Dialog4ppDlg() {winPos.~WinPos();}
@@ -93,14 +93,15 @@ int Dialog4ppDlg::OnCreate(LPCREATESTRUCT lpCreateStruct) {
   }
 
 
+
 BOOL Dialog4ppDlg::OnInitDialog() {
 CRect winRect;
 
   CDialogEx::OnInitDialog();
 
-  if (!toolBar.create(this, IDR_TOOLBAR)) return false;
-
   GetWindowRect(&winRect);   winPos.setDLUToPxls(winRect, DlgWidth, DlgDepth);
+
+  if (!toolBar.create(this, IDR_TOOLBAR)) return false;
 
   SetBackgroundColor(RGB(255,255,255));               // toolBar.move(winRect);
 
@@ -120,7 +121,7 @@ void Dialog4ppDlg::DoDataExchange(CDataExchange* pDX) {
 
 
 void Dialog4ppDlg::OnMove(int x, int y)
-            {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CDialogEx::OnMove(x, y);}
+      {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CDialogEx::OnMove(x, y);}
 
 
 #ifdef DialogSizable

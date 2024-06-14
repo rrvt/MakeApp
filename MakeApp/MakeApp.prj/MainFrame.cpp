@@ -85,7 +85,7 @@ CRect r;
 LRESULT MainFrame::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar();  return 0;}
 
 
-void MainFrame::setupToolBar() {  }
+void MainFrame::setupToolBar() { }
 
 
 // MainFrame diagnostics
