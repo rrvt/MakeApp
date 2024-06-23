@@ -13,34 +13,8 @@ const int TabVal = 5;
 FileStore fileStore;                                        // Global since all classes need access
 
 
-#if 0
-// The destructor needs to return the Data records to the heap.
 
-FileStore::~FileStore() {
-int i;
-
-  for (i = 0; i < data.end(); i++) {
-    DataP& dataP = data[i];
-
-    delete dataP.p;  dataP.p = 0;
-    }
-  }
-#endif
-
-
-void FileStore::clear() {
-#if 0
-int i;
-
-  for (i = 0; i < data.end(); i++) {
-    DataP& dataP = data[i];
-
-    delete dataP.p;  dataP.p = 0;
-    }
-#endif
-
-  data.clear();   name.clear();   dt.clear();   mssnNo = 0;
-  }
+void FileStore::clear() {data.clear();   name.clear();   dt.clear();   mssnNo = 0;}
 
 
 
@@ -142,40 +116,7 @@ int    pos;
   }
 
 
-#if 0
-int Data::wrap(DevBase& dev, CDC* dc) {
-
-  dev << dCR << dClrTabs << dSetTab(TabVal) << dTab;    // Return to left margin (dCR), clear Tabs and
-                                                        // tab to position desired for wrap
-    wrp.initialize(true, dc, dev.remaining(), dev.maxWidth(), false);
-
-  dev<< dCR << dClrTabs;                                // return to left margin and clear tabs
-
-  return wrp(dev.maxWidth() - dev.remaining(), s);                                        // wrap string
-  }
-#endif
-
-
 int Datum::display() {notePad << s << nCrlf;   return 1;}
 
 
-
-
-//int  chWidth = dev.flChWidth();
-#if 1
-#else
-WrapIter  iter(wrp);
-WrapData* wd;
-int       i;
-
-  notePad << nClrTabs << nSetTab(TabVal) << nTab;       // The tab is set to the same value as in wrap
-
-  for (wd = iter(), i = 0; wd; wd = iter++, i++) {
-    if (i) notePad << nTab;
-
-    notePad << wd->line << nCrlf;
-    }
-
-  return i;
-#endif
 

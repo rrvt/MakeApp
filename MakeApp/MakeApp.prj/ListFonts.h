@@ -54,7 +54,7 @@ public:
 
   bool operator() (CDC* dc);
 
-  int   nData()      {return fonts.end();}                       // returns number of fonts items in array
+  int   nData()      {return fonts.end();}                // returns number of fonts items in array
 
 private:
 

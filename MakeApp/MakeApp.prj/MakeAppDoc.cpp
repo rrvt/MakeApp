@@ -36,10 +36,10 @@ static TCchar* PrjNameKey  = _T("Name");
 static TCchar* PrjVisKey   = _T("VisibleName");
 static TCchar* PrjDesc     = _T("Description");
 
-static TCchar* Msg         = _T("The build order should be set in Vs2017.  This is done after loading ")
-                             _T("Solution into vs2017 then using menu item ")
-                             _T("Project/Project Dependencies... and filling in the dialog box with ")
-                             _T("the appropriate data.");
+static TCchar* Msg  = _T("The build order should be set in Vs2017.  This is done after loading ")
+                      _T("Solution into vs2017 then using menu item ")
+                      _T("Project/Project Dependencies... and filling in the dialog box with ")
+                      _T("the appropriate data.");
 
 
 // MakeAppDoc
@@ -191,26 +191,8 @@ void MakeAppDoc::serialize(Archive& ar) {
 // MakeAppDoc diagnostics
 
 #ifdef _DEBUG
-void MakeAppDoc::AssertValid() const {CDocument::AssertValid();}
+void MakeAppDoc::AssertValid() const          {CDocument::AssertValid();}
 void MakeAppDoc::Dump(CDumpContext& dc) const {CDocument::Dump(dc);}
 #endif //_DEBUG
 
-
-
-
-
-#if 1
-#else
-//  saveAsTitle = ;   defExt = ;   defFilePat = ;
-
-//  if (!getPathDlg(saveAsTitle, 0, defExt, defFilePat, path)) return;
-#endif
-//  defFileName = path;
-//String    path;
-//String    saveAsTitle;
-#if 1
-#else
-  if (!getSaveAsPathDlg(saveAsTitle, defFileName, defExt, defFilePat, path)) return;
-#endif
-//  saveAsTitle = _T("Make App");   defExt = _T("txt");   defFilePat = _T("*.txt");
 

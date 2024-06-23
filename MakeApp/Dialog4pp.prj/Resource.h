@@ -5,8 +5,8 @@
 
 #pragma once
 
-// DialogSizable will cause the inclusion of statments and functions that allow the main Dialog Box to
-// be resized
+// DialogSizable will cause the inclusion of statments and functions that allow the main Dialog
+// Box to be resized
 
 #define DialogSizable
 
@@ -59,14 +59,5 @@
 #define _APS_NEXT_CONTROL_VALUE         301
 #define _APS_NEXT_SYMED_VALUE           201
 #endif
-#endif
-
-
-
-
-
-
-#if 0
-#define Examples
 #endif
 

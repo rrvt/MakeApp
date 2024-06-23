@@ -320,10 +320,11 @@ void Project::renameAppName(String& s) {
 int pos;
 
   for (pos = s.find(targetName); pos >= 0; pos = s.find(targetName))
-                                                        replace(s, pos, pos + targetName.length(), name);
+                                                  replace(s, pos, pos + targetName.length(), name);
 
   if (appType == DialogType)
-    for (pos = s.find(DialogDlg); pos >= 0; pos = s.find(DialogDlg)) replace(s, pos, pos + 9, dialogName);
+    for (pos = s.find(DialogDlg); pos >= 0; pos = s.find(DialogDlg))
+                                                  replace(s, pos, pos + 9, dialogName);
   }
 
 

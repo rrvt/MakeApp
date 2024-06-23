@@ -58,7 +58,7 @@ BEGIN_MESSAGE_MAP(Dialog4ppDlg, CDialogEx)
   ON_COMMAND(      ID_Option11,     &onOption11)
   ON_COMMAND(      ID_Option12,     &onOption12)
 
-  ON_CBN_SELCHANGE(ID_CboBx,        &onCboBxChange)        // Process secelection from list
+  ON_CBN_SELCHANGE(ID_CboBx,        &onCboBxChange)         // Process secelection from list
   ON_CBN_SELCHANGE(ID_CboBx1,       &onCboBx1Change)        // Process secelection from list
 
   ON_COMMAND(      ID_SaveHist,     &onSaveHist)
@@ -237,7 +237,7 @@ CString s = toolBar.getText(ID_EditBox);   statusBar.setText(1, s);
 // Do ToolTips
 
 BOOL Dialog4ppDlg::OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult)
-                                                                  {return toolBar.OnTtnNeedText(pNMHDR);}
+                                                            {return toolBar.OnTtnNeedText(pNMHDR);}
 
 
 #ifdef Examples

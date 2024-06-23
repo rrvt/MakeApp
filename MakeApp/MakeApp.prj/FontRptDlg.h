@@ -36,7 +36,7 @@ BOOL yzFonts;
 
 protected:
 
-  virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+  virtual void DoDataExchange(CDataExchange* pDX);
 
   DECLARE_MESSAGE_MAP()
   };

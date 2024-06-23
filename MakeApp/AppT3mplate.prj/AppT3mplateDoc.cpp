@@ -109,7 +109,7 @@ String     s;
 int        x;
 
   if (toolBar.getCurSel(ID_CboBx, s, x))
-                               notePad << _T("On Change, Item = ") << s << _T(", Data = ") << x << nCrlf;
+                         notePad << _T("On Change, Item = ") << s << _T(", Data = ") << x << nCrlf;
   display();
   }
 
@@ -198,8 +198,8 @@ String s;
 
     notePad << nTab << s << nTab << _T("X") << nTab << _T("Y") << nTab << i << nTab;
 
-    for (j = i+1; j < i+68; j++) {s.format(_T("%i"), j);   s = s.substr(s.length()-1);  notePad << s;}
-
+    for (j = i+1; j < i+68; j++)
+                              {s.format(_T("%i"), j);   s = s.substr(s.length()-1);  notePad << s;}
     notePad << nCrlf;
     }
   }
@@ -234,15 +234,23 @@ void AppT3mplateDoc::onFileOpen() {
 
 
 void AppT3mplateDoc::onSaveFile()
-                 {dataSource = StoreSrc; saveFile(_T("Save File"), _T(""), _T("txt")); display(StoreSrc);}
+          {dataSource = StoreSrc; saveFile(_T("Save File"), _T(""), _T("txt")); display(StoreSrc);}
 
 
-void AppT3mplateDoc::onSaveStrRpt()
-     {dataSource = StrRptSrc;   if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);   display(StoreSrc);}
+void AppT3mplateDoc::onSaveStrRpt() {
+
+  dataSource = StrRptSrc;   if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);
+
+  display(StoreSrc);
+  }
 
 
-void AppT3mplateDoc::onSaveNotePad()
-    {dataSource = NotePadSrc;   if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);   display(StoreSrc);}
+void AppT3mplateDoc::onSaveNotePad() {
+
+  dataSource = NotePadSrc;   if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);
+
+  display(StoreSrc);
+  }
 
 
 void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}

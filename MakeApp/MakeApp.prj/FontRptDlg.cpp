@@ -10,11 +10,12 @@
 
 IMPLEMENT_DYNAMIC(FontRptDlg, CDialogEx)
 
-FontRptDlg::FontRptDlg(CWnd* pParent) : CDialogEx(IDD_FontRptDlg, pParent), abFonts(FALSE),
-                                        cdFonts(FALSE), efFonts(FALSE), ghFonts(FALSE), ijFonts(FALSE),
-                                        klFonts(FALSE), mnFonts(FALSE), opFonts(FALSE), qrFonts(FALSE),
-                                        stFonts(FALSE), uvFonts(FALSE), wxFonts(FALSE), yzFonts(FALSE)
-                                        { }
+FontRptDlg::FontRptDlg(CWnd* pParent) : CDialogEx(IDD_FontRptDlg, pParent),
+                                        abFonts(FALSE), cdFonts(FALSE), efFonts(FALSE),
+                                        ghFonts(FALSE), ijFonts(FALSE), klFonts(FALSE),
+                                        mnFonts(FALSE), opFonts(FALSE), qrFonts(FALSE),
+                                        stFonts(FALSE), uvFonts(FALSE), wxFonts(FALSE),
+                                        yzFonts(FALSE) { }
 
 
 FontRptDlg::~FontRptDlg() { }

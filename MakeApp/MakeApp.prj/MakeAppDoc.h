@@ -53,13 +53,3 @@ public:
   };
 
 
-
-
-#if 1
-#else
-String     saveAsTitle;                                      // Save As Parameters, examples:
-String     defFileName;                                      // _T("mumble.txt")
-String     defExt;                                           // _T("txt")
-String     defFilePat;                                       // _T("*.txt")
-#endif
-

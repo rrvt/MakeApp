@@ -55,8 +55,8 @@ public:
 
 private:
 
-       // if Segment not zero, then path includes it
-       // returns source path in src, destination path as return value
+  // if Segment not zero, then path includes it
+  // returns source path in src, destination path as return value
 
   void preparePath(TCchar* pathName, TCchar* segment = 0);
   void addSegment(String& s, TCchar* segment) {s += segment;  s += _T('\\');}

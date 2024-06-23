@@ -83,6 +83,7 @@ public:
 
 
 #ifndef _DEBUG  // debug version in AppT3mplateView.cpp
-inline AppT3mplateDoc* AppT3mplateView::GetDocument() const {return reinterpret_cast<AppT3mplateDoc*>(m_pDocument);}
+inline AppT3mplateDoc* AppT3mplateView::GetDocument() const
+                                           {return reinterpret_cast<AppT3mplateDoc*>(m_pDocument);}
 #endif
 

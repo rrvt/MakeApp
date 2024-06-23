@@ -66,21 +66,19 @@ RptOrietnDlg dlg;
 
 
 void MakeAppView::initRptOrietn()
-            {prtFonts.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, FontOrietnKey, PortOrient);}
+    {prtFonts.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, FontOrietnKey, PortOrient);}
 
 
 void MakeAppView::saveRptOrietn()
-             {saveNoteOrietn();   iniFile.write(RptOrietnSect, FontOrietnKey,  (int) prtFonts.prtrOrietn);}
+    {saveNoteOrietn();   iniFile.write(RptOrietnSect, FontOrietnKey,  (int) prtFonts.prtrOrietn);}
 
 
-#if 1
 void MakeAppView::OnPrepareDC(CDC* dc, CPrintInfo* info) {
 
   if(doc()->dataSrc() == FontSrc) listFonts(dc);
 
   CScrView::OnPrepareDC(dc, info);
   }
-#endif
 
 
 void MakeAppView::onPreparePrinting(CPrintInfo* info) {
@@ -115,8 +113,8 @@ void MakeAppView::onDisplayOutput() {
 
 
 // The footer is injected into the printed output, so the output goes directly to the device.
-// The output streaming functions are very similar to NotePad's streaming functions so it should not
-// be a great hardship to construct a footer.
+// The output streaming functions are very similar to NotePad's streaming functions so it should
+// not be a great hardship to construct a footer.
 
 void MakeAppView::printFooter(DevBase& dev, int pageNo) {
   switch(doc()->dataSrc()) {
@@ -152,33 +150,11 @@ void MakeAppView::OnSetFocus(CWnd* pOldWnd) {
 
 #ifdef _DEBUG
 
-void MakeAppView::AssertValid() const {CScrollView::AssertValid();}
-void MakeAppView::Dump(CDumpContext& dc) const {CScrollView::Dump(dc);}  // non-debug version is inline
+void MakeAppView::AssertValid() const          {CScrollView::AssertValid();}
+void MakeAppView::Dump(CDumpContext& dc) const {CScrollView::Dump(dc);}
+                                                                    // non-debug version is inline
 MakeAppDoc* MakeAppView::GetDocument() const
-              {ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(MakeAppDoc))); return (MakeAppDoc*)m_pDocument;}
+                    {ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(MakeAppDoc))); return (MakeAppDoc*)m_pDocument;}
 #endif //_DEBUG
 
-
-#if 0
-void MakeAppView::OnPrepareDC(CDC* pDC, CPrintInfo* pInfo) {
-uint   x;
-double topMgn   = options.topMargin.stod(x);
-double leftMgn  = options.leftMargin.stod(x);
-double rightMgn = options.rightMargin.stod(x);
-double botMgn   = options.botMargin.stod(x);
-
-  if(doc()->dataSrc() == FontSrc) listFonts(pDC);
-
-  setMgns(leftMgn,  topMgn,  rightMgn, botMgn, pDC);   CScrView::OnPrepareDC(pDC, pInfo);
-  }
-#endif
-//pMgr.orient = printer.orient; pMgr.pagePlex = printer.pagePlex;
-#if 1
-#else
-OptionsDlg dlg;
-
-  if (printer.name.isEmpty()) printer.load(0);
-
-  if (dlg.DoModal() == IDOK) pMgr.setFontScale(printer.scale);
-#endif
 

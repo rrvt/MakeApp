@@ -34,8 +34,8 @@ BOOL MakeApp::InitInstance() {
 
   CWinAppEx::InitInstance();
 
-  iniFile.setAppDataPath(m_pszHelpFilePath, *this);           // A convenient place to get the iniFile
-                                                              // initialized
+  iniFile.setAppDataPath(m_pszHelpFilePath, *this);       // A convenient place to get the iniFile
+                                                          // initialized
   SetRegistryKey(appID);
 
   LoadStdProfileSettings(0);  // Load standard INI file options (including MRU)
@@ -48,7 +48,7 @@ BOOL MakeApp::InitInstance() {
   pDocTemplate = new CSingleDocTemplate(
     IDR_MAINFRAME,
     RUNTIME_CLASS(MakeAppDoc),
-    RUNTIME_CLASS(MainFrame),       // main SDI frame window                                N
+    RUNTIME_CLASS(MainFrame),                             // main SDI frame window
     RUNTIME_CLASS(MakeAppView));
 
   if (!pDocTemplate) return FALSE;
@@ -64,8 +64,8 @@ BOOL MakeApp::InitInstance() {
 
   if (!ProcessShellCommand(cmdInfo)) return FALSE;
 
-  // App initialization may begin here.  All Windows stuff is available at this point but the window is
-  // not visible until ShowWindow below
+  // App initialization may begin here.  All Windows stuff is available at this point but the
+  // window is not visible until ShowWindow below
 
   notePad.clear();     view()->setFont(_T("Ariel"), 12.0);
 
@@ -74,8 +74,6 @@ BOOL MakeApp::InitInstance() {
   project.getBaseDir();
 
   project.determineBasePath(m_pszHelpFilePath);
-
-//  options.load();
 
   m_pMainWnd->ShowWindow(SW_SHOW);   m_pMainWnd->UpdateWindow();   return TRUE;
   }
@@ -96,19 +94,3 @@ void MakeApp::OnSpecifyBaseDir() {project.getBaseDirUser();   invalidate();}
 void MakeApp::OnAppAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}
 
 
-
-
-#if 0
-
-void MakeApp::OnFilePrintSetup() {
-PrtrOrient orient;
-
-  view()->setPrntrOrient(getDevMode());
-
-    CWinApp::OnFilePrintSetup();
-
-  orient = view()->getPrntrOrient(getDevMode());
-
-  options.setOrient(orient);   view()->setOrientation(options.orient);
-  }
-#endif

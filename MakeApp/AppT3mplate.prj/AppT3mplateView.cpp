@@ -27,14 +27,15 @@ BEGIN_MESSAGE_MAP(AppT3mplateView, CScrView)
 
   ON_WM_CONTEXTMENU()                     // Right Mouse Popup Menu
   ON_COMMAND(ID_CopySel, &onCopy)
-  ON_COMMAND(ID_Pup1, &onPup1)
-  ON_COMMAND(ID_Pup2, &onPup2)
+  ON_COMMAND(ID_Pup1,    &onPup1)
+  ON_COMMAND(ID_Pup2,    &onPup2)
 
 END_MESSAGE_MAP()
 
 
 #ifdef Examples
-AppT3mplateView::AppT3mplateView() noexcept : dspStore(dMgr.getNotePad()), prtStore(pMgr.getNotePad()) {
+AppT3mplateView::AppT3mplateView() noexcept : dspStore(dMgr.getNotePad()),
+                                              prtStore(pMgr.getNotePad()) {
 #else
 AppT3mplateView::AppT3mplateView() noexcept {
 #endif
@@ -86,8 +87,7 @@ RptOrietnDlg dlg;
 
 void AppT3mplateView::initRptOrietn()
 #ifdef Examples
-
-            {prtStore.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, StrOrietnKey, PortOrient);}
+  {prtStore.prtrOrietn = (PrtrOrient) iniFile.readInt(RptOrietnSect, StrOrietnKey, PortOrient);}
 #else
   { }
 #endif
@@ -169,8 +169,8 @@ void AppT3mplateView::printHeader(DevBase& dev, int pageNo) {
 
 
 // The footer is injected into the printed output, so the output goes directly to the device.
-// The output streaming functions are very similar to NotePad's streaming functions so it should not
-// be a great hardship to construct a footer.
+// The output streaming functions are very similar to NotePad's streaming functions so it should
+// not be a great hardship to construct a footer.
 
 void AppT3mplateView::printFooter(DevBase& dev, int pageNo) {
   switch(doc()->dataSrc()) {
@@ -204,11 +204,14 @@ void AppT3mplateView::OnSetFocus(CWnd* pOldWnd) {
 
 
 void AppT3mplateView::OnLButtonDown(UINT nFlags, CPoint point)
-                        {clipLine.set(point);   invalidate();   CScrView::OnLButtonDown(nFlags, point);}
+                   {clipLine.set(point);   invalidate();   CScrView::OnLButtonDown(nFlags, point);}
 
 
-void AppT3mplateView::OnLButtonDblClk(UINT nFlags, CPoint point)
-  {clipLine.set(point);   RedrawWindow();   clipLine.load();   CScrView::OnLButtonDblClk(nFlags, point);}
+void AppT3mplateView::OnLButtonDblClk(UINT nFlags, CPoint point) {
+  clipLine.set(point);   RedrawWindow();   clipLine.load();
+
+  CScrView::OnLButtonDblClk(nFlags, point);
+  }
 
 
 void AppT3mplateView::OnContextMenu(CWnd* /*pWnd*/, CPoint point) {
@@ -217,7 +220,7 @@ CMenu* popup;
 CWnd*  pWndPopupOwner = this;
 
   if (point.x == -1 && point.y == -1)
-            {GetClientRect(rect);  ClientToScreen(rect);  point = rect.TopLeft();  point.Offset(5, 5);}
+        {GetClientRect(rect);  ClientToScreen(rect);  point = rect.TopLeft();  point.Offset(5, 5);}
 
   popup = menu.GetSubMenu(0);   if (!popup) return;
 
@@ -239,14 +242,13 @@ void AppT3mplateView::onPup2() {  }
 // AppT3mplateView diagnostics
 
 #ifdef _DEBUG
-
-void AppT3mplateView::AssertValid() const {CScrollView::AssertValid();}
-
-void AppT3mplateView::Dump(CDumpContext& dc) const {CScrollView::Dump(dc);}     // non-debug version is inline
-                                             // non-debug version is inline
-AppT3mplateDoc* AppT3mplateView::GetDocument() const
-  {ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(AppT3mplateDoc))); return (AppT3mplateDoc*)m_pDocument;}
-
+void AppT3mplateView::AssertValid() const          {CScrollView::AssertValid();}
+void AppT3mplateView::Dump(CDumpContext& dc) const {CScrollView::Dump(dc);}
+                                                                    // non-debug version is inline
+AppT3mplateDoc* AppT3mplateView::GetDocument() const {              // non-debug version is inline
+  ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(AppT3mplateDoc)));
+  return (AppT3mplateDoc*)m_pDocument;
+  }
 #endif //_DEBUG
 
 

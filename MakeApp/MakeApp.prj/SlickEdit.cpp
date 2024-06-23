@@ -57,7 +57,7 @@ int n;
 
   for (i = 0; i < n; i++) addToData(tgtTable[i]);
 
-  data += fileStore(lineNo);                             // save </Menu>
+  data += fileStore(lineNo);
   }
 
 
@@ -108,10 +108,10 @@ int    pos;
   if (!clearAllSeen) {
 
     if (!lineIsClearBuf && !clearAngleBrkt)
-                {pos = s.find(_T('>'));   if (pos >= 0) {s = s.substr(0, pos);  clearAngleBrkt = true;}}
+           {pos = s.find(_T('>'));   if (pos >= 0) {s = s.substr(0, pos);  clearAngleBrkt = true;}}
 
     if (s.find(_T("<Exec")) >= 0)
-              {descrip.nextData() = _T("        ClearProcessBuffer=\"1\">");   clearAllSeen = true;}
+           {descrip.nextData() = _T("        ClearProcessBuffer=\"1\">");   clearAllSeen = true;}
     }
 
   if (!lineIsClearBuf) return;

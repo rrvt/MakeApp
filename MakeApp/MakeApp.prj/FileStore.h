@@ -10,11 +10,12 @@
 
 
 // This is the Datum record.  It can be a complex as necessary.
-// Set will accept any reasonable group of entities and then will divide up the input into fields in
-// the data.
-// Get will return any grouping of data desired from the record, or there might be multiple get methods
-// that will retrieve invidual or groups of fields.
-// Note, the copy constructor and operator often call a private function that will do all the copying.
+// Set will accept any reasonable group of entities and then will divide up the input into fields
+// in the data.
+// Get will return any grouping of data desired from the record, or there might be multiple get
+// methods that will retrieve invidual or groups of fields.
+// Note, the copy constructor and operator often call a private function that will do all the
+// copying.
 
 class Datum {
 
@@ -22,7 +23,7 @@ String s;
 
 public:
 
-  Datum()        { }                                       // Copy constructor: Datum a = b;
+  Datum()        { }                                          // Copy constructor: Datum a = b;
   Datum(Datum& d) {s = d.s;}
  ~Datum()        { }
 
@@ -30,11 +31,11 @@ public:
   String& get()         {return s;}
   String& operator() () {return s;}
 
-  void    add(String& stg);                               // Parse the data into the record
+  void    add(String& stg);                                   // Parse the data into the record
 
   int     display();
 
-  Datum&   operator=  (Datum& d) {s = d.s; return *this;}    // Copy operator: a = b;
+  Datum&   operator=  (Datum& d) {s = d.s; return *this;}     // Copy operator: a = b;
 
   bool     operator== (Datum& d) {return s == d.s;}
   bool     operator!= (Datum& d) {return s != d.s;}
@@ -45,56 +46,24 @@ public:
   };
 
 
-#if 1
 typedef DatumPtrT<Datum, String> DatumP;
-#else
-
-// This facilitates the expansion of the Expandable array in the FileStore.  Essentially The pointers are
-// moved from the old version of the array to a new version that is larger.
-// Since we are moving the pointers we cannot delete the allocated Datum entity from this class.
-// However, the allocated notes should be "deleted" when the dataStore goes out of scope or is deleted.
-
-struct DataP {
-Datum* p;
-
-  DataP()             {p = 0;}
-  DataP(DataP& dataP) {p = dataP.p;}
- ~DataP()             {p = 0;}
-
-  DataP& operator= (DataP& dataP) {p = dataP.p; return *this;}
-
-  void add(String& s);
-
-  // Requires the following operations for node N* p, N* q, N* s
-  //  *p == *q
-  //  *p >  *q
-  //  *p <= *q
-  //  *s = *p
-
-//  bool operator== (DataP& dataP) {return p->get() == dataP.p->get();}
-//  bool operator>  (DataP& dataP) {return p->get() >  dataP.p->get();}
-//  bool operator<= (DataP& dataP) {return p->get() <= dataP.p->get();}
-  bool operator== (DataP& d) {return _tcsicmp(p->get(), d.p->get()) == 0;};
-  bool operator>  (DataP& d) {return _tcsicmp(p->get(), d.p->get())  > 0;};
-  bool operator<= (DataP& d) {return _tcsicmp(p->get(), d.p->get()) <= 0;};
-  };
-#endif
 
 
-// Define the iterator used to look at the data in the datastore.  It is here so that it can be friended
+// Define the iterator used to look at the data in the datastore.  It is here so that it can be
+// friended
 
 class FileStore;
-typedef IterT<FileStore, Datum> FSIter;                        // Iterator for the FileStore
+typedef IterT<FileStore, Datum> FSIter;                       // Iterator for the FileStore
 
 
-// This is the main store.  I think of it as a permanent home for the data while the program is running.
-// The Expandable array deals with the uncertainty of the amount of data as it expands by doubling in
-// length each time it has to expand.
-// In this example, we provide a way to load it from a file, the details of which are up to the Datum
-// class.  The data can be stored in a file, again the details of each record are enclosed in the Datum
-// class.  We can add something to the store from the user or some other source (TBD).  In this example
-// a sort option is provided to change the order of the data in the array.
-// Finally, the destructor returns the allocated Datum records back to the heap (see cpp file).
+// This is the main store.  I think of it as a permanent home for the data while the program is
+// running.  The Expandable array deals with the uncertainty of the amount of data as it expands by
+// doubling in length each time it has to expand.  In this example, we provide a way to load it
+// from a file, the details of which are up to the Datum class.  The data can be stored in a file,
+// again the details of each record are enclosed in the Datum class.  We can add something to the
+// store from the user or some other source (TBD).  In this example a sort option is provided to
+// change the order of the data in the array.  Finally, the destructor returns the allocated Datum
+// records back to the heap (see cpp file).
 
 class FileStore {
 
@@ -145,5 +114,5 @@ private:
   };
 
 
-extern FileStore fileStore;                                   // Sometimes there only needs to one object
+extern FileStore fileStore;                           // Sometimes there only needs to one object
 

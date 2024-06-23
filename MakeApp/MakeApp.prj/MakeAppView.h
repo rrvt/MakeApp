@@ -33,7 +33,7 @@ public:
   virtual void onBeginPrinting();
   virtual void onDisplayOutput();
 
-  virtual void OnPrepareDC(CDC* dc, CPrintInfo* info = 0);                // Display/Printer Override
+  virtual void OnPrepareDC(CDC* dc, CPrintInfo* info = 0);          // Display/Printer Override
 
   virtual void printFooter(DevBase& dev, int pageNo);
   virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
@@ -57,13 +57,7 @@ public:
 
 
 #ifndef _DEBUG  // debug version in MakeAppView.cpp
-inline MakeAppDoc* MakeAppView::GetDocument() const {return reinterpret_cast<MakeAppDoc*>(m_pDocument);}
+inline MakeAppDoc* MakeAppView::GetDocument() const
+                                               {return reinterpret_cast<MakeAppDoc*>(m_pDocument);}
 #endif
-
-
-
-
-//  virtual void OnPrepareDC(CDC* pDC, CPrintInfo* pInfo = NULL);
-//  virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
-//  afx_msg void onSetupPrinter();
 

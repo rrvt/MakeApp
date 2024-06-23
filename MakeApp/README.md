@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 6/22/24
+
+Add MIT License to installation.
+
 ### Update 6/13/24
 
 Fix WinPos.
