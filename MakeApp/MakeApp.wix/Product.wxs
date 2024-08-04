@@ -98,6 +98,7 @@
     <ComponentRef Id="AppT3TargetverH.cmp"/>
     <ComponentRef Id="AppToolBarH.cmp"/>
     <ComponentRef Id="AppToolBarCpp.cmp"/>
+    <ComponentRef Id="ExampleDefH.cmp"/>
   </ComponentGroup>
   <ComponentGroup Id="AppT3mplateRes.ftr">
     <ComponentRef Id="AppT3mplate.ico.cmp"/>
@@ -138,11 +139,13 @@
     <ComponentRef Id="DialogAppPrjVpj.cmp"/>
     <ComponentRef Id="DlgToolBarH.cmp"/>
     <ComponentRef Id="DlgToolBarCpp.cmp"/>
+    <ComponentRef Id="ExamplesDefH.cmp"/>
   </ComponentGroup>
   <ComponentGroup Id="Dialog4ppPrjRes.ftr">
     <ComponentRef Id="DialogAppIco.cmp"/>
     <ComponentRef Id="DialogAppRc2.cmp"/>
     <ComponentRef Id="ToolBar.cmp"/>
+    <ComponentRef Id="ShrtToolBar.cmp"/>
   </ComponentGroup>
   <ComponentGroup Id="Dialog4ppWix.ftr">
     <ComponentRef Id="DialogAppWixPrj.cmp"/>
@@ -480,6 +483,12 @@
     <File Id="AppToolBarCpp.cmp"
                         Source="$(var.SolutionDir)..\AppT3mplate.prj\MyToolBar.cpp" KeyPath="yes"/>
   </Component>
+
+  <Component Id="ExampleDefH.cmp" Guid="3B9E071C-3210-4EC7-887F-AC68FC816294"
+                                                           Directory="MakeApp_AppT3mplate.prj.pff">
+    <File Id="ExampleDefH.cmp"
+                        Source="$(var.SolutionDir)..\AppT3mplate.prj\ExamplesDef.h" KeyPath="yes"/>
+  </Component>
 </Fragment>
 
 <Fragment>
@@ -675,6 +684,12 @@
     <File Id="DlgToolBarCpp.cmp"
                           Source="$(var.SolutionDir)..\Dialog4pp.prj\MyToolBar.cpp" KeyPath="yes"/>
   </Component>
+
+  <Component Id="ExamplesDefH.cmp" Guid="008C7D9A-6385-4F12-A7AD-82C0DB39EDF0"
+                                                             Directory="MakeApp_Dialog4pp.prj.pff">
+    <File Id="ExamplesDefH.cmp"
+                          Source="$(var.SolutionDir)..\Dialog4pp.prj\ExamplesDef.h" KeyPath="yes"/>
+  </Component>
 </Fragment>
 
 <Fragment>
@@ -694,6 +709,12 @@
                                                          Directory="MakeApp_Dialog4pp.prj_res.pff">
     <File Id="ToolBar.cmp"
                         Source="$(var.SolutionDir)..\Dialog4pp.prj\res\Toolbar.bmp" KeyPath="yes"/>
+  </Component>
+
+  <Component Id="ShrtToolBar.cmp" Guid="587C72D5-9BB2-4E41-9B5B-440AF2884259"
+                                                         Directory="MakeApp_Dialog4pp.prj_res.pff">
+    <File Id="ShrtToolBar.cmp"
+                   Source="$(var.SolutionDir)..\Dialog4pp.prj\res\ShortToolbar.bmp" KeyPath="yes"/>
   </Component>
 </Fragment>
 
@@ -895,7 +916,7 @@
 
 <Fragment>
   <Component Id="Uninstall_Make_App.cmp"
-                               Guid="930EC68D-75AB-45EB-85AE-0D96CBFC34E8" Directory="MakeApp.pmf">
+                               Guid="DDD9D9C1-04B4-4CFD-8B01-3161A15F602E" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"

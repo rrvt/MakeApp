@@ -2,9 +2,9 @@
 
 
 #pragma once
+#include "MyToolBar.h"
 #include "Resource.h"
 #include "StatusBar.h"
-#include "MyToolBar.h"
 #include "WinPos.h"
 
 class StatusBar;
@@ -59,6 +59,7 @@ public:
   afx_msg void    OnSize(UINT nType, int cx, int cy);
 #endif
   afx_msg BOOL    OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult);
+  afx_msg void    onSaveHist();
 
 #ifdef Examples
   afx_msg void    changeReady();
@@ -72,7 +73,6 @@ public:
   afx_msg void    onDispatch1();
   afx_msg void    onOption11();
   afx_msg void    onOption12();
-  afx_msg void    onSaveHist();
 
   afx_msg void    onX();
   afx_msg void    onCboBxChange();

@@ -160,6 +160,8 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Updated Library and fix ShortToolBar in TestDiag output.
+
 ### Update 6/22/24
 
 Add MIT License to installation.

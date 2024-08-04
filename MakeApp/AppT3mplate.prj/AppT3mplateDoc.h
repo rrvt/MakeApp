@@ -3,6 +3,7 @@
 
 #pragma once
 #include "CDoc.h"
+#include "ExamplesDef.h"
 #include "MainFrame.h"
 
 

@@ -22,6 +22,7 @@ IMPLEMENT_DYNCREATE(AppT3mplateDoc, CDoc)
 BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
   ON_COMMAND(      ID_File_Open,   &onFileOpen)
 
+#ifdef Examples
   ON_COMMAND(      ID_Button,      &myButton)
   ON_CBN_KILLFOCUS(ID_EditBox,     &OnTBEditBox)
   ON_COMMAND(      ID_EditBox,     &OnTBEditBox)
@@ -38,6 +39,7 @@ BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
 
   ON_CBN_SELCHANGE(ID_CboBx,       &OnComboBoxChng)
   ON_COMMAND(      ID_CboBx,       &OnComboBoxChng)
+#endif
 
   ON_COMMAND(      ID_TBSaveMenu,  &onSaveFile)
   ON_COMMAND(      ID_SaveFile,    &onSaveFile)

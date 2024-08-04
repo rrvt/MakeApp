@@ -55,8 +55,3 @@ typedef basic_string<Tchar> tstring;
 #include "Variant.h"
 #include "NewAllocator.h"
 
-
-// Define Examples if examples must execute in new application (also defined in .rc file)
-
-#define Examples
-

@@ -61,9 +61,9 @@ BEGIN_MESSAGE_MAP(Dialog4ppDlg, CDialogEx)
   ON_CBN_SELCHANGE(ID_CboBx,        &onCboBxChange)         // Process secelection from list
   ON_CBN_SELCHANGE(ID_CboBx1,       &onCboBx1Change)        // Process secelection from list
 
-  ON_COMMAND(      ID_SaveHist,     &onSaveHist)
 #endif
 
+  ON_COMMAND(      ID_SaveHist,     &onSaveHist)
   ON_COMMAND(      ID_Help,         &onHelp)
   ON_COMMAND(      ID_App_About,    &onAppAbout)
   ON_COMMAND(      ID_App_Exit,     &OnOK)
@@ -145,6 +145,7 @@ LRESULT Dialog4ppDlg::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar
 
 
 void Dialog4ppDlg::setupToolBar() {
+#ifdef Examples
 CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
   toolBar.addButton(ID_Button, _T(" My Button "));
@@ -154,11 +155,12 @@ CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
   toolBar.addMenu(ID_PopupMenu1, PopupItems1, noElements(PopupItems1), _T("My Caption #1"));
   toolBar.addCBx( ID_CboBx,      IDR_CbxMenu,   _T("A Combo Box"));
   toolBar.addCBx( ID_CboBx1,     CbxText, noElements(CbxText), CbxCaption);
+#endif
   }
 
 
 
-
+#ifdef Examples
 void Dialog4ppDlg::onTBChange(NMHDR* pNMHDR, LRESULT* pResult) {
 
   LV_KEYDOWN* pLVKeyDow = (LV_KEYDOWN*)pNMHDR;
@@ -167,7 +169,7 @@ void Dialog4ppDlg::onTBChange(NMHDR* pNMHDR, LRESULT* pResult) {
 
   *pResult = 0;
   }
-
+#endif
 
 
 #ifdef Examples
@@ -240,11 +242,12 @@ BOOL Dialog4ppDlg::OnTtnNeedText(UINT id, NMHDR* pNMHDR, LRESULT* pResult)
                                                             {return toolBar.OnTtnNeedText(pNMHDR);}
 
 
-#ifdef Examples
 void Dialog4ppDlg::onSaveHist() {
   history.saveData();
   }
 
+
+#ifdef Examples
 
 void Dialog4ppDlg::changeReady() {
 bool status = statusBar.isReady();

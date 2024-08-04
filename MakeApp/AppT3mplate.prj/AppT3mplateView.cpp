@@ -102,31 +102,6 @@ void AppT3mplateView::saveRptOrietn() {
   }
 
 
-
-void AppT3mplateView::onPreparePrinting(CPrintInfo* info) {
-
-  switch(doc()->dataSrc()) {
-    case NotePadSrc : prtNote.onPreparePrinting(info);     break;
-#ifdef Examples
-    case StoreSrc   : prtStore.onPreparePrinting(info);    break;
-#endif
-    }
-  }
-
-
-// Perpare output (i.e. report) then start the output with the call to SCrView
-
-void AppT3mplateView::onBeginPrinting() {
-
-  switch(doc()->dataSrc()) {
-    case NotePadSrc : prtNote.onBeginPrinting(*this);  break;
-#ifdef Examples
-    case StoreSrc   : prtStore.onBeginPrinting(*this); break;
-#endif
-    }
-  }
-
-
 void AppT3mplateView::onDisplayOutput() {
 
   switch(doc()->dataSrc()) {
@@ -153,6 +128,31 @@ void AppT3mplateView::displayFooter(DevBase& dev) {
     case NotePadSrc   : dspNote.dspFooter(dev);   break;
 #ifdef Examples
     case StoreSrc     : dspStore.dspFooter(dev);  break;
+#endif
+    }
+  }
+
+
+
+void AppT3mplateView::onPreparePrinting(CPrintInfo* info) {
+
+  switch(doc()->dataSrc()) {
+    case NotePadSrc : prtNote.onPreparePrinting(info);     break;
+#ifdef Examples
+    case StoreSrc   : prtStore.onPreparePrinting(info);    break;
+#endif
+    }
+  }
+
+
+// Perpare output (i.e. report) then start the output with the call to SCrView
+
+void AppT3mplateView::onBeginPrinting() {
+
+  switch(doc()->dataSrc()) {
+    case NotePadSrc : prtNote.onBeginPrinting(*this);  break;
+#ifdef Examples
+    case StoreSrc   : prtStore.onBeginPrinting(*this); break;
 #endif
     }
   }

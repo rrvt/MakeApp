@@ -97,16 +97,19 @@ LRESULT MainFrame::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar();
 
 
 void MainFrame::setupToolBar() {
-
-#ifdef Examples
 CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
+#ifdef Examples
   toolBar.addButton( ID_Button, _T("Load Combo"));
   toolBar.addEditBox(ID_EditBox, 20);
-  toolBar.addMenu(   ID_Menu, IDR_TBMenu, _T("Menu 1"));
+  toolBar.addMenu(   ID_Menu,  IDR_TBMenu,  _T("Menu 1"));
   toolBar.addMenu(   ID_Menu1, IDR_TBMenu1, _T("Menu 2"));
   toolBar.addCBx(    ID_CboBx);
   toolBar.addMenu(   ID_TBSaveMenu, IDR_TBSaveMenu,  7);
+
+#else
+
+  toolBar.addMenu(   ID_TBSaveMenu, IDR_TBSaveMenu,  2);
 
 #endif
   }

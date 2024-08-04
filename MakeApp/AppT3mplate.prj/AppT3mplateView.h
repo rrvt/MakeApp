@@ -3,6 +3,7 @@
 
 #pragma once
 #include "CScrView.h"
+#include "ExamplesDef.h"
 #include "NotePadRpt.h"
 #ifdef Examples
 #include "StoreRpt.h"
@@ -38,13 +39,12 @@ public:
   virtual BOOL    PreCreateWindow(CREATESTRUCT& cs);
   virtual void    OnInitialUpdate();
 
+  virtual void    onDisplayOutput();
   virtual void    displayHeader(DevBase& dev);
   virtual void    displayFooter(DevBase& dev);
 
   virtual void    onPreparePrinting(CPrintInfo* info);
   virtual void    onBeginPrinting();
-  virtual void    onDisplayOutput();
-
   virtual void    printHeader(DevBase& dev, int pageNo);
   virtual void    printFooter(DevBase& dev, int pageNo);
   virtual void    OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);

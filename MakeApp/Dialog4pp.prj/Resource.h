@@ -4,12 +4,7 @@
 
 
 #pragma once
-
-// DialogSizable will cause the inclusion of statments and functions that allow the main Dialog
-// Box to be resized
-
-#define DialogSizable
-
+#include "ExamplesDef.h"
 
 #define IDR_MAINFRAME                   100
 #define IDR_TOOLBAR                     101
@@ -40,9 +35,9 @@
 #define ID_Option12                     412
 #define ID_CboBx                        413
 #define ID_CboBx1                       414
+#endif
 
 #define ID_SaveHist                     418
-#endif
 #define ID_Options                      419
 #define ID_App_Exit                     420
 

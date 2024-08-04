@@ -4,6 +4,8 @@
 
 
 #pragma once
+#include "ExamplesDef.h"
+
 
 #define IDR_MAINFRAME                   100
 #define IDR_ToolBarImages               101
@@ -15,6 +17,7 @@
 #define ID_File_New                     400
 #define ID_File_Open                    401
 
+#ifdef Examples
 #define ID_Button                       402
 #define ID_EditBox                      403
 
@@ -29,6 +32,7 @@
 #define ID_Option23                     411
 
 #define ID_CboBx                        412
+#endif
 
 #define ID_TBSaveMenu                   413
 #define ID_SaveFile                     414

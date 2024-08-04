@@ -143,6 +143,7 @@
     <ClInclude Include="..\..\Library\Extras\ResourceExtra.h" />
     <ClInclude Include="Dialog4pp.h" />
     <ClInclude Include="Dialog4ppDlg.h" />
+    <ClInclude Include="ExamplesDef.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MyToolBar.h" />
     <ClInclude Include="pch.h" />
@@ -169,6 +170,11 @@
   <ItemGroup>
     <Image Include="res\Dialog4pp.ico" />
     <Image Include="res\ShortToolbar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\Library\Library.vcxproj">
+      <Project>{cf57f3ec-d3db-4469-8519-3f9d73785d9b}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

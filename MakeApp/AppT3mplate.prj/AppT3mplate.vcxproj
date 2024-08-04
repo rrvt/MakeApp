@@ -147,6 +147,7 @@
     <ClInclude Include="AppT3mplate.h" />
     <ClInclude Include="AppT3mplateDoc.h" />
     <ClInclude Include="AppT3mplateView.h" />
+    <ClInclude Include="ExamplesDef.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="MyToolBar.h" />
@@ -184,6 +185,11 @@
   <ItemGroup>
     <Image Include="res\AppT3mplate.ico" />
     <Image Include="res\ShortToolbar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\Library\Library.vcxproj">
+      <Project>{cf57f3ec-d3db-4469-8519-3f9d73785d9b}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

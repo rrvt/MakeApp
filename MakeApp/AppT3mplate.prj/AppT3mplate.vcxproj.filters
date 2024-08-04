@@ -60,6 +60,9 @@
     <ClInclude Include="MyToolBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ExamplesDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrame.cpp">
