@@ -160,6 +160,11 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 12/25/24
+
+Split the library into DocLib and Library where DocLib supports the MFC Document/Library App
+projects and Library has support classes and supports the Dialog Apps with only one class.
+
 ### Updated Library and fix ShortToolBar in TestDiag output.
 
 ### Update 6/22/24

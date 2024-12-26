@@ -9,24 +9,24 @@ class StoreRpt : public ReportBase {
 
 public:
 
-  StoreRpt(NotePad& notePad) : ReportBase(notePad) { }
+  StoreRpt(NotePad& notePad) : ReportBase(notePad, ReportID) { }
  ~StoreRpt() { }
 
-  void dspHeader(DevBase& dev, int pageNo = 1) {prtHeader(dev, pageNo);}
-  void dspFooter(DevBase& dev, int pageNo = 1) {prtFooter(dev, pageNo);}
+  void dspHeader(DevStream& dev, int pageNo = 1) {prtHeader(dev, pageNo);}
+  void dspFooter(DevStream& dev, int pageNo = 1) {prtFooter(dev, pageNo);}
 
   void display(CScrView& vw);
 
   void onPreparePrinting(CPrintInfo* info);
   void onBeginPrinting(CScrView& vw);
 
-  void prtHeader(DevBase& dev, int pageNo = 1);
-  void prtFooter(DevBase& dev, int pageNo);
+  void prtHeader(DevStream& dev, int pageNo = 1);
+  void prtFooter(DevStream& dev, int pageNo);
 
 private:
 
-  void getData(CScrView& vw);
+  void getData();
 
-  StoreRpt() : ReportBase(*(NotePad*)0) { }
+  StoreRpt() : ReportBase(*(NotePad*)0, ReportID) { }
   };
 

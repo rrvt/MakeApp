@@ -4,7 +4,7 @@
 #pragma once
 #include "CScrView.h"
 #include "FontRpt.h"
-#include "NotePadRpt.h"
+#include "ReportNtPd.h"
 
 
 class MakeAppDoc;
@@ -12,8 +12,8 @@ class MakeAppDoc;
 
 class MakeAppView : public CScrView {
 
-FontRpt    dspFonts;
-FontRpt    prtFonts;
+FontRpt dspFonts;
+FontRpt prtFonts;
 
 protected:              // create from serialization only
 
@@ -24,8 +24,11 @@ public:
 
               ~MakeAppView() { }
 
-  void         initRptOrietn();
-  void         saveRptOrietn();
+          void       initNoteOrietn() { }
+          void       saveNoteOrietn() { }
+          void       initRptOrietn();
+          void       saveRptOrietn();
+  virtual PrtrOrient getOrientation() {return NilOrient;}
 
   virtual void OnInitialUpdate();
 
@@ -35,7 +38,7 @@ public:
 
   virtual void OnPrepareDC(CDC* dc, CPrintInfo* info = 0);          // Display/Printer Override
 
-  virtual void printFooter(DevBase& dev, int pageNo);
+  virtual void printFooter(DevStream& dev, int pageNo);
   virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 
   MakeAppDoc* GetDocument() const;

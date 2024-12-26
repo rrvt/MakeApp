@@ -9,7 +9,7 @@
 #include "MakeAppDoc.h"
 #include "OptionsDlg.h"
 #include "Resource.h"
-#include "Resources.h"
+#include "ResourceData.h"
 #include "RptOrientDlgTwo.h"
 
 
@@ -48,6 +48,7 @@ OptionsDlg dlg;
     pMgr.setFontScale(printer.scale);
     }
   }
+
 
 
 void MakeAppView::onRptOrietn() {
@@ -116,7 +117,7 @@ void MakeAppView::onDisplayOutput() {
 // The output streaming functions are very similar to NotePad's streaming functions so it should
 // not be a great hardship to construct a footer.
 
-void MakeAppView::printFooter(DevBase& dev, int pageNo) {
+void MakeAppView::printFooter(DevStream& dev, int pageNo) {
   switch(doc()->dataSrc()) {
     case NotePadSrc : prtNote.prtFooter(dev, pageNo);  break;
     case FontSrc    : prtFonts.prtFooter(dev, pageNo); break;

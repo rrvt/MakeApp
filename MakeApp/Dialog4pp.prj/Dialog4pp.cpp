@@ -18,7 +18,7 @@ IniFile   iniFile;
 
 // Dialog4pp construction
 
-Dialog4pp::Dialog4pp() noexcept : CApp(this) { }
+Dialog4pp::Dialog4pp() noexcept : CDialogApp(this) { }
 
 
 // Dialog4pp initialization -- Start the MFC Dialog Box

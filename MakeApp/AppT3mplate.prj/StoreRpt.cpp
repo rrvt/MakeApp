@@ -7,7 +7,7 @@
 #include "Store.h"
 
 
-void StoreRpt::display(CScrView& vw) {printing = false;   vw.enableDplWrap();   getData(vw);}
+void StoreRpt::display(CScrView& vw) {printing = false;   vw.enableDplWrap();   getData();}
 
 
 void StoreRpt::onPreparePrinting(CPrintInfo* info) {printer.set(prtrOrietn);}
@@ -17,7 +17,7 @@ void StoreRpt::onBeginPrinting(CScrView& vw)
                                         {printing = true;   vw.enablePrtWrap();   getPageAttr(vw);}
 
 
-void StoreRpt::getData(CScrView& vw) {
+void StoreRpt::getData() {
 DSIter iter(store);
 Datum* datum;
 int    i;
@@ -32,7 +32,7 @@ int    i;
   }
 
 
-void StoreRpt::prtHeader(DevBase& dev, int pageNo) {
+void StoreRpt::prtHeader(DevStream& dev, int pageNo) {
 String s = store.date() + _T(" ") + store.time();
 
   dev << dClrTabs << dSetRTab(3) << dSetTab(5);
@@ -43,7 +43,7 @@ String s = store.date() + _T(" ") + store.time();
   }
 
 
-void StoreRpt::prtFooter(DevBase& dev, int pageN) {
+void StoreRpt::prtFooter(DevStream& dev, int pageN) {
 
   if (pageN > maxPages) maxPages = pageN;
 

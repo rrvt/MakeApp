@@ -11,23 +11,23 @@ class FontRpt : public ReportBase {
 
 public:
 
-  FontRpt(NotePad& notePad) : ReportBase(notePad) { }
+  FontRpt(NotePad& notePad) : ReportBase(notePad, ReportID) { }
  ~FontRpt() { }
 
- void display(CScrView& vw);
+  void display(CScrView& vw);
 
- virtual void dspHeader(DevBase& dev, int pageNo = 1) { }
- virtual void dspFooter(DevBase& dev, int pageNo = 1) { }
+  void dspHeader(DevStream& dev, int pageNo = 1) { }
+  void dspFooter(DevStream& dev, int pageNo = 1) { }
 
- void onBeginPrinting(CScrView& vw);
+  void onBeginPrinting(CScrView& vw);
 
- virtual void prtHeader(DevBase& dev, int pageNo) { }
- virtual void prtFooter(DevBase& dev, int pageNo) { }
+  void prtHeader(DevStream& dev, int pageNo) { }
+  void prtFooter(DevStream& dev, int pageNo) { }
 
 private:
 
-  void getData(CScrView& vw);
+  void getData();
   bool filter(TCchar* name);
 
-  FontRpt() : ReportBase(*(NotePad*)0) { }
+  FontRpt() : ReportBase(*(NotePad*)0, ReportID) { }
   };

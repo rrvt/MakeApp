@@ -2,10 +2,10 @@
 
 
 #pragma once
-#include "CApp.h"
+#include "CDialogApp.h"
 
 
-class Dialog4pp : public CApp {
+class Dialog4pp : public CDialogApp {
 public:
 
 UINT  m_nAppLook;

@@ -7,10 +7,12 @@
 #include "AppT3mplateDoc.h"
 #include "ClipLine.h"
 #include "IniFile.h"
+#include "ReportNtpd.h"
 #include "OptionsDlg.h"
 #include "Resource.h"
-#include "Resources.h"
+#include "ResourceData.h"
 #include "RptOrientDlgTwo.h"
+#include "Store.h"
 
 
 static TCchar* StrOrietnKey = _T("Store");
@@ -55,6 +57,16 @@ BOOL AppT3mplateView::PreCreateWindow(CREATESTRUCT& cs) {return CScrView::PreCre
 
 
 void AppT3mplateView::OnInitialUpdate() {CScrView::OnInitialUpdate();}
+
+
+void AppT3mplateView::initNoteOrietn() {
+  dspNote.prtrOrietn = prtNote.prtrOrietn =
+                           (PrtrOrient) iniFile.readInt(RptOrietnSect, NoteOrietnKey, PortOrient);
+  }
+
+
+void AppT3mplateView::saveNoteOrietn()
+                                 {iniFile.write(RptOrietnSect, NoteOrietnKey, prtNote.prtrOrietn);}
 
 
 void AppT3mplateView::onOptions() {
@@ -113,7 +125,7 @@ void AppT3mplateView::onDisplayOutput() {
   }
 
 
-void AppT3mplateView::displayHeader(DevBase& dev) {
+void AppT3mplateView::displayHeader(DevStream& dev) {
   switch(doc()->dataSrc()) {
     case NotePadSrc   : dspNote.dspHeader(dev);   break;
 #ifdef Examples
@@ -123,7 +135,7 @@ void AppT3mplateView::displayHeader(DevBase& dev) {
   }
 
 
-void AppT3mplateView::displayFooter(DevBase& dev) {
+void AppT3mplateView::displayFooter(DevStream& dev) {
   switch(doc()->dataSrc()) {
     case NotePadSrc   : dspNote.dspFooter(dev);   break;
 #ifdef Examples
@@ -158,7 +170,7 @@ void AppT3mplateView::onBeginPrinting() {
   }
 
 
-void AppT3mplateView::printHeader(DevBase& dev, int pageNo) {
+void AppT3mplateView::printHeader(DevStream& dev, int pageNo) {
   switch(doc()->dataSrc()) {
     case NotePadSrc: prtNote.prtHeader(dev, pageNo);   break;
 #ifdef Examples
@@ -172,7 +184,7 @@ void AppT3mplateView::printHeader(DevBase& dev, int pageNo) {
 // The output streaming functions are very similar to NotePad's streaming functions so it should
 // not be a great hardship to construct a footer.
 
-void AppT3mplateView::printFooter(DevBase& dev, int pageNo) {
+void AppT3mplateView::printFooter(DevStream& dev, int pageNo) {
   switch(doc()->dataSrc()) {
     case NotePadSrc : prtNote.prtFooter(dev, pageNo);  break;
 #ifdef Examples

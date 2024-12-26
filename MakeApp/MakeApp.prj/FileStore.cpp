@@ -44,7 +44,7 @@ void FileStore::store(Archive& ar) {
 FSIter iter(*this);
 Datum* d;
 
-  for (d = iter(); d; d = iter++) ar.write((*d)() + _T('\n'));
+  for (d = iter(); d; d = iter++) ar << (*d)() << aCrlf;
   }
 
 

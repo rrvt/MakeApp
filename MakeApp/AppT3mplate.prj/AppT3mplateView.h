@@ -4,7 +4,7 @@
 #pragma once
 #include "CScrView.h"
 #include "ExamplesDef.h"
-#include "NotePadRpt.h"
+#include "ReportNtpd.h"
 #ifdef Examples
 #include "StoreRpt.h"
 #endif
@@ -16,8 +16,10 @@ class AppT3mplateDoc;
 class AppT3mplateView : public CScrView {
 
 #ifdef Examples
+
 StoreRpt   dspStore;
 StoreRpt   prtStore;
+
 #endif
 
 CMenu      menu;
@@ -31,28 +33,31 @@ protected: // create from serialization only
 
 public:
 
-  virtual        ~AppT3mplateView() { }
+  virtual           ~AppT3mplateView() { }
 
-  void            initRptOrietn();
-  void            saveRptOrietn();
+  virtual void       initNoteOrietn();
+  virtual void       saveNoteOrietn();
+  virtual void       initRptOrietn();
+  virtual void       saveRptOrietn();
+  virtual PrtrOrient getOrientation() {return prtNote.prtrOrietn;}
 
-  virtual BOOL    PreCreateWindow(CREATESTRUCT& cs);
-  virtual void    OnInitialUpdate();
+  virtual BOOL       PreCreateWindow(CREATESTRUCT& cs);
+  virtual void       OnInitialUpdate();
 
-  virtual void    onDisplayOutput();
-  virtual void    displayHeader(DevBase& dev);
-  virtual void    displayFooter(DevBase& dev);
+  virtual void       onDisplayOutput();
+  virtual void       displayHeader(DevStream& dev);
+  virtual void       displayFooter(DevStream& dev);
 
-  virtual void    onPreparePrinting(CPrintInfo* info);
-  virtual void    onBeginPrinting();
-  virtual void    printHeader(DevBase& dev, int pageNo);
-  virtual void    printFooter(DevBase& dev, int pageNo);
-  virtual void    OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
+  virtual void       onPreparePrinting(CPrintInfo* info);
+  virtual void       onBeginPrinting();
+  virtual void       printHeader(DevStream& dev, int pageNo);
+  virtual void       printFooter(DevStream& dev, int pageNo);
+  virtual void       OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 
-  AppT3mplateDoc* GetDocument() const;
+  AppT3mplateDoc*    GetDocument() const;
 
 #ifdef Examples
-  StoreRpt&       storeRpt()  {return dspStore;}
+  StoreRpt&          storeRpt()  {return dspStore;}
 #endif
 
 public:

@@ -39,7 +39,7 @@ void Store::store(Archive& ar) {
 DSIter iter(*this);
 Datum* datum;
 
-  for (datum = iter(); datum; datum = iter++) {ar.write((*datum)());  ar.crlf();}
+  for (datum = iter(); datum; datum = iter++) ar << (*datum)() << aCrlf;
   }
 
 

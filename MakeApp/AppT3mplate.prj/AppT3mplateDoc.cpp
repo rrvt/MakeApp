@@ -279,7 +279,7 @@ void AppT3mplateDoc::serialize(Archive& ar) {
 
   if (ar.isStoring())
     switch(dataSource) {
-      case NotePadSrc : notePad.archive(ar); return;
+      case NotePadSrc : ar << notePad; return;
 #ifdef Examples
       case StoreSrc   : store.store(ar); return;
       case StrRptSrc  : view()->storeRpt().txtOut( ar, 1.35); return;
