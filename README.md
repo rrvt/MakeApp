@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 1/6/25
+
+Removed some dead files from Dialog template.
+
 ### Update 12/25/24
 
 Split the library into DocLib and Library where DocLib supports the MFC Document/Library App

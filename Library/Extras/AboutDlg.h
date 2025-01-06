@@ -29,5 +29,6 @@ public:
 
   afx_msg void onOk();
   afx_msg void onChangePdfapps();
-  };
+  afx_msg void onSelelectMbr();
+};
 
