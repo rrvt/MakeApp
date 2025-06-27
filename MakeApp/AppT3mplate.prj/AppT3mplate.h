@@ -17,6 +17,7 @@ String appPath;
 public:
 
                AppT3mplate() noexcept : CApp(this) { }
+              ~AppT3mplate() { }
 
   virtual BOOL InitInstance();
   virtual int  ExitInstance();

@@ -12,5 +12,5 @@ static TCchar* IncTarget  = _T("Include=\"");
 static int     NIncTarget = _tcslen(IncTarget);
 
 
-FileList fileList;
+//FileList fileList;
 

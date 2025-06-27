@@ -108,10 +108,10 @@ int        n;
 void AppT3mplateDoc::OnComboBoxChng() {
 MyToolBar& toolBar = getToolBar();
 String     s;
-int        x;
+void*      x;
 
   if (toolBar.getCurSel(ID_CboBx, s, x))
-                         notePad << _T("On Change, Item = ") << s << _T(", Data = ") << x << nCrlf;
+                         notePad << _T("On Change, Item = ") << s << _T(", Data = ") << (int)x << nCrlf;
   display();
   }
 

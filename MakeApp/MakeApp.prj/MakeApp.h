@@ -18,6 +18,7 @@ public:
                MakeApp() noexcept : CApp(this) { }
 
   virtual BOOL InitInstance();
+  virtual int  ExitInstance();
 
   MakeAppDoc*  doc()     {return (MakeAppDoc*)  CApp::getDoc();}
   MakeAppView* view()    {return (MakeAppView*) CApp::getView();}

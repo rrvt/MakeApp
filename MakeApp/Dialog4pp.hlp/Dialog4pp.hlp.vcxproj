@@ -15,7 +15,7 @@
     <ProjectGuid>{6AC8F159-3C5E-4FD0-B8C8-B7BD1D917EE7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>DialogApp.hlp</ProjectName>
+    <ProjectName>Dialog4App.hlp</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -47,7 +47,7 @@
     </NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>nmake $(Configuration)/Dialog4pp.chm</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>nmake $(Configuration)/Rebuild.rbd</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>nmake /D /P  $(Configuration)/Clean.cln</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine>nmake $(Configuration)/Clean.cln</NMakeCleanCommandLine>
     <OutDir>$(SolutionDir)..\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
@@ -58,7 +58,7 @@
     </NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>nmake $(Configuration)/Dialog4pp.chm</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>nmake $(Configuration)/Rebuild.rbd</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>nmake /D /P  $(Configuration)/Clean.cln</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine>nmake $(Configuration)/Clean.cln</NMakeCleanCommandLine>
     <OutDir>$(SolutionDir)..\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>

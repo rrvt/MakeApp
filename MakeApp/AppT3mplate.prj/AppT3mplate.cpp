@@ -10,9 +10,10 @@
 #include "IniFile.h"
 #include "NotePad.h"
 #include "Resource.h"
+#include "Store.h"
 
 AppT3mplate theApp;                       // The one and only AppT3mplate object
-IniFile     iniFile;
+IniFile     iniFile(theApp);
 
 
 // AppT3mplate
@@ -30,7 +31,7 @@ BOOL AppT3mplate::InitInstance() {
 
   CWinAppEx::InitInstance();
 
-  iniFile.setAppDataPath(m_pszHelpFilePath, *this);
+  iniFile.setAppDataPath(m_pszHelpFilePath);
 
   roamPath = getPath(iniFile.getAppDataPath(m_pszHelpFilePath));
   appPath  = getPath(m_pszHelpFilePath);
@@ -75,12 +76,7 @@ BOOL AppT3mplate::InitInstance() {
 
 
 int AppT3mplate::ExitInstance() {
-
-#ifdef DebugMemoryLeaks
-  _CrtDumpMemoryLeaks();
-#endif
-
-  return CApp::ExitInstance();
+  store.~Store();   return CApp::ExitInstance();
   }
 
 

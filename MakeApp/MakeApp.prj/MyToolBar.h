@@ -86,6 +86,6 @@ public:
   void    setCaption(uint id, TCchar* caption);
   void    setWidth(  uint id);
   void    setHeight( uint id);
-  bool    getCurSel( uint id, String& s, int& data);
+  bool    getCurSel( uint id, String& s, void*& data);
   };
 

@@ -177,7 +177,7 @@ void Dialog4ppDlg::onTBChange(NMHDR* pNMHDR, LRESULT* pResult) {
 
 void Dialog4ppDlg::onCboBxChange() {
 String s;
-int    x;
+void*  x;
 String t;
 
   if (!toolBar.getCurSel(ID_CboBx, s, x)) return;
@@ -190,7 +190,7 @@ String t;
 
 void Dialog4ppDlg::onCboBx1Change() {
 String s;
-int    x;
+void*  x;
 String t;
 
   if (!toolBar.getCurSel(ID_CboBx1, s, x)) return;

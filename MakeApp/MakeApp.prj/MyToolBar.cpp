@@ -189,7 +189,7 @@ int cbxID = cboBx.getId();
 
 #ifdef DocViewTB
 
-bool MyToolBar::getCurSel( uint id, String& s, int& data) {
+bool MyToolBar::getCurSel( uint id, String& s, void*& data) {
 #ifdef ButtonDefs
 int cbxID = cboBx.getId();
 
@@ -200,7 +200,7 @@ int cbxID = cboBx.getId();
 
 #else
 
-bool MyToolBar::getCurSel( uint id, String& s, int& data) {
+bool MyToolBar::getCurSel( uint id, String& s, void*& data) {
 #ifdef ButtonDefs
 int cbxID  = cboBx.getId();
 int cbxID1 = cboBx1.getId();

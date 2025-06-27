@@ -6,6 +6,17 @@
 #include "NotePad.h"
 #include "Utilities.h"
 
+#include "MessageBox.h"
+
+
+AdrRcd::AdrRcd() : id(0), dirty(false), remove(false) { }
+
+
+void AdrRcd::clear() {
+  id = 0;   dirty = false;   remove = false;
+  address1.clear();   address2.clear();
+  }
+
 
 bool AdrTbl::load(TCchar* path) {
 AdrSetIter iter(adrSet);
@@ -65,6 +76,15 @@ void AdrRcd::copy(AdrSet& set) {
   set.addressID = id;
   set.address1  = address1;
   set.address2  = address2;
+  }
+
+
+void AdrRcd::copy(AdrRcd& r) {
+  id       = r.id;
+  dirty    = r.dirty;
+  remove   = r.remove;
+  address1 = r.address1;
+  address2 = r.address2;
   }
 
 
@@ -138,4 +158,7 @@ int     n;
     }
   }
 
+
+
+////---------------
 

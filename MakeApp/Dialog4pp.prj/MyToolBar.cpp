@@ -126,7 +126,7 @@ void MyToolBar::setHeight( uint id) {
   }
 
 
-bool MyToolBar::getCurSel( uint id, String& s, int& data) {
+bool MyToolBar::getCurSel( uint id, String& s, void*& data) {
   if (id == cboBx.getId())  return ToolBarBase::getCurSel(cboBx,  s, data);
   if (id == cboBx1.getId()) return ToolBarBase::getCurSel(cboBx1, s, data);
 

@@ -4,16 +4,14 @@
 #include "pch.h"
 #include "Dialog4pp.h"
 #include "Dialog4ppDlg.h"
+#include "History.h"
 #include "IniFile.h"
-
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
+#include "Utilities.h"
 
 
 Dialog4pp theApp;                         // The one and only Dialog4pp object
-IniFile   iniFile;
+IniFile   iniFile(theApp);                // One each of the classes
+History   history;
 
 
 // Dialog4pp construction
@@ -28,7 +26,7 @@ Dialog4ppDlg dlg(m_pszHelpFilePath);
 
   CWinApp::InitInstance();
 
-  iniFile.setAppDataPath(m_pszHelpFilePath, *this);
+  iniFile.setAppDataPath(m_pszHelpFilePath);
 
   dlg.DoModal();
 
@@ -36,5 +34,10 @@ Dialog4ppDlg dlg(m_pszHelpFilePath);
   }
 
 
-int Dialog4pp::ExitInstance() {return CWinApp::ExitInstance();}
+int Dialog4pp::ExitInstance() {
+
+  clearLibUtilities();
+
+  return CDialogApp::ExitInstance();
+  }
 

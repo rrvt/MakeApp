@@ -8,9 +8,9 @@
 class CtySet : public AccRcdSet {
 public:
 int     cityStateID;
-CString city;
-CString state;
-CString zip;
+Cstring city;
+Cstring state;
+Cstring zip;
 
   CtySet();
  ~CtySet() {close();}

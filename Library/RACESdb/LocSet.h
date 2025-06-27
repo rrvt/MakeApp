@@ -8,8 +8,8 @@
 class LocSet : public AccRcdSet {
 public:
 int     locationPrefID;
-CString key;
-CString txt;
+Cstring key;
+Cstring txt;
 
   LocSet();
  ~LocSet() {close();}

@@ -160,6 +160,13 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 6/26/25
+
+Fixed logic to find memory leaks during debugging in VS22.  Then I discovered multiple false
+positive in the memory leak report.  So, I found and fixed as many false positives as possible both
+in MakeApp and the two templates MakeApp supports.  The remaining false positives appear to be
+related to the memory leak reporting logic and/or the MFC base of the app.
+
 ### Update 1/6/25
 
 Removed some dead files from Dialog template.

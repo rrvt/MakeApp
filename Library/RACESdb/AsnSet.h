@@ -8,8 +8,8 @@
 class AsnSet : public AccRcdSet {
 public:
 int     assgnPrefID;
-CString aPKey;
-CString txt;
+Cstring aPKey;
+Cstring txt;
 
   AsnSet();
  ~AsnSet() {close();}

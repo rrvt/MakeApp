@@ -7,7 +7,7 @@ Dialog4pp.chm : *.htm Dialog4pp.hhp Dialog4pp.hhc App.css
 Clean.cln    :
   @echo "Cleaning"
   cd $(MAKEDIR)
-  del /F Dialog4pp.chm
+  if exist Dialog4pp.chm del /f Dialog4pp.chm
 
 
 Release/Dialog4pp.chm : Dialog4pp.chm
@@ -16,7 +16,7 @@ Release/Dialog4pp.chm : Dialog4pp.chm
 
 Release/Clean.cln    : Clean.cln
   cd $(MAKEDIR)\..\Release
-  del Dialog4pp.chm
+  if exist Dialog4pp.chm del /f Dialog4pp.chm
   cd $(MAKEDIR)
 
 
@@ -26,7 +26,7 @@ Debug/Dialog4pp.chm : Dialog4pp.chm
 
 Debug/Clean.cln    : Clean.cln
   cd $(MAKEDIR)\..\Debug
-  del Dialog4pp.chm
+  if exist Dialog4pp.chm del /f Dialog4pp.chm
   cd $(MAKEDIR)
 
 

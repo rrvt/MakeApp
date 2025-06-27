@@ -8,8 +8,8 @@
 class StsSet : public AccRcdSet {
 public:
 int     stsID;
-CString abbreviation;
-CString description;
+Cstring abbreviation;
+Cstring description;
 
   StsSet();
  ~StsSet() {close();}

@@ -11,8 +11,9 @@
 const int BufSize = 1024;
 
 
+
 String IniFile::getAppDataPath(TCchar* helpPath) {
-Tchar   stg[1024];
+Tchar  stg[1024];
 String path;
 String mainName = getMainName(helpPath);
 
@@ -30,7 +31,7 @@ HRESULT rslt     = SHGetFolderPath(0, CSIDL_APPDATA, 0, SHGFP_TYPE_DEFAULT, stg)
 void IniFile::setPath(TCchar* const filePath) {iniFilePath = filePath; checkPath();}
 
 
-void IniFile::setAppDataPath(TCchar* helpPath, CWinApp& theApp) {
+void IniFile::setAppDataPath(TCchar* helpPath) {
 String  mainName = getMainName(helpPath);
 Tchar    stg[1024];
 HRESULT rslt;
@@ -41,28 +42,34 @@ HRESULT rslt;
 
   iniFilePath += mainName; iniFilePath += _T(".ini");
 
-  checkPath(); setTheAppPath(theApp);
+  checkPath(); setTheAppPath();
   }
 
 
-void IniFile::setFilePath(String& pth, CWinApp& theApp)
-                                           {iniFilePath = pth; checkPath(); setTheAppPath(theApp);}
+void IniFile::setFilePath(String& pth) {iniFilePath = pth; checkPath(); setTheAppPath();}
 
 
-void IniFile::setFilePath(TCchar* pth, CWinApp& theApp)
-                                           {iniFilePath = pth; checkPath(); setTheAppPath(theApp);}
+void IniFile::setFilePath(TCchar* pth) {iniFilePath = pth; checkPath(); setTheAppPath();}
 
 
-void IniFile::setTheAppPath(CWinApp& theApp) {
-TCchar* prfl = theApp.m_pszProfileName;
+void IniFile::setTheAppPath() {
 
-  try {if (prfl) free((void*) prfl);} catch (...) {}
+  clrTheAppPath();
 
   pathLng  = iniFilePath.size() + 4;
 
   theApp.m_pszProfileName = (LPCTSTR) malloc(pathLng*sizeof(TCchar));
 
   _tcscpy_s((Tchar*) theApp.m_pszProfileName, pathLng, iniFilePath);
+  }
+
+
+void IniFile::clrTheAppPath() {
+TCchar*& p = theApp.m_pszProfileName;
+
+  try {if (p) free((void*) p);} catch (...) {}
+
+  p = 0;
   }
 
 

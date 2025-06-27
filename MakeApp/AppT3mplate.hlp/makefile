@@ -7,7 +7,7 @@ AppT3mplate.chm : *.htm AppT3mplate.hhp AppT3mplate.hhc App.css
 Clean.cln    :
   @echo "Cleaning"
   cd $(MAKEDIR)
-  del /F AppT3mplate.chm
+  if exist AppT3mplate.chm del /F AppT3mplate.chm
 
 
 Release/AppT3mplate.chm : AppT3mplate.chm
@@ -16,7 +16,7 @@ Release/AppT3mplate.chm : AppT3mplate.chm
 
 Release/Clean.cln    : Clean.cln
   cd $(MAKEDIR)\..\Release
-  del AppT3mplate.chm
+  if exist AppT3mplate.chm del /F AppT3mplate.chm
   cd $(MAKEDIR)
 
 
@@ -26,7 +26,7 @@ Debug/AppT3mplate.chm : AppT3mplate.chm
 
 Debug/Clean.cln    : Clean.cln
   cd $(MAKEDIR)\..\Debug
-  del AppT3mplate.chm
+  if exist AppT3mplate.chm del /F AppT3mplate.chm
   cd $(MAKEDIR)
 
 

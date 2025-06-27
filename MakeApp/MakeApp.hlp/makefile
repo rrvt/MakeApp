@@ -7,7 +7,7 @@ MakeApp.chm : *.htm MakeApp.hhp MakeApp.hhc App.css
 Clean.cln    :
   @echo "Cleaning"
   cd $(MAKEDIR)
-  del /F MakeApp.chm
+  if exist MakeApp.chm del /f MakeApp.chm
 
 
 Release/MakeApp.chm : MakeApp.chm
@@ -16,7 +16,7 @@ Release/MakeApp.chm : MakeApp.chm
 
 Release/Clean.cln    : Clean.cln
   cd $(MAKEDIR)\..\Release
-  del MakeApp.chm
+  if exist MakeApp.chm del /f MakeApp.chm
   cd $(MAKEDIR)
 
 
@@ -26,7 +26,7 @@ Debug/MakeApp.chm : MakeApp.chm
 
 Debug/Clean.cln    : Clean.cln
   cd $(MAKEDIR)\..\Debug
-  del MakeApp.chm
+  if exist MakeApp.chm del /f MakeApp.chm
   cd $(MAKEDIR)
 
 

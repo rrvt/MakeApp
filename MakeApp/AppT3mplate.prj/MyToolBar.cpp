@@ -119,7 +119,7 @@ int cbxID = cboBx.getId();
 
 
 
-bool MyToolBar::getCurSel( uint id, String& s, int& data) {
+bool MyToolBar::getCurSel( uint id, String& s, void*& data) {
 int cbxID = cboBx.getId();
 
   if (id == cbxID) return ToolBarBase::getCurSel(cboBx, s, data);

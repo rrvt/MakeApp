@@ -8,8 +8,8 @@
 class AdrSet : public AccRcdSet {
 public:
 int     addressID;
-CString address1;
-CString address2;
+Cstring address1;
+Cstring address2;
 
   AdrSet();
  ~AdrSet() {close();}

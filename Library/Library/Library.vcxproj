@@ -12,6 +12,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AppFile.cpp" />
     <ClCompile Include="ArchFile.cpp" />
     <ClCompile Include="Archive.cpp" />
     <ClCompile Include="ArchPos.cpp" />
@@ -23,6 +24,7 @@
     <ClCompile Include="CryptDe.cpp" />
     <ClCompile Include="CryptEn.cpp" />
     <ClCompile Include="CryptInit.cpp" />
+    <ClCompile Include="CSVOut.cpp" />
     <ClCompile Include="Currency.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Debug.cpp" />
@@ -39,6 +41,7 @@
     <ClCompile Include="Handle.cpp" />
     <ClCompile Include="History.cpp" />
     <ClCompile Include="IniFile.cpp" />
+    <ClCompile Include="LeakDbg.cpp" />
     <ClCompile Include="MessageBox.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Note.cpp" />
@@ -50,6 +53,7 @@
     <ClCompile Include="TBCboBx.cpp" />
     <ClCompile Include="TBCbxMenu.cpp" />
     <ClCompile Include="TBMenu.cpp" />
+    <ClCompile Include="ThreadBase.cpp" />
     <ClCompile Include="ToolBarBase.cpp" />
     <ClCompile Include="ToolBarDim.cpp" />
     <ClCompile Include="pch.cpp" />
@@ -71,6 +75,7 @@
     <ClCompile Include="XTerm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AppFile.h" />
     <ClInclude Include="ArchFile.h" />
     <ClInclude Include="Archive.h" />
     <ClInclude Include="ArchPos.h" />
@@ -81,6 +86,7 @@
     <ClInclude Include="ComboBox.h" />
     <ClInclude Include="CopyFile.h" />
     <ClInclude Include="Crypt.h" />
+    <ClInclude Include="CSVOut.h" />
     <ClInclude Include="CSVRcdsT.h" />
     <ClInclude Include="Currency.h" />
     <ClInclude Include="Date.h" />
@@ -104,6 +110,7 @@
     <ClInclude Include="IniFile.h" />
     <ClInclude Include="InsertSorted.h" />
     <ClInclude Include="IterT.h" />
+    <ClInclude Include="LeakDbg.h" />
     <ClInclude Include="LexT.h" />
     <ClInclude Include="LexErr.h" />
     <ClInclude Include="ManipT.h" />
@@ -121,6 +128,7 @@
     <ClInclude Include="TBCboBx.h" />
     <ClInclude Include="TBCbxMenu.h" />
     <ClInclude Include="TBMenu.h" />
+    <ClInclude Include="ThreadBase.h" />
     <ClInclude Include="ToolBarBase.h" />
     <ClInclude Include="ToolBarDim.h" />
     <ClInclude Include="pch.h" />

@@ -5,7 +5,9 @@
 #include "MakeApp.h"
 #include "AboutDlg.h"
 #include "GetPathDlg.h"
+#include "FileStore.h"
 #include "IniFile.h"
+#include "ListFonts.h"
 #include "MainFrame.h"
 #include "MakeAppDoc.h"
 #include "MakeAppView.h"
@@ -14,8 +16,9 @@
 #include "Project.h"
 #include "Resource.h"
 
-MakeApp   theApp;                       // The one and only MakeApp object
-IniFile   iniFile;
+MakeApp  theApp;                          // The one and only MakeApp object
+IniFile  iniFile(theApp);
+FileList fileList;
 
 
 // MakeApp
@@ -34,7 +37,7 @@ BOOL MakeApp::InitInstance() {
 
   CWinAppEx::InitInstance();
 
-  iniFile.setAppDataPath(m_pszHelpFilePath, *this);       // A convenient place to get the iniFile
+  iniFile.setAppDataPath(m_pszHelpFilePath);              // A convenient place to get the iniFile
                                                           // initialized
   SetRegistryKey(appID);
 
@@ -78,6 +81,13 @@ BOOL MakeApp::InitInstance() {
   m_pMainWnd->ShowWindow(SW_SHOW);   m_pMainWnd->UpdateWindow();   return TRUE;
   }
 
+
+int MakeApp::ExitInstance() {
+
+  notePad.~NotePad();   fileStore.~FileStore();   fileList.~FileList();   listFonts.~ListFonts();
+
+  return CApp::ExitInstance();
+  }
 
 
 void MakeApp::OnHelp() {
