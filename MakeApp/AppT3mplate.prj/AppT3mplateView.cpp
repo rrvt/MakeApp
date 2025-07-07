@@ -6,7 +6,7 @@
 #include "AppT3mplate.h"
 #include "AppT3mplateDoc.h"
 #include "ClipLine.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "ReportNtpd.h"
 #include "OptionsDlg.h"
 #include "Resource.h"

@@ -6,7 +6,7 @@
 #include "AboutDlg.h"
 #include "GetPathDlg.h"
 #include "FileStore.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "ListFonts.h"
 #include "MainFrame.h"
 #include "MakeAppDoc.h"
@@ -16,9 +16,9 @@
 #include "Project.h"
 #include "Resource.h"
 
-MakeApp  theApp;                          // The one and only MakeApp object
-IniFile  iniFile(theApp);
-FileList fileList;
+MakeApp   theApp;                          // The one and only MakeApp object
+IniFileEx iniFile(theApp);
+FileList  fileList;
 
 
 // MakeApp

@@ -7,13 +7,13 @@
 #include "AppT3mplateDoc.h"
 #include "AppT3mplateView.h"
 #include "FileName.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "NotePad.h"
 #include "Resource.h"
 #include "Store.h"
 
 AppT3mplate theApp;                       // The one and only AppT3mplate object
-IniFile     iniFile(theApp);
+IniFileEx   iniFile(theApp);
 
 
 // AppT3mplate

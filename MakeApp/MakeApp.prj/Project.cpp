@@ -7,7 +7,7 @@
 #include "filesrch.h"
 #include "FileStore.h"
 #include "GetPathDlg.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "MakeApp.h"
 #include "MakeAppDoc.h"
 #include "MkAppUtilities.h"

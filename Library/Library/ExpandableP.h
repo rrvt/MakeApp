@@ -293,7 +293,7 @@ NewArray(DatumPtr); tbl = AllocArray(tblN);  ZeroMemory(tbl, tblN * sizeof(Datum
 
 #ifdef DebugAllocP
 int n = tblN * sizeof(DatumPtr) + sizeof(int);
-  if (n == 12) {
+  if (n == 8) {
     messageBox(_T("ExpandableP"));
     }
 #endif
@@ -338,7 +338,7 @@ template <class Datum, class Key, class DatumPtr, const int n>
 Datum*    ExpandableP<Datum, Key, DatumPtr, n>::allocate() {
 NewAlloc(Datum);
 
-  if (sizeof(Datum) == 12) {
+  if (sizeof(Datum) == 9948) {
     messageBox(_T("ExpandableP"));
     }
 
@@ -523,6 +523,14 @@ int       j;
   for (     ; j < tblN;   j++) tbl[j].p = 0;
 
   FreeArray(q);
+
+#ifdef DebugAllocP
+int n = tblN * sizeof(DatumPtr) + sizeof(int);
+  if (n == 9936) {
+    messageBox(_T("ExpandableP expand"));
+    }
+#endif
+
   }
 
 

@@ -5,12 +5,12 @@
 #include "Dialog4pp.h"
 #include "Dialog4ppDlg.h"
 #include "History.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "Utilities.h"
 
 
 Dialog4pp theApp;                         // The one and only Dialog4pp object
-IniFile   iniFile(theApp);                // One each of the classes
+IniFileEx iniFile(theApp);                // One each of the classes
 History   history;
 
 

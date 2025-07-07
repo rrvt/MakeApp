@@ -6,8 +6,6 @@
 #include "NotePad.h"
 #include "Utilities.h"
 
-#include "MessageBox.h"
-
 
 AdrRcd::AdrRcd() : id(0), dirty(false), remove(false) { }
 
@@ -158,7 +156,4 @@ int     n;
     }
   }
 
-
-
-////---------------
 

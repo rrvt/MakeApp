@@ -11,7 +11,7 @@
 #include "FontRptOpt.h"
 #include "GetPathDlg.h"
 #include "Guid.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "MakeApp.h"
 #include "MakeAppView.h"
 #include "MessageBox.h"

@@ -167,8 +167,8 @@ NewArray(Datum); tbl = AllocArray(tblN);
 
 #ifdef DebugAlloc
 int n = tblN * sizeof(Datum) + sizeof(int);
-  if (n == 68) {
-    messageBox(_T("Expandable"));
+  if (n == 324) {
+    messageBox(_T("Expandable 324"));
     }
 #endif
 }
@@ -325,7 +325,7 @@ int    j;
 
 #ifdef DebugAlloc
 int n = tblN * sizeof(Datum) + sizeof(int);
-  if (n == 68) {
+  if (n == 260) {
     messageBox(_T("Expandable"));
     }
 #endif

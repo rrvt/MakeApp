@@ -31,7 +31,7 @@ public:
 
   int      stoi( uint& i, int base=10);
 
-  void     clear()   {Empty();}
+  void     clear();
   void     expunge();                                 // Expunge data, then clear string
 
   bool     isEmpty() {return CString::IsEmpty();}

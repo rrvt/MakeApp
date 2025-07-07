@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 7/7/25
+
+Factored IniFile in three classes.
+
 ### Update 6/26/25
 
 Fixed logic to find memory leaks during debugging in VS22.  Then I discovered multiple false

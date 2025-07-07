@@ -40,7 +40,8 @@
     <ClCompile Include="Guid.cpp" />
     <ClCompile Include="Handle.cpp" />
     <ClCompile Include="History.cpp" />
-    <ClCompile Include="IniFile.cpp" />
+    <ClCompile Include="IniFileBase.cpp" />
+    <ClCompile Include="IniFileEx.cpp" />
     <ClCompile Include="LeakDbg.cpp" />
     <ClCompile Include="MessageBox.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -108,6 +109,8 @@
     <ClInclude Include="Handle.h" />
     <ClInclude Include="History.h" />
     <ClInclude Include="IniFile.h" />
+    <ClInclude Include="IniFileBase.h" />
+    <ClInclude Include="IniFileEx.h" />
     <ClInclude Include="InsertSorted.h" />
     <ClInclude Include="IterT.h" />
     <ClInclude Include="LeakDbg.h" />
@@ -225,7 +228,7 @@
     <Lib>
       <AdditionalDependencies>Setupapi.lib;Version.lib</AdditionalDependencies>
       <AdditionalOptions>/ignore:4006,4221</AdditionalOptions>
-      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

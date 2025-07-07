@@ -3,7 +3,7 @@
 
 #include "pch.h"
 #include "MakeAppView.h"
-#include "IniFile.h"
+#include "IniFileEx.h"
 #include "ListFonts.h"
 #include "MakeApp.h"
 #include "MakeAppDoc.h"
