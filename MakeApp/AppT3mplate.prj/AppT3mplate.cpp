@@ -76,7 +76,7 @@ BOOL AppT3mplate::InitInstance() {
 
 
 int AppT3mplate::ExitInstance() {
-  store.~Store();   return CApp::ExitInstance();
+  notePad.~NotePad();   store.~Store();   return CApp::ExitInstance();
   }
 
 

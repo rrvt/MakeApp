@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 9/12/25
+
+Modified to match changes in ExpandableP.
+
 ### Update 7/7/25
 
 Factored IniFile in three classes.
