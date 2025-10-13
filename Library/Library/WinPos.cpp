@@ -4,7 +4,7 @@
 #include "pch.h"
 #include "WinPos.h"
 #include "IniFileEx.h"
-#include "NotePad.h"
+//#include "NotePad.h"
 
 
 static const double MinFactor = 3.0;
@@ -126,7 +126,7 @@ void WinPosData::display(TCchar* tgt, int d) {
 String s;
 
   s.format(_T("%s: %i, %i, %i, %i"), tgt, d, width, defWidth, minWidth);
-  notePad << s << nCrlf;
+//  notePad << s << nCrlf;
   }
 
 

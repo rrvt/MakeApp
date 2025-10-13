@@ -46,6 +46,7 @@ public:
   bool    addCbxItemSorted(uint id, TCchar* txt, int data = 0);
   void    setCaption(uint id, TCchar* caption);
   void    setWidth(  uint id);
+  void    setWthPercent(uint id, int percent);
   void    setHeight( uint id);
   bool    getCurSel( uint id, String& s, void*& data);
 

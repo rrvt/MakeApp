@@ -160,6 +160,11 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 10/12/25
+
+Add option to include/exclude example code in executable but not remove the actual code.  Fix
+"Dialog4App" (should have been "Dialog4pp") from solution and help project file.
+
 ### Update 9/12/25
 
 Modified to match changes in ExpandableP.

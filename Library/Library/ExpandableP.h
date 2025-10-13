@@ -141,7 +141,7 @@ the operations supported are:
 
 
 #pragma once
-#include "NewAllocator.h"
+//#include "NewAllocator.h"
 
 //#define DebugAllocP
 
@@ -562,7 +562,7 @@ void ExpandableP<Datum, Key, DatumPtr, n>::clear() {
   }
 
 
-#define DebugAllocP
+//#define DebugAllocP
 #ifdef DebugAllocP
 #include "NotePad.h"
 #endif

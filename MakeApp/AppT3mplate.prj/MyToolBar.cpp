@@ -72,7 +72,7 @@ int saveID  = saveMenu.getId();
 
 
 bool MyToolBar::addCBx(uint id) {
-  return add(cboBx,  id, 10);
+  return add(cboBx,  id, 12);
   }
 
 
@@ -108,6 +108,14 @@ void MyToolBar::setWidth(uint id) {
 int cbxID = cboBx.getId();
 
   if (id == cbxID) ToolBarBase::setWidth(cboBx);
+  }
+
+
+void MyToolBar::setWthPercent(uint id, int percent) {
+int cbxID = cboBx.getId();
+
+  if (id == cbxID) ToolBarBase::setWthPercent(cboBx, percent);
+
   }
 
 

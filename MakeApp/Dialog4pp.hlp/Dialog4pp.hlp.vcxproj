@@ -15,7 +15,7 @@
     <ProjectGuid>{6AC8F159-3C5E-4FD0-B8C8-B7BD1D917EE7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Dialog4App.hlp</ProjectName>
+    <ProjectName>Dialog4pp.hlp</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

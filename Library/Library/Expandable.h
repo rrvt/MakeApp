@@ -355,7 +355,7 @@ int    j;
   }
 
 
-#define DebugAlloc
+//#define DebugAlloc
 #ifdef DebugAlloc
 #include "NotePad.h"
 #endif

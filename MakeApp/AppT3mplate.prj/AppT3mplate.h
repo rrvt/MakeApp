@@ -37,7 +37,6 @@ public:
 
 extern AppT3mplate theApp;
 
-inline void             invalidate() {theApp.invalidate();}
 inline AppT3mplateDoc*  doc()        {return theApp.doc();}
 inline AppT3mplateView* view()       {return theApp.view();}
 inline MainFrame*       mainFrm()    {return theApp.mainFrm();}

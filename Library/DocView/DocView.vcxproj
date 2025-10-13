@@ -174,6 +174,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Archive.h" />
     <ClInclude Include="ByteBlock.h" />
     <ClInclude Include="CalibDspPrt.h" />
     <ClInclude Include="CApp.h" />
@@ -185,7 +186,9 @@
     <ClInclude Include="CNGblock.h" />
     <ClInclude Include="CScrView.h" />
     <ClInclude Include="CSVLex.h" />
+    <ClInclude Include="CSVOut.h" />
     <ClInclude Include="CSVRcdB.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DeviceContext.h" />
     <ClInclude Include="DeviceData.h" />
@@ -195,9 +198,11 @@
     <ClInclude Include="FontMgr.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Horiz.h" />
+    <ClInclude Include="Invalidate.h" />
     <ClInclude Include="ManageDevBase.h" />
     <ClInclude Include="ManageDisplay.h" />
     <ClInclude Include="ManagePrinter.h" />
+    <ClInclude Include="NotePad.h" />
     <ClInclude Include="NtPdToDev.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ReportBase.h" />
@@ -210,6 +215,7 @@
     <ClInclude Include="Wrap.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Archive.cpp" />
     <ClCompile Include="ByteBlock.cpp" />
     <ClCompile Include="CalibDpsPrt.cpp" />
     <ClCompile Include="CApp.cpp" />
@@ -221,7 +227,9 @@
     <ClCompile Include="CNGblock.cpp" />
     <ClCompile Include="CScrView.cpp" />
     <ClCompile Include="CSVLex.cpp" />
+    <ClCompile Include="CSVOut.cpp" />
     <ClCompile Include="CSVRcdB.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DeviceContext.cpp" />
     <ClCompile Include="Devices.cpp" />
@@ -229,8 +237,10 @@
     <ClCompile Include="DevTabs.cpp" />
     <ClCompile Include="FontMgr.cpp" />
     <ClCompile Include="Horiz.cpp" />
+    <ClCompile Include="Invalidate.cpp" />
     <ClCompile Include="ManageDisplay.cpp" />
     <ClCompile Include="ManagePrinter.cpp" />
+    <ClCompile Include="NotePad.cpp" />
     <ClCompile Include="NtPdToDev.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

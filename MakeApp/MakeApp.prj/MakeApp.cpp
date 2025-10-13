@@ -76,7 +76,7 @@ BOOL MakeApp::InitInstance() {
 
   project.getBaseDir();
 
-  project.determineBasePath(m_pszHelpFilePath);
+  project.setSourcePath(m_pszHelpFilePath);
 
   m_pMainWnd->ShowWindow(SW_SHOW);   m_pMainWnd->UpdateWindow();   return TRUE;
   }
@@ -98,7 +98,7 @@ String topic = m_pszHelpFilePath; topic += _T(">Introduction");
 
 
 
-void MakeApp::OnSpecifyBaseDir() {project.getBaseDirUser();   invalidate();}
+void MakeApp::OnSpecifyBaseDir() {project.setBaseDir();   invalidate();}
 
 
 void MakeApp::OnAppAbout() {AboutDlg aboutDlg; aboutDlg.DoModal();}

@@ -82,8 +82,8 @@ static CbxItem cbxText[] = {{_T("Zeta"),     1},
                             {_T("Sigma"),   11},
                             {_T("Nu"),      12},
                             {_T("Kappa"),   13},
-                            {_T("Iota"),    14},
-                            {_T("This is a reallyt long Greek"), 15}
+                            {_T("Iota"),    14}//,
+//                            {_T("This is a reallyt long Greek"), 15}
                             };
 static TCchar* CbxCaption = _T("Greeks");
 
@@ -99,7 +99,9 @@ int        n;
     toolBar.addCbxItemSorted(ID_CboBx, item.txt, item.data);
     }
   toolBar.setCaption(ID_CboBx, CbxCaption);
+  toolBar.setWthPercent(ID_CboBx, 100);
   toolBar.setWidth(ID_CboBx);
+  toolBar.setHeight(ID_CboBx);
 
   notePad << _T("Loaded ") << CbxCaption << _T(" into ComboBx") << nCrlf;  display();
   }

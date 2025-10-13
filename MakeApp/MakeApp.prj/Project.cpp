@@ -20,53 +20,12 @@
 Project project;
 
 
-static TCchar* MakeTarget  = _T("MakeApp\\");
-
-static TCchar* MakeAppSect = _T("MakeApp");
-static TCchar* BaseDirKey  = _T("BaseDir");
-static TCchar* AppT3mplate = _T("AppT3mplate");
-static TCchar* DialogApp   = _T("Dialog4pp");
-
-
-static TCchar* TestSolDir  = _T("AppT3mplate\\");
-static TCchar* TestPrjDir  = _T("AppT3mplate.prj\\");
-static TCchar* TestHlpDir  = _T("AppT3mplate.hlp\\");
-
-
-void Project::getBaseDir() {
-
-  iniFile.readString(MakeAppSect, BaseDirKey, dstRoot);   appRoot = dstRoot;
-
-  notePad << _T("Base Directory: ") << dstRoot << nCrlf;
-  }
-
-
-void Project::getBaseDirUser() {
-String path;
-int    lng;
-Tchar  ch;
-
-  if (!getDirPathDlg(_T("Make App"), path)) return;
-
-  lng = path.length();  ch = path[lng-1];  if (ch != _T('\\')) path += _T('\\');
-
-  appRoot = dstRoot = path;
-
-  iniFile.writeString(MakeAppSect, BaseDirKey, dstRoot);
-
-  notePad.clear();
-
-  notePad << _T("Base Directory: ") << dstRoot << nCrlf;
-  }
-
-
-
-void Project::determineBasePath(TCchar* helpPath) {
+void Project::setSourcePath(TCchar* helpPath) {
 String   s = helpPath;
 int      pos;
 FileSrch dirs;
 String   t;
-String   tgt = AppT3mplate;  tgt += _T(".wix");
+String   tgt = AppTemplate;  tgt += _T(".wix");
 String   path;
 bool     rslt;
 
@@ -95,29 +54,7 @@ bool Project::operator() (ProjectNameDlg& dlg) {
 String t;
 String s;
 
-  appType = (AppType) dlg.appType;
-
-  notePad << _T("App Type: ") << appType << _T(" -- ");
-
-  switch (appType) {
-    case DocViewType : notePad << _T("Doc/View"); break;
-    case DialogType  : notePad << _T("Dialog");   break;
-    default          : notePad << _T("Unknown") << nCrlf; return false;
-    }
-  notePad << nCrlf;
-
-  name = dlg.name; visible = dlg.visibleName; description = dlg.description;
-
-  switch (appType) {
-    case DocViewType : targetName = AppT3mplate; break;
-    case DialogType  : targetName = DialogApp; dialogName = name + _T("Dlg"); break;
-    }
-
-  if (name.isEmpty())        return false;
-  if (visible.isEmpty())     visible     = name;
-  if (description.isEmpty()) description = visible;
-
-  appRoot = dstRoot;   addSegment(appRoot, name);
+  if (!ctx(dlg)) return false;
 
   mngGuid.clear();
 
@@ -166,15 +103,17 @@ FileType fileType;
 
   fileName = removePath(path);   if (!mustCopy(fileName, fileType)) return;
 
+  if (xcldExample(fileName, _T("ExamplesDef.h"))) return;
+
   switch (fileType) {
     case NilType: copyFile(fileName);         break;
-    case PrjType: copyFile(fileName, PrjFix); break;
+    case FltType: copyFile(fileName, FltFix); break;
     case SlnType: copyFile(fileName, SlnFix); break;
     case SrcType: copyFile(fileName, SrcFix); break;
     case SEType : copyFile(fileName, SEFix);  break;
-    case VxcType: fileList.clear(); incl.clear(); cmpl.clear();
+    case PrjType: fileList.clear(); incl.clear(); cmpl.clear();
                   res.clear();      none.clear(); image.clear();
-                  copyFile(fileName, VxcFix); break;
+                  copyFile(fileName, PrjFix); break;
     case WxsType: copyFile(fileName, WxsFix); break;
     case WxdType: copyFile(fileName, WxdFix); break;
     default     : break;
@@ -190,9 +129,9 @@ String ext = getExtension(fileName);
   if (ext == _T("rc"))            {fileType = SrcType; return true;}
   if (ext == _T("rc2"))           {fileType = SrcType; return true;}
   if (ext == _T("sln"))           {fileType = SlnType; return true;}
-  if (ext == _T("vcxproj"))       {fileType = VxcType; return true;}
-  if (ext == _T("filters"))       {fileType = PrjType; return true;}
-  if (ext == _T("user"))          {fileType = PrjType; return true;}
+  if (ext == _T("vcxproj"))       {fileType = PrjType; return true;}
+  if (ext == _T("filters"))       {fileType = FltType; return true;}
+  if (ext == _T("user"))          {fileType = FltType; return true;}
   if (ext == _T("vpj"))           {fileType = SEType;  return true;}
   if (ext == _T("bmp"))           {fileType = NilType; return true;}
   if (ext == _T("ico"))           {fileType = NilType; return true;}
@@ -260,25 +199,25 @@ Datum* d;
 
   if (!doc()->OnOpenDocument(srcFilePath)) return;
 
-  if (fixIt == VxcFix) getFiles();
+  if (fixIt == PrjFix) getFiles();
 
   for (d = iter(); d; d = iter++) {
     String& s = d->get();
 
     switch(fixIt) {
       case SlnFix : renameAppName(s); mngGuid.fixBraceGuids(s); break;
-      case VxcFix : mngGuid.fixBraceGuids(s);   fixReadMe(s);
-      case SEFix  :
-      case PrjFix : renameAppName(s);   break;
-      case SrcFix : renameAppName(s);   renamDesc(s);   renamVisibleName(s); break;
-      case WxsFix : mngGuid.fixWxsGuid(s); renameAppName(s); break;
+      case PrjFix : if (!fixProject(s)) iter.remove();          break;
+      case FltFix : if (!fixFilter(s)) iter.remove();           break;
+      case SrcFix : if (!fixSource(s)) iter.remove();           break;
+      case SEFix  : renameAppName(s);                           break;
+      case WxsFix : mngGuid.fixWxsGuid(s); renameAppName(s);    break;
       case WxdFix : mngGuid.fixWxdGuid(s); renameAppName(s);  fixPath(srcRoot, appRoot, s);
                     renameMakeApp(s); break;
       }
     }
 
   if (fixIt == SEFix)  {SlickEdit se;    se.fix();}
-  if (fixIt == VxcFix) {fileStore.sort(incl.beg, incl.end);  fileStore.sort(cmpl.beg, cmpl.end);}
+  if (fixIt == PrjFix) {fileStore.sort(incl.beg, incl.end);  fileStore.sort(cmpl.beg, cmpl.end);}
 
   fileStore.display(dstName);   invalidate();
 
@@ -314,6 +253,22 @@ int pos;
   }
 
 
+bool Project::fixProject(String& s) {
+
+  if (xcldExample(s, _T("ExamplesDef.h"))) return false;
+
+  mngGuid.fixBraceGuids(s);   fixReadMe(s);   renameAppName(s);   return true;
+  }
+
+
+bool Project::fixSource(String& s) {
+
+  if (xcldExample(s, _T("ExamplesDef.h"))) {s.clear(); return false;}
+
+  renameAppName(s);   renamDesc(s);   renamVisibleName(s);   return true;
+  }
+
+#if 0
 static TCchar* DialogDlg = _T("Dialog4ppDlg");
 
 void Project::renameAppName(String& s) {
@@ -326,7 +281,7 @@ int pos;
     for (pos = s.find(DialogDlg); pos >= 0; pos = s.find(DialogDlg))
                                                   replace(s, pos, pos + 9, dialogName);
   }
-
+#endif
 
 static TCchar* AppLine  = _T("< Description >");
 static int     NAppLine = _tcslen(AppLine);
@@ -364,4 +319,82 @@ int pos = s.find(_T("MakeApp"));
   if (pos >= 0)
     replace(s, pos, pos+7, name);
   }
+
+
+
+
+///----------------------
+
+#if 0
+void Project::getBaseDirUser() {
+String path;
+int    lng;
+Tchar  ch;
+
+  if (!getDirPathDlg(_T("Make App"), path)) return;
+
+  lng = path.length();  ch = path[lng-1];  if (ch != _T('\\')) path += _T('\\');
+
+  appRoot = dstRoot = path;
+
+  iniFile.writeString(MakeAppSect, BaseDirKey, dstRoot);
+
+  notePad.clear();
+
+  notePad << _T("Base Directory: ") << dstRoot << nCrlf;
+  }
+#endif
+
+
+//static TCchar* MakeTarget  = _T("MakeApp\\");
+
+//static TCchar* MakeAppSect = _T("MakeApp");
+//static TCchar* BaseDirKey  = _T("BaseDir");
+//static TCchar* AppT3mplate = _T("AppT3mplate");
+//static TCchar* DialogApp   = _T("Dialog4pp");
+
+
+//static TCchar* TestSolDir  = _T("AppT3mplate\\");
+//static TCchar* TestPrjDir  = _T("AppT3mplate.prj\\");
+//static TCchar* TestHlpDir  = _T("AppT3mplate.hlp\\");
+#if 0
+  inclExmpls = dlg.inclExmpls;
+  appType    = (AppType) dlg.appType;
+
+  notePad << _T("App Type: ") << appType << _T(" -- ");
+
+  switch (appType) {
+    case DocViewType : notePad << _T("Doc/View"); break;
+    case DialogType  : notePad << _T("Dialog");   break;
+    default          : notePad << _T("Unknown") << nCrlf; return false;
+    }
+  notePad << nCrlf;
+
+  name = dlg.name; visible = dlg.visibleName; description = dlg.description;
+
+  switch (appType) {
+    case DocViewType : targetName = AppT3mplate; break;
+    case DialogType  : targetName = DialogApp; dialogName = name + _T("Dlg"); break;
+    }
+
+  if (name.isEmpty())        return false;
+  if (visible.isEmpty())     visible     = name;
+  if (description.isEmpty()) description = visible;
+
+  appRoot = dstRoot;   addSegment(appRoot, name);
+#endif
+#if 0
+                    mngGuid.fixBraceGuids(s);   fixReadMe(s);
+#endif
+#if 0
+bool Project::fixFilter(String& s) {
+
+  if (xcldExample(s, _T("ExamplesDef.h"))) return false;
+
+  renameAppName(s);   return true;
+  }
+#endif
+#if 0
+                    renameAppName(s);                           break;
+#endif
 

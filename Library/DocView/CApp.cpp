@@ -5,6 +5,7 @@
 #include "CApp.h"
 #include "Devices.h"
 #include "MessageBox.h"
+#include "NotePad.h"
 #include "ResourceData.h"
 
 

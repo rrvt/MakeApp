@@ -7,7 +7,6 @@
 #include "History.h"
 #include "StatusBar.h"
 
-#include "NotePad.h"
 
 
 IMPLEMENT_DYNAMIC(Dialog4ppDlg, CDialogEx)

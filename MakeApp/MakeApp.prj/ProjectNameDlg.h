@@ -13,6 +13,7 @@ class ProjectNameDlg : public CDialogEx {
 
 public:
 
+BOOL    inclExmpls;
 int     appType;
 Cstring name;
 Cstring description;
@@ -33,4 +34,4 @@ protected:
   DECLARE_MESSAGE_MAP()
 public:
   virtual BOOL OnInitDialog();
-  };
+};

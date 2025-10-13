@@ -31,6 +31,7 @@ static TCchar* TestPrjDir  = _T("AppT3mplate.prj\\");
 static TCchar* TestHlpDir  = _T("Help\\");
 
 static TCchar* PrjSection  = _T("Project");
+static TCchar* PrjInclType = _T("InclType");
 static TCchar* PrjAppType  = _T("AppType");
 static TCchar* PrjNameKey  = _T("Name");
 static TCchar* PrjVisKey   = _T("VisibleName");
@@ -72,17 +73,19 @@ void MakeAppDoc::OnNameProject() {
 ProjectNameDlg dlg;
 String         path;
 
-  dlg.appType = iniFile.readInt(PrjSection, PrjAppType, 0);
+  dlg.inclExmpls = iniFile.readInt(PrjSection, PrjInclType, 1);
+  dlg.appType    = iniFile.readInt(PrjSection, PrjAppType,  0);
   iniFile.read(PrjSection, PrjNameKey, dlg.name);
   iniFile.read(PrjSection, PrjVisKey,  dlg.visibleName);
   iniFile.read(PrjSection, PrjDesc,    dlg.description);
 
   if (dlg.DoModal() == IDOK) {
 
-    iniFile.write(PrjSection, PrjAppType, dlg.appType);
-    iniFile.write(PrjSection, PrjNameKey, dlg.name);
-    iniFile.write(PrjSection, PrjVisKey,  dlg.visibleName);
-    iniFile.write(PrjSection, PrjDesc,    dlg.description);
+    iniFile.write(PrjSection, PrjInclType, dlg.inclExmpls);
+    iniFile.write(PrjSection, PrjAppType,  dlg.appType);
+    iniFile.write(PrjSection, PrjNameKey,  dlg.name);
+    iniFile.write(PrjSection, PrjVisKey,   dlg.visibleName);
+    iniFile.write(PrjSection, PrjDesc,     dlg.description);
 
     project(dlg);
 

@@ -153,8 +153,10 @@
     <ClInclude Include="..\..\Library\Extras\OptionsDlg.h" />
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="..\..\Library\Extras\CalibDspPrtDlg.h" />
+    <ClInclude Include="Context.h" />
     <ClInclude Include="FileList.h" />
     <ClInclude Include="FileStore.h" />
+    <ClInclude Include="FixFilter.h" />
     <ClInclude Include="FontRpt.h" />
     <ClInclude Include="FontRptDlg.h" />
     <ClInclude Include="FontRptOpt.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="ProjectNameDlg.h" />
+    <ClInclude Include="RenameApp.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SlickEdit.h" />
     <ClInclude Include="targetver.h" />
@@ -181,8 +184,10 @@
     <ClCompile Include="..\..\Library\Extras\OptionsDlg.cpp" />
     <ClCompile Include="Bounds.cpp" />
     <ClCompile Include="..\..\Library\Extras\CalibDspPrtDlg.cpp" />
+    <ClCompile Include="Context.cpp" />
     <ClCompile Include="FileList.cpp" />
     <ClCompile Include="FileStore.cpp" />
+    <ClCompile Include="FixFilter.cpp" />
     <ClCompile Include="FontRpt.cpp" />
     <ClCompile Include="FontRptDlg.cpp" />
     <ClCompile Include="FontRptOpt.cpp" />
@@ -197,6 +202,7 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="ProjectNameDlg.cpp" />
+    <ClCompile Include="RenameApp.cpp" />
     <ClCompile Include="SlickEdit.cpp" />
     <ClCompile Include="..\..\Library\Extras\RptOrientDlgTwo.cpp" />
   </ItemGroup>
