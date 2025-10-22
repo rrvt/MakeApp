@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 10/21/25
+
+Factored library into three parts, Library, Dialog, DocView.
+
 ### Update 10/12/25
 
 Add option to include/exclude example code in executable but not remove the actual code.  Fix

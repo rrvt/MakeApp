@@ -1,7 +1,7 @@
 // Invalidate View from anywhere in a Doc/View
 
 
-#include "pch.h"
+#include "LibGlobals.h"
 #include "Invalidate.h"
 
 

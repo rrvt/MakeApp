@@ -125,8 +125,5 @@
     <ProjectReference Include="..\DocView\DocView.vcxproj">
       <Project>{d0fdd57b-5315-4e31-b0c9-fcfb7a0285f6}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Library\Library.vcxproj">
-      <Project>{cf57f3ec-d3db-4469-8519-3f9d73785d9b}</Project>
-    </ProjectReference>
   </ItemGroup>
 </Project>

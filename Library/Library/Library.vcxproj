@@ -79,7 +79,6 @@
     <ClInclude Include="ComboBox.h" />
     <ClInclude Include="CopyFile.h" />
     <ClInclude Include="Crypt.h" />
-    <ClInclude Include="CSVRcdsT.h" />
     <ClInclude Include="Currency.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="DebugBlk.h" />
