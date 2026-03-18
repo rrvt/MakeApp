@@ -6,8 +6,8 @@
 #include "Resource.h"
 
 
-#ifdef Examples
-static int NoOfButtonControls =  6;
+#if 1
+static int NoOfButtonControls =  7;
 static int NoOfButtons        = 13;
 #else
 static int NoOfButtonControls =  1;
@@ -16,20 +16,15 @@ static int NoOfButtons        =  7;
 
 
 
-MyToolBar::MyToolBar() :
-#ifdef Examples
-                         button(ID_Button), editBox(ID_EditBox),
+MyToolBar::MyToolBar() : button(ID_Button), editBox(ID_EditBox),
 #ifdef DocView
                          menu(ID_Menu),     menu1(ID_Menu1),  saveMenu(ID_TBSaveMenu),
 #else
-                         cbxMenu(createCboBox(ID_Menu)),  cbxMenu1(createCboBox(ID_Menu1)),
+                         cboMenu(createCboBox(ID_Menu)),   cboMenu1(createCboBox(ID_Menu1)),
 #endif
                          cboBox(createCboBox(ID_CboBox)), cboBox1(createCboBox(ID_CboBox1))
-#endif
                         {toolBarDim.initialize(NoOfButtonControls, NoOfButtons);}
 
-
-#ifdef Examples
 
 bool MyToolBar::addButton( uint id, TCchar* caption) {
   if (id == button.getId()) return add(button,  id, caption);
@@ -95,8 +90,8 @@ void MyToolBar::setCboCaption(uint id, TCchar* txt) {
   if      (id == cboBox.getId())  ToolBarBase::setCboCaption(cboBox,  txt);
   else if (id == cboBox1.getId()) ToolBarBase::setCboCaption(cboBox1, txt);
 #ifndef DocView
-  else if (id == cbxMenu.getId())  ToolBarBase::setCboCaption(cbxMenu,  txt);
-  else if (id == cbxMenu1.getId()) ToolBarBase::setCboCaption(cbxMenu1, txt);
+  else if (id == cboMenu.getId())  ToolBarBase::setCboCaption(cboMenu,  txt);
+  else if (id == cboMenu1.getId()) ToolBarBase::setCboCaption(cboMenu1, txt);
 #endif
   }
 
@@ -106,8 +101,8 @@ void MyToolBar::setCboWthPrct(uint id, int percent) {
   if      (id == cboBox.getId())  ToolBarBase::setCboWthPrct(cboBox,  percent);
   else if (id == cboBox1.getId()) ToolBarBase::setCboWthPrct(cboBox1, percent);
 #ifndef DocView
-  else if (id == cbxMenu.getId())  ToolBarBase::setCboWthPrct(cbxMenu,  percent);
-  else if (id == cbxMenu1.getId()) ToolBarBase::setCboWthPrct(cbxMenu1, percent);
+  else if (id == cboMenu.getId())  ToolBarBase::setCboWthPrct(cboMenu,  percent);
+  else if (id == cboMenu1.getId()) ToolBarBase::setCboWthPrct(cboMenu1, percent);
 #endif
   }
 
@@ -116,8 +111,8 @@ void MyToolBar::setCboHeight(uint id) {
   if      (id == cboBox.getId())  ToolBarBase::setCboHeight(cboBox);
   else if (id == cboBox1.getId()) ToolBarBase::setCboHeight(cboBox1);
 #ifndef DocView
-  else if (id == cbxMenu.getId())  ToolBarBase::setCboHeight(cbxMenu);
-  else if (id == cbxMenu1.getId()) ToolBarBase::setCboHeight(cbxMenu1);
+  else if (id == cboMenu.getId())  ToolBarBase::setCboHeight(cboMenu);
+  else if (id == cboMenu1.getId()) ToolBarBase::setCboHeight(cboMenu1);
 #endif
   }
 
@@ -126,8 +121,8 @@ void MyToolBar::dispatch(uint id) {
   if      (id == cboBox.getId())    ToolBarBase::dispatch(cboBox);
   else if (id == cboBox1.getId())   ToolBarBase::dispatch(cboBox1);
 #ifndef DocView
-  else if (id == cbxMenu.getId())  ToolBarBase::dispatch(cbxMenu);
-  else if (id == cbxMenu1.getId()) ToolBarBase::dispatch(cbxMenu1);
+  else if (id == cboMenu.getId())  ToolBarBase::dispatch(cboMenu);
+  else if (id == cboMenu1.getId()) ToolBarBase::dispatch(cboMenu1);
 #endif
   }
 
@@ -195,6 +190,5 @@ int MyToolBar::find(uint id, TCchar* tc) {
   return -1;
   }
 
-#endif
 
 

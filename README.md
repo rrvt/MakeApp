@@ -160,6 +160,10 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 3/18/26
+
+Normalize MyToolBar.
+
 ### Update 3/16/26
 
 Added x64 platform.  Fixed missing Wix utility file.  Lots of changes in the library.

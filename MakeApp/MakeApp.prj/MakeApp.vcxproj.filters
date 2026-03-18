@@ -167,9 +167,6 @@
     <ClCompile Include="..\..\Library\Extras\RptOrientDlgTwo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyToolBar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FixFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

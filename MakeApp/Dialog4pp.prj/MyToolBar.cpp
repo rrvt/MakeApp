@@ -6,7 +6,7 @@
 #include "Resource.h"
 
 
-#ifdef Examples
+#if 1
 static int NoOfButtonControls =  6;
 static int NoOfButtons        = 13;
 #else
@@ -25,8 +25,6 @@ MyToolBar::MyToolBar() : button(ID_Button), editBox(ID_EditBox),
                          cboBox(createCboBox(ID_CboBox)),  cboBox1(createCboBox(ID_CboBox1))
                                           {toolBarDim.initialize(NoOfButtonControls, NoOfButtons);}
 
-
-#ifdef Examples
 
 bool MyToolBar::addButton( uint id, TCchar* caption) {
   if (id == button.getId()) return add(button,  id, caption);
@@ -131,7 +129,7 @@ void MyToolBar::dispatch(uint id) {
 
 // Manipulate tuple in the ComboBox
 
-bool MyToolBar::addCboItem(uint id, TCchar* txt, int data) {
+bool MyToolBar::addCboItem(uint id, TCchar* txt, ulongP data) {
 
   if      (id == cboBox.getId())  {return ToolBarBase::addCboItem(cboBox,  txt, data);}
   else if (id == cboBox1.getId()) {return ToolBarBase::addCboItem(cboBox1, txt, data);}
@@ -140,7 +138,7 @@ bool MyToolBar::addCboItem(uint id, TCchar* txt, int data) {
   }
 
 
-bool MyToolBar::addCboItemSrtd(uint id, TCchar* txt, int data) {
+bool MyToolBar::addCboItemSrtd(uint id, TCchar* txt, ulongP data) {
 
   if      (id == cboBox.getId())  {return ToolBarBase::addCboItemSrtd(cboBox,  txt, data);}
   else if (id == cboBox1.getId()) {return ToolBarBase::addCboItemSrtd(cboBox1, txt, data);}
@@ -192,6 +190,5 @@ int MyToolBar::find(uint id, TCchar* tc) {
   return -1;
   }
 
-#endif
 
 

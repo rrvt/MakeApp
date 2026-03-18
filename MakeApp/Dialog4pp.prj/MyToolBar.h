@@ -65,8 +65,8 @@ public:
 
   // Manipulate tuple in the ComboBox
 
-  bool    addCboItem(    uint id, TCchar* txt, int data = 0);
-  bool    addCboItemSrtd(uint id, TCchar* txt, int data = 0);
+  bool    addCboItem(    uint id, TCchar* txt, ulongP data = 0);
+  bool    addCboItemSrtd(uint id, TCchar* txt, ulongP data = 0);
 
   bool    setCurSel(uint id, int index);
 

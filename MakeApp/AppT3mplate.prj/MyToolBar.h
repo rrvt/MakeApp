@@ -2,17 +2,14 @@
 
 
 #pragma once
-#include "ExamplesDef.h"
 #ifndef DocView
 #define DocView 1
 #endif
 
 
-#ifdef Examples
 #include "TBButton.h"
 #include "TBEditBox.h"
 #include "TBCboBoxes.h"
-#endif
 #ifdef DocView
 #include "TBMenu.h"
 #endif
@@ -24,25 +21,18 @@ struct CbxItem;
 
 class MyToolBar : public ToolBarBase {
 
-#ifdef Examples
-
 TBButton  button;
 TBEditBox editBox;
 #ifdef DocView
 TBMenu    menu;
 TBMenu    menu1;
+TBMenu    saveMenu;
 #else
 TBCboBox& cboMenu;
 TBCboBox& cboMenu1;
 #endif
 TBCboBox& cboBox;
 TBCboBox& cboBox1;
-
-#endif
-
-#ifdef DocView
-TBMenu    saveMenu;
-#endif
 
 public:
 

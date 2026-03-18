@@ -336,7 +336,6 @@
     <ClCompile Include="MakeAppView.cpp" />
     <ClCompile Include="ManageGuid.cpp" />
     <ClCompile Include="MkAppUtilities.cpp" />
-    <ClCompile Include="MyToolBar.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="ProjectNameDlg.cpp" />
