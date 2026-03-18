@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "KqoI+q0lNtE=",
+  "success": true,
+  "projectFilePath": "D:\\Sources\\MakeApp\\Dialog4pp.x64.wix\\Dialog4pp.x64.wix.wixproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rrvt\\.nuget\\packages\\wixtoolset.ui.wixext\\6.0.2\\wixtoolset.ui.wixext.6.0.2.nupkg.sha512",
+    "C:\\Users\\rrvt\\.nuget\\packages\\wixtoolset.util.wixext\\6.0.0\\wixtoolset.util.wixext.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,4 @@
+D:\Sources\MakeApp\Release.Win32\MakeApp.msi
+D:\Sources\MakeApp\MakeApp.Win32.wix\obj\x86\Release\MakeApp.Win32.wix.wixproj.CoreCompileInputs.cache
+D:\Sources\MakeApp\MakeApp.Win32.wix\obj\x86\Release\MakeApp.msi
+D:\Sources\MakeApp\MakeApp.Win32.wix\obj\x86\Release\MakeApp.Win32.wix.wixproj.BindTracking-neutral.txt

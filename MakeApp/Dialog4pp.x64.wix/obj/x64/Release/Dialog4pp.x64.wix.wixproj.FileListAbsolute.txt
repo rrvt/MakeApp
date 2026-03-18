@@ -1,0 +1,4 @@
+D:\Sources\MakeApp\Release.x64\Dialog4pp.msi
+D:\Sources\MakeApp\Dialog4pp.x64.wix\obj\x64\Release\Dialog4pp.x64.wix.wixproj.CoreCompileInputs.cache
+D:\Sources\MakeApp\Dialog4pp.x64.wix\obj\x64\Release\Dialog4pp.msi
+D:\Sources\MakeApp\Dialog4pp.x64.wix\obj\x64\Release\Dialog4pp.x64.wix.wixproj.BindTracking-neutral.txt
