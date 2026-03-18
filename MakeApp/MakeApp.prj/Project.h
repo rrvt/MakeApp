@@ -73,6 +73,10 @@ private:
   void copyFile(TCchar* dstName, FixIt fixIt);
   void copyFile(String& srcName);
 
+  void copyDir(TCchar* srcDirName);             // Copy directory (and files) and rename files
+  void renameSubDirFiles(TCchar* path);         // Rename files in dstPath and subdirectories
+  void renameFiles(TCchar* path);               // Rename files at path
+
   void getFiles();
 
   void fixReadMe(String& s);

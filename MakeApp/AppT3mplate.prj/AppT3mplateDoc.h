@@ -5,6 +5,7 @@
 #include "CDoc.h"
 #include "ExamplesDef.h"
 #include "MainFrame.h"
+#include "PathDlgDsc.h"
 
 
 enum DataSource {NotePadSrc, StoreSrc, StrRptSrc, FontSrc};
@@ -68,6 +69,7 @@ public:
   afx_msg void myButton();
 
   afx_msg void OnComboBoxChng();
+  afx_msg void OnComboBox1Chng();
 
   afx_msg void OnTBEditBox();
   afx_msg void myButton1();

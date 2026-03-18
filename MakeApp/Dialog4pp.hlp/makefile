@@ -10,29 +10,15 @@ Clean.cln    :
   if exist Dialog4pp.chm del /f Dialog4pp.chm
 
 
-Release/Dialog4pp.chm : Dialog4pp.chm
-  copy $(MAKEDIR)\Dialog4pp.chm  $(MAKEDIR)\..\Release\Dialog4pp.chm
+$(TgtFolder)/Dialog4pp.chm : Dialog4pp.chm
+  copy $(MAKEDIR)\Dialog4pp.chm  $(MAKEDIR)\..\$(TgtFolder)\Dialog4pp.chm
 
 
-Release/Clean.cln    : Clean.cln
-  cd $(MAKEDIR)\..\Release
+$(TgtFolder)/Clean.cln    : Clean.cln
+  cd $(MAKEDIR)\..\$(TgtFolder)
   if exist Dialog4pp.chm del /f Dialog4pp.chm
   cd $(MAKEDIR)
 
 
-Debug/Dialog4pp.chm : Dialog4pp.chm
-  copy $(MAKEDIR)\Dialog4pp.chm  $(MAKEDIR)\..\Debug\Dialog4pp.chm
-
-
-Debug/Clean.cln    : Clean.cln
-  cd $(MAKEDIR)\..\Debug
-  if exist Dialog4pp.chm del /f Dialog4pp.chm
-  cd $(MAKEDIR)
-
-
-Release/Rebuild.rbd : Release/Clean.cln Release/Dialog4pp.chm
-
-
-Debug/Rebuild.rbd   : Debug/Clean.cln Debug/Dialog4pp.chm
-
+$(TgtFolder)/Rebuild.rbd : $(TgtFolder)/Clean.cln $(TgtFolder)/Dialog4pp.chm
 

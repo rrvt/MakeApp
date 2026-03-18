@@ -10,29 +10,16 @@ Clean.cln    :
   if exist MakeApp.chm del /f MakeApp.chm
 
 
-Release/MakeApp.chm : MakeApp.chm
-  copy $(MAKEDIR)\MakeApp.chm  $(MAKEDIR)\..\Release\MakeApp.chm
+$(TgtFolder)/MakeApp.chm : MakeApp.chm
+  copy $(MAKEDIR)\MakeApp.chm  $(MAKEDIR)\..\$(TgtFolder)\MakeApp.chm
 
 
-Release/Clean.cln    : Clean.cln
-  cd $(MAKEDIR)\..\Release
+$(TgtFolder)/Clean.cln    : Clean.cln
+  cd $(MAKEDIR)\..\$(TgtFolder)
   if exist MakeApp.chm del /f MakeApp.chm
   cd $(MAKEDIR)
 
 
-Debug/MakeApp.chm : MakeApp.chm
-  copy $(MAKEDIR)\MakeApp.chm  $(MAKEDIR)\..\Debug\MakeApp.chm
-
-
-Debug/Clean.cln    : Clean.cln
-  cd $(MAKEDIR)\..\Debug
-  if exist MakeApp.chm del /f MakeApp.chm
-  cd $(MAKEDIR)
-
-
-Release/Rebuild.rbd : Release/Clean.cln Release/MakeApp.chm
-
-
-Debug/Rebuild.rbd   : Debug/Clean.cln Debug/MakeApp.chm
+$(TgtFolder)/Rebuild.rbd : $(TgtFolder)/Clean.cln $(TgtFolder)/MakeApp.chm
 
 

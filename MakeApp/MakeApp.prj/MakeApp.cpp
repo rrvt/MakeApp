@@ -26,7 +26,7 @@ FileList  fileList;
 
 BEGIN_MESSAGE_MAP(MakeApp, CWinAppEx)
   ON_COMMAND(ID_SpecifyBaseDir,   &OnSpecifyBaseDir)
-  ON_COMMAND(ID_App_About,        &OnAppAbout)
+  ON_COMMAND(ID_AppAbout,        &OnAppAbout)
   ON_COMMAND(ID_Help,             &OnHelp)
 END_MESSAGE_MAP()
 

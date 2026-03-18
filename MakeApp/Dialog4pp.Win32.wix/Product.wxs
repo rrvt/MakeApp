@@ -1,0 +1,119 @@
+<Wix
+  xmlns="http://wixtoolset.org/schemas/v4/wxs"
+  xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
+  >
+
+<Package UpgradeCode="D104D446-92BA-4AAF-89C2-78BFC679A918" Language="1033"
+  Manufacturer="Bob -- K6RWY" Name="Dialog4pp"
+  Version="!(bind.fileVersion.Dialog4pp.cmp)" InstallerVersion="500"
+  >
+
+  <SummaryInformation Manufacturer="Bob -- K6RWY" Description="Installs Dialog4pp"
+    Comments="Copyright (c) Bob -- K6RWY"
+    />
+
+  <MajorUpgrade Schedule="afterInstallInitialize"
+    AllowDowngrades="no" IgnoreRemoveFailure="no" AllowSameVersionUpgrades="no"
+    DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+    />
+
+  <MediaTemplate EmbedCab="yes" />
+
+  <WixVariable Id="WixUILicenseRtf"
+                                   Value="$(var.SolutionDir)..\..\Library\License\NoLicense.rtf" />
+  <Property Id="LicenseAccepted" Value="1" />
+
+  <Property Id="WIXUI_INSTALLDIR" Value="DIALOG4PP.PFF" />
+
+  <UI Id="My_InstallDir.ui">
+    <ui:WixUI Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+  </UI>
+
+  <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp" />
+  <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp" />
+
+  <Icon Id="Dialog4pp_Icon.exe"
+                               SourceFile="$(var.SolutionDir)..\Dialog4pp.prj\res\Dialog4pp.ico" />
+  <Property Id="ARPPRODUCTICON" Value="Dialog4pp_Icon.exe" />
+
+  <Feature Id="ProductFeatures" Title="Main Product" Level="1">
+    <ComponentGroupRef Id="App.ftr" />
+    <ComponentGroupRef Id="Uninstall_Dialog4pp.ftr" />
+  </Feature>
+</Package>
+
+<Fragment>
+  <ComponentGroup Id="App.ftr">
+    <ComponentRef Id="Dialog4pp.cmp" />
+    <ComponentRef Id="Help.cmp" />
+  </ComponentGroup>
+  <ComponentGroup Id="Uninstall_Dialog4pp.ftr">
+    <ComponentRef Id="Uninstall_Dialog4pp.cmp" />
+  </ComponentGroup>
+</Fragment>
+
+<!--Directory structure-->
+<Fragment>
+  <Property Id="ApplicationFolderName" Value="Dialog4pp" />
+  <Property Id="WixAppFolder"          Value="WixPerMachineFolder" />
+
+  <StandardDirectory Id="ProgramFiles6432Folder">
+    <Directory Id="DIALOG4PP.PFF" Name="Dialog4pp" />
+  </StandardDirectory>
+
+  <StandardDirectory Id="ProgramMenuFolder">
+    <Directory Id="Dialog4pp.pmf" Name="Dialog4pp" />
+  </StandardDirectory>
+
+  <StandardDirectory Id="DesktopFolder" />
+</Fragment>
+
+<Fragment>
+  <Component Id="Dialog4pp.cmp" Guid="8A819DBC-3A47-4B3F-8143-23AA372A46FF"
+                                                                         Directory="DIALOG4PP.PFF">
+    <File Id="Dialog4pp.cmp"
+                Source="$(var.Dialog4pp.TargetDir)\..\Release.Win32\Dialog4pp.exe" KeyPath="yes" />
+
+    <Shortcut Id               = "Dialog4pp.shc"
+              Name             = "Dialog4pp"
+              Description      = "A Dialog Application"
+              Advertise        = "yes"
+              Directory        = "Dialog4pp.pmf"
+              WorkingDirectory = "DIALOG4PP.PFF"
+              Icon             = "Dialog4pp_Icon.exe"
+              />
+
+    <Shortcut Id               = "Dialog4pp.dsk"
+              Name             = "Dialog4pp"
+              Description      = "A Dialog Application"
+              Advertise        = "yes"
+              Directory        = "DesktopFolder"
+              WorkingDirectory = "DIALOG4PP.PFF"
+              Icon             = "Dialog4pp_Icon.exe"
+              />
+  </Component>
+
+  <Component Id="Help.cmp" Guid="223C7061-7703-454F-A9FE-D7F8F452AD36" Directory="DIALOG4PP.PFF">
+    <File Id="Help.cmp"
+                Source="$(var.Dialog4pp.TargetDir)\..\Release.Win32\Dialog4pp.chm" KeyPath="yes" />
+  </Component>
+</Fragment>
+
+<Fragment>
+  <Component Id="Uninstall_Dialog4pp.cmp"
+                             Guid="121578AC-20E0-464B-8BE3-77C4CE6EDED4" Directory="Dialog4pp.pmf">
+
+    <Shortcut Id               = "UninstallDialog4pp.shc"
+              Name             = "Uninstall Dialog4pp"
+              Description      = "Uninstalls Dialog4pp"
+              Target           = "[System64Folder]msiexec.exe"
+              Arguments        = "/x [ProductCode]"
+              Icon             = "Dialog4pp_Icon.exe"
+              />
+    <RemoveFolder Id="Dialog4pp.uni" Directory="Dialog4pp.pmf" On="uninstall" />
+    <RegistryValue Root="HKCU" Key="Software\Uninstall_Dialog4pp.cmp"
+                                         Name="installed" Type="integer" Value="1" KeyPath="yes" />
+  </Component>
+</Fragment>
+</Wix>

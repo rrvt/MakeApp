@@ -17,7 +17,7 @@ static TCchar* tgtTable[] = {_T("Build Solution"),
                              _T("Debug"),
                              _T("DebugVisualStudio"),
                              _T("Execute")
-                            };
+                             };
 
 
 void SlickEdit::fix() {

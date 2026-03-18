@@ -104,8 +104,9 @@ CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
   toolBar.addEditBox(ID_EditBox, 20);
   toolBar.addMenu(   ID_Menu,  IDR_TBMenu,  _T("Menu 1"));
   toolBar.addMenu(   ID_Menu1, IDR_TBMenu1, _T("Menu 2"));
-  toolBar.addCBx(    ID_CboBx);
-  toolBar.addMenu(   ID_TBSaveMenu, IDR_TBSaveMenu,  7);
+  toolBar.addCboBox( ID_CboBox);     toolBar.setCboCaption(ID_CboBox,  _T("Cbo Box"));
+  toolBar.addCboBox( ID_CboBox1);    toolBar.setCboCaption(ID_CboBox1, _T("Cbo Box One"));
+  toolBar.addMenu(   ID_TBSaveMenu, IDR_TBSaveMenu,  8);
 
 #else
 

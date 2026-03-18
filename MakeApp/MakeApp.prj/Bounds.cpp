@@ -8,7 +8,7 @@
 
 
 static TCchar* IncTarget  = _T("Include=\"");
-static int     NIncTarget = _tcslen(IncTarget);
+static int     NIncTarget = tcslen(IncTarget);
 
 
 // Scan a file between the bounds and store the file names found in FileList

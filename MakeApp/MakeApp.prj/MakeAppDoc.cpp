@@ -37,11 +37,6 @@ static TCchar* PrjNameKey  = _T("Name");
 static TCchar* PrjVisKey   = _T("VisibleName");
 static TCchar* PrjDesc     = _T("Description");
 
-static TCchar* Msg  = _T("The build order should be set in Vs2017.  This is done after loading ")
-                      _T("Solution into vs2017 then using menu item ")
-                      _T("Project/Project Dependencies... and filling in the dialog box with ")
-                      _T("the appropriate data.");
-
 
 // MakeAppDoc
 
@@ -50,7 +45,7 @@ IMPLEMENT_DYNCREATE(MakeAppDoc, CDoc)
 BEGIN_MESSAGE_MAP(MakeAppDoc, CDoc)
   ON_COMMAND(ID_NameProject,  &OnNameProject)
   ON_COMMAND(ID_FixSlickEdit, &OnFixSlickEdit)
-  ON_COMMAND(ID_File_Save,    &OnFileSave)
+  ON_COMMAND(ID_FileSave,     &OnFileSave)
   ON_COMMAND(ID_Test,         &OnTest)
   ON_COMMAND(ID_CalibDspPrt,  &OnCalibDspPrt)
   ON_COMMAND(ID_ListFonts,    &OnFontRptOpt)
@@ -87,11 +82,7 @@ String         path;
     iniFile.write(PrjSection, PrjVisKey,   dlg.visibleName);
     iniFile.write(PrjSection, PrjDesc,     dlg.description);
 
-    project(dlg);
-
-    invalidate();
-
-    messageBox(Msg);
+    project(dlg);   display();
     }
   }
 
@@ -114,7 +105,7 @@ SlickEdit se;
 
   fileStore.display(getMainName(path));
 
-  invalidate();
+  display();
   }
 
 
@@ -124,7 +115,7 @@ void MakeAppDoc::OnTest() {
 
   notePad.clear();  notePad << _T("Hello World") << nCrlf;
 
-  invalidate();
+  display();
   }
 
 

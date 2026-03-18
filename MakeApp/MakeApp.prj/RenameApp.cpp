@@ -18,10 +18,10 @@ int pos;
 
   for (pos = s.find(targetName); pos >= 0; pos = s.find(targetName))
                                               replace(s, pos, pos + targetName.length(), ctx.name);
-
+#if 0
   if (ctx.appType == DialogType)
     for (pos = s.find(DialogDlg); pos >= 0; pos = s.find(DialogDlg))
-                                                  replace(s, pos, pos + 9, ctx.dialogName);
+#endif                                                  replace(s, pos, pos + 9, ctx.dialogName);
   }
 
 

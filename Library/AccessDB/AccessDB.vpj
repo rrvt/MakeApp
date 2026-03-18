@@ -7,7 +7,7 @@
   AssociatedFile="AccessDB.vcxproj"
   AssociatedFileType="microsoft visual studio visual c++">
   <Config
-    Name="Debug|Win32"
+    Name="Debug|x64"
     Type="vcproj"
     DebugCallbackName="windbg"
     OutputFile=""
@@ -102,7 +102,7 @@
     </Menu>
   </Config>
   <Config
-    Name="Release|Win32"
+    Name="Release|x64"
     Type="vcproj"
     DebugCallbackName="windbg"
     OutputFile=""
@@ -196,7 +196,4 @@
       </Target>
     </Menu>
   </Config>
-  <Files></Files>
-  <List Name="RTE">
-  </List>
 </Project>

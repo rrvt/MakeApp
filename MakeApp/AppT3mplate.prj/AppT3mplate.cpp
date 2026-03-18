@@ -19,9 +19,9 @@ IniFileEx   iniFile(theApp);
 // AppT3mplate
 
 BEGIN_MESSAGE_MAP(AppT3mplate, CWinAppEx)
-  ON_COMMAND(ID_File_New,  &CWinAppEx::OnFileNew)
+  ON_COMMAND(ID_FileNew,  &CWinAppEx::OnFileNew)
   ON_COMMAND(ID_Help,      &onHelp)
-  ON_COMMAND(ID_App_About, &onAppAbout)
+  ON_COMMAND(ID_AppAbout, &onAppAbout)
 END_MESSAGE_MAP()
 
 

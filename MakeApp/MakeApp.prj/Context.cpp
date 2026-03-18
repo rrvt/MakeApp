@@ -72,6 +72,12 @@ bool Context::operator() (ProjectNameDlg& dlg) {
 
   appRoot = dstRoot;   addSegment(appRoot, name);
 
+  return true;
+  }
+
+
+
+///////----------------
 #if 0
 String t;
 String s;
@@ -92,7 +98,4 @@ String s;
 
   t =  targetName + _T(".wix");     copyFiles(t);
 #endif
-
-  return true;
-  }
 

@@ -3,6 +3,7 @@
 
 #pragma once
 #include "CDoc.h"
+#include "PathDlgDsc.h"
 
 
 enum DataSource {NotePadSrc, FontSrc};
@@ -26,7 +27,7 @@ public:
 
   DataSource   dataSrc() {return dataSource;}
   void         resetDataSrc() {dataSource = NotePadSrc;}
-  void         display(DataSource ds);
+  void         display(DataSource ds = NotePadSrc);
 
   virtual void serialize(Archive& ar);
 

@@ -1,0 +1,44 @@
+<Project Sdk="WixToolset.Sdk/6.0.2">
+  <PropertyGroup>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <Platforms>x86;x64</Platforms>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputName>MakeApp</OutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>$(SolutionDir)..\$(Configuration)\</OutputPath>
+    <DefineConstants>Debug</DefineConstants>
+    <SuppressPdbOutput>True</SuppressPdbOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>$(SolutionDir)..\$(Configuration)\</OutputPath>
+    <DefineConstants>Debug</DefineConstants>
+    <SuppressPdbOutput>True</SuppressPdbOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\Release.Win32\</OutputPath>
+    <SuppressPdbOutput>True</SuppressPdbOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>..\Release.x64\</OutputPath>
+    <SuppressPdbOutput>True</SuppressPdbOutput>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="MakeApp.x64.wxd" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.Util.wixext" Version="6.0.0" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="6.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MakeApp.prj\MakeApp.vcxproj">
+      <Name>MakeApp</Name>
+      <Project>{76210cad-9eb1-4493-8592-e3575de8fc20}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

@@ -11,30 +11,30 @@
 
 #ifdef Examples
 #define IDR_CbxMenu                     102
-#define IDR_PopupMenu                   103
+#define IDR_Menu                        103
 #endif
 
 #define IDD_Dialog4pp                   200
 
 #define IDC_StatusBar                   300       // Includes 301 & 302
 
-#define ID_App_About                    400
+#define ID_AppAbout                    400
 #define ID_Help                         401
-#define ID_File_New                     402
-#define ID_File_Open                    403
+#define ID_FileNew                     402
+#define ID_FileOpen                    403
 
 #ifdef Examples
 #define ID_ChangeReady                  404
 #define ID_Button                       405
 #define ID_EditBox                      406
-#define ID_PopupMenu                    407
+#define ID_Menu                         407
 #define ID_Option01                     408
 #define ID_Option02                     419
-#define ID_PopupMenu1                   410
+#define ID_Menu1                        410
 #define ID_Option11                     411
 #define ID_Option12                     412
-#define ID_CboBx                        413
-#define ID_CboBx1                       414
+#define ID_CboBox                       413
+#define ID_CboBox1                      414
 #endif
 
 #define ID_SaveHist                     418

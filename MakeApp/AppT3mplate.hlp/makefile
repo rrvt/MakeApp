@@ -10,29 +10,16 @@ Clean.cln    :
   if exist AppT3mplate.chm del /F AppT3mplate.chm
 
 
-Release/AppT3mplate.chm : AppT3mplate.chm
-  copy $(MAKEDIR)\AppT3mplate.chm  $(MAKEDIR)\..\Release\AppT3mplate.chm
+$(TgtFolder)/AppT3mplate.chm : AppT3mplate.chm
+  copy $(MAKEDIR)\AppT3mplate.chm  $(MAKEDIR)\..\$(TgtFolder)\AppT3mplate.chm
 
 
-Release/Clean.cln    : Clean.cln
-  cd $(MAKEDIR)\..\Release
+$(TgtFolder)/Clean.cln    : Clean.cln
+  cd $(MAKEDIR)\..\$(TgtFolder)
   if exist AppT3mplate.chm del /F AppT3mplate.chm
   cd $(MAKEDIR)
 
 
-Debug/AppT3mplate.chm : AppT3mplate.chm
-  copy $(MAKEDIR)\AppT3mplate.chm  $(MAKEDIR)\..\Debug\AppT3mplate.chm
-
-
-Debug/Clean.cln    : Clean.cln
-  cd $(MAKEDIR)\..\Debug
-  if exist AppT3mplate.chm del /F AppT3mplate.chm
-  cd $(MAKEDIR)
-
-
-Release/Rebuild.rbd : Release/Clean.cln Release/AppT3mplate.chm
-
-
-Debug/Rebuild.rbd   : Debug/Clean.cln Debug/AppT3mplate.chm
+$(TgtFolder)/Rebuild.rbd : $(TgtFolder)/Clean.cln $(TgtFolder)/AppT3mplate.chm
 
 

@@ -13,9 +13,11 @@
 #include "MkAppUtilities.h"
 #include "NotePad.h"
 #include "SlickEdit.h"
+#include <filesystem>
 
 #include "MessageBox.h"   //debug
 
+namespace fs = std::filesystem;
 
 Project project;
 
@@ -25,7 +27,7 @@ String   s = helpPath;
 int      pos;
 FileSrch dirs;
 String   t;
-String   tgt = AppTemplate;  tgt += _T(".wix");
+String   tgt = AppTemplate;  tgt += _T(".prj");
 String   path;
 bool     rslt;
 
@@ -62,16 +64,20 @@ String s;
 
   copyFiles(targetName);
 
-  s = t =  targetName + _T(".hlp"); copyFiles(t);
+  s = t =  targetName + _T(".hlp");   copyFiles(t);
 
-  t += _T("\\Templates");           copyFiles(t);
-  s += _T("\\Images");              copyFiles(s);
+  t += _T("\\Templates");             copyFiles(t);
+  s += _T("\\Images");                copyFiles(s);
 
-  t =  targetName + _T(".prj");     copyFiles(t);
+  t =  targetName + _T(".prj");       copyFiles(t);
 
-  t += _T("\\res");                 copyFiles(t);
+  t += _T("\\res");                   copyFiles(t);
 
-  t =  targetName + _T(".wix");     copyFiles(t);
+  t =  targetName + _T(".Win32.wix"); copyFiles(t);
+  s = t + _T("\\obj");                copyDir(s);
+
+  t =  targetName + _T(".x64.wix");   copyFiles(t);
+  s = t + _T("\\obj");                copyDir(s);
 
   return true;
   }
@@ -84,6 +90,18 @@ String   path;
   preparePath(srcDirName);
 
   for (files.findAllFiles(srcPath); files.getName(path);) copyFixable(path);
+  }
+
+
+void Project::preparePath(TCchar* pathName, TCchar* segment) {
+
+  srcPath = srcRoot;   if (segment)  addSegment(srcPath, segment);
+                       if (pathName) addSegment(srcPath, pathName);
+
+  dstPath = appRoot;   if (segment)  addSegment(dstPath, segment);
+                       if (pathName) dstPath += pathName;
+
+  renameAppName(dstPath);   createDir(dstPath);  dstPath += _T('\\');
   }
 
 
@@ -151,18 +169,6 @@ String ext = getExtension(fileName);
   if (fileName == _T("makefile")) {fileType = SrcType; return true;}
 
   return false;
-  }
-
-
-void Project::preparePath(TCchar* pathName, TCchar* segment) {
-
-  srcPath = srcRoot;   if (segment)  addSegment(srcPath, segment);
-                       if (pathName) addSegment(srcPath, pathName);
-
-  dstPath = appRoot;   if (segment)  addSegment(dstPath, segment);
-                       if (pathName) dstPath += pathName;
-
-  renameAppName(dstPath);   createDir(dstPath);  dstPath += _T('\\');
   }
 
 
@@ -243,6 +249,52 @@ int    i;
   }
 
 
+void Project::copyDir(TCchar* srcDirName) {
+fs::path src;
+fs::path dst;
+
+  preparePath(srcDirName);   src = srcPath.str();   dst = dstPath.str();
+
+  try {fs::copy(src, dst, fs::copy_options::recursive | fs::copy_options::overwrite_existing);}
+  catch (...) {
+    String s;  s.format(_T("fs::copy(%s, %s) failed!"), srcPath.str(), dstPath.str());
+
+    messageBox(s);   return;
+    }
+
+  renameSubDirFiles(dstPath);
+  }
+
+
+// Rename files in directory and subdirectories
+
+void Project::renameSubDirFiles(TCchar* path) {
+FileSrch srch;
+String   dirPath;
+
+  renameFiles(path);
+
+  for(srch.findAllSubDirs(path); srch.getName(dirPath); ) renameSubDirFiles(dirPath);
+  }
+
+
+// Rename files at path
+
+void Project::renameFiles(TCchar* path) {
+FileSrch srch;
+String   filePath;
+String   newPath;
+
+  for (srch.findAllFiles(path); srch.getName(filePath); ) {
+
+    newPath = filePath;   renameAppName(newPath);
+
+    if (newPath != filePath) renameFile(filePath, newPath);
+    }
+  }
+
+
+
 static TCchar* ReadMeTgt = _T("README-Template.md");
 static TCchar* ReadMeRpl = _T("README.md");
 
@@ -268,23 +320,9 @@ bool Project::fixSource(String& s) {
   renameAppName(s);   renamDesc(s);   renamVisibleName(s);   return true;
   }
 
-#if 0
-static TCchar* DialogDlg = _T("Dialog4ppDlg");
-
-void Project::renameAppName(String& s) {
-int pos;
-
-  for (pos = s.find(targetName); pos >= 0; pos = s.find(targetName))
-                                                  replace(s, pos, pos + targetName.length(), name);
-
-  if (appType == DialogType)
-    for (pos = s.find(DialogDlg); pos >= 0; pos = s.find(DialogDlg))
-                                                  replace(s, pos, pos + 9, dialogName);
-  }
-#endif
 
 static TCchar* AppLine  = _T("< Description >");
-static int     NAppLine = _tcslen(AppLine);
+static int     NAppLine = tcslen(AppLine);
 
 
 void Project::renamDesc(String& s) {
@@ -295,7 +333,7 @@ int pos = s.find(AppLine);   if (pos < 0) return;
 
 
 static TCchar* TitleTarget  = _T("< Title >");
-static int     NTitleTarget = _tcslen(TitleTarget);
+static int     NTitleTarget = tcslen(TitleTarget);
 
 
 void Project::renamVisibleName(String& s) {
@@ -396,5 +434,19 @@ bool Project::fixFilter(String& s) {
 #endif
 #if 0
                     renameAppName(s);                           break;
+#endif
+#if 0
+static TCchar* DialogDlg = _T("Dialog4ppDlg");
+
+void Project::renameAppName(String& s) {
+int pos;
+
+  for (pos = s.find(targetName); pos >= 0; pos = s.find(targetName))
+                                                  replace(s, pos, pos + targetName.length(), name);
+
+  if (appType == DialogType)
+    for (pos = s.find(DialogDlg); pos >= 0; pos = s.find(DialogDlg))
+                                                  replace(s, pos, pos + 9, dialogName);
+  }
 #endif
 

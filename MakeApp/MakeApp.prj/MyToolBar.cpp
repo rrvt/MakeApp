@@ -1,68 +1,83 @@
 // My ToolBar
 
-
+#if 0
 #include "pch.h"
 #include "MyToolBar.h"
 #include "Resource.h"
 
 
-static int NoOfButtonControls = 0;
-static int NoOfButtons        = 9;
-
-
-#ifdef ButtonDefs
-
-MyToolBar::MyToolBar() : button(ID_Button),  editBox(ID_EditBox), menu(ID_Menu),
-                         menu1(ID_Menu1),    cboBx(ID_CboBx),     saveMenu(ID_TBSaveMenu)
-                        {toolBarDim.initialize(NoOfButtonControls, NoOfButtons);}
+#ifdef Examples
+static int NoOfButtonControls =  6;
+static int NoOfButtons        = 13;
 #else
-
-MyToolBar::MyToolBar() {toolBarDim.initialize(NoOfButtonControls, NoOfButtons);}
-
+static int NoOfButtonControls =  1;
+static int NoOfButtons        =  7;
 #endif
 
+
+
+#ifdef Examples
+MyToolBar::MyToolBar() : button(ID_Button), editBox(ID_EditBox),
+#ifdef DocView
+                         menu(ID_Menu),     menu1(ID_Menu1),  saveMenu(ID_TBSaveMenu),
+#else
+                         cbxMenu(createCboBox(ID_Menu)),
+                         cbxMenu1(createCboBox(ID_Menu1)),
+#endif
+                         cboBox(createCboBox(ID_CboBox)), cboBox1(createCboBox(ID_CboBox1))
+                        {toolBarDim.initialize(NoOfButtonControls, NoOfButtons);}
+//#else
+MyToolBar::MyToolBar() {toolBarDim.initialize(9, 0);}
+#endif
+
+
+#ifdef Examples
 
 bool MyToolBar::addButton( uint id, TCchar* caption) {
-#ifdef ButtonDefs
-  return add(button,  id, caption);
-#endif
+  if (id == button.getId()) return add(button,  id, caption);
+
   return false;
   }
 
 
 bool MyToolBar::addEditBox(uint id, int noChars)              {
-#ifdef ButtonDefs
-  return add(editBox, id, noChars);
-#endif
+  if (id == editBox.getId()) return add(editBox, id, noChars);
+
   return false;
   }
 
 
 CString MyToolBar::getText(uint id) {
-#ifdef ButtonDefs
+
   if (id == editBox.getId()) {return ToolBarBase::getText(editBox);}
-#endif
-  return 0;
+
+  return _T("");
   }
 
-#ifdef DocViewTB
+
+#ifdef DocView
 
 bool MyToolBar::addMenu(uint id, int idr, TCchar* caption) {
-#ifdef ButtonDefs
-int menuID  = menu.getId();
-int menu1ID = menu1.getId();
-int saveID  = saveMenu.getId();
 
-  if (id == menuID)  return add(menu,     id, idr, caption);
-  if (id == menu1ID) return add(menu1,    id, idr, caption);
-  if (id == saveID)  return add(saveMenu, id, idr, caption);
-#endif
+  if      (id == menu.getId())      return add(menu,     id, idr, caption);
+  else if (id == menu1.getId())     return add(menu1,    id, idr, caption);
+  else if (id == saveMenu.getId())  return add(saveMenu, id, idr, caption);
+
+  return false;
+  }
+
+
+bool MyToolBar::addMenu(uint id, CCbxItem cbxItem[], int n, TCchar* caption) {
+
+  if      (id == menu.getId())      return add(menu,     id, cbxItem, n, caption);
+  else if (id == menu1.getId())     return add(menu1,    id, cbxItem, n, caption);
+  else if (id == saveMenu.getId())  return add(saveMenu, id, cbxItem, n, caption);
+
   return false;
   }
 
 
 bool MyToolBar::addMenu(uint id, int idr, int index) {
-#ifdef ButtonDefs
 int menuID  = menu.getId();
 int menu1ID = menu1.getId();
 int saveID  = saveMenu.getId();
@@ -70,146 +85,118 @@ int saveID  = saveMenu.getId();
   if (id == menuID)  return add(menu,     id, idr, index);
   if (id == menu1ID) return add(menu1,    id, idr, index);
   if (id == saveID)  return add(saveMenu, id, idr, index);
-#endif
+
   return false;
   }
 
-
-bool MyToolBar::addMenu(uint id, CbxItem cbxItem[], int n, TCchar* caption) {
-#ifdef ButtonDefs
-  return add(menu1, id, cbxItem, n, caption);
 #endif
-  return false;
-  }
-
-#else
 
 
-bool MyToolBar::addMenu(uint id, int idr, TCchar* caption) {
-#ifdef ButtonDefs
-  return add(cbxMenu, id, idr, caption);
+void MyToolBar::setCboCaption(uint id, TCchar* txt) {
+
+  if      (id == cboBox.getId())  ToolBarBase::setCboCaption(cboBox,  txt);
+  else if (id == cboBox1.getId()) ToolBarBase::setCboCaption(cboBox1, txt);
+#ifndef DocView
+  else if (id == cbxMenu.getId())  ToolBarBase::setCboCaption(cbxMenu,  txt);
+  else if (id == cbxMenu1.getId()) ToolBarBase::setCboCaption(cbxMenu1, txt);
 #endif
   }
 
 
-bool MyToolBar::addMenu(uint id, CbxItem cbxItem[], int n, TCchar* caption) {
-#ifdef ButtonDefs
-  return add(cbxMenu1, id, cbxItem, n, caption);
+void MyToolBar::setCboWthPrct(uint id, int percent) {
+
+  if      (id == cboBox.getId())  ToolBarBase::setCboWthPrct(cboBox,  percent);
+  else if (id == cboBox1.getId()) ToolBarBase::setCboWthPrct(cboBox1, percent);
+#ifndef DocView
+  else if (id == cbxMenu.getId())  ToolBarBase::setCboWthPrct(cbxMenu,  percent);
+  else if (id == cbxMenu1.getId()) ToolBarBase::setCboWthPrct(cbxMenu1, percent);
+#endif
+  }
+
+
+void MyToolBar::setCboHeight(uint id) {
+  if      (id == cboBox.getId())  ToolBarBase::setCboHeight(cboBox);
+  else if (id == cboBox1.getId()) ToolBarBase::setCboHeight(cboBox1);
+#ifndef DocView
+  else if (id == cbxMenu.getId())  ToolBarBase::setCboHeight(cbxMenu);
+  else if (id == cbxMenu1.getId()) ToolBarBase::setCboHeight(cbxMenu1);
 #endif
   }
 
 
 void MyToolBar::dispatch(uint id) {
-#ifdef ButtonDefs
-uint cbxId  = cbxMenu.getId();
-uint cbxId1 = cbxMenu1.getId();
-
-  if (id == cbxId)  ToolBarBase::dispatch(cbxMenu);
-  if (id == cbxId1) ToolBarBase::dispatch(cbxMenu1);
+  if      (id == cboBox.getId())    ToolBarBase::dispatch(cboBox);
+  else if (id == cboBox1.getId())   ToolBarBase::dispatch(cboBox1);
+#ifndef DocView
+  else if (id == cbxMenu.getId())  ToolBarBase::dispatch(cbxMenu);
+  else if (id == cbxMenu1.getId()) ToolBarBase::dispatch(cbxMenu1);
 #endif
   }
 
-#endif
 
+// Manipulate tuple in the ComboBox
 
+bool MyToolBar::addCboItem(uint id, TCchar* txt, int data) {
 
+  if      (id == cboBox.getId())  {return ToolBarBase::addCboItem(cboBox,  txt, data);}
+  else if (id == cboBox1.getId()) {return ToolBarBase::addCboItem(cboBox1, txt, data);}
 
-bool MyToolBar::addCBx(uint id) {
-#ifdef ButtonDefs
-  return add(cboBx,  id, 10);
-#endif
   return false;
   }
 
 
-bool MyToolBar::addCBx(uint id, int idr, TCchar* caption) {
-#ifdef ButtonDefs
-  return add(cboBx,  id, idr, caption);
-#endif
+bool MyToolBar::addCboItemSrtd(uint id, TCchar* txt, int data) {
+
+  if      (id == cboBox.getId())  {return ToolBarBase::addCboItemSrtd(cboBox,  txt, data);}
+  else if (id == cboBox1.getId()) {return ToolBarBase::addCboItemSrtd(cboBox1, txt, data);}
+
   return false;
   }
 
 
-bool MyToolBar::addCbxItem(uint id, TCchar* txt, int data) {
-#ifdef ButtonDefs
-int cbxID = cboBx.getId();
+bool MyToolBar::setCurSel(uint id, int index) {
 
-  if (id == cbxID) {return addItem(cboBx, txt, data);}
-#endif
+  if (id == cboBox1.getId()) return ToolBarBase::setCurSel(cboBox1, index);
+
   return false;
   }
 
 
-bool MyToolBar::addCBx(uint id, CbxItem cbxItem[], int n, TCchar* caption) {
-#if 0
-#ifdef ButtonDefs
-  return add(cboBx1,  id, cbxItem, n, caption);
-#endif
-#endif
+bool MyToolBar::setCurSel(uint id, TCchar* tc) {
+  if (id == cboBox1.getId()) return ToolBarBase::setCurSel(cboBox1, tc);
+
   return false;
   }
 
 
-bool MyToolBar::addCbxItemSorted(uint id, TCchar* txt, int data) {
-#ifdef ButtonDefs
-int cbxID = cboBx.getId();
+int  MyToolBar::getCurSel(uint id) {
+  if (id == cboBox1.getId()) return ToolBarBase::getCurSel(cboBox1);
 
-  if (id == cbxID) {return addItemSorted(cboBx, txt, data);}
-#endif
+  return -1;
+  }
+
+
+bool MyToolBar::getCurSel(uint id, String& s, ulongP& data) {
+  if (id == cboBox1.getId()) return ToolBarBase::getCurSel(cboBox1, s, data);
+  if (id == cboBox.getId())  return ToolBarBase::getCurSel(cboBox,  s, data);
+
   return false;
   }
 
 
-void MyToolBar::setCaption(uint id, TCchar* caption) {
-#ifdef ButtonDefs
-int cbxID = cboBx.getId();
+ulongP MyToolBar::getData(uint id, int index) {
+  if (id == cboBox1.getId()) return ToolBarBase::getData(cboBox1, index);
 
-  if (id == cbxID) ToolBarBase::setCaption(cboBx, caption);
-#endif
+  return 0;
   }
 
 
-void MyToolBar::setWidth(uint id) {
-#ifdef ButtonDefs
-int cbxID = cboBx.getId();
+int MyToolBar::find(uint id, TCchar* tc) {
+  if (id == cboBox1.getId()) return ToolBarBase::find(cboBox1, tc);
 
-  if (id == cbxID) ToolBarBase::setWidth(cboBx);
-#endif
-  }
-
-
-void MyToolBar::setHeight( uint id) {
-#ifdef ButtonDefs
-int cbxID = cboBx.getId();
-
-  if (id == cbxID) ToolBarBase::setHeight(cboBx);
-#endif
-  }
-
-
-#ifdef DocViewTB
-
-bool MyToolBar::getCurSel( uint id, String& s, void*& data) {
-#ifdef ButtonDefs
-int cbxID = cboBx.getId();
-
-  if (id == cbxID) return ToolBarBase::getCurSel(cboBx, s, data);
-#endif
-  return false;
-  }
-
-#else
-
-bool MyToolBar::getCurSel( uint id, String& s, void*& data) {
-#ifdef ButtonDefs
-int cbxID  = cboBx.getId();
-int cbxID1 = cboBx1.getId();
-
-  if (id == cbxID)  return ToolBarBase::getCurSel(cboBx,  s, data);
-  if (id == cbxID1) return ToolBarBase::getCurSel(cboBx1, s, data);
-#endif
-  return false;
+  return -1;
   }
 
 #endif
 
+#endif

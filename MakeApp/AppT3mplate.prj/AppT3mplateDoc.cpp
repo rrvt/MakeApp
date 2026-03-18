@@ -20,7 +20,7 @@
 IMPLEMENT_DYNCREATE(AppT3mplateDoc, CDoc)
 
 BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
-  ON_COMMAND(      ID_File_Open,   &onFileOpen)
+  ON_COMMAND(      ID_FileOpen,   &onFileOpen)
 
 #ifdef Examples
   ON_COMMAND(      ID_Button,      &myButton)
@@ -37,8 +37,10 @@ BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
   ON_COMMAND(      ID_Option22,    &onOption22)
   ON_COMMAND(      ID_Option23,    &onOption23)
 
-  ON_CBN_SELCHANGE(ID_CboBx,       &OnComboBoxChng)
-  ON_COMMAND(      ID_CboBx,       &OnComboBoxChng)
+  ON_CBN_SELCHANGE(ID_CboBox,      &OnComboBoxChng)
+  ON_COMMAND(      ID_CboBox,      &OnComboBoxChng)
+  ON_CBN_SELCHANGE(ID_CboBox1,     &OnComboBox1Chng)
+  ON_COMMAND(      ID_CboBox1,     &OnComboBox1Chng)
 #endif
 
   ON_COMMAND(      ID_TBSaveMenu,  &onSaveFile)
@@ -87,6 +89,12 @@ static CbxItem cbxText[] = {{_T("Zeta"),     1},
                             };
 static TCchar* CbxCaption = _T("Greeks");
 
+static CbxItem cbx1Txt[] = {{_T("One"),     1},
+                            {_T("Two"),     2},
+                            {_T("Three"),   3}
+                            };
+static TCchar* Cbx1Caption = _T("Numbers");
+
 
 void AppT3mplateDoc::myButton() {
 MyToolBar& toolBar = getToolBar();
@@ -96,12 +104,16 @@ int        n;
   for (i = 0, n = noElements(cbxText); i < n; i++) {
     CbxItem& item = cbxText[i];
 
-    toolBar.addCbxItemSorted(ID_CboBx, item.txt, item.data);
+    toolBar.addCboItemSrtd(ID_CboBox, item.txt, item.data);
     }
-  toolBar.setCaption(ID_CboBx, CbxCaption);
-  toolBar.setWthPercent(ID_CboBx, 100);
-  toolBar.setWidth(ID_CboBx);
-  toolBar.setHeight(ID_CboBx);
+  toolBar.setCboCaption(ID_CboBox, CbxCaption);
+  toolBar.setCboWthPrct(ID_CboBox, 100);
+  toolBar.setCboHeight(ID_CboBox);
+
+  for (i = 0, n = noElements(cbx1Txt); i < n; i++)
+    {CbxItem& item = cbx1Txt[i];   toolBar.addCboItem(ID_CboBox1,item.txt, item.data);}
+
+  toolBar.setCboCaption(ID_CboBox1, Cbx1Caption);   toolBar.setCboHeight(ID_CboBox1);
 
   notePad << _T("Loaded ") << CbxCaption << _T(" into ComboBx") << nCrlf;  display();
   }
@@ -110,10 +122,31 @@ int        n;
 void AppT3mplateDoc::OnComboBoxChng() {
 MyToolBar& toolBar = getToolBar();
 String     s;
-void*      x;
+ulongP     x;
+int64      y;
 
-  if (toolBar.getCurSel(ID_CboBx, s, x))
-                         notePad << _T("On Change, Item = ") << s << _T(", Data = ") << (int)x << nCrlf;
+  if (toolBar.getCurSel(ID_CboBox, s, x)) {
+    y = (int64) x;
+
+    notePad << _T("On Change, Item = ") << s << _T(", Data = ");
+    notePad << y << nCrlf;
+    }
+  display();
+  }
+
+
+void AppT3mplateDoc::OnComboBox1Chng() {
+MyToolBar& toolBar = getToolBar();
+String     s;
+ulongP     x;
+int64      y;
+
+  if (toolBar.getCurSel(ID_CboBox1, s, x)) {
+    y = (int64) x;
+
+    notePad << _T("On Change, Item = ") << s << _T(", Data = ");
+    notePad << y << nCrlf;
+    }
   display();
   }
 
@@ -262,11 +295,11 @@ void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 void AppT3mplateDoc::saveFile(TCchar* title, TCchar* suffix, TCchar* fileType) {
 String fileName = path;
-int    pos      = fileName.find_last_of(_T('\\'));
+int    pos      = fileName.findLastOf(_T('\\'));
 String ext      = _T("*."); ext += fileType;
 String ttl      = title;    ttl += _T(" Output");
 
-  fileName = fileName.substr(pos+1);   pos = fileName.find_first_of(_T('.'));
+  fileName = fileName.substr(pos+1);   pos = fileName.findFirstOf(_T('.'));
   fileName = fileName.substr(0, pos);  fileName += suffix;
 
   pathDlgDsc(ttl, fileName, fileType, ext);

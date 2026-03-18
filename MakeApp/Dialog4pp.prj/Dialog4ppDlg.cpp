@@ -49,22 +49,22 @@ BEGIN_MESSAGE_MAP(Dialog4ppDlg, CDialogEx)
   ON_EN_KILLFOCUS( ID_EditBox,      &onTBEditBox)           // Process content of edit box
 
 
-  ON_CBN_SELCHANGE(ID_PopupMenu,    &onDispatch)            // Send Command Message with ID_...
+  ON_CBN_SELCHANGE(ID_Menu,         &onDispatch)            // Send Command Message with ID_...
   ON_COMMAND(      ID_Option01,     &onOption01)
   ON_COMMAND(      ID_Option02,     &onOption02)
 
-  ON_CBN_SELCHANGE(ID_PopupMenu1,   &onDispatch1)           // Send Command Message with ID_...
+  ON_CBN_SELCHANGE(ID_Menu1,        &onDispatch1)           // Send Command Message with ID_...
   ON_COMMAND(      ID_Option11,     &onOption11)
   ON_COMMAND(      ID_Option12,     &onOption12)
 
-  ON_CBN_SELCHANGE(ID_CboBx,        &onCboBxChange)         // Process secelection from list
-  ON_CBN_SELCHANGE(ID_CboBx1,       &onCboBx1Change)        // Process secelection from list
+  ON_CBN_SELCHANGE(ID_CboBox,       &onCboBxChange)         // Process secelection from list
+  ON_CBN_SELCHANGE(ID_CboBox1,      &onCboBx1Change)        // Process secelection from list
 
 #endif
 
   ON_COMMAND(      ID_SaveHist,     &onSaveHist)
   ON_COMMAND(      ID_Help,         &onHelp)
-  ON_COMMAND(      ID_App_About,    &onAppAbout)
+  ON_COMMAND(      ID_AppAbout,    &onAppAbout)
   ON_COMMAND(      ID_App_Exit,     &OnOK)
 
   ON_WM_CREATE()
@@ -147,13 +147,20 @@ void Dialog4ppDlg::setupToolBar() {
 #ifdef Examples
 CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
-  toolBar.addButton(ID_Button, _T(" My Button "));
+  toolBar.addButton(    ID_Button, _T(" My Button "));
 
-  toolBar.addEditBox(ID_EditBox, 20);
-  toolBar.addMenu(ID_PopupMenu,  IDR_PopupMenu, _T("My Caption"));
-  toolBar.addMenu(ID_PopupMenu1, PopupItems1, noElements(PopupItems1), _T("My Caption #1"));
-  toolBar.addCBx( ID_CboBx,      IDR_CbxMenu,   _T("A Combo Box"));
-  toolBar.addCBx( ID_CboBx1,     CbxText, noElements(CbxText), CbxCaption);
+  toolBar.addEditBox(   ID_EditBox, 20);
+  toolBar.setCboItems(  ID_Menu,  IDR_Menu);
+  toolBar.setCboCaption(ID_Menu, _T("My Caption"));
+
+  toolBar.setCboItems(  ID_Menu1, PopupItems1, noElements(PopupItems1));
+  toolBar.setCboCaption(ID_Menu1, _T("My Caption #1"));
+
+  toolBar.setCboItems(  ID_CboBox,  IDR_CbxMenu);
+  toolBar.setCboCaption(ID_CboBox, _T("A Combo Box"));
+
+  toolBar.setCboItems(  ID_CboBox1,  CbxText, noElements(CbxText));
+  toolBar.setCboCaption(ID_CboBox1, CbxCaption);
 #endif
   }
 
@@ -176,10 +183,10 @@ void Dialog4ppDlg::onTBChange(NMHDR* pNMHDR, LRESULT* pResult) {
 
 void Dialog4ppDlg::onCboBxChange() {
 String s;
-void*  x;
+ulongP x;
 String t;
 
-  if (!toolBar.getCurSel(ID_CboBx, s, x)) return;
+  if (!toolBar.getCurSel(ID_CboBox, s, x)) return;
 
   t.format(_T("Item = %s, Data = %i"), s.str(), x);
 
@@ -189,10 +196,10 @@ String t;
 
 void Dialog4ppDlg::onCboBx1Change() {
 String s;
-void*  x;
+ulongP x;
 String t;
 
-  if (!toolBar.getCurSel(ID_CboBx1, s, x)) return;
+  if (!toolBar.getCurSel(ID_CboBox1, s, x)) return;
 
   t.format(_T("Item = %s, Data = %i"), s.str(), x);
 
@@ -200,7 +207,7 @@ String t;
   }
 
 
-void Dialog4ppDlg::onDispatch()  {toolBar.dispatch(ID_PopupMenu);}
+void Dialog4ppDlg::onDispatch()  {toolBar.dispatch(ID_Menu);}
 
 
 void Dialog4ppDlg::onOption00() {SetFocus();   onOption01();}
@@ -216,7 +223,7 @@ void Dialog4ppDlg::onOption02() {
   }
 
 
-void Dialog4ppDlg::onDispatch1() {toolBar.dispatch(ID_PopupMenu1);}
+void Dialog4ppDlg::onDispatch1() {toolBar.dispatch(ID_Menu1);}
 
 
 void Dialog4ppDlg::onOption11() {

@@ -59,7 +59,7 @@ void ManageGuid::fixWxdGuid(String& s) {
 
 
 bool ManageGuid::rplcWxsGuid(TCchar* label, TCchar* end, String& s) {
-int    lng = _tcslen(label);
+int    lng = tcslen(label);
 int    pos;
 int    endPos;
 String prefix;
@@ -87,7 +87,7 @@ String candidate;
 
   if (s.find(label) < 0) return false;
 
-  lng = _tcslen(label);
+  lng = tcslen(label);
 
   prefix = s.substr(0, lng);  candidate = s.substr(lng);
 
