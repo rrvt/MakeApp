@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HGcTkhE03Ns=",
+  "dgSpecHash": "F2oqkLqZdJE=",
   "success": true,
-  "projectFilePath": "D:\\Sources\\MakeApp\\AppT3mplate.x64.wix\\AppT3mplate.x64.wix.wixproj",
+  "projectFilePath": "D:\\SandBox\\MakeApp\\AppT3mplate.x64.wix\\AppT3mplate.x64.wix.wixproj",
   "expectedPackageFiles": [
     "C:\\Users\\rrvt\\.nuget\\packages\\wixtoolset.ui.wixext\\6.0.2\\wixtoolset.ui.wixext.6.0.2.nupkg.sha512",
     "C:\\Users\\rrvt\\.nuget\\packages\\wixtoolset.util.wixext\\6.0.0\\wixtoolset.util.wixext.6.0.0.nupkg.sha512"

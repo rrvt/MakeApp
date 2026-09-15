@@ -119,11 +119,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Sources\\MakeApp\\MakeApp.x64.wix\\MakeApp.x64.wix.wixproj",
+      "projectUniqueName": "D:\\SandBox\\MakeApp\\MakeApp.x64.wix\\MakeApp.x64.wix.wixproj",
       "projectName": "MakeApp.x64.wix",
-      "projectPath": "D:\\Sources\\MakeApp\\MakeApp.x64.wix\\MakeApp.x64.wix.wixproj",
+      "projectPath": "D:\\SandBox\\MakeApp\\MakeApp.x64.wix\\MakeApp.x64.wix.wixproj",
       "packagesPath": "C:\\Users\\rrvt\\.nuget\\packages\\",
-      "outputPath": "D:\\Sources\\MakeApp\\MakeApp.x64.wix\\obj\\",
+      "outputPath": "D:\\SandBox\\MakeApp\\MakeApp.x64.wix\\obj\\",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [

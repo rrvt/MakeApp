@@ -29,8 +29,8 @@
     <UIRef Id="WixUI_ErrorProgressText" />
   </UI>
 
-  <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp" />
-  <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp" />
+  <WixVariable Id="WixUIDialogBmp" Value="C:\Source2\WixApp\Debug.Win32\dialog.bmp" />
+  <WixVariable Id="WixUIBannerBmp" Value="C:\Source2\WixApp\Debug.Win32\banner.bmp" />
 
   <Icon Id="MakeApp_Icon.exe" SourceFile="$(var.SolutionDir)..\MakeApp.prj\res\MakeApp.ico" />
   <Icon Id="MITLicense_Icon.exe"
@@ -103,8 +103,6 @@
     <ComponentRef Id="AppT3mplateVpj.cmp" />
     <ComponentRef Id="Store.h.cmp" />
     <ComponentRef Id="Store.cpp.cmp" />
-    <ComponentRef Id="StoreRpt.h.cmp" />
-    <ComponentRef Id="StoreRpt.cpp.cmp" />
     <ComponentRef Id="PchH.cmp" />
     <ComponentRef Id="pchCpp.cmp" />
     <ComponentRef Id="FrameworkH.cmp" />
@@ -234,14 +232,13 @@
   <ComponentGroup Id="AppT3mplate.Win32.wix.org.ftr">
     <ComponentRef Id="AppT3.Nuget.Win32.dgspec.cmp" />
     <ComponentRef Id="AppT3.Win32.Nuget.props.cmp" />
-    <ComponentRef Id="AppT3.Win32.Nuget.tgt.cmp" />
     <ComponentRef Id="AppT3.Win32.Assets.cmp" />
   </ComponentGroup>
   <ComponentGroup Id="AppT3mplate.x64.Wix.org.ftr">
-    <ComponentRef Id="AppT3.x64.Nuget.dgspec.cmp" />
-    <ComponentRef Id="AppT3.x64.Nuget.props.cmp" />
     <ComponentRef Id="AppT3.x64.Nuget.tgt.cmp" />
     <ComponentRef Id="AppT3.x64.Assets.cmp" />
+    <ComponentRef Id="AppT3.x64.nuget.dgspec.cmp" />
+    <ComponentRef Id="AppT3.x64.nuget.props.cmp" />
   </ComponentGroup>
   <ComponentGroup Id="Uninstall_Make_App.ftr">
     <ComponentRef Id="Uninstall_Make_App.cmp" />
@@ -504,18 +501,6 @@
                                                            Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="Store.cpp.cmp"
                     Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.prj\Store.cpp" KeyPath="yes" />
-  </Component>
-
-  <Component Id="StoreRpt.h.cmp" Guid="E3406C51-6382-4438-8094-24DD9B8053A0"
-                                                           Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="StoreRpt.h.cmp"
-                   Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.prj\StoreRpt.h" KeyPath="yes" />
-  </Component>
-
-  <Component Id="StoreRpt.cpp.cmp" Guid="B95BFB64-0A76-44DD-B865-F14E3B893B5A"
-                                                           Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="StoreRpt.cpp.cmp"
-                 Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.prj\StoreRpt.cpp" KeyPath="yes" />
   </Component>
 
   <Component Id="PchH.cmp" Guid="F9CDDE86-9E9D-4BEB-9369-9EFE2A9288CA"
@@ -880,8 +865,8 @@
   <Component Id="OneColumn.cmp" Guid="140823B0-C0AE-47A4-A84A-532D99145E90"
                                                    Directory="MakeApp_Dialog4pp.hlp_Templates.pff">
     <File Id="OneColumn.cmp"
-                     Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.hlp\Templates\OneColumnPage.dwt"
-                     KeyPath="yes" />
+                   Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.hlp\Templates\OneColumnPage.dwt"
+                   KeyPath="yes" />
   </Component>
 </Fragment>
 
@@ -889,7 +874,7 @@
   <Component Id="About.jpg.cmp" Guid="AFB8EEB5-C46C-48C2-9706-A43F1A59D03A"
                                                       Directory="MakeApp_Dialog4pp.hlp_images.pff">
     <File Id="About.jpg.cmp"
-               Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.hlp\Images\About.jpg" KeyPath="yes" />
+             Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.hlp\Images\About.jpg" KeyPath="yes" />
   </Component>
 
   <Component Id="EditBoox.jpg.cmp" Guid="FD3395CC-80F0-4EB6-AFAE-076BDEA7D639"
@@ -933,8 +918,8 @@
   <Component Id="OneColumnPage.dwt.cmp" Guid="301C9D66-95C1-44FC-AE2F-767640667EC1"
                                                  Directory="MakeApp_AppT3mplate.hlp_Templates.pff">
     <File Id="OneColumnPage.dwt.cmp"
-                   Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.hlp\Templates\OneColumnPage.dwt"
-                   KeyPath="yes" />
+                     Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.hlp\Templates\OneColumnPage.dwt"
+                     KeyPath="yes" />
   </Component>
 </Fragment>
 
@@ -942,13 +927,13 @@
   <Component Id="T3About.jpg.cmp" Guid="11217842-6254-466D-A9DF-C295FF04E5F8"
                                                     Directory="MakeApp_AppT3mplate.hlp_Images.pff">
     <File Id="T3About.jpg.cmp"
-             Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.hlp\Images\About.jpg" KeyPath="yes" />
+               Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.hlp\Images\About.jpg" KeyPath="yes" />
   </Component>
 
   <Component Id="T3Exit.jpg.cmp" Guid="AACA635C-E1E1-4DB7-8363-1FF8366AFC23"
                                                     Directory="MakeApp_AppT3mplate.hlp_Images.pff">
     <File Id="T3Exit.jpg.cmp"
-              Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.hlp\Images\Exit.jpg" KeyPath="yes" />
+                Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.hlp\Images\Exit.jpg" KeyPath="yes" />
   </Component>
 
   <Component Id="T3Floppy.jpg.cmp" Guid="4C4CE950-D5CF-4D03-9F37-DDB6EAA63AE3"
@@ -1139,7 +1124,7 @@ Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.Win32.wix\obj\Dialog4pp.Win32.wix.
                                                         Guid="DC7CD7F9-FDA4-44BB-8BCA-4FF637993B4A"
                                                         Directory="MakeApp_AppT3mplate.Win32.wix_obj.pff">
     <File Id="AppT3.Nuget.Win32.dgspec.cmp"
-Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.Win32.wix\obj\AppT3mplate.Win32.wix.wixproj.nuget.dgspec.json" KeyPath="yes" />
+Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\obj\AppT3mplate.x64.wix.wixproj.nuget.dgspec.json" KeyPath="yes" />
   </Component>
 
   <Component Id="AppT3.Win32.Nuget.props.cmp"
@@ -1147,13 +1132,6 @@ Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.Win32.wix\obj\AppT3mplate.Win32.
                                                         Directory="MakeApp_AppT3mplate.Win32.wix_obj.pff">
     <File Id="AppT3.Win32.Nuget.props.cmp"
 Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.Win32.wix\obj\AppT3mplate.Win32.wix.wixproj.nuget.g.props" KeyPath="yes" />
-  </Component>
-
-  <Component Id="AppT3.Win32.Nuget.tgt.cmp"
-                                                        Guid="F680AA74-1E26-41F9-A723-7F457C678632"
-                                                        Directory="MakeApp_AppT3mplate.Win32.wix_obj.pff">
-    <File Id="AppT3.Win32.Nuget.tgt.cmp"
-Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.Win32.wix\obj\AppT3mplate.Win32.wix.wixproj.nuget.g.targets" KeyPath="yes" />
   </Component>
 
   <Component Id="AppT3.Win32.Assets.cmp"
@@ -1166,18 +1144,6 @@ Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.Win32.wix\obj\AppT3mplate.Win32.
 </Fragment>
 
 <Fragment>
-  <Component Id="AppT3.x64.Nuget.dgspec.cmp"
-       Guid="58F615D9-C879-45BE-9CDF-1125781DE562" Directory="MakeApp_AppT3mplate.x64.wix_obj.pff">
-    <File Id="AppT3.x64.Nuget.dgspec.cmp"
-Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\obj\AppT3mplate.x64.wix.wixproj.nuget.dgspec.json" KeyPath="yes" />
-  </Component>
-
-  <Component Id="AppT3.x64.Nuget.props.cmp"
-       Guid="80A2696C-E4DC-4A0E-A866-7645C2F39C31" Directory="MakeApp_AppT3mplate.x64.wix_obj.pff">
-    <File Id="AppT3.x64.Nuget.props.cmp"
-Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\obj\AppT3mplate.x64.wix.wixproj.nuget.g.props" KeyPath="yes" />
-  </Component>
-
   <Component Id="AppT3.x64.Nuget.tgt.cmp"
        Guid="29FF93AB-8685-49DE-97C9-2DF99B4C0E03" Directory="MakeApp_AppT3mplate.x64.wix_obj.pff">
     <File Id="AppT3.x64.Nuget.tgt.cmp"
@@ -1190,11 +1156,23 @@ Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\obj\AppT3mplate.x64.wix.
                    Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\obj\project.assets.json"
                    KeyPath="yes" />
   </Component>
+
+  <Component Id="AppT3.x64.nuget.dgspec.cmp"
+       Guid="46F26453-F42C-4826-86C0-191DBB2C226C" Directory="MakeApp_AppT3mplate.x64.wix_obj.pff">
+    <File Id="AppT3.x64.nuget.dgspec.cmp"
+Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\obj\AppT3mplate.x64.wix.wixproj.nuget.dgspec.json" KeyPath="yes" />
+  </Component>
+
+  <Component Id="AppT3.x64.nuget.props.cmp"
+       Guid="31DAA6C2-7961-4E90-8343-6B7829310E2F" Directory="MakeApp_AppT3mplate.x64.wix_obj.pff">
+    <File Id="AppT3.x64.nuget.props.cmp"
+Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\obj\AppT3mplate.x64.wix.wixproj.nuget.g.props" KeyPath="yes" />
+  </Component>
 </Fragment>
 
 <Fragment>
   <Component Id="Uninstall_Make_App.cmp"
-                               Guid="15EC91C0-9EFE-4720-9D2F-AFC1FF9BB5CE" Directory="MakeApp.pmf">
+                               Guid="75BA6F27-F444-4458-9315-C8D44BD59F79" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"

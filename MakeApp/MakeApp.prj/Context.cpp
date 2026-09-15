@@ -3,7 +3,7 @@
 
 #include "pch.h"
 #include "Context.h"
-#include "GetPathDlg.h"
+#include "PathDlg.h"
 #include "IniFileEx.h"
 #include "MkAppUtilities.h"
 #include "NotePad.h"
@@ -16,13 +16,14 @@ static TCchar* BaseDirKey  = _T("BaseDir");
 
 
 void Context::setBaseDir() {
-String path;
-int    lng;
-Tchar  ch;
+PathDlg dlg(_T("Make App"), _T(""));
+String  path;
+//int     lng;
+//Tchar   ch;
 
-  if (!getDirPathDlg(_T("Make App"), path)) return;
+  if (!dlg.folder(path)) return;
 
-  lng = path.length();  ch = path[lng-1];  if (ch != _T('\\')) path += _T('\\');
+//  lng = path.length();  ch = path[lng-1];  if (ch != _T('\\')) path += _T('\\');
 
   appRoot = dstRoot = path;
 

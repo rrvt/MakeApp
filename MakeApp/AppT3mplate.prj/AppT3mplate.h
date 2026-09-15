@@ -32,6 +32,7 @@ public:
 
   afx_msg void onAppAbout();
   afx_msg void onHelp();
+  afx_msg void onExitApp();
   };
 
 

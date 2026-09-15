@@ -24,7 +24,7 @@ Dialog4pp::Dialog4pp() noexcept : CDialogApp(this) { }
 BOOL Dialog4pp::InitInstance() {
 Dialog4ppDlg dlg(m_pszHelpFilePath);
 
-  CWinApp::InitInstance();
+  CDialogApp::InitInstance();
 
   iniFile.setAppDataPath(m_pszHelpFilePath);
 

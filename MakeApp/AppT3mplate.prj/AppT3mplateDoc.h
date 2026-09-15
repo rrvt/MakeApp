@@ -4,18 +4,15 @@
 #pragma once
 #include "CDoc.h"
 #include "ExamplesDef.h"
-#include "MainFrame.h"
-#include "PathDlgDsc.h"
 
 
-enum DataSource {NotePadSrc, StoreSrc, StrRptSrc, FontSrc};
+enum DataSource {NilSrc, NotePadSrc, StoreSrc};
 
 
 class AppT3mplateDoc : public CDoc {
 
-PathDlgDsc  pathDlgDsc;
-
-DataSource  dataSource;
+DataSource  dataSource{NilSrc};
+DataSource  currentSource{NilSrc};
 
 protected: // create from serialization only
 
@@ -26,8 +23,12 @@ public:
 
   virtual BOOL OnNewDocument();
 
-  DataSource dataSrc() {return dataSource;}
-  void       display(DataSource ds = NotePadSrc);
+  DataSource   dataSrc() {return dataSource;}
+  void         display(DataSource ds = NotePadSrc);
+  NotePad&     getData();
+
+  void         getHeader(NotePad& np, int pageNo, int noPages);
+  void         getFooter(NotePad& np, int pageNo, int noPages);
 
   virtual void serialize(Archive& ar);
 
@@ -56,16 +57,15 @@ protected:
 public:
 
   afx_msg void onFileOpen();
-
   afx_msg void onSaveFile();
-  afx_msg void onSaveStrRpt();
+
   afx_msg void onSaveNotePad();
 
   afx_msg void onEditCopy();
 
 #ifdef Examples
   afx_msg void OnTest();
-  afx_msg void displayDataStore();
+  afx_msg void displayStore();
   afx_msg void myButton();
 
   afx_msg void OnComboBoxChng();
@@ -81,4 +81,22 @@ public:
   afx_msg void onOption23();
   afx_msg void OnTestEditBoxes();
 #endif
+
+private:
+
+
+
+enum EleType {NilEle, WordEle, WhiteEle};
+
+struct ElementX {
+EleType typ{NilEle};
+String  word;
+
+  ElementX() { }
+
+  void clear() {typ = NilEle;   word.clear();}
+  };
+
+  bool findNextBrk(String& line, ElementX& ele);
+  bool findWhite(  String& line, ElementX& ele);
   };

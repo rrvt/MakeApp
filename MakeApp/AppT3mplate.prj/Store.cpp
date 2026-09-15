@@ -13,11 +13,36 @@ const int TabVal = 5;
 Store store;                                        // Global since all classes need access
 
 
+void Store::header(NotePad& np, int pageNo, int noPages) {
+  np.clear();
+  np << name << nCenter << missionNo() << nRight << dt;
+  }
+
+
+void Store::display() {
+DSIter iter(*this);
+Datum* dtm;
+
+  notePad.clear();
+
+  for (dtm = iter(); dtm; dtm = iter++) {
+    notePad << dtm->get() << nCrlf;;
+    }
+  }
+
+
+void Store::footer(NotePad& np, int pageNo, int noPages) {
+  np.clear();
+
+  np << nCenter << _T("Page ") << pageNo << _T(" of ") << noPages;
+  }
+
+
 void Store::setName(String& s) {name = s; dt.getToday();}
 
 
-int Store::missionNo() {
-  if (!mssnNo) {Date d; d.getToday();   CTimeSpan t = d - dt;  mssnNo = t.GetSeconds() % 60;}
+String& Store::missionNo() {
+  if (mssnNo.isEmpty()) {Date d; d.getToday();  mssnNo = d.format(_T("Mission %y.%j"));}
 
   return mssnNo;
   }

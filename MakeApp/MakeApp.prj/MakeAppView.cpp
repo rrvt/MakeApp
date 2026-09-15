@@ -3,14 +3,10 @@
 
 #include "pch.h"
 #include "MakeAppView.h"
-#include "IniFileEx.h"
-#include "ListFonts.h"
-#include "MakeApp.h"
-#include "MakeAppDoc.h"
-#include "OptionsDlg.h"
+#include "ClipLine.h"
+#include "Invalidate.h"
 #include "Resource.h"
 #include "ResourceData.h"
-#include "RptOrientDlgTwo.h"
 
 
 static TCchar* FontOrietnKey = _T("Font");
@@ -18,25 +14,53 @@ static TCchar* FontOrietnKey = _T("Font");
 
 // MakeAppView
 
-IMPLEMENT_DYNCREATE(MakeAppView, CScrView)
+IMPLEMENT_DYNCREATE(MakeAppView, ScrollView)
 
-BEGIN_MESSAGE_MAP(MakeAppView, CScrView)
-  ON_COMMAND(ID_Options,     &onOptions)
-  ON_COMMAND(ID_Orientation, &onRptOrietn)
+BEGIN_MESSAGE_MAP(MakeAppView, ScrollView)
+
+  ON_COMMAND(ID_PrintFile,        &onFilePrint)
+  ON_COMMAND(ID_PrintFilePreview, &onFilePrintPreview)
+  ON_COMMAND(ID_PrintSetup,       &onSetupPrinter)
+
 END_MESSAGE_MAP()
 
 
-MakeAppView::MakeAppView() noexcept : dspFonts(dMgr.getNotePad()), prtFonts(pMgr.getNotePad()) {
-ResourceData res;
-String       pn;
+MakeAppView::MakeAppView() noexcept : ScrollView(theApp.name) { }
+
+
+bool MakeAppView::onPreparePrinter(PrinterInfo& info)
+                                                  {info.docName = _T("AppT3mplate");   return true;}
+
+
+void MakeAppView::onFilePrint()        {printFile(true);}
+void MakeAppView::onFilePrintPreview() {printFilePreview(true);}
+void MakeAppView::onSetupPrinter()     {printerSetup();}
+
+
+// MakeAppView diagnostics
+
+#ifdef _DEBUG
+
+void MakeAppView::AssertValid() const          {CScrollView::AssertValid();}
+void MakeAppView::Dump(CDumpContext& dc) const {CScrollView::Dump(dc);}
+                                                                    // non-debug version is inline
+MakeAppDoc* MakeAppView::GetDocument() const
+                    {ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(MakeAppDoc))); return (MakeAppDoc*)m_pDocument;}
+#endif //_DEBUG
+
+
+
+
+
+////////------------------
+#if 0
+// MakeAppView diagnostics
   if (res.getProductName(pn)) prtNote.setTitle(pn);
   }
 
 
 
-void MakeAppView::OnInitialUpdate() {
-  CScrView::OnInitialUpdate();
-  }
+void MakeAppView::OnInitialUpdate() {ScrollView::OnInitialUpdate();}
 
 
 void MakeAppView::onOptions() {
@@ -76,9 +100,9 @@ void MakeAppView::saveRptOrietn()
 
 void MakeAppView::OnPrepareDC(CDC* dc, CPrintInfo* info) {
 
-  if(doc()->dataSrc() == FontSrc) listFonts(dc);
+  if(doc()->dataSrc() == FontSrc) fontList(dc);
 
-  CScrView::OnPrepareDC(dc, info);
+  ScrollView::OnPrepareDC(dc, info);
   }
 
 
@@ -127,7 +151,7 @@ void MakeAppView::printFooter(DevStream& dev, int pageNo) {
 
 void MakeAppView::OnEndPrinting(CDC* pDC, CPrintInfo* pInfo) {
 
-  CScrView::OnEndPrinting(pDC, pInfo);
+  ScrollView::OnEndPrinting(pDC, pInfo);
 
   switch(doc()->dataSrc()) {
     case NotePadSrc : break;
@@ -138,24 +162,12 @@ void MakeAppView::OnEndPrinting(CDC* pDC, CPrintInfo* pInfo) {
 
 void MakeAppView::OnSetFocus(CWnd* pOldWnd) {
 
-  CScrView::OnSetFocus(pOldWnd);
+  ScrollView::OnSetFocus(pOldWnd);
 
   switch(doc()->dataSrc()) {
     case NotePadSrc : break;
     case FontSrc : break;
     }
   }
-
-
-// MakeAppView diagnostics
-
-#ifdef _DEBUG
-
-void MakeAppView::AssertValid() const          {CScrollView::AssertValid();}
-void MakeAppView::Dump(CDumpContext& dc) const {CScrollView::Dump(dc);}
-                                                                    // non-debug version is inline
-MakeAppDoc* MakeAppView::GetDocument() const
-                    {ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(MakeAppDoc))); return (MakeAppDoc*)m_pDocument;}
-#endif //_DEBUG
-
+#endif
 

@@ -2,25 +2,14 @@
 
 
 #pragma once
-#include "CScrView.h"
-#include "ExamplesDef.h"
-#include "ReportNtpd.h"
-#ifdef Examples
-#include "StoreRpt.h"
-#endif
+#include "ScrollView.h"
+#include "AppT3mplate.h"
+#include "AppT3mplateDoc.h"
+#include "DisplayNtPd.h"
+#include "Printer.h"
 
 
-class AppT3mplateDoc;
-
-
-class AppT3mplateView : public CScrView {
-
-#ifdef Examples
-
-StoreRpt   dspStore;
-StoreRpt   prtStore;
-
-#endif
+class AppT3mplateView : public ScrollView {
 
 CMenu      menu;
 CMenu      sub;
@@ -33,32 +22,30 @@ protected: // create from serialization only
 
 public:
 
-  virtual           ~AppT3mplateView() { }
+  virtual         ~AppT3mplateView() { }
 
-  virtual void       initNoteOrietn();
-  virtual void       saveNoteOrietn();
-  virtual void       initRptOrietn();
-  virtual void       saveRptOrietn();
-  virtual PrtrOrient getOrientation() {return prtNote.prtrOrietn;}
+  virtual BOOL     PreCreateWindow(CREATESTRUCT& cs) {return ScrollView::PreCreateWindow(cs);}
+  virtual void     OnInitialUpdate()                 {ScrollView::OnInitialUpdate();}
 
-  virtual BOOL       PreCreateWindow(CREATESTRUCT& cs);
-  virtual void       OnInitialUpdate();
+  virtual void     setHeader(DisplayNtPd& dsplyNp)
+                                               {dsplyNp.setHeader(_T("Arial"), 120, &getHeader);}
+  virtual void     setFooter(DisplayNtPd& dsplyNp)
+                                               {dsplyNp.setFooter(_T("arial"), 120, &getFooter);}
+  virtual NotePad& onPrepareOutput() {return doc()->getData();}
+                                                        // Create output on a notepad and return it
+// Print Data functions
 
-  virtual void       onDisplayOutput();
-  virtual void       displayHeader(DevStream& dev);
-  virtual void       displayFooter(DevStream& dev);
-
-  virtual void       onPreparePrinting(CPrintInfo* info);
-  virtual void       onBeginPrinting();
-  virtual void       printHeader(DevStream& dev, int pageNo);
-  virtual void       printFooter(DevStream& dev, int pageNo);
-  virtual void       OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
-
-  AppT3mplateDoc*    GetDocument() const;
-
-#ifdef Examples
-  StoreRpt&          storeRpt()  {return dspStore;}
-#endif
+  virtual bool     onPreparePrinter(PrinterInfo& info);
+  virtual NotePad& onPreparePrinting() {return doc()->getData();}
+  virtual void     setHeader(PrintNtPd& prntNp)
+                                              {prntNp.setHeader(_T("Arial"), 120, &getHeader);}
+  virtual void     setFooter(PrintNtPd& prntNp)
+                                              {prntNp.setFooter(_T("Courier New"), 60, getFooter);}
+  static  void     getHeader(NotePad& np, int pageNo, int noPages)
+                                                           {doc()->getHeader(np, pageNo, noPages);}
+  static  void     getFooter(NotePad& np, int pageNo, int noPages)
+                                                           {doc()->getFooter(np, pageNo, noPages);}
+  AppT3mplateDoc*  GetDocument() const;
 
 public:
 
@@ -70,11 +57,9 @@ public:
 public:
 
   DECLARE_MESSAGE_MAP()
-
-  afx_msg void onOptions();
-  afx_msg void onRptOrietn();
-
-  afx_msg void OnSetFocus(CWnd* pOldWnd);
+  afx_msg void onFilePrint();
+  afx_msg void onFilePrintPreview();
+  afx_msg void onSetupPrinter();
 
   afx_msg void OnLButtonDown(  UINT nFlags, CPoint point);
   afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
@@ -86,9 +71,23 @@ public:
   };
 
 
-
 #ifndef _DEBUG  // debug version in AppT3mplateView.cpp
 inline AppT3mplateDoc* AppT3mplateView::GetDocument() const
                                            {return reinterpret_cast<AppT3mplateDoc*>(m_pDocument);}
 #endif
+
+
+
+
+//////////-----------------
+
+#if 0
+  virtual void       initNoteOrietn();
+  virtual void       saveNoteOrietn();
+  virtual void       initRptOrietn();
+  virtual void       saveRptOrietn();
+  virtual PrtrOrient getOrientation() {return prtNote.prtrOrietn;}
+#endif
+//  virtual void       displayHeader(DevStream& dev);
+//  virtual void       displayFooter(DevStream& dev);
 

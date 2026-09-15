@@ -160,6 +160,19 @@ The result is after a couple of false starts everything compiled and executed.
 
 ## Updates
 
+### Update 9/14/26
+
+Fixed another bug which prevented Wix/obj files from being installed with a new app.
+
+### Update 9/14/26
+
+Although this app does not make much use of printing, the library for printing was attacked due
+to the inability to use the MFC print logic to easily control the size of the paper.  The display
+of text in the window was also affected by the printing changes.  Furthermore, find file paths was
+changed from simple functions and a descriptor object to a class (containing both the descriptor
+and the functions).  Finally the Wxd prep file was modified to make it easier to move the source
+files.
+
 ### Update 3/18/26
 
 Normalize MyToolBar.

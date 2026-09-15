@@ -4,15 +4,17 @@
 #include "pch.h"
 #include "MakeApp.h"
 #include "AboutDlg.h"
-#include "GetPathDlg.h"
+//#include "GetPathDlg.h"
+#include "FileName.h"
 #include "FileStore.h"
 #include "IniFileEx.h"
-#include "ListFonts.h"
+#include "Invalidate.h"
+#include "FontList.h"
 #include "MainFrame.h"
 #include "MakeAppDoc.h"
 #include "MakeAppView.h"
 #include "NotePad.h"
-#include "OptionsDlg.h"
+//#include "OptionsDlg.h"
 #include "Project.h"
 #include "Resource.h"
 
@@ -25,9 +27,10 @@ FileList  fileList;
 
 
 BEGIN_MESSAGE_MAP(MakeApp, CWinAppEx)
-  ON_COMMAND(ID_SpecifyBaseDir,   &OnSpecifyBaseDir)
-  ON_COMMAND(ID_AppAbout,        &OnAppAbout)
-  ON_COMMAND(ID_Help,             &OnHelp)
+  ON_COMMAND(ID_SpecifyBaseDir, &OnSpecifyBaseDir)
+  ON_COMMAND(ID_AppAbout,       &OnAppAbout)
+  ON_COMMAND(ID_Help,           &OnHelp)
+  ON_COMMAND(ID_ExitApp,        &onExitApp)
 END_MESSAGE_MAP()
 
 
@@ -37,8 +40,14 @@ BOOL MakeApp::InitInstance() {
 
   CWinAppEx::InitInstance();
 
-  iniFile.setAppDataPath(m_pszHelpFilePath);              // A convenient place to get the iniFile
-                                                          // initialized
+  iniFile.setAppDataPath(m_pszHelpFilePath);        // A convenient place to get the iniFile
+                                                    // initialized
+
+  roamPath = getPath(iniFile.getAppDataPath(m_pszHelpFilePath));
+  appPath  = getPath(m_pszHelpFilePath);
+
+  notePad.clear();
+
   SetRegistryKey(appID);
 
   LoadStdProfileSettings(0);  // Load standard INI file options (including MRU)
@@ -70,8 +79,6 @@ BOOL MakeApp::InitInstance() {
   // App initialization may begin here.  All Windows stuff is available at this point but the
   // window is not visible until ShowWindow below
 
-  notePad.clear();     view()->setFont(_T("Ariel"), 12.0);
-
   setAppName(_T("MakeApp")); setTitle(_T("Make An Application"));
 
   project.getBaseDir();
@@ -82,9 +89,12 @@ BOOL MakeApp::InitInstance() {
   }
 
 
+void MakeApp::onExitApp() {mainFrm()->PostMessage(WM_CLOSE);}
+
+
 int MakeApp::ExitInstance() {
 
-  notePad.~NotePad();   fileStore.~FileStore();   fileList.~FileList();   listFonts.~ListFonts();
+  notePad.~NotePad();   fileStore.~FileStore();   fileList.~FileList();
 
   return CApp::ExitInstance();
   }

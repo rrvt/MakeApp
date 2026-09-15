@@ -119,11 +119,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Sources\\MakeApp\\Dialog4pp.Win32.wix\\Dialog4pp.Win32.wix.wixproj",
+      "projectUniqueName": "D:\\SandBox\\MakeApp\\Dialog4pp.Win32.wix\\Dialog4pp.Win32.wix.wixproj",
       "projectName": "Dialog4pp.Win32.wix",
-      "projectPath": "D:\\Sources\\MakeApp\\Dialog4pp.Win32.wix\\Dialog4pp.Win32.wix.wixproj",
+      "projectPath": "D:\\SandBox\\MakeApp\\Dialog4pp.Win32.wix\\Dialog4pp.Win32.wix.wixproj",
       "packagesPath": "C:\\Users\\rrvt\\.nuget\\packages\\",
-      "outputPath": "D:\\Sources\\MakeApp\\Dialog4pp.Win32.wix\\obj\\",
+      "outputPath": "D:\\SandBox\\MakeApp\\Dialog4pp.Win32.wix\\obj\\",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [

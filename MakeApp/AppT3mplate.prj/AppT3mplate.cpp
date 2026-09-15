@@ -20,8 +20,9 @@ IniFileEx   iniFile(theApp);
 
 BEGIN_MESSAGE_MAP(AppT3mplate, CWinAppEx)
   ON_COMMAND(ID_FileNew,  &CWinAppEx::OnFileNew)
-  ON_COMMAND(ID_Help,      &onHelp)
+  ON_COMMAND(ID_Help,     &onHelp)
   ON_COMMAND(ID_AppAbout, &onAppAbout)
+  ON_COMMAND(ID_ExitApp,  &onExitApp)
 END_MESSAGE_MAP()
 
 
@@ -68,11 +69,13 @@ BOOL AppT3mplate::InitInstance() {
 
   setAppName(_T("< Title >")); setTitle(_T("< Description >"));
 
-  view()->setFont(_T("Arial"), 12.0);
+  view()->setFont(_T("Arial"), 120);
 
   m_pMainWnd->ShowWindow(SW_SHOW);   m_pMainWnd->UpdateWindow();   return TRUE;
   }
 
+
+void AppT3mplate::onExitApp() {mainFrm()->PostMessage(WM_CLOSE);}
 
 
 int AppT3mplate::ExitInstance() {

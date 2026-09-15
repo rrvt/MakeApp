@@ -24,7 +24,7 @@ Cstring visibleName;
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
-  enum { IDD = IDD_DIALOG1 };
+  enum { IDD = IDD_ProjectName };
 #endif
 
 protected:

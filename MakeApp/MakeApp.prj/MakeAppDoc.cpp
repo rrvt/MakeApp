@@ -3,20 +3,20 @@
 
 #include "pch.h"
 #include "MakeAppDoc.h"
+#include "MakeApp.h"
+#include "MakeAppView.h"
 #include "CalibDspPrt.h"
 #include "CopyFile.h"
 #include "ResourceExtra.h"
 #include "FileStore.h"
 #include "filename.h"
-#include "FontRptOpt.h"
-#include "GetPathDlg.h"
+#include "FontCmd.h"
+//#include "GetPathDlg.h"
 #include "Guid.h"
 #include "IniFileEx.h"
-#include "MakeApp.h"
-#include "MakeAppView.h"
+#include "Invalidate.h"
 #include "MessageBox.h"
 #include "NotePad.h"
-#include "OptionsDlg.h"
 #include "Printer.h"
 #include "Project.h"
 #include "ProjectNameDlg.h"
@@ -45,10 +45,9 @@ IMPLEMENT_DYNCREATE(MakeAppDoc, CDoc)
 BEGIN_MESSAGE_MAP(MakeAppDoc, CDoc)
   ON_COMMAND(ID_NameProject,  &OnNameProject)
   ON_COMMAND(ID_FixSlickEdit, &OnFixSlickEdit)
-  ON_COMMAND(ID_FileSave,     &OnFileSave)
-  ON_COMMAND(ID_Test,         &OnTest)
-  ON_COMMAND(ID_CalibDspPrt,  &OnCalibDspPrt)
   ON_COMMAND(ID_ListFonts,    &OnFontRptOpt)
+  ON_COMMAND(ID_FileSave,     &OnFileSave)
+  ON_COMMAND(ID_Test,         &onTest)
 END_MESSAGE_MAP()
 
 
@@ -93,52 +92,91 @@ SlickEdit se;
 
   notePad.clear();
 
-  pathDlgDsc(_T("Slickedit Project File"), 0, _T("vpj"), _T("*.vpj"));
+  dlg(_T("Slickedit Project File"), path, _T("vpj"), _T("Project File"), _T("*.vpj"));
 
-  if (!setOpenPath(pathDlgDsc)) return;
-
-  pathDlgDsc.name = path;
+  if (!setOpenPath(dlg)) return;
 
   if (!OnOpenDocument(path)) return;
 
   se.fix();
 
-  fileStore.display(getMainName(path));
+  fileStore.display(getMainName(path));    dlg.iPath = path;
 
   display();
   }
 
 
-void MakeAppDoc::OnTest() {
+void MakeAppDoc::OnFontRptOpt() {fontCmd();   notePad.clear();   display(FontsSrc);}
+
+
+
+NotePad& MakeAppDoc::getData() {
+
+  switch (dataSource) {
+    case NotePadSrc : break;
+    case FontsSrc   : return fontCmd.getData(displayDC());
+    case TestSrc    : break;
+    }
+  return notePad;
+  }
+
+void MakeAppDoc::getHeader(NotePad& np, int pageNo, int noPages) {
+    switch (dataSource) {
+    case TestSrc: np << _T("Test") << nRight << pageNo;   break;
+    default     : break;
+    }
+  }
+
+void MakeAppDoc::getFooter(NotePad& np, int pageNo, int noPages) {
+  switch (dataSource) {
+    case TestSrc: np << nCenter << pageNo << _T(" of ") << noPages; break;
+    default     : break;
+    }
+  }
+
+
+
+
+
+void MakeAppDoc::onTest() {
+int n = 0;
 
   theApp.setTitle(_T("A Template for MFC Applications"));
 
-  notePad.clear();  notePad << _T("Hello World") << nCrlf;
+  notePad.clear();
 
-  display();
+  notePad << nFFace(_T("Arial")) << nFSize(12.0);
+  notePad << nSetTab(30) << nSetTab(50);
+
+  notePad << _T("01234567810123456782012345678301234567840123456785012345678601234567870") << nCrlf;
+
+  notePad << nTab << _T('|') << nTab << _T('|') << nCrlf;
+
+  notePad << _T("Courier New") << nFFace(_T("Courier New"));
+  notePad << nTab << nBeginLine << _T("ABCEF") << nEndLine << nTab << _T("abcdef") << nCrlf;   n++;
+
+  notePad << _T("01234567810123456782012345678301234567840123456785012345678601234567870") << nCrlf;
+  notePad << nTab << _T('|') << nTab << _T('|') << nCrlf;
+
+  notePad  << nFont;
+
+  notePad << _T("Adobe Arabic") << nFFace(_T("Adobe Arabic"));
+  notePad << nTab << nBeginLine << _T("ABCEF") << nCrlf;
+  notePad << nTab << _T("abcdef") << nEndLine << nCrlf;   n++;
+
+  notePad << _T("01234567810123456782012345678301234567840123456785012345678601234567870") << nCrlf;
+  notePad << nTab << _T('|') << nTab << _T('|') << nCrlf;
+
+  notePad  << nFont;
+
+  notePad << nCrlf;
+
+  notePad << _T("no Tries: ") << n << nFont << nFont << nCrlf;
+
+  display(TestSrc);
   }
 
 
-void MakeAppDoc::OnCalibDspPrt() {
-CalibDspPrt calib;
-int         n;
-
-  calib();
-
-  notePad.clear();  theApp.setTitle(_T("Calibrate Font Size"));
-
-  notePad << nFFace(_T("Windsor BT")) << nFSize(14.5) << nBold;
-
-  notePad << _T("Hello World") << nCrlf;
-
-  notePad << nFont << nFont << nFont;
-
-  n = printer.orient == LandOrient ? 10 : 8;
-
-  notePad << nFFace(_T("Courier New")) << nFSize(12.0);   testLine(n);   notePad << nFont << nFont;
-
-  testLine(n);   display(NotePadSrc);
-  }
 
 
 void MakeAppDoc::testLine(int n) {
@@ -155,7 +193,7 @@ int i;
   }
 
 
-void MakeAppDoc::OnFontRptOpt() {fontRptOpt();  notePad.clear();  display(FontSrc);}
+//void MakeAppDoc::OnFontRptOpt() {fontCmd();  notePad.clear();  display(FontSrc);}
 
 
 void MakeAppDoc::display(DataSource ds) {dataSource = ds; invalidate();}
@@ -164,11 +202,9 @@ void MakeAppDoc::display(DataSource ds) {dataSource = ds; invalidate();}
 
 void MakeAppDoc::OnFileSave() {
 
-  if (!setSaveAsPath(pathDlgDsc)) return;
+  if (!setSaveAsPath(dlg)) return;
 
-  backupFile(5);
-
-  OnSaveDocument(path);
+  backupFile(5);   OnSaveDocument(path);
   }
 
 
@@ -189,4 +225,31 @@ void MakeAppDoc::AssertValid() const          {CDocument::AssertValid();}
 void MakeAppDoc::Dump(CDumpContext& dc) const {CDocument::Dump(dc);}
 #endif //_DEBUG
 
+
+
+
+
+///////////-------------------
+#if 0
+void MakeAppDoc::OnCalibDspPrt() {
+CalibDspPrt calib;
+int         n;
+
+  calib();
+
+  notePad.clear();  theApp.setTitle(_T("Calibrate Font Size"));
+
+  notePad << nFFace(_T("Windsor BT")) << nFSize(14.5) << nBold;
+
+  notePad << _T("Hello World") << nCrlf;
+
+  notePad << nFont << nFont << nFont;
+
+  n = prtrDevAttr.orient == LandOrnt ? 10 : 8;
+
+  notePad << nFFace(_T("Courier New")) << nFSize(12.0);   testLine(n);   notePad << nFont << nFont;
+
+  testLine(n);   display(NotePadSrc);
+  }
+#endif
 

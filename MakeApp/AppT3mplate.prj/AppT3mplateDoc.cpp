@@ -6,9 +6,11 @@
 #include "AppT3mplate.h"
 #include "AppT3mplateView.h"
 #include "ClipLine.h"
-#include "filename.h"
+#include "FileName.h"
+#include "Invalidate.h"
 #include "MessageBox.h"
 #include "NotePad.h"
+#include "PathDlg.h"
 #include "Printer.h"
 #include "Resource.h"
 #ifdef Examples
@@ -45,14 +47,13 @@ BEGIN_MESSAGE_MAP(AppT3mplateDoc, CDoc)
 
   ON_COMMAND(      ID_TBSaveMenu,  &onSaveFile)
   ON_COMMAND(      ID_SaveFile,    &onSaveFile)
-  ON_COMMAND(      ID_SaveStrRpt,  &onSaveStrRpt)
   ON_COMMAND(      ID_SaveNotePad, &onSaveNotePad)
 
   ON_COMMAND(      ID_EDIT_COPY,   &onEditCopy)
 
 #ifdef Examples
   ON_COMMAND(      ID_Test,        &OnTest)
-  ON_COMMAND(      ID_SelDataStr,  &displayDataStore)
+  ON_COMMAND(      ID_DsplyStore,  &displayStore)
 #endif
 
 END_MESSAGE_MAP()
@@ -60,9 +61,7 @@ END_MESSAGE_MAP()
 
 // AppT3mplateDoc construction/destruction
 
-AppT3mplateDoc::AppT3mplateDoc() noexcept : dataSource(NotePadSrc) {
-  pathDlgDsc(_T("Ugly Example"), _T(""), _T("txt"), _T("*.txt"));
-  }
+AppT3mplateDoc::AppT3mplateDoc() noexcept : dataSource(NotePadSrc) { }
 
 AppT3mplateDoc::~AppT3mplateDoc() { }
 
@@ -95,7 +94,7 @@ static CbxItem cbx1Txt[] = {{_T("One"),     1},
                             };
 static TCchar* Cbx1Caption = _T("Numbers");
 
-
+#if 0
 void AppT3mplateDoc::myButton() {
 MyToolBar& toolBar = getToolBar();
 int        i;
@@ -117,6 +116,94 @@ int        n;
 
   notePad << _T("Loaded ") << CbxCaption << _T(" into ComboBx") << nCrlf;  display();
   }
+#endif
+
+
+
+static TCchar* text[] = {
+            _T("0123456789 0123456789 0123456789 "),
+            _T("Now is the time for all good people to come to the aid of the party.  "),
+            _T("The grey dog jumped over the sleeping bear and kissed the wiggling turtle.  "),
+            _T("When you're on the go, multiuse products that streamline your routine are "),
+            _T("helpful.  Think tinted moisturizers with SPF, cheek-and-lip sticks, a dense, "),
+            _T("all-body nourishing cream and concealers that double as highlighters.")
+            };
+
+
+void AppT3mplateDoc::myButton() {
+int    i;
+int    j;
+int    n = noElements(text);
+String line;
+ElementX ele;
+
+  notePad.clear();
+
+  for (i = 0, j = 0; i < n; i++) {
+
+    line = text[i];
+
+    while (findNextBrk(line, ele)) {
+
+      switch (j) {
+        case  6: notePad << nTab;                                                        break;
+        case 10: notePad << nFFace(_T("Times New Roman")) << _T("Times gyp ");           break;
+        case 16: notePad << nFFace(_T("Courier New"));                                   break;
+        case 32: notePad << nFont;                                                       break;
+        case 34: notePad << nFFace(_T("Arial")) << _T("Arial ");                         break;
+        case 40: notePad << nBeginLine;                                                  break;
+        case 62: notePad << nFFace(_T("Comic Sans MS")) << _T("Comic Sans ");            break;
+        case 70: notePad << _T("n End Line") << nEndLine << _T(' ');                               break;
+        default:                                                                         break;
+        }
+
+      notePad << ele.word;   j++;
+      }
+    }
+
+  display();
+  }
+
+
+
+
+bool AppT3mplateDoc::findNextBrk(String& line, ElementX& ele) {
+int pos;
+int lng = line.length();
+int next;
+
+  ele.clear();
+
+  if (line.isEmpty()) return false;
+
+  if (line[0] == _T(' ')) return findWhite(line, ele);
+
+  ele.typ = WordEle;
+
+  pos = line.find(_T(' '));
+
+  if (pos == 0)
+    for (pos = 1, lng = line.length(); pos < lng; pos++) if (line[pos] != _T(' ')) break;
+
+  next = pos < 0 ? line.length() : pos;
+
+  ele.word = line.substr(0, next);   line = line.substr(next);   return true;
+  }
+
+
+bool AppT3mplateDoc::findWhite(String& line, ElementX& ele) {
+int pos;
+int lng;
+
+  ele.typ = WhiteEle;
+
+  for (pos = 0, lng = line.length(); pos < lng; pos++) if (line[pos] != _T(' ')) break;
+
+  if (!pos) return false;
+
+  ele.word = line.substr(0, pos);   line = line.substr(pos);   return true;
+  }
+
 
 
 void AppT3mplateDoc::OnComboBoxChng() {
@@ -201,7 +288,7 @@ int n;
 
   notePad << nFont << nFont << nFont;
 
-  n = printer.orient == LandOrient ? 10 : 8;
+  n = prtrDevAttr.orient == LandOrnt ? 10 : 8;
 
   notePad << nFFace(_T("Courier New")) << nFSize(12.0);   testLine(n);   notePad << nFont << nFont;
 
@@ -242,28 +329,29 @@ String s;
   }
 
 
-void AppT3mplateDoc::displayDataStore() {display(StoreSrc);}
+void AppT3mplateDoc::displayStore() {display(StoreSrc);}
 
 #endif
 
 
-void AppT3mplateDoc::onEditCopy() {clipLine.load();}
+void AppT3mplateDoc::onEditCopy() {/*clipLine.load();*/}
 
 
 void AppT3mplateDoc::onFileOpen() {
+String name;
 
   notePad.clear();   dataSource = StoreSrc;
 
-  pathDlgDsc(_T("Ugly Example"), pathDlgDsc.name, _T("txt"), _T("*.txt"));
+  PathDlg dlg(_T("Ugly Example"), path, _T("txt"), _T("Text"), _T("*.txt"));
 
-  if (!setOpenPath(pathDlgDsc)) return;
-
-  pathDlgDsc.name = getMainName(path);
+  if (!setOpenPath(dlg)) return;
 
   if (!OnOpenDocument(path)) messageBox(_T(" Not Loaded!"));
 
 #ifdef Examples
-  store.setName(pathDlgDsc.name);
+
+  name = getMainName(path);   store.setName(name);
+
 #endif
 
   display(StoreSrc);
@@ -274,37 +362,68 @@ void AppT3mplateDoc::onSaveFile()
           {dataSource = StoreSrc; saveFile(_T("Save File"), _T(""), _T("txt")); display(StoreSrc);}
 
 
-void AppT3mplateDoc::onSaveStrRpt() {
-
-  dataSource = StrRptSrc;   if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);
-
-  display(StoreSrc);
-  }
-
-
 void AppT3mplateDoc::onSaveNotePad() {
+PathDlg dlg(_T("Ugly Example"), path, _T("txt"), _T("Text"), _T("*.txt"));
 
-  dataSource = NotePadSrc;   if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);
+  dataSource = NotePadSrc;   if (setSaveAsPath(dlg)) OnSaveDocument(path);
 
   display(StoreSrc);
   }
 
 
-void AppT3mplateDoc::display(DataSource ds) {dataSource = ds; invalidate();}
+void AppT3mplateDoc::display(DataSource ds)
+                                       {currentSource = NilSrc;   dataSource = ds;   invalidate();}
+
+
+void AppT3mplateDoc::getHeader(NotePad& np, int pageNo, int noPages) {
+
+  switch (dataSource) {
+    case NilSrc     :                                               break;
+    case NotePadSrc : np << _T("Header") << nRight << theApp.name;  break;
+    case StoreSrc   : store.header(np, pageNo, noPages);            break;
+    default         :                                               break;
+    }
+
+  }
+
+
+NotePad& AppT3mplateDoc::getData() {
+  if (dataSource == currentSource) return notePad;
+
+  switch (dataSource) {
+    case NilSrc     :                                            break;
+    case NotePadSrc : view()->enableWrap();   myButton();        break;
+    case StoreSrc   : view()->disableWrap();  store.display();   break;
+    default         :                                            break;
+    }
+
+  currentSource = dataSource;   return notePad;
+  }
+
+
+void AppT3mplateDoc::getFooter(NotePad& np, int pageNo, int noPages) {
+
+    switch (dataSource) {
+      case NilSrc     :                                                                    break;
+      case NotePadSrc : np << nCenter << _T("Page ") << pageNo << _T(" of ") << noPages;   break;
+      case StoreSrc   : store.footer(np, pageNo, noPages);                                 break;
+      default         :                                                                    break;
+      }
+  }
 
 
 void AppT3mplateDoc::saveFile(TCchar* title, TCchar* suffix, TCchar* fileType) {
 String fileName = path;
 int    pos      = fileName.findLastOf(_T('\\'));
-String ext      = _T("*."); ext += fileType;
+String filter   = _T("*."); filter += fileType;
 String ttl      = title;    ttl += _T(" Output");
 
   fileName = fileName.substr(pos+1);   pos = fileName.findFirstOf(_T('.'));
   fileName = fileName.substr(0, pos);  fileName += suffix;
 
-  pathDlgDsc(ttl, fileName, fileType, ext);
+  PathDlg dlg(ttl, fileName, fileType, _T("File Type"), filter);
 
-  if (setSaveAsPath(pathDlgDsc)) OnSaveDocument(path);
+  if (setSaveAsPath(dlg)) OnSaveDocument(path);
   }
 
 
@@ -317,7 +436,6 @@ void AppT3mplateDoc::serialize(Archive& ar) {
       case NotePadSrc : ar << notePad; return;
 #ifdef Examples
       case StoreSrc   : store.store(ar); return;
-      case StrRptSrc  : view()->storeRpt().txtOut( ar, 1.35); return;
 #endif
       default         : return;
       }
@@ -327,7 +445,6 @@ void AppT3mplateDoc::serialize(Archive& ar) {
 #ifdef Examples
       case StoreSrc : store.load(ar); return;
 #endif
-      case FontSrc  :
       default       : return;
       }
   }

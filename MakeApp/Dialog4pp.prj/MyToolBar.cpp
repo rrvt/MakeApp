@@ -20,6 +20,7 @@ MyToolBar::MyToolBar() : button(ID_Button), editBox(ID_EditBox),
 #ifdef DocView
                          menu(ID_Menu),     menu1(ID_Menu1),  saveMenu(ID_TBSaveMenu),
 #else
+                         optionsMenu(createCboBox(ID_Options)),
                          cboMenu(createCboBox(ID_Menu)),   cboMenu1(createCboBox(ID_Menu1)),
 #endif
                          cboBox(createCboBox(ID_CboBox)),  cboBox1(createCboBox(ID_CboBox1))
@@ -87,29 +88,31 @@ int saveID  = saveMenu.getId();
 
 void MyToolBar::setCboCaption(uint id, TCchar* txt) {
 
-  if      (id == cboBox.getId())  ToolBarBase::setCboCaption(cboBox,  txt);
-  else if (id == cboBox1.getId()) ToolBarBase::setCboCaption(cboBox1, txt);
+  if      (id == cboBox.getId())      ToolBarBase::setCboCaption(cboBox,  txt);
+  else if (id == cboBox1.getId())     ToolBarBase::setCboCaption(cboBox1, txt);
 #ifndef DocView
-  else if (id == cboMenu.getId())  ToolBarBase::setCboCaption(cboMenu,  txt);
-  else if (id == cboMenu1.getId()) ToolBarBase::setCboCaption(cboMenu1, txt);
+  else if (id == cboMenu.getId())     ToolBarBase::setCboCaption(cboMenu,  txt);
+  else if (id == cboMenu1.getId())    ToolBarBase::setCboCaption(cboMenu1, txt);
+  else if (id == optionsMenu.getId()) ToolBarBase::setCboCaption(optionsMenu, txt);
 #endif
   }
 
 
 void MyToolBar::setCboWthPrct(uint id, int percent) {
 
-  if      (id == cboBox.getId())  ToolBarBase::setCboWthPrct(cboBox,  percent);
-  else if (id == cboBox1.getId()) ToolBarBase::setCboWthPrct(cboBox1, percent);
+  if      (id == cboBox.getId())      ToolBarBase::setCboWthPrct(cboBox,  percent);
+  else if (id == cboBox1.getId())     ToolBarBase::setCboWthPrct(cboBox1, percent);
 #ifndef DocView
-  else if (id == cboMenu.getId())  ToolBarBase::setCboWthPrct(cboMenu,  percent);
-  else if (id == cboMenu1.getId()) ToolBarBase::setCboWthPrct(cboMenu1, percent);
+  else if (id == cboMenu.getId())     ToolBarBase::setCboWthPrct(cboMenu,  percent);
+  else if (id == cboMenu1.getId())    ToolBarBase::setCboWthPrct(cboMenu1, percent);
+  else if (id == optionsMenu.getId()) ToolBarBase::setCboWthPrct(optionsMenu, percent);
 #endif
   }
 
 
 void MyToolBar::setCboHeight(uint id) {
-  if      (id == cboBox.getId())  ToolBarBase::setCboHeight(cboBox);
-  else if (id == cboBox1.getId()) ToolBarBase::setCboHeight(cboBox1);
+  if      (id == cboBox.getId())   ToolBarBase::setCboHeight(cboBox);
+  else if (id == cboBox1.getId())  ToolBarBase::setCboHeight(cboBox1);
 #ifndef DocView
   else if (id == cboMenu.getId())  ToolBarBase::setCboHeight(cboMenu);
   else if (id == cboMenu1.getId()) ToolBarBase::setCboHeight(cboMenu1);
@@ -118,11 +121,12 @@ void MyToolBar::setCboHeight(uint id) {
 
 
 void MyToolBar::dispatch(uint id) {
-  if      (id == cboBox.getId())    ToolBarBase::dispatch(cboBox);
-  else if (id == cboBox1.getId())   ToolBarBase::dispatch(cboBox1);
+  if      (id == cboBox.getId())      ToolBarBase::dispatch(cboBox);
+  else if (id == cboBox1.getId())     ToolBarBase::dispatch(cboBox1);
 #ifndef DocView
-  else if (id == cboMenu.getId())  ToolBarBase::dispatch(cboMenu);
-  else if (id == cboMenu1.getId()) ToolBarBase::dispatch(cboMenu1);
+  else if (id == cboMenu.getId())     ToolBarBase::dispatch(cboMenu);
+  else if (id == cboMenu1.getId())    ToolBarBase::dispatch(cboMenu1);
+  else if (id == optionsMenu.getId()) ToolBarBase::dispatch(optionsMenu);
 #endif
   }
 

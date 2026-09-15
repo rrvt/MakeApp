@@ -103,8 +103,6 @@
     <ComponentRef Id="AppT3mplateVpj.cmp" />
     <ComponentRef Id="Store.h.cmp" />
     <ComponentRef Id="Store.cpp.cmp" />
-    <ComponentRef Id="StoreRpt.h.cmp" />
-    <ComponentRef Id="StoreRpt.cpp.cmp" />
     <ComponentRef Id="PchH.cmp" />
     <ComponentRef Id="pchCpp.cmp" />
     <ComponentRef Id="FrameworkH.cmp" />
@@ -272,10 +270,6 @@
         <Directory Id="MakeApp_Dialog4pp.prj_res.pff" Name="res" />
       </Directory>
       <Directory Id="MakeApp_License.pff" Name="License" />
-      <Directory Id="MakeApp_Dialog4pp.64.wix.pff" Name="Dialog4pp.64.wix">
-        <Directory Id="MakeApp_Dialog4pp.64.wix_obj.pff" Name="obj" />
-      </Directory>
-      <Directory Id="MakeApp_Dialog4pp.win32.wix.pff" Name="Dialog4pp.win32.wix" />
       <Directory Id="MakeApp_Dialog4pp.Win32.wix.pff" Name="Dialog4pp.Win32.wix">
         <Directory Id="MakeApp_Dialog4pp.Win32.wix_obj.pff" Name="obj" />
       </Directory>
@@ -284,6 +278,9 @@
       </Directory>
       <Directory Id="MakeApp_AppT3mplate.Win32.wix.pff" Name="AppT3mplate.Win32.wix">
         <Directory Id="MakeApp_AppT3mplate.Win32.wix_obj.pff" Name="obj" />
+      </Directory>
+      <Directory Id="MakeApp_Dialog4pp.x64.wix.pff" Name="Dialog4pp.x64.wix">
+        <Directory Id="MakeApp_Dialog4pp.x64.wix_obj.pff" Name="obj" />
       </Directory>
     </Directory>
   </StandardDirectory>
@@ -505,18 +502,6 @@
                                                            Directory="MakeApp_AppT3mplate.prj.pff">
     <File Id="Store.cpp.cmp"
                     Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.prj\Store.cpp" KeyPath="yes" />
-  </Component>
-
-  <Component Id="StoreRpt.h.cmp" Guid="E3406C51-6382-4438-8094-24DD9B8053A0"
-                                                           Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="StoreRpt.h.cmp"
-                   Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.prj\StoreRpt.h" KeyPath="yes" />
-  </Component>
-
-  <Component Id="StoreRpt.cpp.cmp" Guid="B95BFB64-0A76-44DD-B865-F14E3B893B5A"
-                                                           Directory="MakeApp_AppT3mplate.prj.pff">
-    <File Id="StoreRpt.cpp.cmp"
-                 Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.prj\StoreRpt.cpp" KeyPath="yes" />
   </Component>
 
   <Component Id="PchH.cmp" Guid="F9CDDE86-9E9D-4BEB-9369-9EFE2A9288CA"
@@ -798,40 +783,40 @@
 
 <Fragment>
   <Component Id="DialogAppWixPrj.cmp" Guid="C85D3A10-CB89-443D-87A2-0BFCB425E431"
-                                                       Directory="MakeApp_Dialog4pp.win32.wix.pff">
+                                                       Directory="MakeApp_Dialog4pp.Win32.wix.pff">
     <File Id="DialogAppWixPrj.cmp"
                    Source="$(var.MakeApp.TargetDir)\..\MakeApp.Win32.wix\MakeApp.Win32.wix.wixproj"
                    KeyPath="yes" />
   </Component>
 
   <Component Id="DialogAppWixWxd.cmp" Guid="D72F450B-1FBF-4E23-9ECE-DFA76B0012F5"
-                                                       Directory="MakeApp_Dialog4pp.win32.wix.pff">
+                                                       Directory="MakeApp_Dialog4pp.Win32.wix.pff">
     <File Id="DialogAppWixWxd.cmp"
          Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.Win32.wix\Dialog4pp.Win32.wxd" KeyPath="yes"
          />
   </Component>
 
   <Component Id="DAMyEnUsWxl.cmp" Guid="AB1F8075-6702-4A5E-A300-0B44ABF7DD47"
-                                                       Directory="MakeApp_Dialog4pp.win32.wix.pff">
+                                                       Directory="MakeApp_Dialog4pp.Win32.wix.pff">
     <File Id="DAMyEnUsWxl.cmp"
              Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.Win32.wix\My_en-us.wxl" KeyPath="yes" />
   </Component>
 
   <Component Id="DAProduct.cmp" Guid="46B3E281-C004-4D81-A86B-4F9B3BF30A65"
-                                                       Directory="MakeApp_Dialog4pp.win32.wix.pff">
+                                                       Directory="MakeApp_Dialog4pp.Win32.wix.pff">
     <File Id="DAProduct.cmp"
               Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.Win32.wix\Product.wxs" KeyPath="yes" />
   </Component>
 
   <Component Id="DialogAppWixVpj.cmp" Guid="48332899-82E2-4803-8C5E-6457C9958C7F"
-                                                       Directory="MakeApp_Dialog4pp.win32.wix.pff">
+                                                       Directory="MakeApp_Dialog4pp.Win32.wix.pff">
     <File Id="DialogAppWixVpj.cmp"
                    Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.Win32.wix\Dialog4pp.Win32.wix.vpj"
                    KeyPath="yes" />
   </Component>
 
   <Component Id="DlgLicenseFile.cmp" Guid="A0EE11FD-8171-4416-994F-B7AD433930EF"
-                                                       Directory="MakeApp_Dialog4pp.win32.wix.pff">
+                                                       Directory="MakeApp_Dialog4pp.Win32.wix.pff">
     <File Id="DlgLicenseFile.cmp"
         Source="$(var.MakeApp.TargetDir)\..\..\Library\License\MITLicenseFile.rtf" KeyPath="yes" />
   </Component>
@@ -882,8 +867,8 @@
   <Component Id="OneColumn.cmp" Guid="140823B0-C0AE-47A4-A84A-532D99145E90"
                                                    Directory="MakeApp_Dialog4pp.hlp_Templates.pff">
     <File Id="OneColumn.cmp"
-                     Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.hlp\Templates\OneColumnPage.dwt"
-                     KeyPath="yes" />
+                   Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.hlp\Templates\OneColumnPage.dwt"
+                   KeyPath="yes" />
   </Component>
 </Fragment>
 
@@ -891,7 +876,7 @@
   <Component Id="About.jpg.cmp" Guid="AFB8EEB5-C46C-48C2-9706-A43F1A59D03A"
                                                       Directory="MakeApp_Dialog4pp.hlp_images.pff">
     <File Id="About.jpg.cmp"
-               Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.hlp\Images\About.jpg" KeyPath="yes" />
+             Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.hlp\Images\About.jpg" KeyPath="yes" />
   </Component>
 
   <Component Id="EditBoox.jpg.cmp" Guid="FD3395CC-80F0-4EB6-AFAE-076BDEA7D639"
@@ -944,13 +929,13 @@
   <Component Id="T3About.jpg.cmp" Guid="11217842-6254-466D-A9DF-C295FF04E5F8"
                                                     Directory="MakeApp_AppT3mplate.hlp_Images.pff">
     <File Id="T3About.jpg.cmp"
-             Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.hlp\Images\About.jpg" KeyPath="yes" />
+               Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.hlp\Images\About.jpg" KeyPath="yes" />
   </Component>
 
   <Component Id="T3Exit.jpg.cmp" Guid="AACA635C-E1E1-4DB7-8363-1FF8366AFC23"
                                                     Directory="MakeApp_AppT3mplate.hlp_Images.pff">
     <File Id="T3Exit.jpg.cmp"
-              Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.hlp\Images\Exit.jpg" KeyPath="yes" />
+                Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.hlp\Images\Exit.jpg" KeyPath="yes" />
   </Component>
 
   <Component Id="T3Floppy.jpg.cmp" Guid="4C4CE950-D5CF-4D03-9F37-DDB6EAA63AE3"
@@ -1043,39 +1028,39 @@
 
 <Fragment>
   <Component Id="DlgMyEnUs.64.Wxl.cmp" Guid="01AEBE40-D30B-4B93-9BD5-BC34B1392F4A"
-                                                          Directory="MakeApp_Dialog4pp.64.wix.pff">
+                                                         Directory="MakeApp_Dialog4pp.x64.wix.pff">
     <File Id="DlgMyEnUs.64.Wxl.cmp"
-               Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\My_en-us.wxl" KeyPath="yes" />
+             Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\My_en-us.wxl" KeyPath="yes" />
   </Component>
 
   <Component Id="DlgProduct.64.Wxs.cmp" Guid="46907E1A-131E-4B85-8378-0479625C61F8"
-                                                          Directory="MakeApp_Dialog4pp.64.wix.pff">
+                                                         Directory="MakeApp_Dialog4pp.x64.wix.pff">
     <File Id="DlgProduct.64.Wxs.cmp"
-                Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\Product.wxs" KeyPath="yes" />
+              Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\Product.wxs" KeyPath="yes" />
   </Component>
 
   <Component Id="DlgApp.64.Wix.Prj.cmp" Guid="6324EE91-69C2-413B-A928-7BE847D8EFF2"
-                                                          Directory="MakeApp_Dialog4pp.64.wix.pff">
+                                                         Directory="MakeApp_Dialog4pp.x64.wix.pff">
     <File Id="DlgApp.64.Wix.Prj.cmp"
                    Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\Dialog4pp.x64.wix.wixproj"
                    KeyPath="yes" />
   </Component>
 
   <Component Id="DlgApp.64.Wix.Vpj.cmp" Guid="3CCD29CC-9E73-40DC-B7ED-EB0AAE961F6D"
-                                                          Directory="MakeApp_Dialog4pp.64.wix.pff">
+                                                         Directory="MakeApp_Dialog4pp.x64.wix.pff">
     <File Id="DlgApp.64.Wix.Vpj.cmp"
          Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\Dialog4pp.x64.wix.vpj" KeyPath="yes"
          />
   </Component>
 
   <Component Id="DlgApp.64.Wxd.cmp" Guid="44DEC34C-57D7-4063-A71C-3FF5500A5DDF"
-                                                          Directory="MakeApp_Dialog4pp.64.wix.pff">
+                                                         Directory="MakeApp_Dialog4pp.x64.wix.pff">
     <File Id="DlgApp.64.Wxd.cmp"
           Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\Dialog4pp.x64.wxd" KeyPath="yes" />
   </Component>
 
   <Component Id="DlgLicense.64.File.cmp"
-              Guid="DADB2BF6-50AC-42CE-96B7-6FBE450BE9F5" Directory="MakeApp_Dialog4pp.64.wix.pff">
+             Guid="DADB2BF6-50AC-42CE-96B7-6FBE450BE9F5" Directory="MakeApp_Dialog4pp.x64.wix.pff">
     <File Id="DlgLicense.64.File.cmp"
             Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\LicenseFile.rtf" KeyPath="yes" />
   </Component>
@@ -1110,25 +1095,25 @@ Source="$(var.MakeApp.TargetDir)\..\MakeApp.Win32.wix\obj\MakeApp.Win32.wix.wixp
 
 <Fragment>
   <Component Id="Nuget.dgspec.64.cmp" Guid="3322EA20-6E70-4F5E-B646-D9BFF2F34D6E"
-                                                      Directory="MakeApp_Dialog4pp.64.wix_obj.pff">
+                                                     Directory="MakeApp_Dialog4pp.x64.wix_obj.pff">
     <File Id="Nuget.dgspec.64.cmp"
 Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\obj\Dialog4pp.x64.wix.wixproj.nuget.dgspec.json" KeyPath="yes" />
   </Component>
 
   <Component Id="Nuget.g.64.cmp" Guid="F9AB4DF1-8100-4B20-A055-D7FCA5ED2C13"
-                                                      Directory="MakeApp_Dialog4pp.64.wix_obj.pff">
+                                                     Directory="MakeApp_Dialog4pp.x64.wix_obj.pff">
     <File Id="Nuget.g.64.cmp"
 Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\obj\Dialog4pp.x64.wix.wixproj.nuget.g.props" KeyPath="yes" />
   </Component>
 
   <Component Id="Nuget.g.targets.64.cmp"
-          Guid="1DF04D22-C494-46BF-8AFA-C86CA9657D0B" Directory="MakeApp_Dialog4pp.64.wix_obj.pff">
+         Guid="1DF04D22-C494-46BF-8AFA-C86CA9657D0B" Directory="MakeApp_Dialog4pp.x64.wix_obj.pff">
     <File Id="Nuget.g.targets.64.cmp"
 Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\obj\Dialog4pp.x64.wix.wixproj.nuget.g.targets" KeyPath="yes" />
   </Component>
 
   <Component Id="Assets.64.cmp" Guid="AE0E125A-9F8F-45AC-855D-2EC67B3C0A84"
-                                                      Directory="MakeApp_Dialog4pp.64.wix_obj.pff">
+                                                     Directory="MakeApp_Dialog4pp.x64.wix_obj.pff">
     <File Id="Assets.64.cmp"
                      Source="$(var.MakeApp.TargetDir)\..\Dialog4pp.x64.wix\obj\project.assets.json"
                      KeyPath="yes" />
@@ -1193,7 +1178,7 @@ Source="$(var.MakeApp.TargetDir)\..\AppT3mplate.x64.wix\obj\AppT3mplate.x64.wix.
 
 <Fragment>
   <Component Id="Uninstall_Make_App.cmp"
-                               Guid="5D9E5B94-1E6C-4AC4-A68A-6C537DC5B5B1" Directory="MakeApp.pmf">
+                               Guid="1678503C-5E08-4C92-9FDC-380C6FFEC2D4" Directory="MakeApp.pmf">
 
     <Shortcut Id               = "UninstallMakeApp.shc"
               Name             = "Uninstall Make App"

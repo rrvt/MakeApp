@@ -4,12 +4,13 @@
 //
 #define IDD_AboutBox                    0x0010
 #define IDR_MAINFRAME                   101
-#define IDD_DIALOG1                     102
+#define IDD_ProjectName                 102
 #define IDD_FontRptDlg                  103
+#define IDR_RtMouseMenu                 104
 
-#define IDC_EDIT1                       200
-#define IDC_EDIT2                       201
-#define IDC_EDIT3                       202
+#define IDC_ProjectName                 200
+#define IDC_WinDescription                       201
+#define IDC_VisibleName                       202
 #define IDC_AB                          203
 #define IDC_CD                          204
 #define IDC_EF                          205
@@ -30,23 +31,31 @@
 
 #define ID_FileNew                      400
 #define ID_FileOpen                     401
-#define ID_Options                      402
-#define ID_CalibDspPrt                  403
-#define ID_FileSave                     404
-#define ID_AppAbout                     405
-#define ID_Help                         406
-#define ID_Test                         407
-#define ID_SpecifyBaseDir               408
-#define ID_NameProject                  409
-#define ID_FixSlickEdit                 410
-#define ID_ListFonts                    411
+#define ID_FileSave                     403
+#define ID_Test                         404
+#define ID_SpecifyBaseDir               405
+#define ID_NameProject                  406
+#define ID_FixSlickEdit                 407
+#define ID_ListFonts                    408
+
+#define ID_AppAbout                     419
+#define ID_PrintFile                    420
+#define ID_PrintFilePreview             421
+#define ID_PrintSetup                   422
+#define ID_Help                         423
+#define ID_ExitApp                      424
+
+// Right Mouse Context Menu
+#define ID_CopySel                      430
+#define ID_Pup1                         431
+#define ID_Pup2                         432
 
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        105
-#define _APS_NEXT_COMMAND_VALUE         420
+#define _APS_NEXT_COMMAND_VALUE         440
 #define _APS_NEXT_CONTROL_VALUE         220
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

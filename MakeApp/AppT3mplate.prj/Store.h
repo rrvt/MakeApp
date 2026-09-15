@@ -4,7 +4,6 @@
 #pragma once
 #include "Archive.h"
 #include "Date.h"
-//#include "DevStream.h"
 #include "ExpandableP.h"
 #include "IterT.h"
 
@@ -25,13 +24,13 @@ public:
   Datum(Datum& d) {s = d.s;}
  ~Datum()        { }
 
-  void    set(String& s) {this->s = s;}
-  String& get()         {return s;}
-  String& operator() () {return s;}
+  void     set(String& s) {this->s = s;}
+  String&  get()         {return s;}
+  String&  operator() () {return s;}
 
-  void    add(String& stg);                               // Parse the data into the record
+  void     add(String& stg);                               // Parse the data into the record
 
-  int     display();
+  int      display();
 
   Datum&   operator= (Datum& d) {s = d.s; return *this;}   // Copy operator: a = b;
 
@@ -73,25 +72,29 @@ public:
 
 String name;
 Date   dt;
-int    mssnNo;
+String mssnNo;
 Date   lastModified;
 
-         Store() : mssnNo(0) { }
-        ~Store() { }
+          Store() { }
+         ~Store() { }
 
-  void   setName(String& s);
-  String date()           {return dt.getDate();}
-  String time()           {return dt.getTime();}
-  int    missionNo();
+  void    setName(String& s);
+  String  date()           {return dt.getDate();}
+  String  time()           {return dt.getTime();}
+  String& missionNo();
 
-  void   load(Archive& ar);
-  void   store(Archive& ar);
+  void    load(Archive& ar);
+  void    store(Archive& ar);
 
-  bool   isEmpty() {return data.end() == 0;}
+  bool    isEmpty() {return data.end() == 0;}
 
-  void   add(String& s);
+  void    add(String& s);
 
-  void   sort();
+  void    display();
+  void    header(NotePad& np, int pageNo, int noPages);
+  void    footer(NotePad& np, int pageNo, int noPages);
+
+  void    sort();
 
 private:
 

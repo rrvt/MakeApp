@@ -30,8 +30,8 @@
     <UIRef Id="WixUI_ErrorProgressText" />
   </UI>
 
-  <WixVariable Id="WixUIDialogBmp" Value="C:\Program Files (x86)\WixApp\dialog.bmp" />
-  <WixVariable Id="WixUIBannerBmp" Value="C:\Program Files (x86)\WixApp\banner.bmp" />
+  <WixVariable Id="WixUIDialogBmp" Value="C:\Source2\WixApp\Debug.Win32\dialog.bmp" />
+  <WixVariable Id="WixUIBannerBmp" Value="C:\Source2\WixApp\Debug.Win32\banner.bmp" />
 
   <Icon Id="Dialog4pp_Icon.exe"
                                SourceFile="$(var.SolutionDir)..\Dialog4pp.prj\res\Dialog4pp.ico" />
@@ -102,7 +102,7 @@
 
 <Fragment>
   <Component Id="Uninstall_Dialog4pp.cmp"
-                             Guid="C8051182-74EE-4BAA-ACCC-23BDDDC783FD" Directory="Dialog4pp.pmf">
+                             Guid="5635250D-69F0-48A0-BB95-CE41D54AC4D0" Directory="Dialog4pp.pmf">
 
     <Shortcut Id               = "UninstallDialog4pp.shc"
               Name             = "Uninstall Dialog4pp"

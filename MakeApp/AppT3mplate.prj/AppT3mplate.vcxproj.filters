@@ -36,9 +36,6 @@
     <ClInclude Include="Store.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StoreRpt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Library\Extras\AboutDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,13 +45,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Library\Extras\OptionsDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Library\Extras\ResourceExtra.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Library\Extras\RptOrientDlgTwo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MyToolBar.h">
@@ -80,19 +71,10 @@
     <ClCompile Include="Store.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StoreRpt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Library\Extras\AboutDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Library\Extras\OptionsDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Library\Extras\RptOrientDlgTwo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MyToolBar.cpp">
@@ -116,9 +98,6 @@
     </None>
     <None Include="C:\Users\rrvt\AppData\Roaming\AppT3mplate\AppT3mplate.ini" />
     <None Include="..\README-Template.md" />
-    <None Include="..\..\Library\Extras\Options.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\..\Library\Extras\RptOrientTwo.rc2">
       <Filter>Resource Files</Filter>
     </None>

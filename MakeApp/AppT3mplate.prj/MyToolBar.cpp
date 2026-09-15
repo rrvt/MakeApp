@@ -71,13 +71,10 @@ bool MyToolBar::addMenu(uint id, CCbxItem cbxItem[], int n, TCchar* caption) {
 
 
 bool MyToolBar::addMenu(uint id, int idr, int index) {
-int menuID  = menu.getId();
-int menu1ID = menu1.getId();
-int saveID  = saveMenu.getId();
 
-  if (id == menuID)  return add(menu,     id, idr, index);
-  if (id == menu1ID) return add(menu1,    id, idr, index);
-  if (id == saveID)  return add(saveMenu, id, idr, index);
+  if (id == menu.getId())     return add(menu,     id, idr, index);
+  if (id == menu1.getId())    return add(menu1,    id, idr, index);
+  if (id == saveMenu.getId()) return add(saveMenu, id, idr, index);
 
   return false;
   }

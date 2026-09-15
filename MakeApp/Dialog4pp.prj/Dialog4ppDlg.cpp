@@ -5,6 +5,8 @@
 #include "Dialog4ppDlg.h"
 #include "AboutDlg.h"
 #include "History.h"
+#include "PrintNtPd.h"
+#include "PrinterAttr.h"
 #include "StatusBar.h"
 
 
@@ -42,30 +44,36 @@ BEGIN_MESSAGE_MAP(Dialog4ppDlg, CDialogEx)
 
 #ifdef Examples
 
-  ON_COMMAND(      ID_Button,       &onX)
+  ON_COMMAND(      ID_Button,             &onX)
 
-  ON_COMMAND(      ID_ChangeReady,  &changeReady)
+  ON_COMMAND(      ID_ChangeReady,        &changeReady)
 
-  ON_EN_KILLFOCUS( ID_EditBox,      &onTBEditBox)           // Process content of edit box
+  ON_EN_KILLFOCUS( ID_EditBox,            &onTBEditBox)         // Process content of edit box
 
+  ON_CBN_SELCHANGE(ID_Menu,               &onDispatch)          // Send Command Message with ID_...
+  ON_COMMAND(      ID_Option01,           &onOption01)
+  ON_COMMAND(      ID_Option02,           &onOption02)
 
-  ON_CBN_SELCHANGE(ID_Menu,         &onDispatch)            // Send Command Message with ID_...
-  ON_COMMAND(      ID_Option01,     &onOption01)
-  ON_COMMAND(      ID_Option02,     &onOption02)
+  ON_CBN_SELCHANGE(ID_Menu1,              &onDispatch1)         // Send Command Message with ID_...
+  ON_COMMAND(      ID_Option11,           &onOption11)
+  ON_COMMAND(      ID_Option12,           &onOption12)
 
-  ON_CBN_SELCHANGE(ID_Menu1,        &onDispatch1)           // Send Command Message with ID_...
-  ON_COMMAND(      ID_Option11,     &onOption11)
-  ON_COMMAND(      ID_Option12,     &onOption12)
-
-  ON_CBN_SELCHANGE(ID_CboBox,       &onCboBxChange)         // Process secelection from list
-  ON_CBN_SELCHANGE(ID_CboBox1,      &onCboBx1Change)        // Process secelection from list
+  ON_CBN_SELCHANGE(ID_CboBox,             &onCboBxChange)       // Process secelection from list
+  ON_CBN_SELCHANGE(ID_CboBox1,            &onCboBx1Change)      // Process secelection from list
 
 #endif
 
-  ON_COMMAND(      ID_SaveHist,     &onSaveHist)
-  ON_COMMAND(      ID_Help,         &onHelp)
-  ON_COMMAND(      ID_AppAbout,    &onAppAbout)
-  ON_COMMAND(      ID_App_Exit,     &OnOK)
+  ON_CBN_SELCHANGE(ID_Options,            &onDispatch2)         // Send Command Message with ID_...
+  ON_COMMAND(      ID_SetupDisplayPage,   &onSetupDisplayPage)
+
+  ON_COMMAND(      ID_PrintFile,          &onPrintFile)
+  ON_COMMAND(      ID_FILE_PRINT_PREVIEW, &onFilePrintPreview)
+  ON_COMMAND(      ID_PrintSetup,         &onSetupPrinter)
+
+  ON_COMMAND(      ID_SaveHist,           &onSaveHist)
+  ON_COMMAND(      ID_Help,               &onHelp)
+  ON_COMMAND(      ID_AppAbout,           &onAppAbout)
+  ON_COMMAND(      ID_ExitApp,            &OnOK)
 
   ON_WM_CREATE()
   ON_REGISTERED_MESSAGE(AFX_WM_RESETTOOLBAR, &OnResetToolBar)
@@ -77,8 +85,8 @@ BEGIN_MESSAGE_MAP(Dialog4ppDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-Dialog4ppDlg::Dialog4ppDlg(TCchar* helpPth, CWnd* pParent) : CDialogEx(IDD_Dialog4pp, pParent),
-                                helpPath(helpPth), toolBar(), statusBar(), isInitialized(false) { }
+Dialog4ppDlg::Dialog4ppDlg(TCchar* helpPth, CWnd* pParent) : DialogEx(IDD_Dialog4pp, pParent),
+                                             helpPath(helpPth), toolBar(), isInitialized(false) { }
 
 
 Dialog4ppDlg::~Dialog4ppDlg() {winPos.~WinPos();}
@@ -86,7 +94,7 @@ Dialog4ppDlg::~Dialog4ppDlg() {winPos.~WinPos();}
 
 int Dialog4ppDlg::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 
-  if (CDialogEx::OnCreate(lpCreateStruct) == -1) return -1;
+  if (DialogEx::OnCreate(lpCreateStruct) == -1) return -1;
 
   return 0;
   }
@@ -96,15 +104,13 @@ int Dialog4ppDlg::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 BOOL Dialog4ppDlg::OnInitDialog() {
 CRect winRect;
 
-  CDialogEx::OnInitDialog();
+  DialogEx::OnInitDialog();
 
   GetWindowRect(&winRect);   winPos.setDLUToPxls(winRect, DlgWidth, DlgDepth);
 
   if (!toolBar.create(this, IDR_TOOLBAR)) return false;
 
   SetBackgroundColor(RGB(255,255,255));               // toolBar.move(winRect);
-
-  if (!statusBar.create(this, IDC_StatusBar)) return false;
 
   statusBar.setReady();
 
@@ -115,12 +121,132 @@ CRect winRect;
 
 
 void Dialog4ppDlg::DoDataExchange(CDataExchange* pDX) {
-  CDialogEx::DoDataExchange(pDX);
+  DialogEx::DoDataExchange(pDX);
+  }
+
+
+// Called to update printer attributes, Return true when attributes changed
+
+bool Dialog4ppDlg::onPreparePrinter(PrinterInfo& info) {
+  info.width = 3.5;   info.length = 4.5;
+  info.topMgn  = 0.125;   info.leftMgn = 0.125;   info.rightMgn = 0.125;   info.bottomMgn = 0.125;
+  info.orient  = LandOrnt;   return true;
+  }
+
+
+#ifdef Examples
+
+static TCchar* text[] = {
+            _T("0123456789 0123456789 0123456789 "),
+            _T("Now is the time for all good people to come to the aid of the party.  "),
+            _T("The grey dog jumped over the sleeping bear and kissed the wiggling turtle.  "),
+            _T("When you're on the go, multiuse products that streamline your routine are "),
+            _T("helpful.  Think tinted moisturizers with SPF, cheek-and-lip sticks, a dense, "),
+            _T("all-body nourishing cream and concealers that double as highlighters.")
+            };
+
+
+NotePad& Dialog4ppDlg::onPreparePrinting() {
+int    i;
+int    j;
+int    n = noElements(text);
+String line;
+ElementX ele;
+
+  notePad.clear();
+
+  for (i = 0, j = 0; i < n; i++) {
+
+    line = text[i];
+
+    while (findNextBrk(line, ele)) {
+
+      switch (j) {
+        case  6: notePad << nTab;                                                        break;
+        case 10: notePad << nFFace(_T("Times New Roman")) << _T("Times gyp ");           break;
+        case 16: notePad << nFFace(_T("Courier New"));                                   break;
+        case 32: notePad << nFont;                                                       break;
+        case 34: notePad << nFFace(_T("Arial")) << _T("Arial ");                         break;
+        case 40: notePad << nBeginLine;                                                  break;
+        case 62: notePad << nFFace(_T("Comic Sans MS")) << _T("Comic Sans ");            break;
+        case 70: notePad << _T("n End Line") << nEndLine << _T(' ');                     break;
+        default:                                                                         break;
+        }
+
+      notePad << ele.word;   j++;
+      }
+    }
+
+  return notePad;
+  }
+
+
+bool Dialog4ppDlg::findNextBrk(String& line, ElementX& ele) {
+int pos;
+int lng = line.length();
+int next;
+
+  ele.clear();
+
+  if (line.isEmpty()) return false;
+
+  if (line[0] == _T(' ')) return findWhite(line, ele);
+
+  ele.typ = WordEle;
+
+  pos = line.find(_T(' '));
+
+  if (pos == 0)
+    for (pos = 1, lng = line.length(); pos < lng; pos++) if (line[pos] != _T(' ')) break;
+
+  next = pos < 0 ? line.length() : pos;
+
+  ele.word = line.substr(0, next);   line = line.substr(next);   return true;
+  }
+
+
+bool Dialog4ppDlg::findWhite(String& line, ElementX& ele) {
+int pos;
+int lng;
+
+  ele.typ = WhiteEle;
+
+  for (pos = 0, lng = line.length(); pos < lng; pos++) if (line[pos] != _T(' ')) break;
+
+  if (!pos) return false;
+
+  ele.word = line.substr(0, pos);   line = line.substr(pos);   return true;
+  }
+
+#endif
+
+
+void Dialog4ppDlg::setHeader(PrintNtPd& prntNp) {
+  prntNp.setHeader(_T("Arial"), 80, &getHdr);
+  }
+
+
+void Dialog4ppDlg::getHdr(NotePad& np, int pageNo, int noPages) {
+
+  np.clear();
+
+  np << _T("Header") << nCenter << _T("Page No: ") << pageNo << _T(" of ") << noPages;
+  np << nRight << _T("Recipe: ") << pageNo;
+  }
+
+
+void Dialog4ppDlg::setFooter(PrintNtPd& prntNp) {
+  prntNp.setFooter(_T("Courier New"), 60, getFtr);
+  }
+
+
+void Dialog4ppDlg::getFtr(NotePad& np, int pageNo, int noPages) {
+  np.clear();   np << nCenter << _T("Footer: ") << pageNo << _T(" of ") << noPages;
   }
 
 
 void Dialog4ppDlg::OnMove(int x, int y)
-      {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   CDialogEx::OnMove(x, y);}
+      {CRect winRect;   GetWindowRect(&winRect);   winPos.set(winRect);   DialogEx::OnMove(x, y);}
 
 
 #ifdef DialogSizable
@@ -132,7 +258,7 @@ CRect r;
 
   if (!isInitialized) {winPos.setInvBdrs(r, cx, cy);   return;}
 
-  winPos.set(cx, cy);   toolBar.move(r);   statusBar.move(r);    CDialogEx::OnSize(nType, cx, cy);
+  winPos.set(cx, cy);   toolBar.move(r);   statusBar.move(r);    DialogEx::OnSize(nType, cx, cy);
   }
 
 #endif
@@ -144,9 +270,12 @@ LRESULT Dialog4ppDlg::OnResetToolBar(WPARAM wParam, LPARAM lParam) {setupToolBar
 
 
 void Dialog4ppDlg::setupToolBar() {
-#ifdef Examples
 CRect winRect;   GetWindowRect(&winRect);   toolBar.set(winRect);
 
+  toolBar.setCboItems(  ID_Options, IDR_Options);
+  toolBar.setCboCaption(ID_Options, _T("Options"));
+
+#ifdef Examples
   toolBar.addButton(    ID_Button, _T(" My Button "));
 
   toolBar.addEditBox(   ID_EditBox, 20);

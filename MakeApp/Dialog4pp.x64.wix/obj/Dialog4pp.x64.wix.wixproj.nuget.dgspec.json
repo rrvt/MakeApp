@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Sources\\MakeApp\\Dialog4pp.x64.wix\\Dialog4pp.x64.wix.wixproj": {}
+    "D:\\SandBox\\MakeApp\\Dialog4pp.x64.wix\\Dialog4pp.x64.wix.wixproj": {}
   },
   "projects": {
-    "D:\\Sources\\MakeApp\\Dialog4pp.x64.wix\\Dialog4pp.x64.wix.wixproj": {
+    "D:\\SandBox\\MakeApp\\Dialog4pp.x64.wix\\Dialog4pp.x64.wix.wixproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Sources\\MakeApp\\Dialog4pp.x64.wix\\Dialog4pp.x64.wix.wixproj",
+        "projectUniqueName": "D:\\SandBox\\MakeApp\\Dialog4pp.x64.wix\\Dialog4pp.x64.wix.wixproj",
         "projectName": "Dialog4pp.x64.wix",
-        "projectPath": "D:\\Sources\\MakeApp\\Dialog4pp.x64.wix\\Dialog4pp.x64.wix.wixproj",
+        "projectPath": "D:\\SandBox\\MakeApp\\Dialog4pp.x64.wix\\Dialog4pp.x64.wix.wixproj",
         "packagesPath": "C:\\Users\\rrvt\\.nuget\\packages\\",
-        "outputPath": "D:\\Sources\\MakeApp\\Dialog4pp.x64.wix\\obj\\",
+        "outputPath": "D:\\SandBox\\MakeApp\\Dialog4pp.x64.wix\\obj\\",
         "projectStyle": "PackageReference",
         "UsingMicrosoftNETSdk": false,
         "fallbackFolders": [

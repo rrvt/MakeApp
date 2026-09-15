@@ -119,11 +119,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Sources\\MakeApp\\AppT3mplate.Win32.wix\\AppT3mplate.Win32.wix.wixproj",
+      "projectUniqueName": "D:\\SandBox\\MakeApp\\AppT3mplate.Win32.wix\\AppT3mplate.Win32.wix.wixproj",
       "projectName": "AppT3mplate.Win32.wix",
-      "projectPath": "D:\\Sources\\MakeApp\\AppT3mplate.Win32.wix\\AppT3mplate.Win32.wix.wixproj",
+      "projectPath": "D:\\SandBox\\MakeApp\\AppT3mplate.Win32.wix\\AppT3mplate.Win32.wix.wixproj",
       "packagesPath": "C:\\Users\\rrvt\\.nuget\\packages\\",
-      "outputPath": "D:\\Sources\\MakeApp\\AppT3mplate.Win32.wix\\obj\\",
+      "outputPath": "D:\\SandBox\\MakeApp\\AppT3mplate.Win32.wix\\obj\\",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [

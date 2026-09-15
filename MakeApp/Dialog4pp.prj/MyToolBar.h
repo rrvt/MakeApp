@@ -32,6 +32,7 @@ TBMenu    saveMenu;
 #else
 TBCboBox& cboMenu;
 TBCboBox& cboMenu1;
+TBCboBox& optionsMenu;
 #endif
 TBCboBox& cboBox;
 TBCboBox& cboBox1;
